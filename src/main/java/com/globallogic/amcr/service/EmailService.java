@@ -49,31 +49,32 @@ public class EmailService {
         email.setRecipient("engineeringcenterbot@globallogic.com");
         if (attachment != null) email.setAttachment(attachment);
 
+        String style = "<style>.email { font-family: Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif; }</style>";
+
         switch (feedback.getFeedbackType()) {
             case "case-study":
                 email.setSubject("New case study proposal");
-                email.setMessageBody(String.format("<h2>%s %s has proposed a new case study:</h2><p>%s</p><strong>Email address: %s</strong>", feedback.getFirstName(), feedback.getLastName(), feedback.getFeedbackBody(), feedback.getEmailAddress()));
+                email.setMessageBody(String.format(style + "<div class=\"email\"><h2>%s %s has proposed a new case study:</h2><p>%s</p><br/><strong>Return address: %s</strong></div>", feedback.getFirstName(), feedback.getLastName(), feedback.getFeedbackBody(), feedback.getEmailAddress()));
                 return email;
 
             case "feedback":
                 email.setSubject("New feedback");
                 email.setMessageBody(isAnonymous
-                        ? String.format("<h2>Anonymous feedback has been submitted:</h2><p>%s</p>", feedback.getFeedbackBody())
-                        : String.format("<h2>%s %s has left some feedback:</h2><p>%s</p><strong>Email address: %s</strong>", feedback.getFirstName(), feedback.getLastName(), feedback.getFeedbackBody(), feedback.getEmailAddress()));
+                        ? String.format(style + "<div class=\"email\"><h2>Anonymous feedback has been submitted:</h2><p>%s</p></div>", feedback.getFeedbackBody())
+                        : String.format(style + "<div class=\"email\"><h2>%s %s has left some feedback:</h2><p>%s</p><br/><strong>Return address: %s</strong></div>", feedback.getFirstName(), feedback.getLastName(), feedback.getFeedbackBody(), feedback.getEmailAddress()));
                 return email;
 
             case "library":
                 email.setSubject("New book request");
-                email.setMessageBody(String.format("<h2>%s %s has requested a new book for the library:</h2><p>%s</p><a href='%s' target=\"_blank\" rel=\"noopener noreferrer\">Link to book</a><strong>Email address: %s</strong>", feedback.getFirstName(), feedback.getLastName(), feedback.getBookName(), feedback.getBookLink(), feedback.getEmailAddress()));
+                email.setMessageBody(String.format(style + "<div class=\"email\"><h2>%s %s has requested a new book for the library:</h2><p>%s</p><a href='%s' target=\"_blank\" rel=\"noopener noreferrer\">Link to book</a><br/><br/><strong>Return address: %s</strong></div>", feedback.getFirstName(), feedback.getLastName(), feedback.getBookName(), feedback.getBookLink(), feedback.getEmailAddress()));
                 return email;
 
             case "improvement":
                 email.setSubject( "New improvement proposal");
                 email.setMessageBody(isAnonymous
-                        ? String.format("<h2>An anonymous improvement has been proposed:</h2><p>%s</p>", feedback.getFeedbackBody())
-                        : String.format("<h2>%s %s has proposed an improvement:</h2><p>%s</p><strong>Email address: %s</strong>", feedback.getFirstName(), feedback.getLastName(), feedback.getFeedbackBody(), feedback.getEmailAddress()));
+                        ? String.format(style + "<div class=\"email\"><h2>An anonymous improvement has been proposed:</h2><p>%s</p></div>", feedback.getFeedbackBody())
+                        : String.format(style + "<div class=\"email\"><h2>%s %s has proposed an improvement:</h2><p>%s</p><br/><strong>Return address: %s</strong></div>", feedback.getFirstName(), feedback.getLastName(), feedback.getFeedbackBody(), feedback.getEmailAddress()));
                 return email;
-
             default:
                 return email;
         }
