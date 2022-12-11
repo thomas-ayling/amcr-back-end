@@ -6,14 +6,16 @@ public class Attachment {
     UUID id;
     String fileName;
     String fileType;
+    String fileSize;
     byte[] data;
     String downloadUri;
     UUID feedbackId;
 
-    public Attachment(UUID id, String fileName, String fileType, byte[] data, String downloadUri, UUID feedbackId) {
+    public Attachment(UUID id, String fileName, String fileType, String fileSize, byte[] data, String downloadUri, UUID feedbackId) {
         this.id = id;
         this.fileName = fileName;
         this.fileType = fileType;
+        this.fileSize = fileSize;
         this.data = data;
         this.downloadUri = downloadUri;
         this.feedbackId = feedbackId;
@@ -41,6 +43,14 @@ public class Attachment {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
+    }
+
+    public String getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(String fileSize) {
+        this.fileSize = fileSize;
     }
 
     public byte[] getData() {

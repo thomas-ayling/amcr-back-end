@@ -1,10 +1,12 @@
 package com.globallogic.amcr.controller;
 
 import com.globallogic.amcr.model.Feedback;
+import com.globallogic.amcr.payload.AttachmentMetadata;
 import com.globallogic.amcr.payload.FeedbackResponse;
 import com.globallogic.amcr.service.EmailService;
 import com.globallogic.amcr.service.FeedbackService;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,15 +28,13 @@ public class FeedbackController {
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST, consumes = {"multipart/form-data"})
-    public long uploadFeedback(
+    public ResponseEntity uploadFeedback(
             @RequestPart("feedback") Feedback feedback,
             @RequestPart(value = "attachment", required = false) MultipartFile attachment
     ) {
-        emailService.sendMail(feedback, attachment);
-        if (attachment == null) {
-            return feedbackService.saveWithNoAttachment(feedback);
-        }
-        return feedbackService.saveWithAttachment(feedback, attachment);
+        UUID feedbackId = feedbackService.save(feedback, attachment);
+        AttachmentMetadata attachmentMetadata = feedbackService.getAttachmentMetadata(feedbackId);
+        return emailService.sendMail(feedback, attachmentMetadata, 0);
     }
 
     @GetMapping("/get-many")
@@ -53,8 +53,8 @@ public class FeedbackController {
     }
 
     @GetMapping("/file-download/{id}")
-    public ResponseEntity<Resource> getFile(@PathVariable UUID id) {
-        return feedbackService.getFile(id);
+    public ResponseEntity<Resource> getAttachment(@PathVariable UUID id) {
+        return feedbackService.getAttachment(id);
     }
 
 }

@@ -1,4 +1,4 @@
-create table feedback
+create table if not exists feedback
 (
     id             uuid primary key,
     feedback_order serial,
@@ -11,11 +11,12 @@ create table feedback
     book_link      text
 );
 
-create table files
+create table if not exists files
 (
     id           uuid primary key,
     file_name    text,
     file_type    text,
+    file_size    text,
     data         bytea,
     download_uri text,
     feedback_id  uuid references feedback (id) on delete cascade
