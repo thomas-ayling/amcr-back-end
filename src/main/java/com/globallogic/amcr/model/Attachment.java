@@ -3,16 +3,15 @@ package com.globallogic.amcr.model;
 import java.util.UUID;
 
 public class Attachment {
-    UUID id;
-    String fileName;
-    String fileType;
-    String fileSize;
-    byte[] data;
-    String downloadUri;
-    UUID feedbackId;
+    private UUID id;
+    private String fileName;
+    private String fileType;
+    private String fileSize;
+    private byte[] data;
+    private String downloadUri;
+    private UUID feedbackId;
 
     public Attachment(UUID id, String fileName, String fileType, String fileSize, byte[] data, String downloadUri, UUID feedbackId) {
-        this.id = id;
         this.fileName = fileName;
         this.fileType = fileType;
         this.fileSize = fileSize;
