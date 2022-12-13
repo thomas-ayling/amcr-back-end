@@ -1,20 +1,18 @@
-package com.globallogic.amcr.model;
+package com.globallogic.amcr.persistence.model;
 
-import org.springframework.web.multipart.MultipartFile;
+import java.util.Objects;
 
 public class Email {
     private String sender;
     private String recipient;
     private String subject;
     private String messageBody;
-    private MultipartFile attachment;
 
-    public Email(String sender, String recipient, String subject, String messageBody, MultipartFile attachment) {
+    public Email(String sender, String recipient, String subject, String messageBody) {
         this.sender = sender;
         this.recipient = recipient;
         this.subject = subject;
         this.messageBody = messageBody;
-        this.attachment = attachment;
     }
 
     public Email() {
@@ -52,11 +50,16 @@ public class Email {
         this.messageBody = messageBody;
     }
 
-    public MultipartFile getAttachment() {
-        return attachment;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Email email = (Email) o;
+        return getSender().equals(email.getSender()) && getRecipient().equals(email.getRecipient()) && getSubject().equals(email.getSubject()) && getMessageBody().equals(email.getMessageBody());
     }
 
-    public void setAttachment(MultipartFile attachment) {
-        this.attachment = attachment;
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSender(), getRecipient(), getSubject(), getMessageBody());
     }
 }

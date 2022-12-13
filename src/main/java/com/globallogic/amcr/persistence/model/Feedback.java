@@ -1,9 +1,12 @@
-package com.globallogic.amcr.payload;
+package com.globallogic.amcr.persistence.model;
 
-import com.globallogic.amcr.model.Attachment;
+import org.springframework.web.multipart.MultipartFile;
 
-public class FeedbackResponse {
-    private Integer feedbackOrder;
+import java.util.Objects;
+import java.util.UUID;
+
+public class Feedback {
+    private UUID id;
     private String feedbackType;
     private String firstName;
     private String lastName;
@@ -11,12 +14,8 @@ public class FeedbackResponse {
     private String feedbackBody;
     private String bookName;
     private String bookLink;
-    private String downloadUri;
 
-    //TODO: Will need file name in response
-
-    public FeedbackResponse(Integer feedbackOrder, String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink, String downloadUri) {
-        this.feedbackOrder = feedbackOrder;
+    public Feedback(String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink) {
         this.feedbackType = feedbackType;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -24,15 +23,17 @@ public class FeedbackResponse {
         this.feedbackBody = feedbackBody;
         this.bookName = bookName;
         this.bookLink = bookLink;
-        this.downloadUri = downloadUri;
     }
 
-    public Integer getFeedbackOrder() {
-        return feedbackOrder;
+    public Feedback() {
     }
 
-    public void setFeedbackOrder(Integer feedbackOrder) {
-        this.feedbackOrder = feedbackOrder;
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getFeedbackType() {
@@ -91,11 +92,16 @@ public class FeedbackResponse {
         this.bookLink = bookLink;
     }
 
-    public String getDownloadUri() {
-        return downloadUri;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Feedback feedback = (Feedback) o;
+        return getId().equals(feedback.getId()) && getFeedbackType().equals(feedback.getFeedbackType()) && getFirstName().equals(feedback.getFirstName()) && getLastName().equals(feedback.getLastName()) && getEmailAddress().equals(feedback.getEmailAddress()) && getFeedbackBody().equals(feedback.getFeedbackBody()) && getBookName().equals(feedback.getBookName()) && getBookLink().equals(feedback.getBookLink());
     }
 
-    public void setDownloadUri(String downloadUri) {
-        this.downloadUri = downloadUri;
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getFeedbackType(), getFirstName(), getLastName(), getEmailAddress(), getFeedbackBody(), getBookName(), getBookLink());
     }
 }

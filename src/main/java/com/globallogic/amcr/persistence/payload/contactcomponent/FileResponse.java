@@ -1,19 +1,14 @@
-package com.globallogic.amcr.payload;
+package com.globallogic.amcr.persistence.payload.contactcomponent;
 
-import org.apache.ibatis.annotations.Select;
-
-public class AttachmentMetadata {
+public class FileResponse {
     private String fileName;
-    private String fileSize;
     private String downloadUri;
+    private long size;
 
-    public AttachmentMetadata() {
-    }
-
-    public AttachmentMetadata(String fileName, String fileSize, String downloadUri) {
+    public FileResponse(String fileName, String downloadUri, long size) {
         this.fileName = fileName;
-        this.fileSize = fileSize;
         this.downloadUri = downloadUri;
+        this.size = size;
     }
 
     public String getFileName() {
@@ -24,19 +19,19 @@ public class AttachmentMetadata {
         this.fileName = fileName;
     }
 
-    public String getFileSize() {
-        return fileSize;
-    }
-
-    public void setFileSize(String fileSize) {
-        this.fileSize = fileSize;
-    }
-
     public String getDownloadUri() {
         return downloadUri;
     }
 
     public void setDownloadUri(String downloadUri) {
         this.downloadUri = downloadUri;
+    }
+
+    public long getSize() {
+        return size;
+    }
+
+    public void setSize(long size) {
+        this.size = size;
     }
 }

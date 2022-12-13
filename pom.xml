@@ -50,6 +50,7 @@
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
+            <scope>runtime</scope>
             <version>4.0.3</version>
         </dependency>
     </dependencies>

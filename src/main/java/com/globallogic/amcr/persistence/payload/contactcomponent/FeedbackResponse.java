@@ -1,11 +1,7 @@
-package com.globallogic.amcr.model;
+package com.globallogic.amcr.persistence.payload.contactcomponent;
 
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.UUID;
-
-public class Feedback {
-    private UUID id;
+public class FeedbackResponse {
+    private Integer feedbackOrder;
     private String feedbackType;
     private String firstName;
     private String lastName;
@@ -13,8 +9,10 @@ public class Feedback {
     private String feedbackBody;
     private String bookName;
     private String bookLink;
+    private String downloadUri;
 
-    public Feedback(String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink) {
+    public FeedbackResponse(Integer feedbackOrder, String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink, String downloadUri) {
+        this.feedbackOrder = feedbackOrder;
         this.feedbackType = feedbackType;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -22,17 +20,15 @@ public class Feedback {
         this.feedbackBody = feedbackBody;
         this.bookName = bookName;
         this.bookLink = bookLink;
+        this.downloadUri = downloadUri;
     }
 
-    public Feedback() {
+    public Integer getFeedbackOrder() {
+        return feedbackOrder;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
+    public void setFeedbackOrder(Integer feedbackOrder) {
+        this.feedbackOrder = feedbackOrder;
     }
 
     public String getFeedbackType() {
@@ -89,5 +85,13 @@ public class Feedback {
 
     public void setBookLink(String bookLink) {
         this.bookLink = bookLink;
+    }
+
+    public String getDownloadUri() {
+        return downloadUri;
+    }
+
+    public void setDownloadUri(String downloadUri) {
+        this.downloadUri = downloadUri;
     }
 }

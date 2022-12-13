@@ -1,4 +1,4 @@
-package com.globallogic.amcr.exception;
+package com.globallogic.amcr.exception.contactcomponent;
 
 public class FileStorageException extends RuntimeException {
     private static final long serialVersionUID = 1L;

@@ -1,5 +1,7 @@
-package com.globallogic.amcr.model;
+package com.globallogic.amcr.persistence.model;
 
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Attachment {
@@ -12,6 +14,7 @@ public class Attachment {
     private UUID feedbackId;
 
     public Attachment(UUID id, String fileName, String fileType, String fileSize, byte[] data, String downloadUri, UUID feedbackId) {
+        this.id = id;
         this.fileName = fileName;
         this.fileType = fileType;
         this.fileSize = fileSize;
@@ -74,5 +77,33 @@ public class Attachment {
 
     public void setFeedbackId(UUID feedbackId) {
         this.feedbackId = feedbackId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Attachment that = (Attachment) o;
+        return getId().equals(that.getId()) && getFileName().equals(that.getFileName()) && getFileType().equals(that.getFileType()) && getFileSize().equals(that.getFileSize()) && Arrays.equals(getData(), that.getData()) && getDownloadUri().equals(that.getDownloadUri()) && getFeedbackId().equals(that.getFeedbackId());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(getId(), getFileName(), getFileType(), getFileSize(), getDownloadUri(), getFeedbackId());
+        result = 31 * result + Arrays.hashCode(getData());
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Attachment{" +
+                "id=" + id +
+                ", fileName='" + fileName + '\'' +
+                ", fileType='" + fileType + '\'' +
+                ", fileSize='" + fileSize + '\'' +
+                ", data=" + Arrays.toString(data) +
+                ", downloadUri='" + downloadUri + '\'' +
+                ", feedbackId=" + feedbackId +
+                '}';
     }
 }

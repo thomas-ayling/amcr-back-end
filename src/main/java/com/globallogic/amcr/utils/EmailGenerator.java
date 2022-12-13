@@ -1,17 +1,18 @@
 package com.globallogic.amcr.utils;
 
-import com.globallogic.amcr.model.Email;
-import com.globallogic.amcr.model.Feedback;
-import com.globallogic.amcr.payload.AttachmentMetadata;
+import com.globallogic.amcr.persistence.model.Email;
+import com.globallogic.amcr.persistence.model.Feedback;
+import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
 
 public class EmailGenerator {
-    public static Email generateEmailFromFeedback(Feedback feedback, AttachmentMetadata attachmentMetadata) {
+    public final static Email generateEmailFromFeedback(Feedback feedback, AttachmentMetadata attachmentMetadata) {
         Email email = new Email();
         boolean isAnonymous = feedback.getEmailAddress() == null;
-        email.setSender(isAnonymous ? "<anonymous@globallogic.com" : "<" + feedback.getEmailAddress() + ">");
+        email.setSender(isAnonymous ? "<anonymous@globallogic.com>" : "<" + feedback.getEmailAddress() + ">");
         email.setRecipient("<engineeringcenterbot@globallogic.com>");
         String style = "<style>.email { font-family: Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif; }</style>";
         String attachmentLink = attachmentMetadata == null ? "" : String.format("<span>Download attachment: <a href=%s>%s (%s)</a></span>", attachmentMetadata.getDownloadUri(), attachmentMetadata.getFileName(), attachmentMetadata.getFileSize());
+
         switch (feedback.getFeedbackType()) {
             case "case-study":
                 email.setSubject("New case study proposal");

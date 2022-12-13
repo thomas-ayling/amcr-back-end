@@ -1,4 +1,4 @@
-package com.globallogic.amcr.exception;
+package com.globallogic.amcr.exception.contactcomponent;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.globallogic.amcr.payload;
+package com.globallogic.amcr.persistence.payload.contactcomponent;
 
 public class AttachmentResponse {
     private String fileName;
