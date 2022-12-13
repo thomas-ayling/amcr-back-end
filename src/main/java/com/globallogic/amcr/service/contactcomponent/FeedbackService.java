@@ -1,8 +1,7 @@
 package com.globallogic.amcr.service.contactcomponent;
 
 import com.globallogic.amcr.persistence.dao.contactcomponent.FeedbackDao;
-import com.globallogic.amcr.persistence.dao.contactcomponent.FileDao;
-import com.globallogic.amcr.persistence.model.Feedback;
+import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

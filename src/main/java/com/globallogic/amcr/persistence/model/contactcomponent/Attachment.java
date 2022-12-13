@@ -1,4 +1,4 @@
-package com.globallogic.amcr.persistence.model;
+package com.globallogic.amcr.persistence.model.contactcomponent;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -8,12 +8,12 @@ public class Attachment {
     private UUID id;
     private String fileName;
     private String fileType;
-    private String fileSize;
+    private long fileSize;
     private byte[] data;
     private String downloadUri;
     private UUID feedbackId;
 
-    public Attachment(UUID id, String fileName, String fileType, String fileSize, byte[] data, String downloadUri, UUID feedbackId) {
+    public Attachment(UUID id, String fileName, String fileType, long fileSize, byte[] data, String downloadUri, UUID feedbackId) {
         this.id = id;
         this.fileName = fileName;
         this.fileType = fileType;
@@ -47,11 +47,11 @@ public class Attachment {
         this.fileType = fileType;
     }
 
-    public String getFileSize() {
+    public long getFileSize() {
         return fileSize;
     }
 
-    public void setFileSize(String fileSize) {
+    public void setFileSize(long fileSize) {
         this.fileSize = fileSize;
     }
 
@@ -84,7 +84,7 @@ public class Attachment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Attachment that = (Attachment) o;
-        return getId().equals(that.getId()) && getFileName().equals(that.getFileName()) && getFileType().equals(that.getFileType()) && getFileSize().equals(that.getFileSize()) && Arrays.equals(getData(), that.getData()) && getDownloadUri().equals(that.getDownloadUri()) && getFeedbackId().equals(that.getFeedbackId());
+        return getFileSize() == that.getFileSize() && getId().equals(that.getId()) && getFileName().equals(that.getFileName()) && getFileType().equals(that.getFileType()) && Arrays.equals(getData(), that.getData()) && getDownloadUri().equals(that.getDownloadUri()) && getFeedbackId().equals(that.getFeedbackId());
     }
 
     @Override

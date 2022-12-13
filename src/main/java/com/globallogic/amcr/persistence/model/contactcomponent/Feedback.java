@@ -1,6 +1,4 @@
-package com.globallogic.amcr.persistence.model;
-
-import org.springframework.web.multipart.MultipartFile;
+package com.globallogic.amcr.persistence.model.contactcomponent;
 
 import java.util.Objects;
 import java.util.UUID;

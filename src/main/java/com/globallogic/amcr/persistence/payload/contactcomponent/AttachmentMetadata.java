@@ -1,13 +1,13 @@
 package com.globallogic.amcr.persistence.payload.contactcomponent;
 public class AttachmentMetadata {
     private String fileName;
-    private String fileSize;
+    private long fileSize;
     private String downloadUri;
 
     public AttachmentMetadata() {
     }
 
-    public AttachmentMetadata(String fileName, String fileSize, String downloadUri) {
+    public AttachmentMetadata(String fileName, long fileSize, String downloadUri) {
         this.fileName = fileName;
         this.fileSize = fileSize;
         this.downloadUri = downloadUri;
@@ -21,11 +21,11 @@ public class AttachmentMetadata {
         this.fileName = fileName;
     }
 
-    public String getFileSize() {
+    public long getFileSize() {
         return fileSize;
     }
 
-    public void setFileSize(String fileSize) {
+    public void setFileSize(long fileSize) {
         this.fileSize = fileSize;
     }
 

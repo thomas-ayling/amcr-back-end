@@ -16,10 +16,8 @@ create table if not exists files
     id           uuid primary key,
     file_name    text,
     file_type    text,
-    file_size    text,
+    file_size    bigint,
     data         bytea,
     download_uri text,
     feedback_id  uuid references feedback (id) on delete cascade
 );
-
--- {"firstName":"A", "lastName": "B", "emailAddress": "C", "feedbackBody":"D", "bookName":"E", "bookLink": "F"}

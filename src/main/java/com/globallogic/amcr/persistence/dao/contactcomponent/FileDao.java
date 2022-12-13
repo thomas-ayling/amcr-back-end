@@ -1,12 +1,10 @@
 package com.globallogic.amcr.persistence.dao.contactcomponent;
 
-import com.globallogic.amcr.exception.contactcomponent.FileStorageException;
 import com.globallogic.amcr.mapper.contactcomponent.FileMapper;
 import com.globallogic.amcr.persistence.dao.Dao;
-import com.globallogic.amcr.persistence.model.Attachment;
+import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
-import com.globallogic.amcr.utils.ByteConverter;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,11 +31,10 @@ public class FileDao implements Dao<MultipartFile, AttachmentResponse> {
             // Generate file download uri for the attachment
             String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/file/download/").path(fileId.toString()).toUriString();
             // Create new Attachment object with generated params
-            Attachment attachment = new Attachment(fileId, fileName, incomingAttachment.getContentType(), ByteConverter.bytesToReadable(incomingAttachment.getSize()), incomingAttachment.getBytes(), fileDownloadUri, feedbackId);
+            Attachment attachment = new Attachment(fileId, fileName, incomingAttachment.getContentType(), incomingAttachment.getSize(), incomingAttachment.getBytes(), fileDownloadUri, feedbackId);
             fileMapper.save(attachment);
         } catch (IOException ioe) {
-            //todo: add not found exception
-            throw new FileStorageException(fileName + " could not be saved.", ioe);
+            throw new RuntimeException(fileName + " could not be saved.", ioe);
         }
     }
 

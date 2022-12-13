@@ -1,4 +1,4 @@
-package com.globallogic.amcr.persistence.model;
+package com.globallogic.amcr.persistence.model.contactcomponent;
 
 import java.util.Objects;
 

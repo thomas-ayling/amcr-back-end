@@ -1,9 +1,8 @@
 package com.globallogic.amcr.service.contactcomponent;
 
-import com.globallogic.amcr.mapper.contactcomponent.FileMapper;
 import com.globallogic.amcr.persistence.dao.contactcomponent.FileDao;
-import com.globallogic.amcr.persistence.model.Email;
-import com.globallogic.amcr.persistence.model.Feedback;
+import com.globallogic.amcr.persistence.model.contactcomponent.Email;
+import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
 import com.globallogic.amcr.utils.EmailGenerator;
 import jakarta.mail.internet.MimeMessage;

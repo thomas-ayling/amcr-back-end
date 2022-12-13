@@ -1,16 +1,14 @@
 package com.globallogic.amcr.controller.contactcomponent;
 
-import com.globallogic.amcr.persistence.model.Feedback;
+import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
 import com.globallogic.amcr.service.contactcomponent.EmailService;
 import com.globallogic.amcr.service.contactcomponent.FeedbackService;
-import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/feedback")
