@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.UUID;
 
+/**
+ * endpoint for file download
+ */
+
 @Controller
 @RequestMapping("/file")
 @CrossOrigin(origins = "*")
@@ -21,6 +25,11 @@ public class FileController {
     public FileController(FileService fileService) {
         this.fileService = fileService;
     }
+
+    /**
+     * @param id the id of the file to be downloaded
+     * @return returns a response entity with the relevant headers and the binary data to allow for easy download on the front end
+     */
 
     @GetMapping("/download/{id}")
     public ResponseEntity<Resource> getAttachment(@PathVariable UUID id) {

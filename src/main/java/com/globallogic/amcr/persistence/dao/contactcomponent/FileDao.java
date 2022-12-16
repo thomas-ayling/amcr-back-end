@@ -23,6 +23,11 @@ public class FileDao implements Dao<MultipartFile, AttachmentResponse> {
         this.fileMapper = fileMapper;
     }
 
+    /**
+     * @param incomingAttachment the attachment being received from the client
+     * @param feedbackId         the id of the feedback that the attachment belongs to (foreign key)
+     */
+
     public void save(MultipartFile incomingAttachment, UUID feedbackId) {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(incomingAttachment.getOriginalFilename()));
         try {
@@ -38,13 +43,27 @@ public class FileDao implements Dao<MultipartFile, AttachmentResponse> {
         }
     }
 
+    /**
+     * @param id the id of the attachment to be downloaded
+     * @return returns the appropriate attachment from the mapper
+     */
+
     public AttachmentResponse get(UUID id) {
         return fileMapper.get(id);
     }
 
+    /**
+     * @return returns a list of all the attachment in the attachment table
+     */
+
     public List<AttachmentResponse> getAll() {
         return fileMapper.getAll();
     }
+
+    /**
+     * @param feedbackId the id of the foreign key for the requested metadata
+     * @return returns an attachment metadata object as received from the database
+     */
 
     public AttachmentMetadata getAttachmentMetadata(UUID feedbackId) {
         return fileMapper.getAttachmentMetadata(feedbackId);

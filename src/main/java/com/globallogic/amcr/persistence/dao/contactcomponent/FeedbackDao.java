@@ -20,6 +20,10 @@ public class FeedbackDao implements Dao<Feedback, FeedbackResponse> {
         this.fileMapper = fileMapper;
     }
 
+    /**
+     * @param feedback   the feedback object received from the client, no ID set
+     * @param feedbackId the id for the feedback, to be set in the feedback object
+     */
     @Override
     public void save(Feedback feedback, UUID feedbackId) {
         try {
@@ -30,18 +34,34 @@ public class FeedbackDao implements Dao<Feedback, FeedbackResponse> {
         }
     }
 
+    /**
+     * @param id the id of the feedback to be retrieved from the database
+     * @return returns the appropriate feedback entry
+     */
     @Override
-    public FeedbackResponse get(UUID id) { return feedbackMapper.get(id); }
+    public FeedbackResponse get(UUID id) {
+        return feedbackMapper.get(id);
+    }
 
+    /**
+     * @return returns a list all the entries in the feedback table
+     */
     @Override
     public List<FeedbackResponse> getAll() {
         return feedbackMapper.getAll();
     }
 
+    /**
+     * @return returns a list of the last 10 entries in the feedback table
+     */
     public List<FeedbackResponse> getLatest() {
         return feedbackMapper.getLatest();
     }
 
+    /**
+     * @param last the 'feedback order' of the last received feedback entry
+     * @return returns the 10 entries that follow the 'last' entry
+     */
     public List<FeedbackResponse> getOlder(int last) {
         return feedbackMapper.getOlder(last);
     }
