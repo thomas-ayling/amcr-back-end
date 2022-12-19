@@ -3,6 +3,9 @@ package com.globallogic.amcr.service.contactcomponent;
 import com.globallogic.amcr.persistence.dao.contactcomponent.FeedbackDao;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
+import io.github.resilience4j.core.IntervalFunction;
+import io.github.resilience4j.retry.RetryConfig;
+import io.github.resilience4j.retry.RetryRegistry;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     private final FeedbackDao feedbackDao;
     private final FileServiceImpl fileServiceImpl;
     private final EmailServiceImpl emailServiceImpl;
+
     public FeedbackServiceImpl(EmailServiceImpl emailServiceImpl, FileServiceImpl fileServiceImpl, FeedbackDao feedbackDao) {
         this.emailServiceImpl = emailServiceImpl;
         this.feedbackDao = feedbackDao;
@@ -25,11 +29,14 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Transactional
     public ResponseEntity save(Feedback feedback, MultipartFile attachment) {
+        RetryConfig config = RetryConfig.custom().intervalFunction(IntervalFunction.ofExponentialBackoff()).failAfterMaxAttempts(true).build();
+        RetryRegistry registry = RetryRegistry.of(config);
+
         try {
             UUID feedbackId = UUID.randomUUID();
             feedbackDao.save(feedback, feedbackId);
             if (attachment != null) fileServiceImpl.save(attachment, feedbackId);
-            emailServiceImpl.sendMail(feedback, feedbackId, 0);
+            emailServiceImpl.sendMail(feedback, feedbackId);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

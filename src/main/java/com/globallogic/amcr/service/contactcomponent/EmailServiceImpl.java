@@ -5,10 +5,7 @@ import com.globallogic.amcr.persistence.model.contactcomponent.Email;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
 import com.globallogic.amcr.utils.EmailGenerator;
-import jakarta.mail.Multipart;
-import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
-import jakarta.mail.internet.MimeMultipart;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSendException;
@@ -30,7 +27,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Transactional
-    public ResponseEntity sendMail(Feedback feedback, UUID feedbackId, int tries)  {
+    public ResponseEntity sendMail(Feedback feedback, UUID feedbackId) {
         try {
             AttachmentMetadata attachmentMetadata = fileDao.getAttachmentMetadata(feedbackId);
 
@@ -48,10 +45,6 @@ public class EmailServiceImpl implements EmailService {
 
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            if (tries < 3) {
-                tries ++;
-                return sendMail(feedback, feedbackId, tries);
-            }
             throw new MailSendException("There was a problem sending this email", e);
         }
     }
