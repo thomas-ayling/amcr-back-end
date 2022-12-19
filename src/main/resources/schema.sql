@@ -21,3 +21,4 @@ create table if not exists files
     download_uri text,
     feedback_id  uuid references feedback (id) on delete cascade
 );
+

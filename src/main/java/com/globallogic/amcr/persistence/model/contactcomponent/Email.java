@@ -20,6 +20,11 @@ public class Email {
      * @param htmlPart  the main content of the email, the user's name, the feedback body and an attachment link are included in the messageBody
      */
     public Email(String sender, String recipient, String subject, String textPart, String htmlPart) {
+        if (sender == null) throw new IllegalArgumentException("Sender cannot be null");
+        if (recipient == null) throw new IllegalArgumentException("Recipient cannot be null");
+        if (subject == null) throw new IllegalArgumentException("Subject cannot be null");
+        if (textPart == null) throw new IllegalArgumentException("Text part cannot be null");
+        if (htmlPart == null) throw new IllegalArgumentException("HTML part cannot be null");
         this.sender = sender;
         this.recipient = recipient;
         this.subject = subject;
