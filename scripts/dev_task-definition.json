@@ -10,6 +10,36 @@
           "containerPort": 3001,
           "hostPort": 3001
         }
+      ],
+      "environment": [
+        {
+          "name": "AMCR_DB_USERNAME",
+          "value": "ec_acad_psql"
+        },
+        {
+          "name": "AMCR_DB_PASSWORD",
+          "value": "Letme1n!*"
+        },
+        {
+          "name": "AMCR_DB_HOST",
+          "value": "18.132.17.250"
+        },
+        {
+          "name": "AMCR_DB_PORT",
+          "value": "5432"
+        },
+        {
+          "name": "AMCR_SERVER_PORT",
+          "value": "3001"
+        },
+        {
+          "name": "AMCR_MAIL_HOST",
+          "value": "172.31.41.117"
+        },
+        {
+          "name": "AMCR_MAIL_PORT",
+          "value": "1025"
+        }
       ]
     }
   ],
