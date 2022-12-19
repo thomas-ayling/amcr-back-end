@@ -2,8 +2,8 @@ package com.globallogic.amcr.controller.contactcomponent;
 
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
-import com.globallogic.amcr.service.contactcomponent.EmailService;
-import com.globallogic.amcr.service.contactcomponent.FeedbackService;
+import com.globallogic.amcr.service.contactcomponent.EmailServiceImpl;
+import com.globallogic.amcr.service.contactcomponent.FeedbackServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,12 +19,12 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class FeedbackController {
 
-    private final EmailService emailService;
-    private final FeedbackService feedbackService;
+    private final EmailServiceImpl emailServiceImpl;
+    private final FeedbackServiceImpl feedbackServiceImpl;
 
-    public FeedbackController(EmailService emailService, FeedbackService feedbackService) {
-        this.emailService = emailService;
-        this.feedbackService = feedbackService;
+    public FeedbackController(EmailServiceImpl emailServiceImpl, FeedbackServiceImpl feedbackServiceImpl) {
+        this.emailServiceImpl = emailServiceImpl;
+        this.feedbackServiceImpl = feedbackServiceImpl;
     }
 
     /**
@@ -35,7 +35,7 @@ public class FeedbackController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST, consumes = {"multipart/form-data"})
     public ResponseEntity uploadFeedback(@RequestPart("feedback") Feedback feedback, @RequestPart(value = "attachment", required = false) MultipartFile attachment) {
-        return feedbackService.save(feedback, attachment);
+        return feedbackServiceImpl.save(feedback, attachment);
     }
 
     /**
@@ -44,7 +44,7 @@ public class FeedbackController {
 
     @GetMapping("/get-all")
     public List<FeedbackResponse> getMany() {
-        return feedbackService.getAll();
+        return feedbackServiceImpl.getAll();
     }
 
     /**
@@ -53,7 +53,7 @@ public class FeedbackController {
 
     @GetMapping("/get-latest")
     public List<FeedbackResponse> getLatest() {
-        return feedbackService.getLatest();
+        return feedbackServiceImpl.getLatest();
     }
 
     /**
@@ -63,7 +63,7 @@ public class FeedbackController {
 
     @GetMapping("/get-older/{last}")
     public List<FeedbackResponse> getLatest(@PathVariable int last) {
-        return feedbackService.getOlder(last);
+        return feedbackServiceImpl.getOlder(last);
     }
 
 

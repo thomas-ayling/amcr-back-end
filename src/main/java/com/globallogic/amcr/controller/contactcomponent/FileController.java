@@ -1,7 +1,7 @@
 package com.globallogic.amcr.controller.contactcomponent;
 
 
-import com.globallogic.amcr.service.contactcomponent.FileService;
+import com.globallogic.amcr.service.contactcomponent.FileServiceImpl;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,10 +20,10 @@ import java.util.UUID;
 @RequestMapping("/file")
 @CrossOrigin(origins = "*")
 public class FileController {
-    private final FileService fileService;
+    private final FileServiceImpl fileServiceImpl;
 
-    public FileController(FileService fileService) {
-        this.fileService = fileService;
+    public FileController(FileServiceImpl fileServiceImpl) {
+        this.fileServiceImpl = fileServiceImpl;
     }
 
     /**
@@ -33,7 +33,7 @@ public class FileController {
 
     @GetMapping("/download/{id}")
     public ResponseEntity<Resource> getAttachment(@PathVariable UUID id) {
-        return fileService.get(id);
+        return fileServiceImpl.get(id);
     }
 
 }

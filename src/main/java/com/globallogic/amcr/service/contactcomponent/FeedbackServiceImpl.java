@@ -13,16 +13,14 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class FeedbackService {
-
+public class FeedbackServiceImpl implements FeedbackService {
     private final FeedbackDao feedbackDao;
-    private final FileService fileService;
-    private final EmailService emailService;
-
-    public FeedbackService(EmailService emailService, FileService fileService, FeedbackDao feedbackDao) {
-        this.emailService = emailService;
+    private final FileServiceImpl fileServiceImpl;
+    private final EmailServiceImpl emailServiceImpl;
+    public FeedbackServiceImpl(EmailServiceImpl emailServiceImpl, FileServiceImpl fileServiceImpl, FeedbackDao feedbackDao) {
+        this.emailServiceImpl = emailServiceImpl;
         this.feedbackDao = feedbackDao;
-        this.fileService = fileService;
+        this.fileServiceImpl = fileServiceImpl;
     }
 
     @Transactional
@@ -30,8 +28,8 @@ public class FeedbackService {
         try {
             UUID feedbackId = UUID.randomUUID();
             feedbackDao.save(feedback, feedbackId);
-            if (attachment != null) fileService.save(attachment, feedbackId);
-            emailService.sendMail(feedback, feedbackId, 0);
+            if (attachment != null) fileServiceImpl.save(attachment, feedbackId);
+            emailServiceImpl.sendMail(feedback, feedbackId, 0);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

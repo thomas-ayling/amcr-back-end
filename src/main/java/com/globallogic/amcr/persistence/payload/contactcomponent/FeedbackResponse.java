@@ -17,13 +17,13 @@ public class FeedbackResponse {
     /**
      * @param feedbackOrder the order in which the feedback was submitted for pagination purposes
      * @param feedbackType  the type of the feedback submitted, variable will be used for formatting once data is received by admin panel
-     * @param firstName     first name of the user that left the feedback, null if feedback was anonymous
-     * @param lastName      last name of the user that left the feedback, null if feedback was anonymous
-     * @param emailAddress  email address of the user that left the feedback, null if feedback was anonymous
+     * @param firstName     the first name of the user that left the feedback, null if feedback was anonymous
+     * @param lastName      the last name of the user that left the feedback, null if feedback was anonymous
+     * @param emailAddress  the email address of the user that left the feedback, null if feedback was anonymous
      * @param feedbackBody  the main chunk of text that was left in the feedback form, not null
      * @param bookName      the name of a book requested through the library form, always null if feedback type is not 'library'
-     * @param bookLink      link to the book that the user has requested, optional and always null if feedback type  is not 'library'
-     * @param downloadUri   download link to any related attachments retrieved from the files table using the foreign key, null if no attachments were uploaded with the feedback
+     * @param bookLink      the link to the book that the user has requested, optional and always null if feedback type  is not 'library'
+     * @param downloadUri   the download link to any related attachments retrieved from the files table using the foreign key, null if no attachments were uploaded with the feedback
      */
 
     public FeedbackResponse(Integer feedbackOrder, String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink, String downloadUri) {
