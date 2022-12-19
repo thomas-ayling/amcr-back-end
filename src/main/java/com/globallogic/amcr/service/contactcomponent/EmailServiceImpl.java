@@ -33,7 +33,6 @@ public class EmailServiceImpl implements EmailService {
 
             Email email = EmailGenerator.generateEmailFromFeedback(feedback, attachmentMetadata);
 
-
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 

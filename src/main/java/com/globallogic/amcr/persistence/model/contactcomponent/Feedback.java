@@ -24,10 +24,15 @@ public class Feedback {
      * @param emailAddress email address of the user that left the feedback, null if feedback was anonymous
      * @param feedbackBody the main body of text that was left in the feedback form, not null
      * @param bookName     the name of a book requested through the library form, always null if feedback type is not 'library'
-     * @param bookLink     link to the book that the user has requested, optional and always null if feedback type  is not 'library'
+     * @param bookLink     link to the book that the user has requested, optional and always null if feedback type is not 'library'
      */
 
     public Feedback(String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink) {
+        if (feedbackType == null) throw new IllegalArgumentException("Feedback type cannot be null");
+        if (feedbackBody == null && !feedbackType.equals("library"))
+            throw new IllegalArgumentException("Feedback body cannot be null");
+        if (bookLink == null && feedbackType.equals("library"))
+            throw new IllegalArgumentException("Book name cannot be null");
         this.feedbackType = feedbackType;
         this.firstName = firstName;
         this.lastName = lastName;
