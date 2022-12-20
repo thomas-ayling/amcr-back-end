@@ -1,57 +1,50 @@
-package com.globallogic.amcr.service;
+package com.globallogic.amcr.service.contactcomponent;
 
-import com.globallogic.amcr.model.Email;
-import com.globallogic.amcr.model.Feedback;
-import com.globallogic.amcr.payload.AttachmentMetadata;
+import com.globallogic.amcr.persistence.dao.contactcomponent.FileDao;
+import com.globallogic.amcr.persistence.model.contactcomponent.Email;
+import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
+import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
 import com.globallogic.amcr.utils.EmailGenerator;
 import jakarta.mail.internet.MimeMessage;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Objects;
 import java.util.UUID;
 
 @Service
-public class EmailService {
-    private JavaMailSender mailSender;
-    public EmailService(JavaMailSender mailSender) {
+public class EmailServiceImpl implements EmailService {
+    private final JavaMailSender mailSender;
+    private final FileDao fileDao;
+
+    public EmailServiceImpl(JavaMailSender mailSender, FileDao fileDao) {
         this.mailSender = mailSender;
+        this.fileDao = fileDao;
     }
 
-    public ResponseEntity sendMail(Feedback feedback, AttachmentMetadata attachmentMetadata, int tries) {
+    @Transactional
+    public ResponseEntity sendMail(Feedback feedback, UUID feedbackId) {
         try {
+            AttachmentMetadata attachmentMetadata = fileDao.getAttachmentMetadata(feedbackId);
+
             Email email = EmailGenerator.generateEmailFromFeedback(feedback, attachmentMetadata);
 
             MimeMessage mimeMessage = mailSender.createMimeMessage();
-            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 
             mimeMessageHelper.setTo(email.getRecipient());
             mimeMessageHelper.setFrom(email.getSender());
             mimeMessageHelper.setSubject(email.getSubject());
-            mimeMessageHelper.setText(email.getMessageBody(), true);
-
+            mimeMessageHelper.setText(email.getTextPart(), email.getHtmlPart());
             mailSender.send(mimeMessage);
 
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            if (tries < 3) {
-                tries ++;
-                System.out.println(tries);
-                System.out.println(e.getMessage());
-                return sendMail(feedback, attachmentMetadata, tries);
-            }
             throw new MailSendException("There was a problem sending this email", e);
         }
     }
-
-
 }

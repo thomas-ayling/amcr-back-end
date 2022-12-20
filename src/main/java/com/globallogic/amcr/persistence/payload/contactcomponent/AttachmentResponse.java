@@ -1,17 +1,26 @@
-package com.globallogic.amcr.payload;
+package com.globallogic.amcr.persistence.payload.contactcomponent;
 
+/**
+ * Attachment response to download a file from the files database
+ */
 public class AttachmentResponse {
     private String fileName;
     private String fileType;
     private byte[] data;
 
-    public AttachmentResponse() {
-    }
+    /**
+     * @param fileName the name of the file
+     * @param fileType the type of the file
+     * @param data     the raw binary data of the file to be downloaded
+     */
 
     public AttachmentResponse(String fileName, String fileType, byte[] data) {
         this.fileName = fileName;
         this.fileType = fileType;
         this.data = data;
+    }
+
+    public AttachmentResponse() {
     }
 
     public String getFileName() {

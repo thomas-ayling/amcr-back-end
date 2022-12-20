@@ -1,4 +1,4 @@
-package com.globallogic.amcr.exception;
+package com.globallogic.amcr.exception.contactcomponent;
 
 public class FileNotFoundException extends Throwable {
     private static final long serialVersionUID = 1L;
