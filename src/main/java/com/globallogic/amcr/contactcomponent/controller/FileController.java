@@ -1,7 +1,7 @@
-package com.globallogic.amcr.controller.contactcomponent;
+package com.globallogic.amcr.contactcomponent.controller;
 
 
-import com.globallogic.amcr.service.contactcomponent.FileServiceImpl;
+import com.globallogic.amcr.contactcomponent.service.FileServiceImpl;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

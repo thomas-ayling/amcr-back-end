@@ -1,7 +1,7 @@
-package com.globallogic.amcr.controller.pagecontent;
+package com.globallogic.amcr.pagecontent.controller;
 
-import com.globallogic.amcr.model.pagecontent.Markdown;
-import com.globallogic.amcr.service.pagecontent.MarkdownService;
+import com.globallogic.amcr.pagecontent.persistence.model.Markdown;
+import com.globallogic.amcr.pagecontent.service.MarkdownService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package com.globallogic.amcr.model.pagecontent;
+package com.globallogic.amcr.pagecontent.persistence.model;
 
 
 public class Markdown {

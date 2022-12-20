@@ -1,6 +1,6 @@
-package com.globallogic.amcr.mapper.pagecontent;
+package com.globallogic.amcr.pagecontent.mapper;
 
-import com.globallogic.amcr.model.pagecontent.Markdown;
+import com.globallogic.amcr.pagecontent.persistence.model.Markdown;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.Alias;
 

@@ -1,4 +1,4 @@
-package com.globallogic.amcr.exception.attachmentcomponent;
+package com.globallogic.amcr.attachmentcomponent.exception;
 
 public class FileStorageException extends RuntimeException {
     public FileStorageException(String message) {

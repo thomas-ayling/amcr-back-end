@@ -1,8 +1,8 @@
 package com.globallogic.amcr.utils;
 
-import com.globallogic.amcr.persistence.model.contactcomponent.Email;
-import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
-import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
+import com.globallogic.amcr.contactcomponent.persistence.model.Email;
+import com.globallogic.amcr.contactcomponent.persistence.model.Feedback;
+import com.globallogic.amcr.contactcomponent.persistence.payload.AttachmentMetadata;
 
 public class EmailGenerator {
     public final static Email generateEmailFromFeedback(Feedback feedback, AttachmentMetadata attachmentMetadata) {

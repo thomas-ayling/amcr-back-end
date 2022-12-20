@@ -1,10 +1,9 @@
-package com.globallogic.amcr.persistence.dao.contactcomponent;
+package com.globallogic.amcr.contactcomponent.persistence.dao;
 
-import com.globallogic.amcr.mapper.contactcomponent.FeedbackMapper;
-import com.globallogic.amcr.mapper.contactcomponent.FileMapper;
-import com.globallogic.amcr.persistence.dao.Dao;
-import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
-import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
+import com.globallogic.amcr.contactcomponent.mapper.FeedbackMapper;
+import com.globallogic.amcr.contactcomponent.mapper.FileMapper;
+import com.globallogic.amcr.contactcomponent.persistence.model.Feedback;
+import com.globallogic.amcr.contactcomponent.persistence.payload.FeedbackResponse;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

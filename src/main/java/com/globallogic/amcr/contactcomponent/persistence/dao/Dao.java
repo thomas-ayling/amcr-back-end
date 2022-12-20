@@ -1,4 +1,4 @@
-package com.globallogic.amcr.persistence.dao;
+package com.globallogic.amcr.contactcomponent.persistence.dao;
 
 import java.util.List;
 import java.util.UUID;

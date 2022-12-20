@@ -1,4 +1,4 @@
-package com.globallogic.amcr.exception.attachmentcomponent;
+package com.globallogic.amcr.attachmentcomponent.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

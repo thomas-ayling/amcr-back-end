@@ -1,8 +1,8 @@
-package com.globallogic.amcr.service.contactcomponent;
+package com.globallogic.amcr.contactcomponent.service;
 
-import com.globallogic.amcr.persistence.dao.contactcomponent.FileDao;
-import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
-import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
+import com.globallogic.amcr.contactcomponent.persistence.dao.FileDao;
+import com.globallogic.amcr.contactcomponent.persistence.payload.AttachmentMetadata;
+import com.globallogic.amcr.contactcomponent.persistence.payload.AttachmentResponse;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;

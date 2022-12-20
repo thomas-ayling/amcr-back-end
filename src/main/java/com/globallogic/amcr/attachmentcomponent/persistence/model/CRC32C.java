@@ -1,4 +1,4 @@
-package com.globallogic.amcr.persistence.model.attachmentcomponent;
+package com.globallogic.amcr.attachmentcomponent.persistence.model;
 
 import java.util.zip.Checksum;
 

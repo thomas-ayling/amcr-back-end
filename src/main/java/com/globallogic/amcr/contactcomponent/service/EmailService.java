@@ -1,6 +1,6 @@
-package com.globallogic.amcr.service.contactcomponent;
+package com.globallogic.amcr.contactcomponent.service;
 
-import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
+import com.globallogic.amcr.contactcomponent.persistence.model.Feedback;
 import org.springframework.http.ResponseEntity;
 
 import java.util.UUID;

@@ -1,12 +1,10 @@
-package com.globallogic.amcr.mapper.pagecontent;
+package com.globallogic.amcr.pagecontent.mapper;
 
-import com.globallogic.amcr.model.pagecontent.Diagram;
-import com.globallogic.amcr.model.pagecontent.Markdown;
+import com.globallogic.amcr.pagecontent.persistence.model.Diagram;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.Alias;
 
 import java.util.List;
-import java.util.UUID;
 
 @Mapper
 @Alias(value = "UUIDTypeHandler")

@@ -1,4 +1,4 @@
-package com.globallogic.amcr.persistence.payload.contactcomponent;
+package com.globallogic.amcr.contactcomponent.persistence.payload;
 
 /**
  * Attachment response to download a file from the files database

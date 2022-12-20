@@ -1,10 +1,9 @@
-package com.globallogic.amcr.persistence.dao.contactcomponent;
+package com.globallogic.amcr.contactcomponent.persistence.dao;
 
-import com.globallogic.amcr.mapper.contactcomponent.FileMapper;
-import com.globallogic.amcr.persistence.dao.Dao;
-import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
-import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
-import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
+import com.globallogic.amcr.contactcomponent.mapper.FileMapper;
+import com.globallogic.amcr.contactcomponent.persistence.model.Attachment;
+import com.globallogic.amcr.contactcomponent.persistence.payload.AttachmentMetadata;
+import com.globallogic.amcr.contactcomponent.persistence.payload.AttachmentResponse;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;

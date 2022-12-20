@@ -1,7 +1,7 @@
-package com.globallogic.amcr.mapper.contactcomponent;
+package com.globallogic.amcr.contactcomponent.mapper;
 
-import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
-import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
+import com.globallogic.amcr.contactcomponent.persistence.model.Feedback;
+import com.globallogic.amcr.contactcomponent.persistence.payload.FeedbackResponse;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

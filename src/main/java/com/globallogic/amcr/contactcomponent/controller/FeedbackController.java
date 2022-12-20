@@ -1,9 +1,9 @@
-package com.globallogic.amcr.controller.contactcomponent;
+package com.globallogic.amcr.contactcomponent.controller;
 
-import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
-import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
-import com.globallogic.amcr.service.contactcomponent.EmailServiceImpl;
-import com.globallogic.amcr.service.contactcomponent.FeedbackServiceImpl;
+import com.globallogic.amcr.contactcomponent.persistence.model.Feedback;
+import com.globallogic.amcr.contactcomponent.persistence.payload.FeedbackResponse;
+import com.globallogic.amcr.contactcomponent.service.EmailServiceImpl;
+import com.globallogic.amcr.contactcomponent.service.FeedbackServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

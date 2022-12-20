@@ -1,8 +1,8 @@
-package com.globallogic.amcr.controller.attachmentcomponent;
+package com.globallogic.amcr.attachmentcomponent.controller;
 
-import com.globallogic.amcr.persistence.model.attachmentcomponent.CRC32C;
-import com.globallogic.amcr.persistence.model.attachmentcomponent.UploadFileResponse;
-import com.globallogic.amcr.service.attachmentcomponent.FileStorageService;
+import com.globallogic.amcr.attachmentcomponent.persistence.model.CRC32C;
+import com.globallogic.amcr.attachmentcomponent.persistence.model.UploadFileResponse;
+import com.globallogic.amcr.attachmentcomponent.service.FileStorageService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;

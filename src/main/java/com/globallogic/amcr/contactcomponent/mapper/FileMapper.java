@@ -1,8 +1,8 @@
-package com.globallogic.amcr.mapper.contactcomponent;
+package com.globallogic.amcr.contactcomponent.mapper;
 
-import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
-import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
-import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
+import com.globallogic.amcr.contactcomponent.persistence.model.Attachment;
+import com.globallogic.amcr.contactcomponent.persistence.payload.AttachmentMetadata;
+import com.globallogic.amcr.contactcomponent.persistence.payload.AttachmentResponse;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

@@ -1,4 +1,4 @@
-package com.globallogic.amcr.persistence.payload.contactcomponent;
+package com.globallogic.amcr.contactcomponent.persistence.payload;
 
 /**
  * Response object for feedback requests from the database

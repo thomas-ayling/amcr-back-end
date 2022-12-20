@@ -1,4 +1,4 @@
-package com.globallogic.amcr.property;
+package com.globallogic.amcr.config;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;

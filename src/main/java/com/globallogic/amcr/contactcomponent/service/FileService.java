@@ -1,7 +1,7 @@
-package com.globallogic.amcr.service.contactcomponent;
+package com.globallogic.amcr.contactcomponent.service;
 
 
-import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
+import com.globallogic.amcr.contactcomponent.persistence.payload.AttachmentMetadata;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;

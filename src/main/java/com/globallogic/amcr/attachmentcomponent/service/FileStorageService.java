@@ -1,8 +1,8 @@
-package com.globallogic.amcr.service.attachmentcomponent;
+package com.globallogic.amcr.attachmentcomponent.service;
 
-import com.globallogic.amcr.exception.attachmentcomponent.FileStorageException;
-import com.globallogic.amcr.exception.attachmentcomponent.MyFileNotFoundException;
-import com.globallogic.amcr.property.FileStorageProperties;
+import com.globallogic.amcr.attachmentcomponent.exception.FileStorageException;
+import com.globallogic.amcr.attachmentcomponent.exception.MyFileNotFoundException;
+import com.globallogic.amcr.config.FileStorageProperties;
 import org.springframework.core.io.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;

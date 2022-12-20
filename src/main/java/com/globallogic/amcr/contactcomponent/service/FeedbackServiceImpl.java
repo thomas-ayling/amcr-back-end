@@ -1,8 +1,8 @@
-package com.globallogic.amcr.service.contactcomponent;
+package com.globallogic.amcr.contactcomponent.service;
 
-import com.globallogic.amcr.persistence.dao.contactcomponent.FeedbackDao;
-import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
-import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
+import com.globallogic.amcr.contactcomponent.persistence.dao.FeedbackDao;
+import com.globallogic.amcr.contactcomponent.persistence.model.Feedback;
+import com.globallogic.amcr.contactcomponent.persistence.payload.FeedbackResponse;
 import io.github.resilience4j.core.IntervalFunction;
 import io.github.resilience4j.retry.Retry;
 import io.github.resilience4j.retry.RetryConfig;

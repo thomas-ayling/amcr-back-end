@@ -1,9 +1,9 @@
-package com.globallogic.amcr.service.contactcomponent;
+package com.globallogic.amcr.contactcomponent.service;
 
-import com.globallogic.amcr.persistence.dao.contactcomponent.FileDao;
-import com.globallogic.amcr.persistence.model.contactcomponent.Email;
-import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
-import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
+import com.globallogic.amcr.contactcomponent.persistence.dao.FileDao;
+import com.globallogic.amcr.contactcomponent.persistence.model.Email;
+import com.globallogic.amcr.contactcomponent.persistence.model.Feedback;
+import com.globallogic.amcr.contactcomponent.persistence.payload.AttachmentMetadata;
 import com.globallogic.amcr.utils.EmailGenerator;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.http.HttpStatus;
