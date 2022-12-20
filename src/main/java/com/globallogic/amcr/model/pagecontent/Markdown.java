@@ -1,25 +1,25 @@
 package com.globallogic.amcr.model.pagecontent;
 
-import java.util.UUID;
 
 public class Markdown {
 
-    private UUID id;
+    private int id;
 
     private String content;
 
-    public Markdown(String content) {
+    public Markdown(int id, String content) {
+        this.id = id;
         this.content = content;
     }
 
     public Markdown() {
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -1,16 +1,11 @@
 package com.globallogic.amcr.controller.pagecontent;
 
-import com.globallogic.amcr.model.pagecontent.Diagram;
 import com.globallogic.amcr.model.pagecontent.Markdown;
-import com.globallogic.amcr.payload.FeedbackResponse;
-import com.globallogic.amcr.service.pagecontent.DiagramService;
 import com.globallogic.amcr.service.pagecontent.MarkdownService;
-import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/page-content/markdown")
@@ -19,19 +14,17 @@ public class MarkdownController {
 
     private final MarkdownService markdownService;
 
-    public MarkdownController(MarkdownService markdownService, DiagramService diagramService) {
+    public MarkdownController(MarkdownService markdownService) {
         this.markdownService = markdownService;
     }
 
     @PostMapping("/upload")
     public ResponseEntity uploadMarkdown(@RequestBody Markdown markdown) {
-        UUID id = UUID.randomUUID();
-        markdown.setId(id);
         return markdownService.saveMarkdown(markdown);
     }
 
     @GetMapping("/get-by-id/{id}")
-    public Markdown getByIdMarkdown(@PathVariable UUID id) {
+    public Markdown getByIdMarkdown(@PathVariable int id) {
         return markdownService.getByIdMarkdown(id);
     }
 
@@ -46,15 +39,12 @@ public class MarkdownController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity updateMarkdown(@PathVariable UUID id, @RequestBody Markdown markdown) {
+    public ResponseEntity updateMarkdown(@PathVariable int id, @RequestBody Markdown markdown) {
         return markdownService.updateMarkdown(markdown);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity deleteMarkdown(@PathVariable UUID id) {
+    public ResponseEntity deleteMarkdown(@PathVariable int id) {
         return markdownService.deleteMarkdown(id);
     }
-
-
-
 }

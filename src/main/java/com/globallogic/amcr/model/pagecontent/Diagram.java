@@ -1,10 +1,8 @@
 package com.globallogic.amcr.model.pagecontent;
 
-import java.util.UUID;
-
 public class Diagram {
 
-    private UUID id;
+    private int id;
 
     private int nodeId;
 
@@ -15,17 +13,18 @@ public class Diagram {
     public Diagram() {
     }
 
-    public Diagram(int nodeId, String title, String body) {
+    public Diagram(int id, int nodeId, String title, String body) {
+        this.id = id;
         this.nodeId = nodeId;
         this.title = title;
         this.body = body;
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
     }
 

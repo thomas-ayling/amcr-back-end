@@ -2,15 +2,12 @@ package com.globallogic.amcr.service.pagecontent;
 
 import com.globallogic.amcr.mapper.pagecontent.MarkdownMapper;
 import com.globallogic.amcr.model.pagecontent.Markdown;
-import com.globallogic.amcr.payload.FeedbackResponse;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class MarkdownService {
@@ -30,13 +27,11 @@ public class MarkdownService {
         }
     }
 
-    public Markdown getByIdMarkdown(UUID id) { return markdownMapper.getById(id);}
+    public Markdown getByIdMarkdown(int id) { return markdownMapper.getById(id);}
     public List<Markdown> getAllMarkdown() {
         return markdownMapper.getAll();
     }
-
     public Markdown getLatestMarkdown() { return markdownMapper.getLatest();}
-
     public ResponseEntity<Resource> updateMarkdown(Markdown markdown) {
         try {
             markdownMapper.update(markdown);
@@ -46,7 +41,7 @@ public class MarkdownService {
         }
     }
 
-    public ResponseEntity<Resource> deleteMarkdown(UUID id) {
+    public ResponseEntity<Resource> deleteMarkdown(int id) {
         try {
             markdownMapper.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);

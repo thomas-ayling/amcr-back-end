@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class DiagramService {
@@ -29,7 +28,7 @@ public class DiagramService {
         }
     }
 
-    public Diagram getByIdDiagram(UUID id) { return diagramMapper.getById(id);}
+    public Diagram getByIdDiagram(int id) { return diagramMapper.getById(id);}
 
     public Diagram getByNodeDiagram(int nodeId) { return diagramMapper.getByNode(nodeId);}
     public List<Diagram> getAllDiagram() {return diagramMapper.getAll();}
