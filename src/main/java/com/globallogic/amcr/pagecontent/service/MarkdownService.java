@@ -1,7 +1,7 @@
 package com.globallogic.amcr.pagecontent.service;
 
 import com.globallogic.amcr.pagecontent.mapper.MarkdownMapper;
-import com.globallogic.amcr.pagecontent.persistence.model.Markdown;
+import com.globallogic.amcr.pagecontent.model.Markdown;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

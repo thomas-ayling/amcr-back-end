@@ -1,6 +1,6 @@
 package com.globallogic.amcr.pagecontent.controller;
 
-import com.globallogic.amcr.pagecontent.persistence.model.Diagram;
+import com.globallogic.amcr.pagecontent.model.Diagram;
 import com.globallogic.amcr.pagecontent.service.DiagramService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
