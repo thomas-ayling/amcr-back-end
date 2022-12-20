@@ -1,7 +1,7 @@
-package com.globallogic.amcr.controller.layout;
+package com.globallogic.amcr.layoutcomponent.controller;
 
-import com.globallogic.amcr.persistence.model.layoutcomponent.Layout;
-import com.globallogic.amcr.service.layout.LayoutService;
+import com.globallogic.amcr.layoutcomponent.persistence.model.Layout;
+import com.globallogic.amcr.layoutcomponent.service.LayoutService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

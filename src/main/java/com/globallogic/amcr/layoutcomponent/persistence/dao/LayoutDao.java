@@ -1,7 +1,7 @@
-package com.globallogic.amcr.persistence.dao.layoutcomponent;
+package com.globallogic.amcr.layoutcomponent.persistence.dao;
 
-import com.globallogic.amcr.mapper.layout.LayoutMapper;
-import com.globallogic.amcr.persistence.model.layoutcomponent.Layout;
+import com.globallogic.amcr.layoutcomponent.mapper.LayoutMapper;
+import com.globallogic.amcr.layoutcomponent.persistence.model.Layout;
 import com.globallogic.amcr.persistence.dao.Dao;
 import org.springframework.stereotype.Repository;
 

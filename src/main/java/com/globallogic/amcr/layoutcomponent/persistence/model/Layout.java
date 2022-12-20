@@ -1,4 +1,4 @@
-package com.globallogic.amcr.persistence.model.layoutcomponent;
+package com.globallogic.amcr.layoutcomponent.persistence.model;
 
 import java.util.UUID;
 

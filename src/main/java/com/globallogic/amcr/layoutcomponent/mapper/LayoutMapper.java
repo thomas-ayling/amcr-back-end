@@ -1,6 +1,6 @@
-package com.globallogic.amcr.mapper.layout;
+package com.globallogic.amcr.layoutcomponent.mapper;
 
-import com.globallogic.amcr.persistence.model.layoutcomponent.Layout;
+import com.globallogic.amcr.layoutcomponent.persistence.model.Layout;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.Alias;
 

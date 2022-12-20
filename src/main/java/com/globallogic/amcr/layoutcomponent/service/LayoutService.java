@@ -1,8 +1,8 @@
-package com.globallogic.amcr.service.layout;
+package com.globallogic.amcr.layoutcomponent.service;
 
-import com.globallogic.amcr.mapper.layout.LayoutMapper;
-import com.globallogic.amcr.persistence.model.layoutcomponent.Layout;
-import com.globallogic.amcr.persistence.dao.layoutcomponent.LayoutDao;
+import com.globallogic.amcr.layoutcomponent.mapper.LayoutMapper;
+import com.globallogic.amcr.layoutcomponent.persistence.model.Layout;
+import com.globallogic.amcr.layoutcomponent.persistence.dao.LayoutDao;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
