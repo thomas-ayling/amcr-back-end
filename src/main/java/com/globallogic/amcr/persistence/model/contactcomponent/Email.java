@@ -17,6 +17,7 @@ public class Email {
      * @param sender    the email address of the user who left feedback - cannot be null so if the feedback is anonymous a spoof address is generated in its place
      * @param recipient the recipient of the feedback - always <engineeringcenterbot@globallogic.com>
      * @param subject   the subject of the email - changes depending on the feedback type
+     * @param textPart
      * @param htmlPart  the main content of the email, the user's name, the feedback body and an attachment link are included in the messageBody
      */
     public Email(String sender, String recipient, String subject, String textPart, String htmlPart) {
