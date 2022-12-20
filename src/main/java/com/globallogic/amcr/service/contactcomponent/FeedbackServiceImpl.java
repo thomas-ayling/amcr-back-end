@@ -44,6 +44,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         Supplier sendEmail = () -> emailService.sendMail(feedback, feedbackId);
         Supplier retryingEmailService = Retry.decorateSupplier(retry, sendEmail);
         retryingEmailService.get();
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

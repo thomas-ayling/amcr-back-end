@@ -121,4 +121,18 @@ public class Feedback {
     public int hashCode() {
         return Objects.hash(getId(), getFeedbackType(), getFirstName(), getLastName(), getEmailAddress(), getFeedbackBody(), getBookName(), getBookLink());
     }
+
+    @Override
+    public String toString() {
+        return "Feedback{" +
+                "id=" + id +
+                ", feedbackType='" + feedbackType + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", feedbackBody='" + feedbackBody + '\'' +
+                ", bookName='" + bookName + '\'' +
+                ", bookLink='" + bookLink + '\'' +
+                '}';
+    }
 }
