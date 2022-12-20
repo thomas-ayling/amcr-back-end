@@ -3,7 +3,11 @@ package com.globallogic.amcr.persistence.model.contactcomponent;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Feedback model for submitted feedback
+ */
 public class Feedback {
+
     private UUID id;
     private String feedbackType;
     private String firstName;
@@ -13,7 +17,22 @@ public class Feedback {
     private String bookName;
     private String bookLink;
 
+    /**
+     * @param feedbackType the type of the feedback submitted, variable will be used for formatting once data is received by admin panel
+     * @param firstName    first name of the user that left the feedback, null if feedback was anonymous
+     * @param lastName     last name of the user that left the feedback, null if feedback was anonymous
+     * @param emailAddress email address of the user that left the feedback, null if feedback was anonymous
+     * @param feedbackBody the main body of text that was left in the feedback form, not null
+     * @param bookName     the name of a book requested through the library form, always null if feedback type is not 'library'
+     * @param bookLink     link to the book that the user has requested, optional and always null if feedback type is not 'library'
+     */
+
     public Feedback(String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink) {
+        if (feedbackType == null) throw new IllegalArgumentException("Feedback type cannot be null");
+        if (feedbackBody == null && !feedbackType.equals("library"))
+            throw new IllegalArgumentException("Feedback body cannot be null");
+        if (bookLink == null && feedbackType.equals("library"))
+            throw new IllegalArgumentException("Book name cannot be null");
         this.feedbackType = feedbackType;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -101,5 +120,19 @@ public class Feedback {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getFeedbackType(), getFirstName(), getLastName(), getEmailAddress(), getFeedbackBody(), getBookName(), getBookLink());
+    }
+
+    @Override
+    public String toString() {
+        return "Feedback{" +
+                "id=" + id +
+                ", feedbackType='" + feedbackType + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", feedbackBody='" + feedbackBody + '\'' +
+                ", bookName='" + bookName + '\'' +
+                ", bookLink='" + bookLink + '\'' +
+                '}';
     }
 }
