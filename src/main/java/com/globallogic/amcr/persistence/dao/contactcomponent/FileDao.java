@@ -6,17 +6,13 @@ import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Repository
-public class FileDao implements Dao<MultipartFile, AttachmentResponse> {
+public class FileDao implements Dao<Attachment, AttachmentResponse> {
     private final FileMapper fileMapper;
 
     public FileDao(FileMapper fileMapper) {
@@ -24,23 +20,21 @@ public class FileDao implements Dao<MultipartFile, AttachmentResponse> {
     }
 
     /**
-     * @param incomingAttachment the attachment being received from the client
-     * @param feedbackId         the id of the feedback that the attachment belongs to (foreign key)
+     * @param attachment attachment being received from the client
+     * @param feedbackId the id of the feedback that the attachment belongs to (foreign key)
      */
 
-    public void save(MultipartFile incomingAttachment, UUID feedbackId) {
-        String fileName = StringUtils.cleanPath(Objects.requireNonNull(incomingAttachment.getOriginalFilename()));
-        try {
-            // Generate random UUID for the file
-            UUID fileId = UUID.randomUUID();
-            // Generate file download uri for the attachment
-            String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/file/download/").path(fileId.toString()).toUriString();
-            // Create new Attachment object with generated params
-            Attachment attachment = new Attachment(fileId, fileName, incomingAttachment.getContentType(), incomingAttachment.getSize(), incomingAttachment.getBytes(), fileDownloadUri, feedbackId);
-            fileMapper.save(attachment);
-        } catch (IOException ioe) {
-            throw new RuntimeException(fileName + " could not be saved.", ioe);
-        }
+    public void save(Attachment attachment, UUID feedbackId) {
+        // Generate UUID for the attachment
+        UUID fileId = UUID.randomUUID();
+        // Generate file download uri for the attachment
+        attachment.setId(fileId);
+        // Generate and set the attachment's download uri
+        attachment.setDownloadUri(ServletUriComponentsBuilder.fromCurrentContextPath().path("/file/download/").path(fileId.toString()).toUriString());
+        // Set feedback id
+        attachment.setFeedbackId(feedbackId);
+        // Save attachment
+        fileMapper.save(attachment);
     }
 
     /**

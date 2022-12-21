@@ -1,10 +1,10 @@
 package com.globallogic.amcr.service.contactcomponent;
 
 
+import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
@@ -14,7 +14,7 @@ public interface FileService {
      * @param feedbackId the id of the feedback that the attachment belongs to
      * @return a response entity with the status of the transaction
      */
-    ResponseEntity save(MultipartFile attachment, UUID feedbackId);
+    ResponseEntity save(Attachment attachment, UUID feedbackId);
 
     /**
      * @param id the id of the requested attachment

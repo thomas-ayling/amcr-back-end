@@ -1,6 +1,7 @@
 package com.globallogic.amcr.service.contactcomponent;
 
 import com.globallogic.amcr.persistence.dao.contactcomponent.FileDao;
+import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
 import org.springframework.core.io.ByteArrayResource;
@@ -24,7 +25,7 @@ public class FileServiceImpl implements FileService {
         this.fileDao = fileDao;
     }
 
-    public ResponseEntity save(MultipartFile attachment, UUID feedbackId) {
+    public ResponseEntity save(Attachment attachment, UUID feedbackId) {
         try {
             fileDao.save(attachment, feedbackId);
             return new ResponseEntity<>(HttpStatus.OK);

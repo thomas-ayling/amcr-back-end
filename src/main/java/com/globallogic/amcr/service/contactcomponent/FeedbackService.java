@@ -1,9 +1,9 @@
 package com.globallogic.amcr.service.contactcomponent;
 
+import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public interface FeedbackService {
      * @param attachment the attachment that needs to be saved belonging to the feedback
      * @return a response entity with the status of the request
      */
-    ResponseEntity save(Feedback feedback, MultipartFile attachment);
+    ResponseEntity save(Feedback feedback, Attachment attachment);
 
     /**
      * @return a list of all entries in the feedback that also contains download links to attachments if applicable

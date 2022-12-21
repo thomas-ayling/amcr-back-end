@@ -1,14 +1,18 @@
 package com.globallogic.amcr.controller.contactcomponent;
 
+import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
 import com.globallogic.amcr.service.contactcomponent.EmailServiceImpl;
 import com.globallogic.amcr.service.contactcomponent.FeedbackServiceImpl;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * endpoint for feedback upload and download
@@ -28,14 +32,21 @@ public class FeedbackController {
     }
 
     /**
-     * @param feedback   the feedback json object that gets mapped to feedback type
-     * @param attachment
+     * @param feedback           the feedback json object that gets mapped to feedback type
+     * @param incomingAttachment the optional attachment from the client
      * @return returns a response entity either OK (200) or INTERNAL_SERVER_ERROR (500)
      */
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST, consumes = {"multipart/form-data"})
-    public ResponseEntity uploadFeedback(@RequestPart("feedback") Feedback feedback, @RequestPart(value = "attachment", required = false) MultipartFile attachment) {
-        return feedbackServiceImpl.save(feedback, attachment);
+    public ResponseEntity uploadFeedback(@RequestPart("feedback") Feedback feedback, @RequestPart(value = "attachment", required = false) MultipartFile incomingAttachment) {
+        try {
+            // Create new Attachment object with params taken from MultipartFile
+            Attachment attachment = incomingAttachment == null ? null : new Attachment(StringUtils.cleanPath(Objects.requireNonNull(incomingAttachment.getOriginalFilename())), incomingAttachment.getContentType(), incomingAttachment.getSize(), incomingAttachment.getBytes());
+
+            return feedbackServiceImpl.save(feedback, attachment);
+        } catch (IOException ioe) {
+            throw new InternalError();
+        }
     }
 
     /**

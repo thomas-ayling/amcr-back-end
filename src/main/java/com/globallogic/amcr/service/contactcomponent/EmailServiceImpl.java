@@ -26,7 +26,6 @@ public class EmailServiceImpl implements EmailService {
         this.fileDao = fileDao;
     }
 
-    @Transactional
     public ResponseEntity sendMail(Feedback feedback, UUID feedbackId) {
         try {
             AttachmentMetadata attachmentMetadata = fileDao.getAttachmentMetadata(feedbackId);

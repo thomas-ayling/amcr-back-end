@@ -1,12 +1,9 @@
 package com.globallogic.amcr.service.contactcomponent;
 
 import com.globallogic.amcr.persistence.dao.contactcomponent.FeedbackDao;
+import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
-import io.github.resilience4j.core.IntervalFunction;
-import io.github.resilience4j.retry.Retry;
-import io.github.resilience4j.retry.RetryConfig;
-import io.github.resilience4j.retry.RetryRegistry;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,37 +12,37 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Supplier;
 
 @Service
 public class FeedbackServiceImpl implements FeedbackService {
     private final FeedbackDao feedbackDao;
     private final FileServiceImpl fileServiceImpl;
-    private final EmailService emailService;
     private final EmailServiceImpl emailServiceImpl;
 
-    public FeedbackServiceImpl(FeedbackDao feedbackDao, FileServiceImpl fileServiceImpl, EmailService emailService, EmailServiceImpl emailServiceImpl) {
+    public FeedbackServiceImpl(FeedbackDao feedbackDao, FileServiceImpl fileServiceImpl, EmailServiceImpl emailServiceImpl) {
         this.feedbackDao = feedbackDao;
         this.fileServiceImpl = fileServiceImpl;
-        this.emailService = emailService;
         this.emailServiceImpl = emailServiceImpl;
     }
 
     @Transactional
-    public ResponseEntity save(Feedback feedback, MultipartFile attachment) {
-        RetryConfig config = RetryConfig.custom().intervalFunction(IntervalFunction.ofExponentialBackoff()).failAfterMaxAttempts(true).build();
-        RetryRegistry registry = RetryRegistry.of(config);
-        Retry retry = registry.retry("emailService", config);
-
-        UUID feedbackId = UUID.randomUUID();
-        feedbackDao.save(feedback, feedbackId);
-        if (attachment != null) fileServiceImpl.save(attachment, feedbackId);
-
-        Supplier sendEmail = () -> emailService.sendMail(feedback, feedbackId);
-        Supplier retryingEmailService = Retry.decorateSupplier(retry, sendEmail);
-        retryingEmailService.get();
-
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity save(Feedback feedback, Attachment attachment) {
+        try {
+            UUID feedbackId = UUID.randomUUID();
+            // send mail
+            emailServiceImpl.sendMail(feedback, feedbackId);
+            // save feedback to db
+            feedbackDao.save(feedback, feedbackId);
+            // save attachment if exists
+            if (attachment != null) {
+                fileServiceImpl.save(attachment, feedbackId);
+            }
+            // return ok
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            // return internal server error if an exception is caught
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Transactional(readOnly = true)
