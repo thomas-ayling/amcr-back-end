@@ -2,18 +2,21 @@ package com.globallogic.amcr.service.contactcomponent;
 
 import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
+import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
+import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface FeedbackService {
+
     /**
      * @param feedback   the feedback object with the data to be saved
      * @param attachment the attachment that needs to be saved belonging to the feedback
      * @return a response entity with the status of the request
      */
-    ResponseEntity save(Feedback feedback, Attachment attachment);
+    boolean save(Feedback feedback, Attachment attachment);
 
     /**
      * @return a list of all entries in the feedback that also contains download links to attachments if applicable
@@ -30,4 +33,16 @@ public interface FeedbackService {
      * @return a list of 10 feedback entries that come after the 'last' entry
      */
     List<FeedbackResponse> getOlder(int last);
+
+    /**
+     * @param id the id of the requested attachment
+     * @return a response entity with the file data embedded
+     */
+    AttachmentResponse getFile(UUID id);
+
+    /**
+     * @param feedbackId the id of the feedback that the file belongs to
+     * @return an attachment metadata object with all information needed to generate a link to a file
+     */
+    AttachmentMetadata getAttachmentMetadata(UUID feedbackId);
 }

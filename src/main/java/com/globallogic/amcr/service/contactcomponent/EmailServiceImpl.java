@@ -6,13 +6,10 @@ import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
 import com.globallogic.amcr.utils.EmailGenerator;
 import jakarta.mail.internet.MimeMessage;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -26,7 +23,7 @@ public class EmailServiceImpl implements EmailService {
         this.fileDao = fileDao;
     }
 
-    public ResponseEntity sendMail(Feedback feedback, UUID feedbackId) {
+    public boolean sendMail(Feedback feedback, UUID feedbackId) {
         try {
             AttachmentMetadata attachmentMetadata = fileDao.getAttachmentMetadata(feedbackId);
 
@@ -41,7 +38,7 @@ public class EmailServiceImpl implements EmailService {
             mimeMessageHelper.setText(email.getTextPart(), email.getHtmlPart());
             mailSender.send(mimeMessage);
 
-            return new ResponseEntity<>(HttpStatus.OK);
+            return true;
         } catch (Exception e) {
             throw new MailSendException("There was a problem sending this email", e);
         }

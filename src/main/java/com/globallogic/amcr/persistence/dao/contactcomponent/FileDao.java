@@ -30,7 +30,7 @@ public class FileDao implements Dao<Attachment, AttachmentResponse> {
         // Generate file download uri for the attachment
         attachment.setId(fileId);
         // Generate and set the attachment's download uri
-        attachment.setDownloadUri(ServletUriComponentsBuilder.fromCurrentContextPath().path("/file/download/").path(fileId.toString()).toUriString());
+        attachment.setDownloadUri(ServletUriComponentsBuilder.fromCurrentContextPath().path("/feedback/get-file/").path(fileId.toString()).toUriString());
         // Set feedback id
         attachment.setFeedbackId(feedbackId);
         // Save attachment
@@ -41,7 +41,6 @@ public class FileDao implements Dao<Attachment, AttachmentResponse> {
      * @param id the id of the attachment to be downloaded
      * @return returns the appropriate attachment from the mapper
      */
-
     public AttachmentResponse get(UUID id) {
         return fileMapper.get(id);
     }
@@ -49,7 +48,6 @@ public class FileDao implements Dao<Attachment, AttachmentResponse> {
     /**
      * @return returns a list of all the attachment in the attachment table
      */
-
     public List<AttachmentResponse> getAll() {
         return fileMapper.getAll();
     }
@@ -58,7 +56,6 @@ public class FileDao implements Dao<Attachment, AttachmentResponse> {
      * @param feedbackId the id of the foreign key for the requested metadata
      * @return returns an attachment metadata object as received from the database
      */
-
     public AttachmentMetadata getAttachmentMetadata(UUID feedbackId) {
         return fileMapper.getAttachmentMetadata(feedbackId);
     }
