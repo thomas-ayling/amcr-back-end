@@ -5,7 +5,6 @@
       "image": "REPOSITORY_URI:BUILD_NUMBER",
       "name": NAME,
       "essential": true,
-      
       "portMappings": [
         {
           "containerPort": 3001,
