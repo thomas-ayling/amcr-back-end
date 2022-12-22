@@ -45,17 +45,18 @@ public class FeedbackController {
      */
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST, consumes = {"multipart/form-data"})
-    public ResponseEntity uploadFeedback(@RequestPart("feedback") Feedback feedback, @RequestPart(value = "attachment", required = false) MultipartFile incomingAttachment) {
-        try {
-            // Create new Attachment object with params taken from MultipartFile
-            Attachment attachment = incomingAttachment == null ? null : new Attachment(StringUtils.cleanPath(Objects.requireNonNull(incomingAttachment.getOriginalFilename())), incomingAttachment.getContentType(), incomingAttachment.getSize(), incomingAttachment.getBytes());
-            if (feedbackService.save(feedback, attachment)) {
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        } catch (IOException e) {
-            throw new RuntimeException("Error uploading feedback", e);
-        }
+    public Feedback uploadFeedback(@RequestPart("feedback") Feedback feedback, @RequestPart(value = "attachment", required = false) MultipartFile incomingAttachment) {
+        return feedback;
+//        try {
+//            // Create new Attachment object with params taken from MultipartFile
+//            Attachment attachment = incomingAttachment == null ? null : new Attachment(StringUtils.cleanPath(Objects.requireNonNull(incomingAttachment.getOriginalFilename())), incomingAttachment.getContentType(), incomingAttachment.getSize(), incomingAttachment.getBytes());
+//            if (feedbackService.save(feedback, attachment)) {
+//                return new ResponseEntity<>(HttpStatus.OK);
+//            }
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        } catch (IOException e) {
+//            throw new RuntimeException("Error uploading feedback", e);
+//        }
     }
 
     /**

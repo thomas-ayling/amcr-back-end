@@ -29,14 +29,14 @@ public class FeedbackServiceImpl implements FeedbackService {
     public boolean save(Feedback feedback, Attachment attachment) {
         try {
             UUID feedbackId = UUID.randomUUID();
-            // send mail
-            if (!emailService.sendMail(feedback, feedbackId)) return false;
             // save feedback to db
             feedbackDao.save(feedback, feedbackId);
             // save attachment if exists
             if (attachment != null) {
                 fileDao.save(attachment, feedbackId);
             }
+            // send mail at end of method as we need the file data before sending mail
+            if (!emailService.sendMail(feedback, feedbackId)) return false;
             return true;
         } catch (Exception e) {
             throw new RuntimeException("Error saving feedback and attachment to database", e);
