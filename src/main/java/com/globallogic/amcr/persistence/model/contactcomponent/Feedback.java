@@ -1,5 +1,7 @@
 package com.globallogic.amcr.persistence.model.contactcomponent;
 
+import jakarta.mail.internet.AddressException;
+
 import java.util.Objects;
 import java.util.UUID;
 
@@ -28,18 +30,24 @@ public class Feedback {
      */
 
     public Feedback(String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink) {
-        if (feedbackType == null) throw new IllegalArgumentException("Feedback type cannot be null");
-        if (feedbackBody == null && !feedbackType.equals("library"))
-            throw new IllegalArgumentException("Feedback body cannot be null");
-        if (bookLink == null && feedbackType.equals("library"))
-            throw new IllegalArgumentException("Book name cannot be null");
-        this.feedbackType = feedbackType;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.emailAddress = emailAddress;
-        this.feedbackBody = feedbackBody;
-        this.bookName = bookName;
-        this.bookLink = bookLink;
+        try {
+            if (emailAddress.length() == 0) throw new AddressException("Empty address", emailAddress);
+            if (feedbackType == null) throw new IllegalArgumentException("Feedback type cannot be null");
+            if (feedbackBody == null && !feedbackType.equals("library"))
+                throw new IllegalArgumentException("Feedback body cannot be null");
+            if (bookLink == null && feedbackType.equals("library"))
+                throw new IllegalArgumentException("Book name cannot be null");
+            this.feedbackType = feedbackType;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.emailAddress = emailAddress;
+            this.feedbackBody = feedbackBody;
+            this.bookName = bookName;
+            this.bookLink = bookLink;
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Error processing feedback", e);
+        }
     }
 
     public Feedback() {
