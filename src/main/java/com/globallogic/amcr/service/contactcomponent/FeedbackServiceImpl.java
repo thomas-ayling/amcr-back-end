@@ -36,7 +36,7 @@ public class FeedbackServiceImpl implements FeedbackService {
                 fileDao.save(attachment, feedbackId);
             }
             // send mail at end of method as we need the file data before sending mail
-            if (!emailService.sendMail(feedback, feedbackId)) return false;
+//            emailService.sendMail(feedback, feedbackId);
             return true;
         } catch (Exception e) {
             throw new RuntimeException("Error saving feedback and attachment to database", e);

@@ -23,7 +23,7 @@ public class EmailServiceImpl implements EmailService {
         this.fileDao = fileDao;
     }
 
-    public boolean sendMail(Feedback feedback, UUID feedbackId) {
+    public void sendMail(Feedback feedback, UUID feedbackId) {
         try {
             AttachmentMetadata attachmentMetadata = fileDao.getAttachmentMetadata(feedbackId);
 
@@ -71,8 +71,6 @@ public class EmailServiceImpl implements EmailService {
             mimeMessageHelper.setSubject(email.getSubject());
             mimeMessageHelper.setText(email.getTextPart(), email.getHtmlPart());
             mailSender.send(mimeMessage);
-
-            return true;
         } catch (Exception e) {
             throw new MailSendException("There was a problem sending this email", e);
         }
