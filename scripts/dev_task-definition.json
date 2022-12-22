@@ -7,8 +7,12 @@
       "essential": true,
       "environment": [
         {
-          "name": "AMCR_DB_USERNSAME",
+          "name": "AMCR_DB_USERNAME",
           "value": "ec_acad_psql"
+        },
+        {
+          "name": "AMCR_DB_PASSWORD",
+          "value": "Letme1n!*"
         }
       ],
       "portMappings": [
