@@ -31,7 +31,7 @@ public class EmailServiceImpl implements EmailService {
 //            Email email = EmailGenerator.generateEmailFromFeedback(feedback, attachmentMetadata);
 
             Email email = new Email();
-            boolean isAnonymous = feedback.getEmailAddress() == null;
+            boolean isAnonymous = feedback.getEmailAddress() == null || feedback.getEmailAddress().length() == 0;
             email.setSender(isAnonymous ? "<anonymous@globallogic.com>" : "<" + feedback.getEmailAddress() + ">");
             email.setRecipient("<engineeringcenterbot@globallogic.com>");
             String style = "<style>.email { font-family: Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif; }</style>";
