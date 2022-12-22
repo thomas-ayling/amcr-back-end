@@ -53,8 +53,8 @@ public class FeedbackController {
                 return new ResponseEntity<>(HttpStatus.OK);
             }
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        } catch (IOException ioe) {
-            throw new InternalError();
+        } catch (IOException e) {
+            throw new RuntimeException("Error uploading feedback", e);
         }
     }
 

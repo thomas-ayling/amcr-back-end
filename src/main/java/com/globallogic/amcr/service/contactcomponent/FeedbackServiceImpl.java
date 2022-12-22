@@ -39,7 +39,7 @@ public class FeedbackServiceImpl implements FeedbackService {
             }
             return true;
         } catch (Exception e) {
-            return false;
+            throw new RuntimeException("Error saving feedback and attachment to database", e);
         }
     }
 

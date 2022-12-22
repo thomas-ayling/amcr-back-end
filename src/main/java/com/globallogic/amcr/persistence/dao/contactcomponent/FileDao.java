@@ -25,16 +25,20 @@ public class FileDao implements Dao<Attachment, AttachmentResponse> {
      */
 
     public void save(Attachment attachment, UUID feedbackId) {
-        // Generate UUID for the attachment
-        UUID fileId = UUID.randomUUID();
-        // Generate file download uri for the attachment
-        attachment.setId(fileId);
-        // Generate and set the attachment's download uri
-        attachment.setDownloadUri(ServletUriComponentsBuilder.fromCurrentContextPath().path("/feedback/get-file/").path(fileId.toString()).toUriString());
-        // Set feedback id
-        attachment.setFeedbackId(feedbackId);
-        // Save attachment
-        fileMapper.save(attachment);
+        try {
+            // Generate UUID for the attachment
+            UUID fileId = UUID.randomUUID();
+            // Generate file download uri for the attachment
+            attachment.setId(fileId);
+            // Generate and set the attachment's download uri
+            attachment.setDownloadUri(ServletUriComponentsBuilder.fromCurrentContextPath().path("/feedback/get-file/").path(fileId.toString()).toUriString());
+            // Set feedback id
+            attachment.setFeedbackId(feedbackId);
+            // Save attachment
+            fileMapper.save(attachment);
+        } catch (Exception e) {
+            throw new RuntimeException("Could not save attachment", e);
+        }
     }
 
     /**
