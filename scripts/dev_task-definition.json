@@ -6,7 +6,10 @@
       "name": NAME,
       "essential": true,
       "environment": [
-        { "name": "AMCR_DB_USERNAME", "value": "ec_acad_psql" }
+        {
+          "name": "AMCR_DB_USERNSAME",
+          "value": "ec_acad_psql"
+        }
       ],
       "portMappings": [
         {
