@@ -1,5 +1,7 @@
 package com.globallogic.amcr.persistence.model.contactcomponent;
 
+import org.springframework.util.Assert;
+
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.UUID;
@@ -25,9 +27,9 @@ public class Attachment {
      */
 
     public Attachment(String fileName, String fileType, long fileSize, byte[] data) {
-        if (fileName == null) throw new IllegalArgumentException("File name cannot be null");
-        if (fileType == null) throw new IllegalArgumentException("File type cannot be null");
-        if (data == null) throw new IllegalArgumentException("Data cannot be null");
+        Assert.notNull(fileName, "fileName is null");
+        Assert.notNull(fileType, "fileType is null");
+        Assert.notNull(data, "data is null");
         this.fileName = fileName;
         this.fileType = fileType;
         this.fileSize = fileSize;
@@ -39,6 +41,7 @@ public class Attachment {
     }
 
     public void setId(UUID id) {
+        Assert.notNull(id, "id is null");
         this.id = id;
     }
 
@@ -47,6 +50,7 @@ public class Attachment {
     }
 
     public void setFileName(String fileName) {
+        Assert.notNull(fileName, "fileName is null");
         this.fileName = fileName;
     }
 
@@ -55,6 +59,7 @@ public class Attachment {
     }
 
     public void setFileType(String fileType) {
+        Assert.notNull(fileType, "fileType is null");
         this.fileType = fileType;
     }
 
@@ -63,6 +68,7 @@ public class Attachment {
     }
 
     public void setFileSize(long fileSize) {
+        Assert.notNull(fileSize, "fileSize is null");
         this.fileSize = fileSize;
     }
 
@@ -71,6 +77,7 @@ public class Attachment {
     }
 
     public void setData(byte[] data) {
+        Assert.notNull(data, "data is null");
         this.data = data;
     }
 
@@ -79,6 +86,7 @@ public class Attachment {
     }
 
     public void setDownloadUri(String downloadUri) {
+        Assert.notNull(downloadUri, "downloadUri is null");
         this.downloadUri = downloadUri;
     }
 
@@ -87,6 +95,7 @@ public class Attachment {
     }
 
     public void setFeedbackId(UUID feedbackId) {
+        Assert.notNull(feedbackId, "feedbackId is null");
         this.feedbackId = feedbackId;
     }
 
