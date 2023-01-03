@@ -13,8 +13,8 @@
       ],
       "environment": [
         {
-          "name": "AMCRDBUSERNAME",
-          "value": "ecacadpsql"
+          "name": "A",
+          "value": "ec_acad_psql"
         },
         {
           "name": "B",
