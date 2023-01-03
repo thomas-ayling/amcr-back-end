@@ -12,10 +12,6 @@
         }
       ],
       "environment": [
-        {
-          "name": "AMCR_DB_USERNAME",
-          "value": "ec_acad_psql"
-        }
       ]
     }
   ],
