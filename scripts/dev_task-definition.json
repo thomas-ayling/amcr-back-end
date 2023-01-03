@@ -12,6 +12,10 @@
         }
       ],
       "environment": [
+        {
+          "name": "A",
+          "value": "A"
+        }
       ]
     }
   ],
