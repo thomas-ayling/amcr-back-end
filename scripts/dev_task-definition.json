@@ -13,7 +13,7 @@
       ],
       "environment": [
         {
-          "name": "AMCRDBUN",
+          "name": "AMCR_DB_UN",
           "value": "ec_acad_psql"
         },
         {
