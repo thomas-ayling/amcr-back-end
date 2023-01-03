@@ -13,7 +13,7 @@
       ],
       "environment": [
         {
-          "name": "AMCR_DB_USERNAME",
+          "name": "AMCRDBUSERNAME",
           "value": "ec_acad_psql"
         },
         {
