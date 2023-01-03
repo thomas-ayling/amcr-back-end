@@ -14,7 +14,7 @@
       "environment": [
         {
           "name": "AMCRDBUSERNAME",
-          "value": "ec_acad_psql"
+          "value": "ecacadpsql"
         },
         {
           "name": "B",
