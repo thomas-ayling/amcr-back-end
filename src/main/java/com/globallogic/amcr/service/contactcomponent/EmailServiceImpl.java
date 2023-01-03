@@ -50,7 +50,7 @@ public class EmailServiceImpl implements EmailService {
                 case "feedback":
                     mimeMessageHelper.setSubject("New feedback");
                     textPart = isAnonymous ? String.format("Anonymous feedback has been submitted:\n", feedback.getFeedbackBody()) : String.format("%s %s has left some feedback:\n%s\nReturn address: %s", feedback.getFirstName(), feedback.getLastName(), feedback.getFeedbackBody(), feedback.getEmailAddress());
-                    htmlPart = isAnonymous ? String.format("%s<div class='email'><h2>Anonymous feedback has been submitted:</h2><p>%s</p></div>", feedback.getFeedbackBody()) : String.format(style + "<div class='email'><h2>%s %s has left some feedback:</h2><p>%s</p><br/><strong>Return address: %s</strong></div>", style, feedback.getFirstName(), feedback.getLastName(), feedback.getFeedbackBody(), feedback.getEmailAddress());
+                    htmlPart = isAnonymous ? String.format("%s<div class='email'><h2>Anonymous feedback has been submitted:</h2><p>%s</p></div>", style, feedback.getFeedbackBody()) : String.format("%s<div class='email'><h2>%s %s has left some feedback:</h2><p>%s</p><br/><strong>Return address: %s</strong></div>", style, feedback.getFirstName(), feedback.getLastName(), feedback.getFeedbackBody(), feedback.getEmailAddress());
                     break;
                 case "library":
                     mimeMessageHelper.setSubject("New book request");
