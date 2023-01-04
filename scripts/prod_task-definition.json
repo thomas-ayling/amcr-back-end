@@ -13,11 +13,11 @@
       ],
       "environment": [
         {
-          "name": "AMCR_DB_USERNAME",
+          "name": "AMCR_DB_UN",
           "value": "ec_acad_psql"
         },
         {
-          "name": "AMCR_DB_PASSWORD",
+          "name": "AMCR_DB_PW",
           "value": "Letme1n!*"
         },
         {
