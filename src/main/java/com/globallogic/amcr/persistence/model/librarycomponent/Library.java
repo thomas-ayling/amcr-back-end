@@ -6,26 +6,28 @@ import java.util.Objects;
 public class Library {
     
     private UUID id;
-    private String name;
+    private String title;
     private String genre;
     private String author;
     private String reader;
-    private Boolean out;
+    private Boolean available;
     private String cover;
 
 
     public Library() {
     }
 
-    public Library(UUID id, String name, String genre, String author, String reader, Boolean out, String cover) {
+
+    public Library(UUID id, String title, String genre, String author, String reader, Boolean available, String cover) {
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.genre = genre;
         this.author = author;
         this.reader = reader;
-        this.out = out;
+        this.available = available;
         this.cover = cover;
     }
+
 
     public UUID getId() {
         return this.id;
@@ -35,12 +37,12 @@ public class Library {
         this.id = id;
     }
 
-    public String getName() {
-        return this.name;
+    public String getTitle() {
+        return this.title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getGenre() {
@@ -67,16 +69,16 @@ public class Library {
         this.reader = reader;
     }
 
-    public Boolean isOut() {
-        return this.out;
+    public Boolean isAvailable() {
+        return this.available;
     }
 
-    public Boolean getOut() {
-        return this.out;
+    public Boolean getAvailable() {
+        return this.available;
     }
 
-    public void setOut(Boolean out) {
-        this.out = out;
+    public void setAvailable(Boolean available) {
+        this.available = available;
     }
 
     public String getCover() {
@@ -87,40 +89,20 @@ public class Library {
         this.cover = cover;
     }
 
-    public Library id(UUID id) {
-        setId(id);
-        return this;
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", title='" + getTitle() + "'" +
+            ", genre='" + getGenre() + "'" +
+            ", author='" + getAuthor() + "'" +
+            ", reader='" + getReader() + "'" +
+            ", available='" + isAvailable() + "'" +
+            ", cover='" + getCover() + "'" +
+            "}";
     }
 
-    public Library name(String name) {
-        setName(name);
-        return this;
-    }
-
-    public Library genre(String genre) {
-        setGenre(genre);
-        return this;
-    }
-
-    public Library author(String author) {
-        setAuthor(author);
-        return this;
-    }
-
-    public Library reader(String reader) {
-        setReader(reader);
-        return this;
-    }
-
-    public Library out(Boolean out) {
-        setOut(out);
-        return this;
-    }
-
-    public Library cover(String cover) {
-        setCover(cover);
-        return this;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -130,25 +112,14 @@ public class Library {
             return false;
         }
         Library library = (Library) o;
-        return Objects.equals(id, library.id) && Objects.equals(name, library.name) && Objects.equals(genre, library.genre) && Objects.equals(author, library.author) && Objects.equals(reader, library.reader) && Objects.equals(out, library.out) && Objects.equals(cover, library.cover);
+        return Objects.equals(id, library.id) && Objects.equals(title, library.title) && Objects.equals(genre, library.genre) && Objects.equals(author, library.author) && Objects.equals(reader, library.reader) && Objects.equals(available, library.available) && Objects.equals(cover, library.cover);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, genre, author, reader, out, cover);
+        return Objects.hash(id, title, genre, author, reader, available, cover);
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-            " id='" + getId() + "'" +
-            ", name='" + getName() + "'" +
-            ", genre='" + getGenre() + "'" +
-            ", author='" + getAuthor() + "'" +
-            ", reader='" + getReader() + "'" +
-            ", out='" + isOut() + "'" +
-            ", cover='" + getCover() + "'" +
-            "}";
-    }
+    
 
 }
