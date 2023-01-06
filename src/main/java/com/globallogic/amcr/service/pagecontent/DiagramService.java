@@ -1,44 +1,49 @@
 package com.globallogic.amcr.service.pagecontent;
 
-import com.globallogic.amcr.mapper.pagecontent.DiagramMapper;
-import com.globallogic.amcr.model.pagecontent.Diagram;
-import com.globallogic.amcr.model.pagecontent.Markdown;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpStatus;
+import com.globallogic.amcr.persistence.model.pagecontent.Diagram;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
-@Service
-public class DiagramService {
+public interface DiagramService {
 
-    public final DiagramMapper diagramMapper;
+    /**
+     * @param diagram the diagram object with the data to be saved
+     */
+    void save(Diagram diagram);
 
-    public DiagramService(DiagramMapper diagramMapper) {
-        this.diagramMapper = diagramMapper;
-    }
+    /**
+     * @param id the id of the diagram object that will be returned
+     * @return the diagram object with the specified id
+     */
+    Diagram get (UUID id);
 
-    public ResponseEntity<Resource> saveDiagram(Diagram diagram) {
-        try {
-            diagramMapper.save(diagram);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    /**
+     * @param nodeId the node id of the diagram object that will be returned
+     * @return the diagram object with the specified node id
+     */
+    Diagram getByNode (int nodeId);
 
-    public Diagram getByIdDiagram(int id) { return diagramMapper.getById(id);}
+    /**
+     * @return a list of all markdown objects in the table
+     */
+    List<Diagram> getAll();
 
-    public Diagram getByNodeDiagram(int nodeId) { return diagramMapper.getByNode(nodeId);}
-    public List<Diagram> getAllDiagram() {return diagramMapper.getAll();}
+    /**
+     * @param diagram the diagram object with the data to be updated
+     * @param id the id of the diagram object to be updated
+     */
+    void update(Diagram diagram, UUID id);
 
-    public ResponseEntity<Resource> updateDiagram(Diagram diagram) {
-        try {
-            diagramMapper.update(diagram);
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
-        } catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    /**
+     * @param diagram the diagram object with the data to be updated
+     * @param nodeId the node id of the diagram object to be updated
+     */
+    void updateByNode(Diagram diagram, int nodeId);
+
+    /**
+     * @param nodeId the node id of the diagram object to be deleted
+     */
+    void delete(int nodeId);
 }

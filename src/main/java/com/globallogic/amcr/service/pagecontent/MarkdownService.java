@@ -1,52 +1,48 @@
 package com.globallogic.amcr.service.pagecontent;
 
-import com.globallogic.amcr.mapper.pagecontent.MarkdownMapper;
-import com.globallogic.amcr.model.pagecontent.Markdown;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpStatus;
+import com.globallogic.amcr.persistence.model.pagecontent.Markdown;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
-@Service
-public class MarkdownService {
+public interface MarkdownService {
 
-    public final MarkdownMapper markdownMapper;
+    /**
+     * @param markdown the markdown object with the data to be saved
+     */
+    void save(Markdown markdown);
 
-    public MarkdownService(MarkdownMapper markdownMapper) {
-        this.markdownMapper = markdownMapper;
-    }
+    /**
+     * @param id the id of the markdown object that will be returned
+     * @return the markdown object with the specified id
+     */
+    Markdown get(UUID id);
 
-    public ResponseEntity<Resource> saveMarkdown(Markdown markdown) {
-        try {
-            markdownMapper.save(markdown);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    /**
+     * @return a list of all markdown objects in the table
+     */
+    List<Markdown> getAll();
 
-    public Markdown getByIdMarkdown(int id) { return markdownMapper.getById(id);}
-    public List<Markdown> getAllMarkdown() {
-        return markdownMapper.getAll();
-    }
-    public Markdown getLatestMarkdown() { return markdownMapper.getLatest();}
-    public ResponseEntity<Resource> updateMarkdown(Markdown markdown) {
-        try {
-            markdownMapper.update(markdown);
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    /**
+     * @return the latest markdown object that was entered in the markdown table
+     */
+    Markdown getLatest();
 
-    public ResponseEntity<Resource> deleteMarkdown(int id) {
-        try {
-            markdownMapper.delete(id);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    /**
+     * @param name the name of the markdown object that will be returned
+     * @return the markdown object with the specified name
+     */
+    Markdown getByName(String name);
+
+    /**
+     * @param markdown the markdown object with the data to be updated
+     * @param orderNumber the allocated number of the markdown object to be updated
+     */
+    void update(Markdown markdown, int orderNumber);
+
+    /**
+     * @param orderNumber the allocated number of the markdown object to be deleted
+     */
+    void delete (int orderNumber);
 }
