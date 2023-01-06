@@ -22,3 +22,14 @@ create table if not exists files
     feedback_id  uuid references feedback (id) on delete cascade
 );
 
+create table if not exists case_studies
+(
+    id               uuid primary key,
+    spotlight        boolean,
+    title            text,
+    overview         text,
+    cover_image_link text,
+    body             jsonb,
+    pdf_link         text,
+    pptx_link        text
+)

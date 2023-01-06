@@ -1,9 +1,6 @@
 package com.globallogic.amcr.typehandler;
 
-import org.apache.ibatis.type.BaseTypeHandler;
-import org.apache.ibatis.type.JdbcType;
-import org.apache.ibatis.type.MappedJdbcTypes;
-import org.apache.ibatis.type.MappedTypes;
+import org.apache.ibatis.type.*;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -13,6 +10,7 @@ import java.util.UUID;
 
 @MappedJdbcTypes(JdbcType.OTHER)
 @MappedTypes(UUID.class)
+@Alias("UUIDTypeHandler")
 public class UUIDTypeHandler extends BaseTypeHandler<UUID> {
 
     @Override

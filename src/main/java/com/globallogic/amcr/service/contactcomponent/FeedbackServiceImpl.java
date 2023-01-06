@@ -4,7 +4,6 @@ import com.globallogic.amcr.persistence.dao.contactcomponent.FeedbackDao;
 import com.globallogic.amcr.persistence.dao.contactcomponent.FileDao;
 import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
-import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
 import org.springframework.stereotype.Service;
@@ -26,18 +25,19 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Transactional
-    public boolean save(Feedback feedback, Attachment attachment) {
+    public Feedback save(Feedback feedback, Attachment attachment) {
         try {
             UUID feedbackId = UUID.randomUUID();
             // save feedback to db
-            feedbackDao.save(feedback, feedbackId);
+            Feedback returnedFeedback = feedbackDao.save(feedback, feedbackId);
             // save attachment if exists
             if (attachment != null) {
                 fileDao.save(attachment, feedbackId);
             }
             // send mail at end of method as we need the file data before sending mail
             emailService.sendMail(feedback, feedbackId);
-            return true;
+            // return feedback if saved with no errors
+            return returnedFeedback;
         } catch (Exception e) {
             throw new RuntimeException("Error saving feedback and attachment to database", e);
         }
@@ -61,10 +61,5 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Transactional(readOnly = true)
     public AttachmentResponse getFile(UUID id) {
         return fileDao.get(id);
-    }
-
-    @Transactional(readOnly = true)
-    public AttachmentMetadata getAttachmentMetadata(UUID feedbackId) {
-        return fileDao.getAttachmentMetadata(feedbackId);
     }
 }
