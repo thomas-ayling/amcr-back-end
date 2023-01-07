@@ -16,11 +16,14 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     private final CaseStudyDao caseStudyDao;
 
     public CaseStudyServiceImpl(CaseStudyDao caseStudyDao) {
+
+
         this.caseStudyDao = caseStudyDao;
     }
 
     @Transactional
     public CaseStudy save(CaseStudy caseStudy) {
+        Objects.requireNonNull(caseStudy, "Case study cannot be null");
         try {
             UUID caseStudyId = UUID.randomUUID();
             return caseStudyDao.save(caseStudy, caseStudyId);
@@ -31,6 +34,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
 
     @Transactional
     public CaseStudy get(UUID id) {
+        Objects.requireNonNull(id, "ID cannot be null to request entry");
         return caseStudyDao.get(id);
     }
 
@@ -51,8 +55,8 @@ public class CaseStudyServiceImpl implements CaseStudyService {
 
     @Transactional
     public CaseStudy update(UUID id, CaseStudy newCaseStudy) {
-        Objects.requireNonNull(newCaseStudy, "New case study must not be null");
         Objects.requireNonNull(id, "ID must be included to update a case study");
+        Objects.requireNonNull(newCaseStudy, "New case study must not be null");
         CaseStudy oldCaseStudy = caseStudyDao.get(id);
         Objects.requireNonNull(oldCaseStudy, "Object with specified ID could not be found. Revise ID and try again");
         return caseStudyDao.update(id, newCaseStudy, oldCaseStudy);
@@ -60,6 +64,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
 
     @Transactional
     public void delete(UUID id) {
+        Objects.requireNonNull(id, "ID cannot be null to delete entry");
         caseStudyDao.delete(id);
     }
 }
