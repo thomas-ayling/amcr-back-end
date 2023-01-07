@@ -1,7 +1,7 @@
 package com.globallogic.amcr.service.casestudies;
 
 import com.globallogic.amcr.persistence.model.casestudies.CaseStudy;
-import com.globallogic.amcr.persistence.payload.casestudies.CaseStudyOverview;
+import com.globallogic.amcr.persistence.model.casestudies.CaseStudyOverview;
 
 import java.util.List;
 import java.util.UUID;

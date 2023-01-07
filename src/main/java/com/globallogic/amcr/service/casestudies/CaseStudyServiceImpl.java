@@ -2,7 +2,7 @@ package com.globallogic.amcr.service.casestudies;
 
 import com.globallogic.amcr.persistence.dao.casestudies.CaseStudyDao;
 import com.globallogic.amcr.persistence.model.casestudies.CaseStudy;
-import com.globallogic.amcr.persistence.payload.casestudies.CaseStudyOverview;
+import com.globallogic.amcr.persistence.model.casestudies.CaseStudyOverview;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

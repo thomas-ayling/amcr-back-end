@@ -1,7 +1,7 @@
 package com.globallogic.amcr.mapper.casestudies;
 
 import com.globallogic.amcr.persistence.model.casestudies.CaseStudy;
-import com.globallogic.amcr.persistence.payload.casestudies.CaseStudyOverview;
+import com.globallogic.amcr.persistence.model.casestudies.CaseStudyOverview;
 import com.globallogic.amcr.typehandler.JSONMapHandler;
 import com.globallogic.amcr.typehandler.UUIDTypeHandler;
 import com.globallogic.amcr.typehandler.ArrayTypeHandler;

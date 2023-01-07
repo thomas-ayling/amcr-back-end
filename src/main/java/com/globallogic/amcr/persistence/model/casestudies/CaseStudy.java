@@ -5,12 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-public class CaseStudy {
-    private UUID id;
-    private boolean spotlight;
-    private String title;
-    private String overview;
-    private String coverImageLink;
+public class CaseStudy extends CaseStudyOverview {
     private Map body;
     private String[] downloadLinks;
 
@@ -25,65 +20,18 @@ public class CaseStudy {
      */
 
     public CaseStudy(UUID id, boolean spotlight, String title, String overview, String coverImageLink, Map body, String[] downloadLinks) {
-        this.id = id;
-        this.spotlight = spotlight;
-        this.title = title;
-        this.overview = overview;
-        this.coverImageLink = coverImageLink;
+        super(id, spotlight, title, overview, coverImageLink);
         this.body = body;
         this.downloadLinks = downloadLinks;
     }
 
     public CaseStudy(boolean spotlight, String title, String overview, String coverImageLink, Map body, String[] downloadLinks) {
-        this.spotlight = spotlight;
-        this.title = title;
-        this.overview = overview;
-        this.coverImageLink = coverImageLink;
+        super(spotlight, title, overview, coverImageLink);
         this.body = body;
         this.downloadLinks = downloadLinks;
     }
 
     public CaseStudy() {
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public boolean isSpotlight() {
-        return spotlight;
-    }
-
-    public void setSpotlight(boolean spotlight) {
-        this.spotlight = spotlight;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getOverview() {
-        return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
-    public String getCoverImageLink() {
-        return coverImageLink;
-    }
-
-    public void setCoverImageLink(String coverImageLink) {
-        this.coverImageLink = coverImageLink;
     }
 
     public Map getBody() {
@@ -106,25 +54,23 @@ public class CaseStudy {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         CaseStudy caseStudy = (CaseStudy) o;
-        return isSpotlight() == caseStudy.isSpotlight() && getTitle().equals(caseStudy.getTitle()) && getOverview().equals(caseStudy.getOverview()) && getBody().equals(caseStudy.getBody());
+        return getBody().equals(caseStudy.getBody()) && Arrays.equals(getDownloadLinks(), caseStudy.getDownloadLinks());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isSpotlight(), getTitle(), getOverview(), getBody());
+        int result = Objects.hash(super.hashCode(), getBody());
+        result = 31 * result + Arrays.hashCode(getDownloadLinks());
+        return result;
     }
 
     @Override
     public String toString() {
         return "CaseStudy{" +
-                "id=" + id +
-                ", spotlight=" + spotlight +
-                ", title='" + title + '\'' +
-                ", overview='" + overview + '\'' +
-                ", coverImageLink='" + coverImageLink + '\'' +
-                ", body=" + body +
+                "body=" + body +
                 ", downloadLinks=" + Arrays.toString(downloadLinks) +
-                '}';
+                '}' + super.toString();
     }
 }

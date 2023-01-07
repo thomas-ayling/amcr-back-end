@@ -1,17 +1,24 @@
-package com.globallogic.amcr.persistence.payload.casestudies;
+package com.globallogic.amcr.persistence.model.casestudies;
 
 import java.util.Objects;
 import java.util.UUID;
 
 public class CaseStudyOverview {
-    UUID id;
-    boolean spotlight;
+    private UUID id;
+    private boolean spotlight;
     private String title;
     private String overview;
     private String coverImageLink;
 
     public CaseStudyOverview(UUID id, boolean spotlight, String title, String overview, String coverImageLink) {
         this.id = id;
+        this.spotlight = spotlight;
+        this.title = title;
+        this.overview = overview;
+        this.coverImageLink = coverImageLink;
+    }
+
+    public CaseStudyOverview(boolean spotlight, String title, String overview, String coverImageLink) {
         this.spotlight = spotlight;
         this.title = title;
         this.overview = overview;

@@ -1,7 +1,7 @@
 package com.globallogic.amcr.controller.casestudies;
 
 import com.globallogic.amcr.persistence.model.casestudies.CaseStudy;
-import com.globallogic.amcr.persistence.payload.casestudies.CaseStudyOverview;
+import com.globallogic.amcr.persistence.model.casestudies.CaseStudyOverview;
 import com.globallogic.amcr.service.casestudies.CaseStudyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
