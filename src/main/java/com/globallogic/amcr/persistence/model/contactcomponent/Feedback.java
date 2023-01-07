@@ -1,7 +1,5 @@
 package com.globallogic.amcr.persistence.model.contactcomponent;
 
-import org.springframework.util.Assert;
-
 import java.util.Objects;
 import java.util.UUID;
 
@@ -9,7 +7,6 @@ import java.util.UUID;
  * Feedback model for submitted feedback
  */
 public class Feedback {
-
     private UUID id;
     private String feedbackType;
     private String firstName;
@@ -31,8 +28,8 @@ public class Feedback {
 
     public Feedback(String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink) {
         Objects.requireNonNull(feedbackType, "feedbackType is null");
-        if (!feedbackType.equals("library")) Assert.notNull(feedbackBody, "feedbackBody is null");
-        if (feedbackType.equals("library")) Assert.notNull(bookLink, "bookLink is null");
+        if (!feedbackType.equals("library")) Objects.requireNonNull(feedbackBody, "feedbackBody is null");
+        if (feedbackType.equals("library")) Objects.requireNonNull(bookLink, "bookLink is null");
 
         this.feedbackType = feedbackType;
         this.firstName = firstName;
@@ -51,7 +48,7 @@ public class Feedback {
     }
 
     public void setId(UUID id) {
-        Assert.notNull(id, "id is null");
+        Objects.requireNonNull(id, "id is null");
         this.id = id;
     }
 
