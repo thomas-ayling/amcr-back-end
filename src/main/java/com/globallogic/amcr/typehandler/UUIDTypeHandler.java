@@ -1,6 +1,10 @@
 package com.globallogic.amcr.typehandler;
 
-import org.apache.ibatis.type.*;
+import org.apache.ibatis.type.Alias;
+import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.MappedJdbcTypes;
+import org.apache.ibatis.type.MappedTypes;
+import org.apache.ibatis.type.BaseTypeHandler;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;

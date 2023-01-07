@@ -3,7 +3,13 @@ package com.globallogic.amcr.typehandler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.ibatis.type.*;
+
+import org.apache.ibatis.type.Alias;
+import org.apache.ibatis.type.JdbcType;
+import org.apache.ibatis.type.MappedJdbcTypes;
+import org.apache.ibatis.type.MappedTypes;
+import org.apache.ibatis.type.BaseTypeHandler;
+
 import org.postgresql.util.PGobject;
 
 import java.io.IOException;
