@@ -1,5 +1,6 @@
 package com.globallogic.amcr.persistence.model.casestudies;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -11,8 +12,7 @@ public class CaseStudy {
     private String overview;
     private String coverImageLink;
     private Map body;
-    private String pdfLink;
-    private String pptxLink;
+    private String[] downloadLinks;
 
     /**
      * @param id             the id of the object
@@ -21,29 +21,26 @@ public class CaseStudy {
      * @param overview       the text intro to be displayed in the main case study page
      * @param coverImageLink the link to the image to be used as the cover (on the carousels for example)
      * @param body           the main data to be displayed on the single page, stored as JSON
-     * @param pdfLink        download link to the pdf version of the case study
-     * @param pptxLink       download link to the pptx version of the case study
+     * @param downloadLinks  the list of download links to related files
      */
 
-    public CaseStudy(UUID id, boolean spotlight, String title, String overview, String coverImageLink, Map body, String pdfLink, String pptxLink) {
+    public CaseStudy(UUID id, boolean spotlight, String title, String overview, String coverImageLink, Map body, String[] downloadLinks) {
         this.id = id;
         this.spotlight = spotlight;
         this.title = title;
         this.overview = overview;
         this.coverImageLink = coverImageLink;
         this.body = body;
-        this.pdfLink = pdfLink;
-        this.pptxLink = pptxLink;
+        this.downloadLinks = downloadLinks;
     }
 
-    public CaseStudy(boolean spotlight, String title, String overview, String coverImageLink, Map body, String pdfLink, String pptxLink) {
+    public CaseStudy(boolean spotlight, String title, String overview, String coverImageLink, Map body, String[] downloadLinks) {
         this.spotlight = spotlight;
         this.title = title;
         this.overview = overview;
         this.coverImageLink = coverImageLink;
         this.body = body;
-        this.pdfLink = pdfLink;
-        this.pptxLink = pptxLink;
+        this.downloadLinks = downloadLinks;
     }
 
     public CaseStudy() {
@@ -97,20 +94,12 @@ public class CaseStudy {
         this.body = body;
     }
 
-    public String getPdfLink() {
-        return pdfLink;
+    public String[] getDownloadLinks() {
+        return downloadLinks;
     }
 
-    public void setPdfLink(String pdfLink) {
-        this.pdfLink = pdfLink;
-    }
-
-    public String getPptxLink() {
-        return pptxLink;
-    }
-
-    public void setPptxLink(String pptxLink) {
-        this.pptxLink = pptxLink;
+    public void setDownloadLinks(String[] downloadLinks) {
+        this.downloadLinks = downloadLinks;
     }
 
     @Override
@@ -118,12 +107,12 @@ public class CaseStudy {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CaseStudy caseStudy = (CaseStudy) o;
-        return isSpotlight() == caseStudy.isSpotlight() && Objects.equals(getId(), caseStudy.getId()) && Objects.equals(getTitle(), caseStudy.getTitle()) && Objects.equals(getOverview(), caseStudy.getOverview()) && Objects.equals(getCoverImageLink(), caseStudy.getCoverImageLink()) && Objects.equals(getBody(), caseStudy.getBody()) && Objects.equals(getPdfLink(), caseStudy.getPdfLink()) && Objects.equals(getPptxLink(), caseStudy.getPptxLink());
+        return isSpotlight() == caseStudy.isSpotlight() && getTitle().equals(caseStudy.getTitle()) && getOverview().equals(caseStudy.getOverview()) && getBody().equals(caseStudy.getBody());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), isSpotlight(), getTitle(), getOverview(), getCoverImageLink(), getBody(), getPdfLink(), getPptxLink());
+        return Objects.hash(isSpotlight(), getTitle(), getOverview(), getBody());
     }
 
     @Override
@@ -135,8 +124,7 @@ public class CaseStudy {
                 ", overview='" + overview + '\'' +
                 ", coverImageLink='" + coverImageLink + '\'' +
                 ", body=" + body +
-                ", pdfLink='" + pdfLink + '\'' +
-                ", pptxLink='" + pptxLink + '\'' +
+                ", downloadLinks=" + Arrays.toString(downloadLinks) +
                 '}';
     }
 }
