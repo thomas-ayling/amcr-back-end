@@ -25,9 +25,9 @@ public class Attachment {
      */
 
     public Attachment(String fileName, String fileType, long fileSize, byte[] data) {
-        Objects.requireNonNull(fileName, "fileName is null");
-        Objects.requireNonNull(fileType, "fileType is null");
-        Objects.requireNonNull(data, "data is null");
+        Objects.requireNonNull(fileName, "File name cannot be null");
+        Objects.requireNonNull(fileType, "File type cannot be null");
+        Objects.requireNonNull(data, "Data cannot be null");
         this.fileName = fileName;
         this.fileType = fileType;
         this.fileSize = fileSize;
@@ -39,7 +39,7 @@ public class Attachment {
     }
 
     public void setId(UUID id) {
-        Objects.requireNonNull(id, "id is null");
+        Objects.requireNonNull(id, "ID cannot be null");
         this.id = id;
     }
 
@@ -48,7 +48,7 @@ public class Attachment {
     }
 
     public void setFileName(String fileName) {
-        Objects.requireNonNull(fileName, "fileName is null");
+        Objects.requireNonNull(fileName, "File name cannot be null");
         this.fileName = fileName;
     }
 
@@ -57,7 +57,7 @@ public class Attachment {
     }
 
     public void setFileType(String fileType) {
-        Objects.requireNonNull(fileType, "fileType is null");
+        Objects.requireNonNull(fileType, "File type cannot be null");
         this.fileType = fileType;
     }
 
@@ -74,7 +74,7 @@ public class Attachment {
     }
 
     public void setData(byte[] data) {
-        Objects.requireNonNull(data, "data is null");
+        Objects.requireNonNull(data, "Data cannot be null");
         this.data = data;
     }
 
@@ -83,7 +83,7 @@ public class Attachment {
     }
 
     public void setDownloadUri(String downloadUri) {
-        Objects.requireNonNull(downloadUri, "downloadUri is null");
+        Objects.requireNonNull(downloadUri, "Download uri cannot be null");
         this.downloadUri = downloadUri;
     }
 
@@ -92,7 +92,7 @@ public class Attachment {
     }
 
     public void setFeedbackId(UUID feedbackId) {
-        Objects.requireNonNull(feedbackId, "feedbackId is null");
+        Objects.requireNonNull(feedbackId, "Feedback id cannot be null");
         this.feedbackId = feedbackId;
     }
 
