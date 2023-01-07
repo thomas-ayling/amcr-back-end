@@ -64,19 +64,25 @@ public class CaseStudyDao implements Dao<CaseStudy, CaseStudy> {
      * @return returns the complete updated object
      */
     public CaseStudy update(UUID id, CaseStudy newCaseStudy, CaseStudy oldCaseStudy) {
-        if (oldCaseStudy.equals(newCaseStudy)) return newCaseStudy;
-        if (newCaseStudy.getTitle() == null)
+        if (oldCaseStudy.equals(newCaseStudy)) {
+            newCaseStudy.setId(id);
+            return newCaseStudy;
+        }
+        if (newCaseStudy.getTitle() == null) {
             newCaseStudy.setTitle(oldCaseStudy.getTitle());
-        if (newCaseStudy.getOverview() == null)
+        }
+        if (newCaseStudy.getOverview() == null) {
             newCaseStudy.setOverview(oldCaseStudy.getOverview());
-        if (newCaseStudy.getCoverImageLink() == null)
+        }
+        if (newCaseStudy.getCoverImageLink() == null) {
             newCaseStudy.setCoverImageLink(oldCaseStudy.getCoverImageLink());
-        if (newCaseStudy.getBody() == null)
+        }
+        if (newCaseStudy.getBody() == null) {
             newCaseStudy.setBody(oldCaseStudy.getBody());
-        if (newCaseStudy.getPdfLink() == null)
-            newCaseStudy.setPdfLink(oldCaseStudy.getPdfLink());
-        if (newCaseStudy.getPptxLink() == null)
-            newCaseStudy.setPptxLink(oldCaseStudy.getPptxLink());
+        }
+        if (newCaseStudy.getDownloadLinks() == null) {
+            newCaseStudy.setDownloadLinks(oldCaseStudy.getDownloadLinks());
+        }
         caseStudyMapper.update(id, newCaseStudy);
         newCaseStudy.setId(id);
         return newCaseStudy;
