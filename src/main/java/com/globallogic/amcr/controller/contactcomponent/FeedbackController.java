@@ -44,35 +44,42 @@ public class FeedbackController {
             Attachment attachment = incomingAttachment == null ? null : new Attachment(StringUtils.cleanPath(Objects.requireNonNull(incomingAttachment.getOriginalFilename())), incomingAttachment.getContentType(), incomingAttachment.getSize(), incomingAttachment.getBytes());
             Feedback returnedFeedback = feedbackService.save(feedback, attachment);
             return ResponseEntity.ok().body(returnedFeedback);
-
         } catch (Exception e) {
             throw new RuntimeException("Error uploading feedback", e);
         }
     }
 
     /**
+     * Usage is as follows:
+     * Calling url/feedback returns all feedback
+     * Calling url/feedback?latest=true returns the latest feedback
+     * Calling url/feedback?older=true&last=number returns the 10 entries older than the specified number
+     *
+     * @param latest option for returning the 10 latest feedback entries
+     * @param older option for returning older feedback specified by the 'last' parameter. 'last' must be included if this option is true
+     * @param last must be included if 'older' is true, the server returns the 10 last entries older than the specified entry
      * @return returns a list of all entries in the feedback table
      */
-    @GetMapping("/all")
-    public List<FeedbackResponse> getMany() {
+    @GetMapping()
+    public List<FeedbackResponse> get(@RequestParam(required = false) Boolean latest, @RequestParam(required = false) Boolean older, @RequestParam(required = false) Integer last) {
+        latest = latest != null && latest;
+        older = older != null && older;
+        if (!older && last != null) {
+            throw new RuntimeException("'Last' is not necessary if 'older' is not true");
+        }
+        if (older && last == null) {
+            throw new RuntimeException("'Last' param must be present if 'older' is true.");
+        }
+        if (latest && older) {
+            throw new RuntimeException("'Latest' and 'older' cannot both be true. Select one or the other.");
+        }
+        if (latest) {
+            return feedbackService.getLatest();
+        }
+        if (older) {
+            return feedbackService.getOlder(last);
+        }
         return feedbackService.getAll();
-    }
-
-    /**
-     * @return returns a list of the 10 latest entries in the feedback table
-     */
-    @GetMapping("/latest")
-    public List<FeedbackResponse> getLatest() {
-        return feedbackService.getLatest();
-    }
-
-    /**
-     * @param last the 'feedback order' of the last received feedback entry
-     * @return returns the 10 entries that follow the 'last' entry
-     */
-    @GetMapping("/older/{last}")
-    public List<FeedbackResponse> getLatest(@PathVariable int last) {
-        return feedbackService.getOlder(last);
     }
 
     /**

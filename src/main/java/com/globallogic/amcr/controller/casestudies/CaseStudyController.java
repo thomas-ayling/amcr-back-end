@@ -35,19 +35,15 @@ public class CaseStudyController {
         return caseStudyService.get(id);
     }
 
-    @GetMapping("/all")
+    @GetMapping()
     public List<CaseStudy> getAll() {
         return caseStudyService.getAll();
     }
 
-    @GetMapping("/all-overviews")
-    public List<CaseStudyOverview> getAllOverviews() {
-        return caseStudyService.getAllOverviews();
-    }
-
-    @GetMapping("/spotlit-overviews")
-    public List<CaseStudyOverview> getSpotlitOverviews() {
-        return caseStudyService.getSpotlitOverviews();
+    @GetMapping("/overviews")
+    public List<CaseStudyOverview> getAllOverviews(@RequestParam(required = false) Boolean spotlit) {
+        spotlit = spotlit != null && spotlit;
+        return spotlit ? caseStudyService.getSpotlitOverviews() : caseStudyService.getAllOverviews();
     }
 
     @PutMapping("/{id}")
