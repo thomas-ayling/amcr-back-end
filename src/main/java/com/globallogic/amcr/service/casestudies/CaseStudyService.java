@@ -54,7 +54,7 @@ public interface CaseStudyService {
     CaseStudy update(UUID id, CaseStudy newCaseStudy);
 
     /**
-     * requests to delete an entry with a specified id
+     * requests deletion of an entry with a specified id
      *
      * @param id the id of the entry to be deleted
      */
