@@ -11,5 +11,5 @@ public interface EmailService {
      * @param feedbackId the id of the feedback to be used for requesting the metadata of any attached files
      * @return Response Entity with the status of the response
      */
-    ResponseEntity sendMail(Feedback feedback, UUID feedbackId);
+    void sendMail(Feedback feedback, UUID feedbackId);
 }

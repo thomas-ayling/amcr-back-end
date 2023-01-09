@@ -1,7 +1,10 @@
 package com.globallogic.amcr.persistence.model.contactcomponent;
 
+import org.springframework.util.Assert;
+
 import java.util.Objects;
 import java.util.UUID;
+import java.util.zip.Adler32;
 
 /**
  * Feedback model for submitted feedback
@@ -28,11 +31,10 @@ public class Feedback {
      */
 
     public Feedback(String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink) {
-        if (feedbackType == null) throw new IllegalArgumentException("Feedback type cannot be null");
-        if (feedbackBody == null && !feedbackType.equals("library"))
-            throw new IllegalArgumentException("Feedback body cannot be null");
-        if (bookLink == null && feedbackType.equals("library"))
-            throw new IllegalArgumentException("Book name cannot be null");
+        Assert.notNull(feedbackType, "feedbackType is null");
+        if (!feedbackType.equals("library")) Assert.notNull(feedbackBody, "feedbackBody is null");
+        if (feedbackType.equals("library")) Assert.notNull(bookLink, "bookLink is null");
+
         this.feedbackType = feedbackType;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -50,6 +52,7 @@ public class Feedback {
     }
 
     public void setId(UUID id) {
+        Assert.notNull(id, "id is null");
         this.id = id;
     }
 
@@ -58,6 +61,7 @@ public class Feedback {
     }
 
     public void setFeedbackType(String feedbackType) {
+        Assert.notNull(feedbackType, "feedbackType is null");
         this.feedbackType = feedbackType;
     }
 
@@ -66,6 +70,7 @@ public class Feedback {
     }
 
     public void setFirstName(String firstName) {
+        Assert.notNull(firstName, "firstName is null");
         this.firstName = firstName;
     }
 
@@ -74,6 +79,7 @@ public class Feedback {
     }
 
     public void setLastName(String lastName) {
+        Assert.notNull(lastName, "lastName is null");
         this.lastName = lastName;
     }
 
@@ -82,6 +88,7 @@ public class Feedback {
     }
 
     public void setEmailAddress(String emailAddress) {
+        Assert.notNull(emailAddress, "emailAddress is null");
         this.emailAddress = emailAddress;
     }
 
@@ -90,6 +97,7 @@ public class Feedback {
     }
 
     public void setFeedbackBody(String feedbackBody) {
+        Assert.notNull(feedbackBody, "feedbackBody is null");
         this.feedbackBody = feedbackBody;
     }
 
@@ -98,6 +106,7 @@ public class Feedback {
     }
 
     public void setBookName(String bookName) {
+        Assert.notNull(bookName, "bookName is null");
         this.bookName = bookName;
     }
 
@@ -106,6 +115,7 @@ public class Feedback {
     }
 
     public void setBookLink(String bookLink) {
+        Assert.notNull(bookLink, "bookLink is null");
         this.bookLink = bookLink;
     }
 
