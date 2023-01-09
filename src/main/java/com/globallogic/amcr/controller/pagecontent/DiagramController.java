@@ -37,43 +37,48 @@ public class DiagramController {
      * @param id the id of the diagram object to be displayed
      * @return returns the diagram data related to the given id
      */
-    @GetMapping("/get-by-id/{id}")
-    public Diagram getByIdDiagram(@PathVariable UUID id) { return diagramServiceImpl.get(id);}
+    @GetMapping("/{id}")
+    public Diagram getByIdDiagram(@PathVariable UUID id) {
+        return diagramServiceImpl.get(id);
+    }
 
     /**
      * @param nodeId the node id of the diagram object to be displayed
      * @return returns the diagram data related to the given node id
      */
-    @GetMapping("/get-by-node/{nodeId}")
-    public Diagram getbyNodeDiagram(@PathVariable int nodeId) { return diagramServiceImpl.getByNode(nodeId);}
-
+    @GetMapping("/node/{nodeId}")
+    public Diagram getbyNodeDiagram(@PathVariable int nodeId) {
+        return diagramServiceImpl.getByNode(nodeId);
+    }
     /**
      * @return returns a list of all diagram data
      */
-    @GetMapping("/get-all")
-    public List<Diagram> getAllDiagram() { return diagramServiceImpl.getAll();}
+    @GetMapping("/")
+    public List<Diagram> getAllDiagram() {
+        return diagramServiceImpl.getAll();
+    }
 
     /**
-     * @param id the id of the diagram entry to be updated
+     * @param id      the id of the diagram entry to be updated
      * @param diagram the diagram object with the values that the database will be updated with
      */
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity updateDiagram(@PathVariable UUID id, @RequestBody Diagram diagram) {
         diagramServiceImpl.update(diagram, id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     /**
-     * @param nodeId the node id of the diagram entry to be updated
+     * @param nodeId  the node id of the diagram entry to be updated
      * @param diagram the diagram object with the values that the database will be updated with
      */
-    @PutMapping("/update-by-node/{nodeId}")
+    @PutMapping("/node/{nodeId}")
     public ResponseEntity updateByNodeDiagram(@PathVariable int nodeId, @RequestBody Diagram diagram) {
         diagramServiceImpl.updateByNode(diagram, nodeId);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("/delete/{nodeId}")
+    @DeleteMapping("/node/{nodeId}")
     public ResponseEntity deleteDiagram(@PathVariable int nodeId) {
         diagramServiceImpl.delete(nodeId);
         return new ResponseEntity<>(HttpStatus.OK);
