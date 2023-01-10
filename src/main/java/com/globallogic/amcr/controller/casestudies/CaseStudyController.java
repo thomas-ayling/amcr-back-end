@@ -1,10 +1,13 @@
 package com.globallogic.amcr.controller.casestudies;
 
+import com.globallogic.amcr.exception.NotFoundException;
 import com.globallogic.amcr.persistence.model.casestudies.CaseStudy;
 import com.globallogic.amcr.persistence.model.casestudies.CaseStudyOverview;
 import com.globallogic.amcr.service.casestudies.CaseStudyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,13 +24,12 @@ public class CaseStudyController {
     }
 
     @PostMapping("/")
-    public ResponseEntity saveCaseStudy(@RequestBody CaseStudy caseStudy) {
-        try {
+    public ResponseEntity<?> saveCaseStudy(@RequestBody @Validated CaseStudy caseStudy, BindingResult errors) {
+            if (errors.hasErrors()) {
+                throw new NotFoundException(errors.toString());
+            }
             CaseStudy returnedCaseStudy = caseStudyService.save(caseStudy);
             return ResponseEntity.ok().body(returnedCaseStudy);
-        } catch (Exception e) {
-            throw new RuntimeException("There was an error in the CaseStudyController - could not save case study", e);
-        }
     }
 
     @GetMapping("/{id}")
@@ -56,7 +58,7 @@ public class CaseStudyController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable UUID id) {
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
         try {
             caseStudyService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);

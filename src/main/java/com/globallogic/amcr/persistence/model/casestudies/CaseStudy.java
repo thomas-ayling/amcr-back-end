@@ -1,6 +1,7 @@
 package com.globallogic.amcr.persistence.model.casestudies;
 
 import com.globallogic.amcr.utils.Assert;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -8,7 +9,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class CaseStudy extends CaseStudyOverview {
-    private Map body;
+    @NotNull
+    private Map<?, ?> body;
     private String[] downloadLinks;
 
     /**
@@ -21,14 +23,8 @@ public class CaseStudy extends CaseStudyOverview {
      * @param downloadLinks  the list of download links to related files
      */
 
-    public CaseStudy(UUID id, boolean spotlight, String title, String overview, String coverImageLink, Map body, String[] downloadLinks) {
+    public CaseStudy(UUID id, boolean spotlight, String title, String overview, String coverImageLink, Map<?, ?> body, String[] downloadLinks) {
         super(id, spotlight, title, overview, coverImageLink);
-        this.body = Assert.assertNull(body, "Case study's body cannot be null");
-        this.downloadLinks = downloadLinks;
-    }
-
-    public CaseStudy(boolean spotlight, String title, String overview, String coverImageLink, Map body, String[] downloadLinks) {
-        super(spotlight, title, overview, coverImageLink);
         this.body = Assert.assertNull(body, "Case study's body cannot be null");
         this.downloadLinks = downloadLinks;
     }
@@ -37,11 +33,11 @@ public class CaseStudy extends CaseStudyOverview {
         super();
     }
 
-    public Map getBody() {
+    public Map<?, ?> getBody() {
         return body;
     }
 
-    public void setBody(Map body) {
+    public void setBody(Map<?, ?> body) {
         this.body = Assert.assertNull(body, "Case study's body cannot be null");
     }
 

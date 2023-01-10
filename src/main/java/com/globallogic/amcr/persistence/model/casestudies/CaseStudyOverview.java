@@ -1,19 +1,23 @@
 package com.globallogic.amcr.persistence.model.casestudies;
 
 import com.globallogic.amcr.utils.Assert;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 import java.util.UUID;
 
 public class CaseStudyOverview {
     private UUID id;
+    @NotNull
     private boolean spotlight;
+    @NotNull
     private String title;
+    @NotNull
     private String overview;
+    @NotNull
     private String coverImageLink;
 
     public CaseStudyOverview(UUID id, boolean spotlight, String title, String overview, String coverImageLink) {
-        System.out.println("All args");
         this.id = id;
         this.spotlight = Assert.assertNull(spotlight, "Spotlight cannot be null");
         this.title = Assert.assertNull(title, "Title cannot be null");
@@ -21,16 +25,7 @@ public class CaseStudyOverview {
         this.coverImageLink = Assert.assertNull(coverImageLink, "Cover image cannot be null");
     }
 
-    public CaseStudyOverview(boolean spotlight, String title, String overview, String coverImageLink) {
-        System.out.println("Most args");
-        this.spotlight = Assert.assertNull(spotlight, "Spotlight cannot be null");
-        this.title = Assert.assertNull(title, "Title cannot be null");
-        this.overview = Assert.assertNull(overview, "Overview cannot be null");
-        this.coverImageLink = Assert.assertNull(coverImageLink, "Cover image cannot be null");
-    }
-
     public CaseStudyOverview() {
-        System.out.println("No args");
     }
 
     public UUID getId() {
