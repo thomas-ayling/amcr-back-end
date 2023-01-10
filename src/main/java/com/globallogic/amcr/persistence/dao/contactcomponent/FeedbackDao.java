@@ -1,11 +1,14 @@
 package com.globallogic.amcr.persistence.dao.contactcomponent;
 
+import com.globallogic.amcr.controller.casestudies.CaseStudyController;
 import com.globallogic.amcr.mapper.contactcomponent.FeedbackMapper;
 import com.globallogic.amcr.mapper.contactcomponent.FileMapper;
 import com.globallogic.amcr.persistence.dao.Dao;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
 import com.globallogic.amcr.utils.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.UUID;
 public class FeedbackDao implements Dao<Feedback, FeedbackResponse> {
     final FeedbackMapper feedbackMapper;
     final FileMapper fileMapper;
+    private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class.getName());
 
     public FeedbackDao(FeedbackMapper feedbackMapper, FileMapper fileMapper) {
         this.feedbackMapper = Assert.assertNull(feedbackMapper, "Feedback mapper cannot be null");
@@ -29,6 +33,7 @@ public class FeedbackDao implements Dao<Feedback, FeedbackResponse> {
     public Feedback save(Feedback feedback, UUID feedbackId) {
         try {
             feedback.setId(feedbackId);
+            Log.trace("DAO saving feedback {}", feedback);
             feedbackMapper.save(feedback);
             return feedback;
         } catch (Exception e) {
@@ -42,6 +47,7 @@ public class FeedbackDao implements Dao<Feedback, FeedbackResponse> {
      */
     @Override
     public FeedbackResponse get(UUID id) {
+        Log.trace("DAO requesting feedback with ID {}", id);
         return feedbackMapper.get(id);
     }
 
@@ -50,6 +56,7 @@ public class FeedbackDao implements Dao<Feedback, FeedbackResponse> {
      */
     @Override
     public List<FeedbackResponse> getAll() {
+        Log.trace("DAO requesting all feedback");
         return feedbackMapper.getAll();
     }
 
@@ -57,6 +64,7 @@ public class FeedbackDao implements Dao<Feedback, FeedbackResponse> {
      * @return returns a list of the last 10 entries in the feedback table
      */
     public List<FeedbackResponse> getLatest() {
+        Log.trace("DAO requesting latest feedback");
         return feedbackMapper.getLatest();
     }
 
@@ -65,6 +73,7 @@ public class FeedbackDao implements Dao<Feedback, FeedbackResponse> {
      * @return returns the 10 entries that follow the 'last' entry
      */
     public List<FeedbackResponse> getOlder(int last) {
+        Log.trace("DAO requesting 10 feedback entries older than entry {}", last);
         return feedbackMapper.getOlder(last);
     }
 }

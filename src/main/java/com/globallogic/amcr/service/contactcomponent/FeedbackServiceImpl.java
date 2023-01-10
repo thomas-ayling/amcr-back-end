@@ -1,5 +1,6 @@
 package com.globallogic.amcr.service.contactcomponent;
 
+import com.globallogic.amcr.controller.casestudies.CaseStudyController;
 import com.globallogic.amcr.persistence.dao.contactcomponent.FeedbackDao;
 import com.globallogic.amcr.persistence.dao.contactcomponent.FileDao;
 import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
@@ -7,6 +8,8 @@ import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
 import com.globallogic.amcr.utils.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +18,7 @@ import java.util.UUID;
 
 @Service
 public class FeedbackServiceImpl implements FeedbackService {
+    private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class.getName());
     private final FeedbackDao feedbackDao;
     private final FileDao fileDao;
     private final EmailService emailService;
@@ -29,15 +33,14 @@ public class FeedbackServiceImpl implements FeedbackService {
     public Feedback save(Feedback feedback, Attachment attachment) {
         try {
             UUID feedbackId = UUID.randomUUID();
-            // save feedback to db
+            Log.debug("Service saving feedback");
             Feedback returnedFeedback = feedbackDao.save(feedback, feedbackId);
-            // save attachment if exists
             if (attachment != null) {
+                Log.debug("Service saving attachment");
                 fileDao.save(attachment, feedbackId);
             }
-            // send mail at end of method as we need the file data before sending mail
+            Log.debug("Service sending email");
             emailService.sendMail(feedback, feedbackId);
-            // return feedback if saved with no errors
             return returnedFeedback;
         } catch (Exception e) {
             throw new RuntimeException("Error saving feedback and attachment to database", e);
@@ -46,21 +49,25 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Transactional(readOnly = true)
     public List<FeedbackResponse> getAll() {
+        Log.debug("Service requesting all feedback entries");
         return feedbackDao.getAll();
     }
 
     @Transactional(readOnly = true)
     public List<FeedbackResponse> getLatest() {
+        Log.debug("Service requesting latest feedback");
         return feedbackDao.getLatest();
     }
 
     @Transactional(readOnly = true)
     public List<FeedbackResponse> getOlder(int last) {
+        Log.debug("Service requesting 10 older feedback entries");
         return feedbackDao.getOlder(last);
     }
 
     @Transactional(readOnly = true)
     public AttachmentResponse getFile(UUID id) {
+        Log.debug("Service requesting attachment with ID {}", id);
         return fileDao.get(id);
     }
 }
