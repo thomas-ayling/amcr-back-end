@@ -11,6 +11,8 @@ create table if not exists academy_project.feedback
     book_link      text
 );
 
+ALTER TABLE academy_project.feedback OWNER TO CURRENT_USER;
+
 create table if not exists academy_project.files
 (
     id           uuid primary key,
@@ -22,6 +24,8 @@ create table if not exists academy_project.files
     feedback_id  uuid references feedback (id) on delete cascade
 );
 
+ALTER TABLE academy_project.files OWNER TO CURRENT_USER;
+
 create table if not exists academy_project.case_studies
 (
     id               uuid primary key not null,
@@ -32,6 +36,8 @@ create table if not exists academy_project.case_studies
     body             jsonb            not null,
     download_links   text[]
 );
+
+ALTER TABLE academy_project.case_studies OWNER TO CURRENT_USER;
 
 -- Object format:
 
