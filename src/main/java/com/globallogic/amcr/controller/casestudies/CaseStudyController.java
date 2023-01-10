@@ -28,7 +28,7 @@ public class CaseStudyController {
 
     @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> saveCaseStudy(@RequestBody @Validated CaseStudy caseStudy, BindingResult errors) {
-        Log.debug("Saving new case study {}", caseStudy);
+        Log.debug("Controller saving new case study");
         if (errors.hasErrors()) {
             throw new NotFoundException(errors.toString());
         }
@@ -38,27 +38,27 @@ public class CaseStudyController {
 
     @GetMapping(value = "/{id}", produces = "application/json")
     public CaseStudy get(@PathVariable UUID id) {
-        Log.debug("Requesting case study with ID {}", id);
+        Log.debug("Controller requesting case study with ID {}", id);
         return caseStudyService.get(id);
     }
 
     @GetMapping(produces = "application/json")
     public List<CaseStudy> getAll() {
-        Log.debug("Requesting all case studies");
+        Log.debug("Controller requesting all case studies");
         return caseStudyService.getAll();
     }
 
     @GetMapping(value = "/overviews", produces = "application/json")
     public List<CaseStudyOverview> getAllOverviews(@RequestParam(required = false) Boolean spotlit) {
         spotlit = spotlit != null && spotlit;
-        Log.debug(spotlit ? "Requesting all spotlit case study overviews" : "Requesting all case study overviews");
+        Log.debug(spotlit ? "Controller requesting all spotlit case study overviews" : "Controller requesting all case study overviews");
         return spotlit ? caseStudyService.getSpotlitOverviews() : caseStudyService.getAllOverviews();
     }
 
     @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
     public CaseStudy update(@PathVariable UUID id, @RequestBody CaseStudy newCaseStudy) {
         try {
-            Log.debug("Updating case study with ID {} with new case study {}", id, newCaseStudy);
+            Log.debug("Controller updating case study with ID {}", id);
             return caseStudyService.update(id, newCaseStudy);
         } catch (Exception e) {
             throw new RuntimeException("There was an error in the CaseStudyController - could not update case study", e);
@@ -68,7 +68,7 @@ public class CaseStudyController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         try {
-            Log.debug("Deleting caseStudy with ID {}", id);
+            Log.debug("Controller requesting deletion of case study with ID {}", id);
             caseStudyService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
