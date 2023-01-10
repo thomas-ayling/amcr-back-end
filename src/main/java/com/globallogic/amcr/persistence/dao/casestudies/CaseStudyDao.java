@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @Repository
 public class CaseStudyDao implements Dao<CaseStudy, CaseStudy> {
-    public static final Logger LOGGER = LoggerFactory.getLogger(CaseStudyDao.class.getName());
+    public final Logger Log = LoggerFactory.getLogger(CaseStudyDao.class.getName());
     final CaseStudyMapper caseStudyMapper;
 
     public CaseStudyDao(CaseStudyMapper caseStudyMapper) {
@@ -25,7 +25,7 @@ public class CaseStudyDao implements Dao<CaseStudy, CaseStudy> {
     public CaseStudy save(CaseStudy caseStudy, UUID caseStudyId) {
         try {
             caseStudy.setId(caseStudyId);
-            LOGGER.trace("Saving new case study {}", caseStudy);
+            Log.trace("Saving new case study {}", caseStudy);
             caseStudyMapper.save(caseStudy);
             return caseStudy;
         } catch (Exception e) {
@@ -35,13 +35,13 @@ public class CaseStudyDao implements Dao<CaseStudy, CaseStudy> {
 
     @Override
     public CaseStudy get(UUID id) {
-        LOGGER.trace("Requesting case study with ID {}", id);
+        Log.trace("Requesting case study with ID {}", id);
         return caseStudyMapper.get(id);
     }
 
     @Override
     public List<CaseStudy> getAll() {
-        LOGGER.trace("Requesting all case studies");
+        Log.trace("Requesting all case studies");
         return caseStudyMapper.getAll();
     }
 
@@ -51,7 +51,7 @@ public class CaseStudyDao implements Dao<CaseStudy, CaseStudy> {
      * @return returns a list of CaseStudyOverview objects
      */
     public List<CaseStudyOverview> getAllOverviews() {
-        LOGGER.trace("Requesting all case study overviews");
+        Log.trace("Requesting all case study overviews");
         return caseStudyMapper.getAllOverviews();
     }
 
@@ -61,7 +61,7 @@ public class CaseStudyDao implements Dao<CaseStudy, CaseStudy> {
      * @return returns a list of CaseStudyOverview objects
      */
     public List<CaseStudyOverview> getSpotlitOverviews() {
-        LOGGER.trace("Requesting all spotlit case study overviews");
+        Log.trace("Requesting all spotlit case study overviews");
         return caseStudyMapper.getSpotlitOverviews();
     }
 
@@ -92,7 +92,7 @@ public class CaseStudyDao implements Dao<CaseStudy, CaseStudy> {
         if (newCaseStudy.getDownloadLinks() == null) {
             newCaseStudy.setDownloadLinks(oldCaseStudy.getDownloadLinks());
         }
-        LOGGER.trace("Updating case study with ID {} and content {} with {}", id, oldCaseStudy, newCaseStudy);
+        Log.trace("Updating case study with ID {} and content {} with {}", id, oldCaseStudy, newCaseStudy);
         caseStudyMapper.update(id, newCaseStudy);
         return newCaseStudy;
     }
@@ -104,7 +104,7 @@ public class CaseStudyDao implements Dao<CaseStudy, CaseStudy> {
      */
     public void delete(UUID id) {
         try {
-            LOGGER.trace("Deleting case study with ID {}", id);
+            Log.trace("Deleting case study with ID {}", id);
             caseStudyMapper.delete(id);
         } catch (Exception e) {
             throw new RuntimeException("Error in CaseStudyDao - could not delete case study with id " + id, e);
