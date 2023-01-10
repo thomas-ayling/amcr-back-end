@@ -17,7 +17,6 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     private final CaseStudyDao caseStudyDao;
     public static final Logger LOGGER = LoggerFactory.getLogger(CaseStudyServiceImpl.class.getName());
 
-
     public CaseStudyServiceImpl(CaseStudyDao caseStudyDao) {
         this.caseStudyDao = Assert.assertNull(caseStudyDao, "CaseStudyDao is not present");
     }

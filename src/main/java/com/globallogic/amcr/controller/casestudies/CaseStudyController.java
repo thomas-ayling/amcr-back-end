@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/case-study")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:3000", "http://ec-acad-elb-fe-2f7bfb1526a617ef.elb.eu-west-2.amazonaws.com:3000"})
 public class CaseStudyController {
     public static final Logger LOGGER = LoggerFactory.getLogger(CaseStudyController.class.getName());
     private final CaseStudyService caseStudyService;
@@ -51,7 +51,7 @@ public class CaseStudyController {
     @GetMapping(value = "/overviews", produces = "application/json")
     public List<CaseStudyOverview> getAllOverviews(@RequestParam(required = false) Boolean spotlit) {
         spotlit = spotlit != null && spotlit;
-        LOGGER.debug(spotlit ? "Requesting all spotlit overviews" : "Requesting all overviews");
+        LOGGER.debug(spotlit ? "Requesting all spotlit case study overviews" : "Requesting all case study overviews");
         return spotlit ? caseStudyService.getSpotlitOverviews() : caseStudyService.getAllOverviews();
     }
 
