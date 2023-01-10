@@ -1,18 +1,22 @@
 package com.globallogic.amcr.controller.contactcomponent;
 
+import com.globallogic.amcr.controller.casestudies.CaseStudyController;
+import com.globallogic.amcr.exception.NotFoundException;
 import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
-import com.globallogic.amcr.service.contactcomponent.EmailService;
 import com.globallogic.amcr.service.contactcomponent.FeedbackService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,17 +28,14 @@ import java.util.UUID;
 /**
  * endpoint for feedback upload and download
  */
-
 @RestController
 @RequestMapping("/feedback")
-@CrossOrigin(origins = "*")
+@CrossOrigin
 public class FeedbackController {
-
-    private final EmailService emailService;
+    private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class.getName());
     private final FeedbackService feedbackService;
 
-    public FeedbackController(EmailService emailService, FeedbackService feedbackService) {
-        this.emailService = emailService;
+    public FeedbackController(FeedbackService feedbackService) {
         this.feedbackService = feedbackService;
     }
 
@@ -43,57 +44,66 @@ public class FeedbackController {
      * @param incomingAttachment the optional attachment from the client
      * @return returns a response entity either OK (200) or INTERNAL_SERVER_ERROR (500)
      */
-
-    @RequestMapping(value = "/upload", method = RequestMethod.POST, consumes = {"multipart/form-data"})
-    public ResponseEntity uploadFeedback(@RequestPart("feedback") Feedback feedback, @RequestPart(value = "attachment", required = false) MultipartFile incomingAttachment) {
+    @RequestMapping(value = "/", method = RequestMethod.POST, consumes = {"multipart/form-data"})
+    public ResponseEntity<?> uploadFeedback(@RequestPart("feedback") @Validated Feedback feedback, BindingResult errors, @RequestPart(value = "attachment", required = false) MultipartFile incomingAttachment) {
+        if (errors.hasErrors()) {
+            throw new NotFoundException(errors.toString());
+        }
         try {
             // Create new Attachment object with params taken from MultipartFile
             Attachment attachment = incomingAttachment == null ? null : new Attachment(StringUtils.cleanPath(Objects.requireNonNull(incomingAttachment.getOriginalFilename())), incomingAttachment.getContentType(), incomingAttachment.getSize(), incomingAttachment.getBytes());
-            if (feedbackService.save(feedback, attachment)) {
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        } catch (IOException e) {
-            throw new RuntimeException("Error uploading feedback", e);
+            Log.debug("Controller saving new feedback");
+            Feedback returnedFeedback = feedbackService.save(feedback, attachment);
+            return ResponseEntity.ok().body(returnedFeedback);
+        } catch (IOException ioe) {
+            throw new RuntimeException("Error in feedback controller - attachment could not be read", ioe);
         }
+
     }
 
     /**
+     * Usage is as follows:
+     * Calling url/feedback returns all feedback
+     * Calling url/feedback?latest=true returns the latest feedback
+     * Calling url/feedback?older=true&last=number returns the 10 entries older than the specified number
+     *
+     * @param latest option for returning the 10 latest feedback entries
+     * @param older  option for returning older feedback specified by the 'last' parameter. 'last' must be included if this option is true
+     * @param last   must be included if 'older' is true, the server returns the 10 last entries older than the specified entry
      * @return returns a list of all entries in the feedback table
      */
-
-    @GetMapping("/get-all")
-    public List<FeedbackResponse> getMany() {
+    @GetMapping()
+    public List<FeedbackResponse> get(@RequestParam(required = false) Boolean latest, @RequestParam(required = false) Boolean older, @RequestParam(required = false) Integer last) {
+        latest = latest != null && latest;
+        older = older != null && older;
+        if (!older && last != null) {
+            throw new RuntimeException("'Last' is not necessary if 'older' is not true");
+        }
+        if (older && last == null) {
+            throw new RuntimeException("'Last' param must be present if 'older' is true.");
+        }
+        if (latest && older) {
+            throw new RuntimeException("'Latest' and 'older' cannot both be true. Select one or the other.");
+        }
+        if (latest) {
+            Log.debug("Controller requesting latest feedback entries");
+            return feedbackService.getLatest();
+        }
+        if (older) {
+            Log.debug("Controller requesting older feedback entries");
+            return feedbackService.getOlder(last);
+        }
         return feedbackService.getAll();
-    }
-
-    /**
-     * @return returns a list of the 10 latest entries in the feedback table
-     */
-
-    @GetMapping("/get-latest")
-    public List<FeedbackResponse> getLatest() {
-        return feedbackService.getLatest();
-    }
-
-    /**
-     * @param last the 'feedback order' of the last received feedback entry
-     * @return returns the 10 entries that follow the 'last' entry
-     */
-
-    @GetMapping("/get-older/{last}")
-    public List<FeedbackResponse> getLatest(@PathVariable int last) {
-        return feedbackService.getOlder(last);
     }
 
     /**
      * @param fileId the id of the file to be downloaded
      * @return returns a response entity with the relevant headers and the binary data to allow for easy download on the front end
      */
-
-    @GetMapping("/get-file/{fileId}")
+    @GetMapping("/file/{fileId}")
     public ResponseEntity<Resource> getAttachment(@PathVariable UUID fileId) {
         try {
+            Log.debug("Controller requesting file with ID {}", fileId);
             AttachmentResponse attachmentResponse = feedbackService.getFile(fileId);
             return ResponseEntity.ok().contentType(MediaType.parseMediaType(attachmentResponse.getFileType())).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + attachmentResponse.getFileName() + "\"").body(new ByteArrayResource(attachmentResponse.getData()));
         } catch (Exception e) {

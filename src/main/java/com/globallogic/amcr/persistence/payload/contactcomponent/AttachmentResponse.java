@@ -1,11 +1,17 @@
 package com.globallogic.amcr.persistence.payload.contactcomponent;
 
+import com.globallogic.amcr.utils.Assert;
+import jakarta.validation.constraints.NotNull;
+
 /**
  * Attachment response to download a file from the files database
  */
 public class AttachmentResponse {
+    @NotNull
     private String fileName;
+    @NotNull
     private String fileType;
+    @NotNull
     private byte[] data;
 
     /**
@@ -15,9 +21,9 @@ public class AttachmentResponse {
      */
 
     public AttachmentResponse(String fileName, String fileType, byte[] data) {
-        this.fileName = fileName;
-        this.fileType = fileType;
-        this.data = data;
+        this.fileName = Assert.assertNull(fileName, "File name cannot be null");
+        this.fileType = Assert.assertNull(fileType, "File type cannot be null");
+        this.data = Assert.assertNull(data, "Data cannot be null");
     }
 
     public AttachmentResponse() {
@@ -28,7 +34,7 @@ public class AttachmentResponse {
     }
 
     public void setFileName(String fileName) {
-        this.fileName = fileName;
+        this.fileName = Assert.assertNull(fileName, "File name cannot be null");
     }
 
     public String getFileType() {
@@ -36,7 +42,7 @@ public class AttachmentResponse {
     }
 
     public void setFileType(String fileType) {
-        this.fileType = fileType;
+        this.fileType = Assert.assertNull(fileType, "File type cannot be null");
     }
 
     public byte[] getData() {
@@ -44,6 +50,6 @@ public class AttachmentResponse {
     }
 
     public void setData(byte[] data) {
-        this.data = data;
+        this.data = Assert.assertNull(data, "Data cannot be null");
     }
 }

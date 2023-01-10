@@ -17,15 +17,15 @@ import java.util.UUID;
 public interface FileMapper {
 
     @Insert("insert into files(id, file_name, file_type, file_size, data, download_uri, feedback_id) values (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{fileName}, #{fileType}, #{fileSize}, #{data}, #{downloadUri}, #{feedbackId, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler})")
-    public int save(Attachment attachment);
+    void save(Attachment attachment);
 
     @Select("select * from files where id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
-    public AttachmentResponse get(@Param("id") UUID id);
+    AttachmentResponse get(@Param("id") UUID id);
 
     @Select("select * from files")
     List<AttachmentResponse> getAll();
 
     @Select("select file_name, file_size, download_uri from files where #{feedbackId, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler} = feedback_id")
-    public AttachmentMetadata getAttachmentMetadata(@Param("feedbackId") UUID feedbackId);
+    AttachmentMetadata getAttachmentMetadata(@Param("feedbackId") UUID feedbackId);
 
 }

@@ -5,6 +5,7 @@ import com.globallogic.amcr.persistence.dao.Dao;
 import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
+import com.globallogic.amcr.utils.Assert;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -16,7 +17,7 @@ public class FileDao implements Dao<Attachment, AttachmentResponse> {
     private final FileMapper fileMapper;
 
     public FileDao(FileMapper fileMapper) {
-        this.fileMapper = fileMapper;
+        this.fileMapper = Assert.assertNull(fileMapper, "File mapper cannot be null");
     }
 
     /**
@@ -24,7 +25,7 @@ public class FileDao implements Dao<Attachment, AttachmentResponse> {
      * @param feedbackId the id of the feedback that the attachment belongs to (foreign key)
      */
 
-    public void save(Attachment attachment, UUID feedbackId) {
+    public Attachment save(Attachment attachment, UUID feedbackId) {
         try {
             // Generate UUID for the attachment
             UUID fileId = UUID.randomUUID();
@@ -36,6 +37,8 @@ public class FileDao implements Dao<Attachment, AttachmentResponse> {
             attachment.setFeedbackId(feedbackId);
             // Save attachment
             fileMapper.save(attachment);
+            // Return attachment
+            return attachment;
         } catch (Exception e) {
             throw new RuntimeException("Could not save attachment", e);
         }
