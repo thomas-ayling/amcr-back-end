@@ -4,6 +4,9 @@ import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 
 public class ByteConverter {
+    private ByteConverter() {
+        throw new UnsupportedOperationException("ByteConverter cannot be used dynamically and should only be referenced statically");
+    }
     public final static String bytesToReadable(long bytes) {
         long absB = bytes == Long.MIN_VALUE ? Long.MAX_VALUE : Math.abs(bytes);
         if (absB < 1024) {

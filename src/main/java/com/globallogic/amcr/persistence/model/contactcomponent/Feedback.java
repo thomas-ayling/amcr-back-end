@@ -1,5 +1,7 @@
 package com.globallogic.amcr.persistence.model.contactcomponent;
 
+import com.globallogic.amcr.utils.Assert;
+
 import java.util.Objects;
 import java.util.UUID;
 
@@ -27,11 +29,10 @@ public class Feedback {
      */
 
     public Feedback(String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink) {
-        Objects.requireNonNull(feedbackType, "feedbackType is null");
-        if (!feedbackType.equals("library")) Objects.requireNonNull(feedbackBody, "feedbackBody is null");
-        if (feedbackType.equals("library")) Objects.requireNonNull(bookLink, "bookLink is null");
+        if (!feedbackType.equals("library")) Assert.assertNull(feedbackBody, "feedbackBody is null");
+        if (feedbackType.equals("library")) Assert.assertNull(bookLink, "bookLink is null");
 
-        this.feedbackType = feedbackType;
+        this.feedbackType = Assert.assertNull(feedbackType, "feedbackType is null");
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
@@ -48,8 +49,8 @@ public class Feedback {
     }
 
     public void setId(UUID id) {
-        Objects.requireNonNull(id, "id is null");
-        this.id = id;
+        this.id = Assert.assertNull(id, "id is null");
+
     }
 
     public String getFeedbackType() {
@@ -57,8 +58,8 @@ public class Feedback {
     }
 
     public void setFeedbackType(String feedbackType) {
-        Objects.requireNonNull(feedbackType, "feedbackType is null");
-        this.feedbackType = feedbackType;
+        this.feedbackType = Assert.assertNull(feedbackType, "feedbackType is null");
+
     }
 
     public String getFirstName() {
@@ -66,8 +67,8 @@ public class Feedback {
     }
 
     public void setFirstName(String firstName) {
-        Objects.requireNonNull(firstName, "firstName is null");
-        this.firstName = firstName;
+        this.firstName = Assert.assertNull(firstName, "firstName is null");
+
     }
 
     public String getLastName() {
@@ -75,8 +76,8 @@ public class Feedback {
     }
 
     public void setLastName(String lastName) {
-        Objects.requireNonNull(lastName, "lastName is null");
-        this.lastName = lastName;
+        this.lastName = Assert.assertNull(lastName, "lastName is null");
+
     }
 
     public String getEmailAddress() {
@@ -84,8 +85,8 @@ public class Feedback {
     }
 
     public void setEmailAddress(String emailAddress) {
-        Objects.requireNonNull(emailAddress, "emailAddress is null");
-        this.emailAddress = emailAddress;
+        this.emailAddress = Assert.assertNull(emailAddress, "emailAddress is null");
+
     }
 
     public String getFeedbackBody() {
@@ -93,8 +94,7 @@ public class Feedback {
     }
 
     public void setFeedbackBody(String feedbackBody) {
-        Objects.requireNonNull(feedbackBody, "feedbackBody is null");
-        this.feedbackBody = feedbackBody;
+        this.feedbackBody = Assert.assertNull(feedbackBody, "feedbackBody is null");
     }
 
     public String getBookName() {
@@ -102,8 +102,8 @@ public class Feedback {
     }
 
     public void setBookName(String bookName) {
-        Objects.requireNonNull(bookName, "bookName is null");
-        this.bookName = bookName;
+        this.bookName = Assert.assertNull(bookName, "bookName is null");
+
     }
 
     public String getBookLink() {
@@ -111,8 +111,7 @@ public class Feedback {
     }
 
     public void setBookLink(String bookLink) {
-        Objects.requireNonNull(bookLink, "bookLink is null");
-        this.bookLink = bookLink;
+        this.bookLink = Assert.assertNull(bookLink, "bookLink is null");
     }
 
     @Override

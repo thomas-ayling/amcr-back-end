@@ -1,5 +1,7 @@
 package com.globallogic.amcr.persistence.model.casestudies;
 
+import com.globallogic.amcr.utils.Assert;
+
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
@@ -21,17 +23,18 @@ public class CaseStudy extends CaseStudyOverview {
 
     public CaseStudy(UUID id, boolean spotlight, String title, String overview, String coverImageLink, Map body, String[] downloadLinks) {
         super(id, spotlight, title, overview, coverImageLink);
-        this.body = body;
+        this.body = Assert.assertNull(body, "Case study's body cannot be null");
         this.downloadLinks = downloadLinks;
     }
 
     public CaseStudy(boolean spotlight, String title, String overview, String coverImageLink, Map body, String[] downloadLinks) {
         super(spotlight, title, overview, coverImageLink);
-        this.body = body;
+        this.body = Assert.assertNull(body, "Case study's body cannot be null");
         this.downloadLinks = downloadLinks;
     }
 
     public CaseStudy() {
+        super();
     }
 
     public Map getBody() {
@@ -39,7 +42,7 @@ public class CaseStudy extends CaseStudyOverview {
     }
 
     public void setBody(Map body) {
-        this.body = body;
+        this.body = Assert.assertNull(body, "Case study's body cannot be null");
     }
 
     public String[] getDownloadLinks() {

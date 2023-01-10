@@ -1,5 +1,7 @@
 package com.globallogic.amcr.persistence.model.casestudies;
 
+import com.globallogic.amcr.utils.Assert;
+
 import java.util.Objects;
 import java.util.UUID;
 
@@ -11,21 +13,24 @@ public class CaseStudyOverview {
     private String coverImageLink;
 
     public CaseStudyOverview(UUID id, boolean spotlight, String title, String overview, String coverImageLink) {
+        System.out.println("All args");
         this.id = id;
-        this.spotlight = spotlight;
-        this.title = title;
-        this.overview = overview;
-        this.coverImageLink = coverImageLink;
+        this.spotlight = Assert.assertNull(spotlight, "Spotlight cannot be null");
+        this.title = Assert.assertNull(title, "Title cannot be null");
+        this.overview = Assert.assertNull(overview, "Overview cannot be null");
+        this.coverImageLink = Assert.assertNull(coverImageLink, "Cover image cannot be null");
     }
 
     public CaseStudyOverview(boolean spotlight, String title, String overview, String coverImageLink) {
-        this.spotlight = spotlight;
-        this.title = title;
-        this.overview = overview;
-        this.coverImageLink = coverImageLink;
+        System.out.println("Most args");
+        this.spotlight = Assert.assertNull(spotlight, "Spotlight cannot be null");
+        this.title = Assert.assertNull(title, "Title cannot be null");
+        this.overview = Assert.assertNull(overview, "Overview cannot be null");
+        this.coverImageLink = Assert.assertNull(coverImageLink, "Cover image cannot be null");
     }
 
     public CaseStudyOverview() {
+        System.out.println("No args");
     }
 
     public UUID getId() {
@@ -33,7 +38,7 @@ public class CaseStudyOverview {
     }
 
     public void setId(UUID id) {
-        this.id = id;
+        this.id = Assert.assertNull(id, "ID cannot be null");
     }
 
     public boolean getSpotlight() {
@@ -41,7 +46,8 @@ public class CaseStudyOverview {
     }
 
     public void setSpotlight(boolean spotlight) {
-        this.spotlight = spotlight;
+        this.spotlight = Assert.assertNull(spotlight, "Spotlight cannot be null");
+
     }
 
     public String getTitle() {
@@ -49,7 +55,7 @@ public class CaseStudyOverview {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = Assert.assertNull(title, "");
     }
 
     public String getOverview() {

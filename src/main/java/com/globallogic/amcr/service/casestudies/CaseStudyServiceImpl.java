@@ -3,11 +3,11 @@ package com.globallogic.amcr.service.casestudies;
 import com.globallogic.amcr.persistence.dao.casestudies.CaseStudyDao;
 import com.globallogic.amcr.persistence.model.casestudies.CaseStudy;
 import com.globallogic.amcr.persistence.model.casestudies.CaseStudyOverview;
+import com.globallogic.amcr.utils.Assert;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -16,14 +16,13 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     private final CaseStudyDao caseStudyDao;
 
     public CaseStudyServiceImpl(CaseStudyDao caseStudyDao) {
-
-
+        Assert.assertNull(caseStudyDao, "CaseStudyDao is not present");
         this.caseStudyDao = caseStudyDao;
     }
 
     @Transactional
     public CaseStudy save(CaseStudy caseStudy) {
-        Objects.requireNonNull(caseStudy, "Case study cannot be null");
+        Assert.assertNull(caseStudy, "Case study cannot be null");
         try {
             UUID caseStudyId = UUID.randomUUID();
             return caseStudyDao.save(caseStudy, caseStudyId);
@@ -34,7 +33,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
 
     @Transactional
     public CaseStudy get(UUID id) {
-        Objects.requireNonNull(id, "ID cannot be null to request entry");
+        Assert.assertNull(id, "ID cannot be null to request entry");
         return caseStudyDao.get(id);
     }
 
@@ -55,16 +54,16 @@ public class CaseStudyServiceImpl implements CaseStudyService {
 
     @Transactional
     public CaseStudy update(UUID id, CaseStudy newCaseStudy) {
-        Objects.requireNonNull(id, "ID must be included to update a case study");
-        Objects.requireNonNull(newCaseStudy, "New case study must not be null");
+        Assert.assertNull(id, "ID must be included to update a case study");
+        Assert.assertNull(newCaseStudy, "New case study must not be null");
         CaseStudy oldCaseStudy = caseStudyDao.get(id);
-        Objects.requireNonNull(oldCaseStudy, "Object with specified ID could not be found. Revise ID and try again");
+        Assert.assertNull(oldCaseStudy, "Object with specified ID could not be found. Revise ID and try again");
         return caseStudyDao.update(id, newCaseStudy, oldCaseStudy);
     }
 
     @Transactional
     public void delete(UUID id) {
-        Objects.requireNonNull(id, "ID cannot be null to delete entry");
+        Assert.assertNull(id, "ID cannot be null to delete entry");
         caseStudyDao.delete(id);
     }
 }
