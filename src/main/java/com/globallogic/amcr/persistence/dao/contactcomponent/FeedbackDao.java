@@ -5,6 +5,7 @@ import com.globallogic.amcr.mapper.contactcomponent.FileMapper;
 import com.globallogic.amcr.persistence.dao.Dao;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
+import com.globallogic.amcr.utils.Assert;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,12 +13,12 @@ import java.util.UUID;
 
 @Repository
 public class FeedbackDao implements Dao<Feedback, FeedbackResponse> {
-    FeedbackMapper feedbackMapper;
-    FileMapper fileMapper;
+    final FeedbackMapper feedbackMapper;
+    final FileMapper fileMapper;
 
     public FeedbackDao(FeedbackMapper feedbackMapper, FileMapper fileMapper) {
-        this.feedbackMapper = feedbackMapper;
-        this.fileMapper = fileMapper;
+        this.feedbackMapper = Assert.assertNull(feedbackMapper, "Feedback mapper cannot be null");
+        this.fileMapper = Assert.assertNull(fileMapper, "File mapper cannot be null");
     }
 
     /**

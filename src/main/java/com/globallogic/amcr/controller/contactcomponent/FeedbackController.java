@@ -1,5 +1,6 @@
 package com.globallogic.amcr.controller.contactcomponent;
 
+import com.globallogic.amcr.exception.NotFoundException;
 import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
@@ -11,9 +12,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -38,15 +42,19 @@ public class FeedbackController {
      * @return returns a response entity either OK (200) or INTERNAL_SERVER_ERROR (500)
      */
     @RequestMapping(value = "/", method = RequestMethod.POST, consumes = {"multipart/form-data"})
-    public ResponseEntity uploadFeedback(@RequestPart("feedback") Feedback feedback, @RequestPart(value = "attachment", required = false) MultipartFile incomingAttachment) {
+    public ResponseEntity<?> uploadFeedback(@RequestPart("feedback") @Validated Feedback feedback, BindingResult errors, @RequestPart(value = "attachment", required = false) MultipartFile incomingAttachment) {
+        if (errors.hasErrors()) {
+            throw new NotFoundException(errors.toString());
+        }
         try {
             // Create new Attachment object with params taken from MultipartFile
             Attachment attachment = incomingAttachment == null ? null : new Attachment(StringUtils.cleanPath(Objects.requireNonNull(incomingAttachment.getOriginalFilename())), incomingAttachment.getContentType(), incomingAttachment.getSize(), incomingAttachment.getBytes());
             Feedback returnedFeedback = feedbackService.save(feedback, attachment);
             return ResponseEntity.ok().body(returnedFeedback);
-        } catch (Exception e) {
-            throw new RuntimeException("Error uploading feedback", e);
+        } catch (IOException ioe) {
+            throw new RuntimeException("Error in feedback controller - attachment could not be read", ioe);
         }
+
     }
 
     /**
@@ -56,8 +64,8 @@ public class FeedbackController {
      * Calling url/feedback?older=true&last=number returns the 10 entries older than the specified number
      *
      * @param latest option for returning the 10 latest feedback entries
-     * @param older option for returning older feedback specified by the 'last' parameter. 'last' must be included if this option is true
-     * @param last must be included if 'older' is true, the server returns the 10 last entries older than the specified entry
+     * @param older  option for returning older feedback specified by the 'last' parameter. 'last' must be included if this option is true
+     * @param last   must be included if 'older' is true, the server returns the 10 last entries older than the specified entry
      * @return returns a list of all entries in the feedback table
      */
     @GetMapping()

@@ -42,7 +42,6 @@ public class CaseStudyOverview {
 
     public void setSpotlight(boolean spotlight) {
         this.spotlight = Assert.assertNull(spotlight, "Spotlight cannot be null");
-
     }
 
     public String getTitle() {

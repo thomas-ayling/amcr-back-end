@@ -25,11 +25,11 @@ public class CaseStudyController {
 
     @PostMapping("/")
     public ResponseEntity<?> saveCaseStudy(@RequestBody @Validated CaseStudy caseStudy, BindingResult errors) {
-            if (errors.hasErrors()) {
-                throw new NotFoundException(errors.toString());
-            }
-            CaseStudy returnedCaseStudy = caseStudyService.save(caseStudy);
-            return ResponseEntity.ok().body(returnedCaseStudy);
+        if (errors.hasErrors()) {
+            throw new NotFoundException(errors.toString());
+        }
+        CaseStudy returnedCaseStudy = caseStudyService.save(caseStudy);
+        return ResponseEntity.ok().body(returnedCaseStudy);
     }
 
     @GetMapping("/{id}")

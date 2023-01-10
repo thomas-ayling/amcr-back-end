@@ -1,6 +1,7 @@
 package com.globallogic.amcr.persistence.model.contactcomponent;
 
 import com.globallogic.amcr.utils.Assert;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -10,6 +11,7 @@ import java.util.UUID;
  */
 public class Feedback {
     private UUID id;
+    @NotNull
     private String feedbackType;
     private String firstName;
     private String lastName;
@@ -129,15 +131,6 @@ public class Feedback {
 
     @Override
     public String toString() {
-        return "Feedback{" +
-                "id=" + id +
-                ", feedbackType='" + feedbackType + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", feedbackBody='" + feedbackBody + '\'' +
-                ", bookName='" + bookName + '\'' +
-                ", bookLink='" + bookLink + '\'' +
-                '}';
+        return "Feedback{" + "id=" + id + ", feedbackType='" + feedbackType + '\'' + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", emailAddress='" + emailAddress + '\'' + ", feedbackBody='" + feedbackBody + '\'' + ", bookName='" + bookName + '\'' + ", bookLink='" + bookLink + '\'' + '}';
     }
 }

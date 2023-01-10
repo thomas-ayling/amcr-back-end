@@ -23,6 +23,7 @@ import java.util.Map;
 /**
  * Maps a map to a flat postgres JSONB field.
  */
+@SuppressWarnings("DuplicatedCode")
 @MappedJdbcTypes(JdbcType.OTHER)
 @MappedTypes(Map.class)
 @Alias(value = "JSONMapHandler")

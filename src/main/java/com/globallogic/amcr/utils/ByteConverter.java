@@ -3,6 +3,7 @@ package com.globallogic.amcr.utils;
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 
+@SuppressWarnings({"FinalStaticMethod", "SpellCheckingInspection"})
 public class ByteConverter {
     private ByteConverter() {
         throw new UnsupportedOperationException("ByteConverter cannot be used dynamically and should only be referenced statically");

@@ -16,8 +16,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     private final CaseStudyDao caseStudyDao;
 
     public CaseStudyServiceImpl(CaseStudyDao caseStudyDao) {
-        Assert.assertNull(caseStudyDao, "CaseStudyDao is not present");
-        this.caseStudyDao = caseStudyDao;
+        this.caseStudyDao =         Assert.assertNull(caseStudyDao, "CaseStudyDao is not present");
     }
 
     @Transactional
@@ -56,8 +55,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     public CaseStudy update(UUID id, CaseStudy newCaseStudy) {
         Assert.assertNull(id, "ID must be included to update a case study");
         Assert.assertNull(newCaseStudy, "New case study must not be null");
-        CaseStudy oldCaseStudy = caseStudyDao.get(id);
-        Assert.assertNull(oldCaseStudy, "Object with specified ID could not be found. Revise ID and try again");
+        CaseStudy oldCaseStudy = Assert.assertNull(caseStudyDao.get(id), "Object with specified ID could not be found. Revise ID and try again");
         return caseStudyDao.update(id, newCaseStudy, oldCaseStudy);
     }
 

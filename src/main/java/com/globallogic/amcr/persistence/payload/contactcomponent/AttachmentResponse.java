@@ -1,13 +1,17 @@
 package com.globallogic.amcr.persistence.payload.contactcomponent;
 
 import com.globallogic.amcr.utils.Assert;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Attachment response to download a file from the files database
  */
 public class AttachmentResponse {
+    @NotNull
     private String fileName;
+    @NotNull
     private String fileType;
+    @NotNull
     private byte[] data;
 
     /**
