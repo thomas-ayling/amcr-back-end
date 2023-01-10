@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/case-study")
-@CrossOrigin(origins = {"http://localhost:3000", "http://ec-acad-elb-fe-2f7bfb1526a617ef.elb.eu-west-2.amazonaws.com:3000"})
+@CrossOrigin
 public class CaseStudyController {
     public final Logger Log = LoggerFactory.getLogger(CaseStudyController.class.getName());
     private final CaseStudyService caseStudyService;

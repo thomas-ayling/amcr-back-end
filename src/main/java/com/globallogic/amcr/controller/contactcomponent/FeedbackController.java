@@ -27,7 +27,7 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping("/feedback")
-@CrossOrigin(origins = {"http://localhost:3000", "http://ec-acad-elb-fe-2f7bfb1526a617ef.elb.eu-west-2.amazonaws.com:3000"})
+@CrossOrigin
 public class FeedbackController {
 
     private final FeedbackService feedbackService;
