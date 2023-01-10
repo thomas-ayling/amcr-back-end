@@ -23,7 +23,7 @@ public class CaseStudyController {
         this.caseStudyService = caseStudyService;
     }
 
-    @PostMapping("/")
+    @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> saveCaseStudy(@RequestBody @Validated CaseStudy caseStudy, BindingResult errors) {
         if (errors.hasErrors()) {
             throw new NotFoundException(errors.toString());
@@ -32,23 +32,23 @@ public class CaseStudyController {
         return ResponseEntity.ok().body(returnedCaseStudy);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = "application/json")
     public CaseStudy get(@PathVariable UUID id) {
         return caseStudyService.get(id);
     }
 
-    @GetMapping()
+    @GetMapping(produces = "application/json")
     public List<CaseStudy> getAll() {
         return caseStudyService.getAll();
     }
 
-    @GetMapping("/overviews")
+    @GetMapping(value = "/overviews", produces = "application/json")
     public List<CaseStudyOverview> getAllOverviews(@RequestParam(required = false) Boolean spotlit) {
         spotlit = spotlit != null && spotlit;
         return spotlit ? caseStudyService.getSpotlitOverviews() : caseStudyService.getAllOverviews();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
     public CaseStudy update(@PathVariable UUID id, @RequestBody CaseStudy newCaseStudy) {
         try {
             return caseStudyService.update(id, newCaseStudy);
