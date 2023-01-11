@@ -14,8 +14,8 @@ import java.util.UUID;
 
 @Repository
 public class CaseStudyDao implements Dao<CaseStudy, CaseStudy> {
-    public final Logger Log = LoggerFactory.getLogger(CaseStudyDao.class.getName());
-    final CaseStudyMapper caseStudyMapper;
+    private final Logger Log = LoggerFactory.getLogger(CaseStudyDao.class.getName());
+    private final CaseStudyMapper caseStudyMapper;
 
     public CaseStudyDao(CaseStudyMapper caseStudyMapper) {
         this.caseStudyMapper = Assert.assertNull(caseStudyMapper, "Case study mapper cannot be null");
@@ -102,10 +102,11 @@ public class CaseStudyDao implements Dao<CaseStudy, CaseStudy> {
      *
      * @param id the if of the entry to be deleted
      */
-    public void delete(UUID id) {
+    public UUID delete(UUID id) {
         try {
             Log.trace("DAO deleting case study with ID {}", id);
             caseStudyMapper.delete(id);
+            return id;
         } catch (Exception e) {
             throw new RuntimeException("Error in CaseStudyDao - could not delete case study with id " + id, e);
         }

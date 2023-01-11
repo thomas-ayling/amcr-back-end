@@ -15,7 +15,7 @@ import java.util.UUID;
 @Service
 public class CaseStudyServiceImpl implements CaseStudyService {
     private final CaseStudyDao caseStudyDao;
-    public  final Logger Log = LoggerFactory.getLogger(CaseStudyServiceImpl.class.getName());
+    private final Logger Log = LoggerFactory.getLogger(CaseStudyServiceImpl.class.getName());
 
     public CaseStudyServiceImpl(CaseStudyDao caseStudyDao) {
         this.caseStudyDao = Assert.assertNull(caseStudyDao, "CaseStudyDao is not present");
@@ -68,9 +68,9 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     }
 
     @Transactional
-    public void delete(UUID id) {
+    public UUID delete(UUID id) {
         Assert.assertNull(id, "ID cannot be null to delete entry");
         Log.debug("Service requesting deletion of case study with ID {}", id);
-        caseStudyDao.delete(id);
+        return caseStudyDao.delete(id);
     }
 }
