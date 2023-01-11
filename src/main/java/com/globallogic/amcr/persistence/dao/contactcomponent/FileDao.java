@@ -24,7 +24,7 @@ public class FileDao implements Dao<Attachment, AttachmentResponse> {
      * @param feedbackId the id of the feedback that the attachment belongs to (foreign key)
      */
 
-    public void save(Attachment attachment, UUID feedbackId) {
+    public Attachment save(Attachment attachment, UUID feedbackId) {
         try {
             // Generate UUID for the attachment
             UUID fileId = UUID.randomUUID();
@@ -36,6 +36,7 @@ public class FileDao implements Dao<Attachment, AttachmentResponse> {
             attachment.setFeedbackId(feedbackId);
             // Save attachment
             fileMapper.save(attachment);
+            return attachment;
         } catch (Exception e) {
             throw new RuntimeException("Could not save attachment", e);
         }

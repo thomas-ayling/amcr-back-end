@@ -27,7 +27,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/feedback")
-@CrossOrigin(origins = "*")
+@CrossOrigin
 public class FeedbackController {
 
     private final EmailService emailService;

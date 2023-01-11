@@ -25,10 +25,11 @@ public class FeedbackDao implements Dao<Feedback, FeedbackResponse> {
      * @param feedbackId the id for the feedback, to be set in the feedback object
      */
     @Override
-    public void save(Feedback feedback, UUID feedbackId) {
+    public Feedback save(Feedback feedback, UUID feedbackId) {
         try {
             feedback.setId(feedbackId);
             feedbackMapper.save(feedback);
+            return feedback;
         } catch (Exception e) {
             throw new RuntimeException("Could not save feedback", e);
         }
