@@ -6,14 +6,16 @@ public class Layout {
 
     private UUID id;
     private String elementName;
-    private int xPosition;
-    private int yPosition;
-    private int width;
-    private int height;
-    private boolean movable;
+    private Integer xPosition;
+    private Integer yPosition;
+    private Integer width;
+    private Integer height;
+    private Boolean movable;
     private String page;
 
-    public Layout(String elementName, int xPosition, int yPosition, int width, int height, boolean movable, String page) {
+
+    public Layout(UUID id, String elementName, Integer xPosition, Integer yPosition, Integer width, Integer height, Boolean movable, String page, UUID profileId) {
+        this.id = id;
         this.elementName = elementName;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
@@ -21,10 +23,10 @@ public class Layout {
         this.height = height;
         this.movable = movable;
         this.page = page;
+
     }
 
-    public Layout(UUID id, String elementName, int xPosition, int yPosition, int width, int height, boolean movable, String page) {
-        this.id = id;
+    public Layout(String elementName, Integer xPosition, Integer yPosition, Integer width, Integer height, Boolean movable, String page, UUID profileId) {
         this.elementName = elementName;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
@@ -53,43 +55,43 @@ public class Layout {
         this.elementName = elementName;
     }
 
-    public int getxPosition() {
+    public Integer getxPosition() {
         return xPosition;
     }
 
-    public void setxPosition(int xPosition) {
+    public void setxPosition(Integer xPosition) {
         this.xPosition = xPosition;
     }
 
-    public int getyPosition() {
+    public Integer getyPosition() {
         return yPosition;
     }
 
-    public void setyPosition(int yPosition) {
+    public void setyPosition(Integer yPosition) {
         this.yPosition = yPosition;
     }
 
-    public int getWidth() {
+    public Integer getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
+    public void setWidth(Integer width) {
         this.width = width;
     }
 
-    public int getHeight() {
+    public Integer getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(Integer height) {
         this.height = height;
     }
 
-    public boolean isMovable() {
+    public Boolean getIsMovable() {
         return movable;
     }
 
-    public void setMovable(boolean movable) {
+    public void setIsMovable(Boolean movable) {
         this.movable = movable;
     }
 
@@ -101,8 +103,11 @@ public class Layout {
         this.page = page;
     }
 
+
+
+
     @Override
     public String toString() {
-        return "Layout{" + "id=" + id + ", elementName='" + elementName + '\'' + ", xPosition=" + xPosition + ", yPosition=" + yPosition + ", width=" + width + ", height=" + height + ", movable=" + movable + ", page='" + page + '\'' + '}';
+        return "Layout{" + "id=" + id + ", elementName='" + elementName + '\'' + ", xPosition=" + xPosition + ", yPosition=" + yPosition + ", width=" + width + ", height=" + height + ", movable=" + movable + ", page='" + page + '\'' +'}';
     }
 }

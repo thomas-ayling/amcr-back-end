@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @RestController
@@ -20,17 +21,47 @@ public class LayoutController {
         this.layoutService = layoutService;
     }
 
-    @PostMapping("/upload-layout")
+    @PostMapping("/")
     public ResponseEntity uploadLayout(@RequestBody Layout layout) {
         return layoutService.saveLayout(layout);
     }
-    @GetMapping("/get-layout/{page}")
+    @GetMapping("/get/{page}")
     public List<Layout> getLayoutByPage(@PathVariable String page) {
-        return layoutService.getLayoutByPage(page);
+        return layoutService.getByPage(page);
     }
 
-    @GetMapping("/get-all")
+//    @GetMapping("/get/{profileId}")
+//    public List<Layout> getLayoutByProfileId(@PathVariable UUID profileId) {
+//        return layoutService.getLayoutByProfileId(profileId);
+//    }
+
+    @GetMapping("/{elementName}")
+    public Layout getLayoutByName(@PathVariable String elementName) {
+        return layoutService.getElementByName(elementName);
+    }
+
+    @GetMapping("/")
     public List<Layout> getALl() {
         return layoutService.getAll();
     }
+
+//    @PutMapping("/{id}")
+//    public Layout update(@PathVariable UUID id, @RequestBody Layout newLayout) {
+//        try {
+//            return layoutService.update(id, newLayout);
+//        } catch (Exception e) {
+//            throw new RuntimeException("There was an error in the layoutController - could not update layout", e);
+//        }
+//    }
+//    @PutMapping("/{profileId}")
+//    public Layout updateIsMovable(@PathVariable UUID profileId, @RequestBody Layout newLayout) {
+//        try {
+//            return layoutService.update(profileId, newLayout);
+//        } catch (Exception e) {
+//            throw new RuntimeException("There was an error in the layoutController - could not update layout", e);
+//        }
+//    }
+    @DeleteMapping("/{id}")
+    public boolean deleteElementById(@PathVariable int id) {return layoutService.deleteById();};
+
 }
