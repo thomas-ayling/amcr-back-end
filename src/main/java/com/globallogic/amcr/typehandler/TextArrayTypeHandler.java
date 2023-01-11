@@ -23,11 +23,12 @@ THE SOFTWARE.
 */
 package com.globallogic.amcr.typehandler;
 
+import java.sql.Array;
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.UUID;
 
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
@@ -38,30 +39,44 @@ import org.apache.ibatis.type.MappedTypes;
  * @author Manni Wood
  */
 @MappedJdbcTypes(JdbcType.OTHER)
-@MappedTypes(UUID.class)
-public class UUIDTypeHandler extends BaseTypeHandler<UUID> {
+@MappedTypes(String[].class)
+public class TextArrayTypeHandler extends BaseTypeHandler<String[]> {
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i,
-                                    UUID parameter, JdbcType jdbcType) throws SQLException {
-        ps.setObject(i, parameter, jdbcType.TYPE_CODE);
+                                    String[] parameter, JdbcType jdbcType) throws SQLException {
+        Connection c = ps.getConnection();
+        Array inArray = c.createArrayOf("text", parameter);
+        ps.setArray(i, inArray);
     }
 
     @Override
-    public UUID getNullableResult(ResultSet rs, String columnName)
+    public String[] getNullableResult(ResultSet rs, String columnName)
             throws SQLException {
-        return (UUID)rs.getObject(columnName);
+        Array outputArray = rs.getArray(columnName);
+        if (outputArray == null) {
+            return null;
+        }
+        return (String[])outputArray.getArray();
     }
 
     @Override
-    public UUID getNullableResult(ResultSet rs, int columnIndex)
+    public String[] getNullableResult(ResultSet rs, int columnIndex)
             throws SQLException {
-        return (UUID)rs.getObject(columnIndex);
+        Array outputArray = rs.getArray(columnIndex);
+        if (outputArray == null) {
+            return null;
+        }
+        return (String[])outputArray.getArray();
     }
 
     @Override
-    public UUID getNullableResult(CallableStatement cs, int columnIndex)
+    public String[] getNullableResult(CallableStatement cs, int columnIndex)
             throws SQLException {
-        return (UUID)cs.getObject(columnIndex);
+        Array outputArray = cs.getArray(columnIndex);
+        if (outputArray == null) {
+            return null;
+        }
+        return (String[])outputArray.getArray();
     }
 }
