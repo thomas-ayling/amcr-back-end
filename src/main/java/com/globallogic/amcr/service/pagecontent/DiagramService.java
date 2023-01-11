@@ -34,13 +34,13 @@ public interface DiagramService {
      * @param diagram the diagram object with the data to be updated
      * @param id the id of the diagram object to be updated
      */
-    void update(Diagram diagram, UUID id);
+    Diagram update(UUID id, Diagram newDiagram);
 
     /**
      * @param diagram the diagram object with the data to be updated
      * @param nodeId the node id of the diagram object to be updated
      */
-    void updateByNode(Diagram diagram, int nodeId);
+    Diagram updateByNode(Diagram newDiagram, int nodeId);
 
     /**
      * @param nodeId the node id of the diagram object to be deleted
