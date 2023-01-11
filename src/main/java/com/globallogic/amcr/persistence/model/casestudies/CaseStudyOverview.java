@@ -1,28 +1,28 @@
 package com.globallogic.amcr.persistence.model.casestudies;
 
+import com.globallogic.amcr.utils.Assert;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.Objects;
 import java.util.UUID;
 
 public class CaseStudyOverview {
     private UUID id;
+    @NotNull
     private boolean spotlight;
+    @NotNull
     private String title;
+    @NotNull
     private String overview;
+    @NotNull
     private String coverImageLink;
 
     public CaseStudyOverview(UUID id, boolean spotlight, String title, String overview, String coverImageLink) {
         this.id = id;
-        this.spotlight = spotlight;
-        this.title = title;
-        this.overview = overview;
-        this.coverImageLink = coverImageLink;
-    }
-
-    public CaseStudyOverview(boolean spotlight, String title, String overview, String coverImageLink) {
-        this.spotlight = spotlight;
-        this.title = title;
-        this.overview = overview;
-        this.coverImageLink = coverImageLink;
+        this.spotlight = Assert.assertNull(spotlight, "Spotlight cannot be null");
+        this.title = Assert.assertNull(title, "Title cannot be null");
+        this.overview = Assert.assertNull(overview, "Overview cannot be null");
+        this.coverImageLink = Assert.assertNull(coverImageLink, "Cover image cannot be null");
     }
 
     public CaseStudyOverview() {
@@ -33,7 +33,7 @@ public class CaseStudyOverview {
     }
 
     public void setId(UUID id) {
-        this.id = id;
+        this.id = Assert.assertNull(id, "ID cannot be null");
     }
 
     public boolean getSpotlight() {
@@ -41,7 +41,7 @@ public class CaseStudyOverview {
     }
 
     public void setSpotlight(boolean spotlight) {
-        this.spotlight = spotlight;
+        this.spotlight = Assert.assertNull(spotlight, "Spotlight cannot be null");
     }
 
     public String getTitle() {
@@ -49,7 +49,7 @@ public class CaseStudyOverview {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = Assert.assertNull(title, "");
     }
 
     public String getOverview() {

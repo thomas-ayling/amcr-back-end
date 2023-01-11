@@ -5,6 +5,7 @@ import com.globallogic.amcr.persistence.dao.Dao;
 import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
+import com.globallogic.amcr.utils.Assert;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -16,7 +17,7 @@ public class FileDao implements Dao<Attachment, AttachmentResponse> {
     private final FileMapper fileMapper;
 
     public FileDao(FileMapper fileMapper) {
-        this.fileMapper = fileMapper;
+        this.fileMapper = Assert.assertNull(fileMapper, "File mapper cannot be null");
     }
 
     /**

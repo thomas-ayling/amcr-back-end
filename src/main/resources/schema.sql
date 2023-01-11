@@ -1,4 +1,4 @@
-create table if not exists feedback
+create table if not exists academy_project.feedback
 (
     id             uuid primary key,
     feedback_order serial,
@@ -11,7 +11,9 @@ create table if not exists feedback
     book_link      text
 );
 
-create table if not exists files
+ALTER TABLE academy_project.feedback OWNER TO CURRENT_USER;
+
+create table if not exists academy_project.files
 (
     id           uuid primary key,
     file_name    text   not null,
@@ -22,7 +24,9 @@ create table if not exists files
     feedback_id  uuid references feedback (id) on delete cascade
 );
 
-create table if not exists case_studies
+ALTER TABLE academy_project.files OWNER TO CURRENT_USER;
+
+create table if not exists academy_project.case_studies
 (
     id               uuid primary key not null,
     spotlight        boolean          not null,
@@ -32,6 +36,10 @@ create table if not exists case_studies
     body             jsonb            not null,
     download_links   text[]
 );
+
+ALTER TABLE academy_project.case_studies OWNER TO CURRENT_USER;
+
+-- Object format:
 
 -- {
 --     "spotlight": true,

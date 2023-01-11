@@ -1,6 +1,8 @@
 package com.globallogic.amcr.persistence.model.contactcomponent;
 
-import java.util.Arrays;
+import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
+import com.globallogic.amcr.utils.Assert;
+
 import java.util.Objects;
 import java.util.UUID;
 
@@ -8,30 +10,22 @@ import java.util.UUID;
  * Attachment model for sending attachments to the database
  */
 
-public class Attachment {
+public class Attachment extends AttachmentResponse {
     private UUID id;
-    private String fileName;
-    private String fileType;
     private long fileSize;
-    private byte[] data;
     private String downloadUri;
     private UUID feedbackId;
 
     /**
-     * @param fileName    the name of the file being saved
-     * @param fileType    the type of the file to be downloaded - received from the MultipartFile
-     * @param fileSize    the size of the file in bytes - received form the MultipartFile
-     * @param data        the raw binary data of the file
+     * @param fileName the name of the file being saved
+     * @param fileType the type of the file to be downloaded - received from the MultipartFile
+     * @param fileSize the size of the file in bytes - received form the MultipartFile
+     * @param data     the raw binary data of the file
      */
 
     public Attachment(String fileName, String fileType, long fileSize, byte[] data) {
-        Objects.requireNonNull(fileName, "File name cannot be null");
-        Objects.requireNonNull(fileType, "File type cannot be null");
-        Objects.requireNonNull(data, "Data cannot be null");
-        this.fileName = fileName;
-        this.fileType = fileType;
-        this.fileSize = fileSize;
-        this.data = data;
+        super(fileName, fileType, data);
+        this.fileSize = Assert.assertNull(fileSize, "Data cannot be null");
     }
 
     public UUID getId() {
@@ -39,26 +33,8 @@ public class Attachment {
     }
 
     public void setId(UUID id) {
-        Objects.requireNonNull(id, "ID cannot be null");
-        this.id = id;
-    }
+        this.id = Assert.assertNull(id, "ID cannot be null");
 
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        Objects.requireNonNull(fileName, "File name cannot be null");
-        this.fileName = fileName;
-    }
-
-    public String getFileType() {
-        return fileType;
-    }
-
-    public void setFileType(String fileType) {
-        Objects.requireNonNull(fileType, "File type cannot be null");
-        this.fileType = fileType;
     }
 
     public long getFileSize() {
@@ -66,16 +42,7 @@ public class Attachment {
     }
 
     public void setFileSize(long fileSize) {
-        this.fileSize = fileSize;
-    }
-
-    public byte[] getData() {
-        return data;
-    }
-
-    public void setData(byte[] data) {
-        Objects.requireNonNull(data, "Data cannot be null");
-        this.data = data;
+        this.fileSize = Assert.assertNull(fileSize, "File size cannot be null");
     }
 
     public String getDownloadUri() {
@@ -83,8 +50,7 @@ public class Attachment {
     }
 
     public void setDownloadUri(String downloadUri) {
-        Objects.requireNonNull(downloadUri, "Download uri cannot be null");
-        this.downloadUri = downloadUri;
+        this.downloadUri = Assert.assertNull(downloadUri, "Download uri cannot be null");
     }
 
     public UUID getFeedbackId() {
@@ -92,8 +58,7 @@ public class Attachment {
     }
 
     public void setFeedbackId(UUID feedbackId) {
-        Objects.requireNonNull(feedbackId, "Feedback id cannot be null");
-        this.feedbackId = feedbackId;
+        this.feedbackId = Assert.assertNull(feedbackId, "Feedback id cannot be null");
     }
 
     @Override
@@ -101,18 +66,21 @@ public class Attachment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Attachment that = (Attachment) o;
-        return getFileSize() == that.getFileSize() && getId().equals(that.getId()) && getFileName().equals(that.getFileName()) && getFileType().equals(that.getFileType()) && Arrays.equals(getData(), that.getData()) && getDownloadUri().equals(that.getDownloadUri()) && getFeedbackId().equals(that.getFeedbackId());
+        return getFileSize() == that.getFileSize() && getId().equals(that.getId()) && getDownloadUri().equals(that.getDownloadUri()) && getFeedbackId().equals(that.getFeedbackId());
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(getId(), getFileName(), getFileType(), getFileSize(), getDownloadUri(), getFeedbackId());
-        result = 31 * result + Arrays.hashCode(getData());
-        return result;
+        return Objects.hash(getId(), getFileSize(), getDownloadUri(), getFeedbackId());
     }
 
     @Override
     public String toString() {
-        return "Attachment{" + "id=" + id + ", fileName='" + fileName + '\'' + ", fileType='" + fileType + '\'' + ", fileSize='" + fileSize + '\'' + ", data=" + Arrays.toString(data) + ", downloadUri='" + downloadUri + '\'' + ", feedbackId=" + feedbackId + '}';
+        return "Attachment{" +
+                "id=" + id +
+                ", fileSize=" + fileSize +
+                ", downloadUri='" + downloadUri + '\'' +
+                ", feedbackId=" + feedbackId +
+                '}' + super.toString();
     }
 }

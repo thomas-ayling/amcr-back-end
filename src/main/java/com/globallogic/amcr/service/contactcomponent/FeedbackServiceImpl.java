@@ -6,6 +6,7 @@ import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
+import com.globallogic.amcr.utils.Assert;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,9 +20,9 @@ public class FeedbackServiceImpl implements FeedbackService {
     private final EmailService emailService;
 
     public FeedbackServiceImpl(FeedbackDao feedbackDao, FileDao fileDao, EmailService emailService) {
-        this.feedbackDao = feedbackDao;
-        this.fileDao = fileDao;
-        this.emailService = emailService;
+        this.feedbackDao = Assert.assertNull(feedbackDao, "Feedback DAO cannot be null");
+        this.fileDao = Assert.assertNull(fileDao, "File DAO cannot be null");
+        this.emailService = Assert.assertNull(emailService, "Email service cannot be null");
     }
 
     @Transactional
