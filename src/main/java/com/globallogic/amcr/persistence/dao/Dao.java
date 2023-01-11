@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface Dao<T, R> {
-    void save(T t, UUID uuid);
+    T save(T t, UUID uuid);
     R get(UUID id);
     List<R> getAll();
 }
