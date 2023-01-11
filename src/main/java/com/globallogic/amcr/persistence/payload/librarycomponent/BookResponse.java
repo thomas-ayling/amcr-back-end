@@ -1,40 +1,27 @@
-package com.globallogic.amcr.persistence.model.librarycomponent;
+package com.globallogic.amcr.persistence.payload.librarycomponent;
 
-import java.util.UUID;
 import java.util.Objects;
 
-public class Library {
-    
-    private UUID id;
+public class BookResponse {
     private String title;
     private String genre;
     private String author;
     private String reader;
     private Boolean available;
     private String cover;
+    private String email;
 
-
-    public Library() {
+    public BookResponse() {
     }
 
-
-    public Library(UUID id, String title, String genre, String author, String reader, Boolean available, String cover) {
-        this.id = id;
+    public BookResponse(String title, String genre, String author, String reader, Boolean available, String cover, String email) {
         this.title = title;
         this.genre = genre;
         this.author = author;
         this.reader = reader;
         this.available = available;
         this.cover = cover;
-    }
-
-
-    public UUID getId() {
-        return this.id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
+        this.email = email;
     }
 
     public String getTitle() {
@@ -73,10 +60,6 @@ public class Library {
         return this.available;
     }
 
-    public Boolean getAvailable() {
-        return this.available;
-    }
-
     public void setAvailable(Boolean available) {
         this.available = available;
     }
@@ -89,37 +72,40 @@ public class Library {
         this.cover = cover;
     }
 
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof BookResponse libraryResponse)) {
+            return false;
+        }
+        return Objects.equals(title, libraryResponse.title) && Objects.equals(genre, libraryResponse.genre) && Objects.equals(author, libraryResponse.author) && Objects.equals(reader, libraryResponse.reader) && Objects.equals(available, libraryResponse.available) && Objects.equals(cover, libraryResponse.cover) && Objects.equals(email, libraryResponse.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, genre, author, reader, available, cover, email);
+    }
 
     @Override
     public String toString() {
         return "{" +
-            " id='" + getId() + "'" +
             ", title='" + getTitle() + "'" +
             ", genre='" + getGenre() + "'" +
             ", author='" + getAuthor() + "'" +
             ", reader='" + getReader() + "'" +
             ", available='" + isAvailable() + "'" +
             ", cover='" + getCover() + "'" +
+            ", email='" + getEmail() + "'" +
             "}";
     }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Library)) {
-            return false;
-        }
-        Library library = (Library) o;
-        return Objects.equals(id, library.id) && Objects.equals(title, library.title) && Objects.equals(genre, library.genre) && Objects.equals(author, library.author) && Objects.equals(reader, library.reader) && Objects.equals(available, library.available) && Objects.equals(cover, library.cover);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, genre, author, reader, available, cover);
-    }
-
-    
 
 }
