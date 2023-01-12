@@ -1,7 +1,7 @@
 package com.globallogic.amcr.persistence.dao.contactcomponent;
 
-import com.globallogic.amcr.mapper.contactcomponent.FeedbackMapper;
-import com.globallogic.amcr.mapper.contactcomponent.FileMapper;
+import com.globallogic.amcr.persistence.mapper.contactcomponent.FeedbackMapper;
+import com.globallogic.amcr.persistence.mapper.contactcomponent.FileMapper;
 import com.globallogic.amcr.persistence.dao.Dao;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;

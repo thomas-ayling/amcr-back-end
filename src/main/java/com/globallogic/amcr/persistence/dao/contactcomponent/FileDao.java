@@ -1,6 +1,6 @@
 package com.globallogic.amcr.persistence.dao.contactcomponent;
 
-import com.globallogic.amcr.mapper.contactcomponent.FileMapper;
+import com.globallogic.amcr.persistence.mapper.contactcomponent.FileMapper;
 import com.globallogic.amcr.persistence.dao.Dao;
 import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;

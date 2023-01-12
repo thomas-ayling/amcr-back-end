@@ -1,6 +1,6 @@
 package com.globallogic.amcr.persistence.dao.casestudies;
 
-import com.globallogic.amcr.mapper.casestudies.CaseStudyMapper;
+import com.globallogic.amcr.persistence.mapper.casestudies.CaseStudyMapper;
 import com.globallogic.amcr.persistence.dao.Dao;
 import com.globallogic.amcr.persistence.model.casestudies.CaseStudy;
 import com.globallogic.amcr.persistence.model.casestudies.CaseStudyOverview;
