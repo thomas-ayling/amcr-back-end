@@ -58,5 +58,5 @@ public interface CaseStudyService {
      *
      * @param id the id of the entry to be deleted
      */
-    void delete(UUID id);
+    UUID delete(UUID id);
 }

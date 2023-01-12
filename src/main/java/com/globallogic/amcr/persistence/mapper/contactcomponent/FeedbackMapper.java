@@ -1,4 +1,4 @@
-package com.globallogic.amcr.mapper.contactcomponent;
+package com.globallogic.amcr.persistence.mapper.contactcomponent;
 
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
