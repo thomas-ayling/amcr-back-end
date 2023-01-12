@@ -17,7 +17,7 @@ import java.util.UUID;
 public class FeedbackDao implements Dao<Feedback, FeedbackResponse> {
     final FeedbackMapper feedbackMapper;
     final FileMapper fileMapper;
-    private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class.getName());
+    private final Logger Log = LoggerFactory.getLogger(FeedbackDao.class.getName());
 
     public FeedbackDao(FeedbackMapper feedbackMapper, FileMapper fileMapper) {
         this.feedbackMapper = Assert.assertNull(feedbackMapper, "Feedback mapper cannot be null");
