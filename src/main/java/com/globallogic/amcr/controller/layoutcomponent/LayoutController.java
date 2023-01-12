@@ -71,7 +71,7 @@ public class LayoutController {
             layoutService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            throw new RuntimeException("There was an error in the LayoutController - could not delete layout with ID " + id);
+            throw new RuntimeException("There was an error in the LayoutController - could not delete layout with ID " + id, e);
         }
     }
 }

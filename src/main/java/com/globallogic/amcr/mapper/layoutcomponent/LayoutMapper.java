@@ -80,7 +80,7 @@ public interface LayoutMapper {
 
 
 
-    @Delete("DELETE * FROM layout WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
+    @Delete("DELETE FROM layout WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     void deleteById(@Param("id") UUID id);
 
     @Delete("delete * from layout where element_name=#{element_name}")
