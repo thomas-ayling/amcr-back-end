@@ -1,6 +1,5 @@
 package com.globallogic.amcr.service.contactcomponent;
 
-import com.globallogic.amcr.controller.casestudies.CaseStudyController;
 import com.globallogic.amcr.persistence.dao.contactcomponent.FileDao;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
@@ -19,7 +18,7 @@ import java.util.UUID;
 @SuppressWarnings("SpellCheckingInspection")
 @Service
 public class EmailServiceImpl implements EmailService {
-    private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class.getName());
+    private final Logger Log = LoggerFactory.getLogger(EmailServiceImpl.class.getName());
     private final JavaMailSender mailSender;
     private final FileDao fileDao;
 
@@ -69,7 +68,7 @@ public class EmailServiceImpl implements EmailService {
                 case "improvement" -> {
                     mimeMessageHelper.setSubject("New improvement proposal");
                     textPart = isAnonymous ? String.format("An anonymous improvement has been proposed:\n%s\n%s", feedback.getFeedbackBody(), textAttachmentLink) : String.format("%s %s has proposed an improvement:\n%s\n%s\nReturn address: %s", feedback.getFirstName(), feedback.getLastName(), feedback.getFeedbackBody(), textAttachmentLink, feedback.getEmailAddress());
-                    htmlPart = isAnonymous ? String.format("%s<div class='email'><h2>An anonymous improvement has been proposed:</h2><p>%s</p><br/>" + htmlAttachmentLink + "</div>", feedback.getFeedbackBody()) : String.format(style + "<div class='email'><h2>%s %s has proposed an improvement:</h2><p>%s</p><br/>%s<br/><strong>Return address: %s</strong></div>", style, feedback.getFirstName(), feedback.getLastName(), feedback.getFeedbackBody(), htmlAttachmentLink, feedback.getEmailAddress());
+                    htmlPart = isAnonymous ? String.format("%s<div class='email'><h2>An anonymous improvement has been proposed:</h2><p>%s</p><br/>%s</div>", style, feedback.getFeedbackBody(), htmlAttachmentLink) : String.format(style + "<div class='email'><h2>%s %s has proposed an improvement:</h2><p>%s</p><br/>%s<br/><strong>Return address: %s</strong></div>", style, feedback.getFirstName(), feedback.getLastName(), feedback.getFeedbackBody(), htmlAttachmentLink, feedback.getEmailAddress());
                 }
                 default -> {
                     textPart = "There was an issue generating this email";
