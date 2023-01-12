@@ -1,11 +1,14 @@
 package com.globallogic.amcr.service.contactcomponent;
 
+import com.globallogic.amcr.controller.casestudies.CaseStudyController;
 import com.globallogic.amcr.persistence.dao.contactcomponent.FileDao;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
 import com.globallogic.amcr.utils.Assert;
 import com.globallogic.amcr.utils.ByteConverter;
 import jakarta.mail.internet.MimeMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -16,6 +19,7 @@ import java.util.UUID;
 @SuppressWarnings("SpellCheckingInspection")
 @Service
 public class EmailServiceImpl implements EmailService {
+    private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class.getName());
     private final JavaMailSender mailSender;
     private final FileDao fileDao;
 
@@ -27,12 +31,15 @@ public class EmailServiceImpl implements EmailService {
     public void sendMail(Feedback feedback, UUID feedbackId) {
         try {
             // Get data for file link
+            Log.debug("Requesting download link data for email");
             AttachmentMetadata attachmentMetadata = fileDao.getAttachmentMetadata(feedbackId);
 
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 
             boolean isAnonymous = feedback.getEmailAddress() == null || feedback.getEmailAddress().length() == 0;
+
+            Log.debug("Generating email");
 
             mimeMessageHelper.setFrom(isAnonymous ? "<anonymous@globallogic.com>" : "<" + feedback.getEmailAddress() + ">");
             mimeMessageHelper.setTo("<engineeringcenterbot@globallogic.com>");
@@ -70,6 +77,7 @@ public class EmailServiceImpl implements EmailService {
                 }
             }
             mimeMessageHelper.setText(textPart, htmlPart);
+            Log.debug("Sending email");
             mailSender.send(mimeMessage);
         } catch (Exception e) {
             throw new MailSendException("There was a problem sending this email", e);

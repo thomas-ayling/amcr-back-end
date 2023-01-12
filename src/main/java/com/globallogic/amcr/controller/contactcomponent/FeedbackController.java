@@ -1,11 +1,14 @@
 package com.globallogic.amcr.controller.contactcomponent;
 
+import com.globallogic.amcr.controller.casestudies.CaseStudyController;
 import com.globallogic.amcr.exception.NotFoundException;
 import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
 import com.globallogic.amcr.service.contactcomponent.FeedbackService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -29,7 +32,7 @@ import java.util.UUID;
 @RequestMapping("/feedback")
 @CrossOrigin
 public class FeedbackController {
-
+    private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class.getName());
     private final FeedbackService feedbackService;
 
     public FeedbackController(FeedbackService feedbackService) {
@@ -49,6 +52,7 @@ public class FeedbackController {
         try {
             // Create new Attachment object with params taken from MultipartFile
             Attachment attachment = incomingAttachment == null ? null : new Attachment(StringUtils.cleanPath(Objects.requireNonNull(incomingAttachment.getOriginalFilename())), incomingAttachment.getContentType(), incomingAttachment.getSize(), incomingAttachment.getBytes());
+            Log.debug("Controller saving new feedback");
             Feedback returnedFeedback = feedbackService.save(feedback, attachment);
             return ResponseEntity.ok().body(returnedFeedback);
         } catch (IOException ioe) {
@@ -82,9 +86,11 @@ public class FeedbackController {
             throw new RuntimeException("'Latest' and 'older' cannot both be true. Select one or the other.");
         }
         if (latest) {
+            Log.debug("Controller requesting latest feedback entries");
             return feedbackService.getLatest();
         }
         if (older) {
+            Log.debug("Controller requesting older feedback entries");
             return feedbackService.getOlder(last);
         }
         return feedbackService.getAll();
@@ -97,6 +103,7 @@ public class FeedbackController {
     @GetMapping("/file/{fileId}")
     public ResponseEntity<Resource> getAttachment(@PathVariable UUID fileId) {
         try {
+            Log.debug("Controller requesting file with ID {}", fileId);
             AttachmentResponse attachmentResponse = feedbackService.getFile(fileId);
             return ResponseEntity.ok().contentType(MediaType.parseMediaType(attachmentResponse.getFileType())).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + attachmentResponse.getFileName() + "\"").body(new ByteArrayResource(attachmentResponse.getData()));
         } catch (Exception e) {
