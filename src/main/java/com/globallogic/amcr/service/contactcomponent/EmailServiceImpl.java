@@ -24,8 +24,8 @@ public class EmailServiceImpl implements EmailService {
     private final FileDao fileDao;
 
     public EmailServiceImpl(JavaMailSender mailSender, FileDao fileDao) {
-        this.mailSender = Assert.assertNull( mailSender, "Mail sender cannot be null");
-        this.fileDao = Assert.assertNull( fileDao, "File DAO cannot be null");
+        this.mailSender = Assert.assertNull(mailSender, "Mail sender cannot be null");
+        this.fileDao = Assert.assertNull(fileDao, "File DAO cannot be null");
     }
 
     public void sendMail(Feedback feedback, UUID feedbackId) {
@@ -39,7 +39,7 @@ public class EmailServiceImpl implements EmailService {
 
             boolean isAnonymous = feedback.getEmailAddress() == null || feedback.getEmailAddress().length() == 0;
 
-            Log.debug("Generating email");
+            Log.debug("Generating email. isAnonymous is {}", isAnonymous);
 
             mimeMessageHelper.setFrom(isAnonymous ? "<anonymous@globallogic.com>" : "<" + feedback.getEmailAddress() + ">");
             mimeMessageHelper.setTo("<engineeringcenterbot@globallogic.com>");
@@ -77,7 +77,7 @@ public class EmailServiceImpl implements EmailService {
                 }
             }
             mimeMessageHelper.setText(textPart, htmlPart);
-            Log.debug("Sending email");
+            Log.debug("Sending email.\nText part is:\n{}\n\nHTML part is:\n{}\n\nisAnonumous value is: {}", textPart, htmlPart, isAnonymous);
             mailSender.send(mimeMessage);
         } catch (Exception e) {
             throw new MailSendException("There was a problem sending this email", e);
