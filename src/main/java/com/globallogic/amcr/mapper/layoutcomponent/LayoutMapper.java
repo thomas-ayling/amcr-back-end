@@ -63,8 +63,8 @@ public interface LayoutMapper {
     @ConstructorArgs({
             @Arg(column = "id", javaType = UUID.class, typeHandler = UUIDTypeHandler.class, id = true),
             @Arg(column = "element_name", javaType = String.class),
-            @Arg(column = "x_Position", javaType = int.class),
-            @Arg(column = "y_Position", javaType = int.class),
+            @Arg(column = "x_position", javaType = int.class),
+            @Arg(column = "y_position", javaType = int.class),
             @Arg(column = "width", javaType = int.class),
             @Arg(column = "height", javaType = int.class),
             @Arg(column = "movable", javaType = boolean.class),
@@ -81,7 +81,7 @@ public interface LayoutMapper {
 
 
     @Delete("DELETE * FROM layout WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
-    public Layout deleteLayoutById(@Param("id") UUID id);
+    void deleteById(@Param("id") UUID id);
 
     @Delete("delete * from layout where element_name=#{element_name}")
     void deleteByElementName(@Param("element_name") String elementName);

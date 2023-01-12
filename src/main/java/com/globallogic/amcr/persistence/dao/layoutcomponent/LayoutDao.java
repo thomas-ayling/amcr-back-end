@@ -1,10 +1,12 @@
 package com.globallogic.amcr.persistence.dao.layoutcomponent;
 
+import com.globallogic.amcr.controller.layoutcomponent.LayoutController;
 import com.globallogic.amcr.mapper.layoutcomponent.LayoutMapper;
 import com.globallogic.amcr.persistence.model.layoutcomponent.Layout;
 import com.globallogic.amcr.persistence.dao.Dao;
 import org.springframework.stereotype.Repository;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,8 +39,14 @@ public class LayoutDao implements Dao<Layout,Layout > {
 //        return (List<Layout>) layoutMapper.getLayoutByProfileById(profileId);
 //    }
 
-    public boolean deleteById(){
-        return true;
+
+
+    public void deleteById(UUID id) {
+        try {
+            layoutMapper.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Error in layoutDao - could not delete layout with id " + id, e);
+        }
     }
     public Layout getElementByName(String elementName){
         return (Layout) layoutMapper.getByElementName(elementName);}
@@ -54,20 +62,8 @@ public class LayoutDao implements Dao<Layout,Layout > {
         if (newLayout.getElementName() == null) {
             newLayout.setElementName(oldLayout.getElementName());
         }
-        if (newLayout.getxPosition() == null) {
-            newLayout.setxPosition(oldLayout.getxPosition());
-        }
-        if (newLayout.getyPosition() == null) {
-            newLayout.setyPosition(oldLayout.getyPosition());
-        }
-        if (newLayout.getWidth() == null) {
-            newLayout.setWidth(oldLayout.getWidth());
-        }
-        if (newLayout.getHeight() == null) {
-            newLayout.setHeight(oldLayout.getHeight());
-        }
-        if (newLayout.getIsMovable() == null) {
-            newLayout.setIsMovable(oldLayout.getIsMovable());
+        if (newLayout.isMovable() == null) {
+            newLayout.setMovable(oldLayout.isMovable());
         }
         if (newLayout.getPage() == null) {
             newLayout.setPage(oldLayout.getPage());

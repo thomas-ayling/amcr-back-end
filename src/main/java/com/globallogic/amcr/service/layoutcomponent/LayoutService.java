@@ -1,22 +1,23 @@
 package com.globallogic.amcr.service.layoutcomponent;
 
+import com.globallogic.amcr.controller.layoutcomponent.LayoutController;
 import com.globallogic.amcr.mapper.layoutcomponent.LayoutMapper;
 import com.globallogic.amcr.persistence.model.layoutcomponent.Layout;
 import com.globallogic.amcr.persistence.dao.layoutcomponent.LayoutDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Service
 public class LayoutService {
-
-
     public final LayoutMapper layoutMapper;
     private final LayoutDao layoutDao;
 
@@ -59,9 +60,11 @@ public class LayoutService {
         return layoutDao.getByPage(page);
     }
 
-    @Transactional()
-    public boolean deleteById() { return layoutDao.deleteById();
 
+
+    @Transactional
+    public void deleteById(UUID id) {
+        layoutDao.deleteById(id);
     }
 
     @Transactional

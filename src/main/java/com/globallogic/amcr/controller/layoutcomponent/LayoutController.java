@@ -2,9 +2,11 @@ package com.globallogic.amcr.controller.layoutcomponent;
 
 import com.globallogic.amcr.persistence.model.layoutcomponent.Layout;
 import com.globallogic.amcr.service.layoutcomponent.LayoutService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,6 +18,7 @@ public class LayoutController {
 
 
     private final LayoutService layoutService;
+
 
     public LayoutController(LayoutService layoutService) {
         this.layoutService = layoutService;
@@ -62,6 +65,13 @@ public class LayoutController {
 //        }
 //    }
     @DeleteMapping("/{id}")
-    public boolean deleteElementById(@PathVariable int id) {return layoutService.deleteById();};
+    public ResponseEntity<?> deleteById(@PathVariable UUID id) {
+        try {
 
+            layoutService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            throw new RuntimeException("There was an error in the LayoutController - could not delete layout with ID " + id);
+        }
+    }
 }

@@ -6,27 +6,16 @@ public class Layout {
 
     private UUID id;
     private String elementName;
-    private Integer xPosition;
-    private Integer yPosition;
-    private Integer width;
-    private Integer height;
+    private int xPosition;
+    private int yPosition;
+    private int width;
+    private int height;
     private Boolean movable;
     private String page;
 
 
-    public Layout(UUID id, String elementName, Integer xPosition, Integer yPosition, Integer width, Integer height, Boolean movable, String page, UUID profileId) {
+    public Layout(UUID id, String elementName, int xPosition, int yPosition, int width, int height, boolean movable, String page) {
         this.id = id;
-        this.elementName = elementName;
-        this.xPosition = xPosition;
-        this.yPosition = yPosition;
-        this.width = width;
-        this.height = height;
-        this.movable = movable;
-        this.page = page;
-
-    }
-
-    public Layout(String elementName, Integer xPosition, Integer yPosition, Integer width, Integer height, Boolean movable, String page, UUID profileId) {
         this.elementName = elementName;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
@@ -55,11 +44,11 @@ public class Layout {
         this.elementName = elementName;
     }
 
-    public Integer getxPosition() {
+    public int getxPosition() {
         return xPosition;
     }
 
-    public void setxPosition(Integer xPosition) {
+    public void setxPosition(int xPosition) {
         this.xPosition = xPosition;
     }
 
@@ -67,31 +56,31 @@ public class Layout {
         return yPosition;
     }
 
-    public void setyPosition(Integer yPosition) {
+    public void setyPosition(int yPosition) {
         this.yPosition = yPosition;
     }
 
-    public Integer getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public void setWidth(Integer width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 
-    public Integer getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(Integer height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
-    public Boolean getIsMovable() {
+    public Boolean isMovable() {
         return movable;
     }
 
-    public void setIsMovable(Boolean movable) {
+    public void setMovable(Boolean movable) {
         this.movable = movable;
     }
 
