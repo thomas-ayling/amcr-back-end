@@ -1,6 +1,5 @@
 package com.globallogic.amcr.service.contactcomponent;
 
-import com.globallogic.amcr.controller.casestudies.CaseStudyController;
 import com.globallogic.amcr.persistence.dao.contactcomponent.FileDao;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
@@ -19,13 +18,13 @@ import java.util.UUID;
 @SuppressWarnings("SpellCheckingInspection")
 @Service
 public class EmailServiceImpl implements EmailService {
-    private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class.getName());
+    private final Logger Log = LoggerFactory.getLogger(EmailServiceImpl.class.getName());
     private final JavaMailSender mailSender;
     private final FileDao fileDao;
 
     public EmailServiceImpl(JavaMailSender mailSender, FileDao fileDao) {
-        this.mailSender = Assert.assertNull( mailSender, "Mail sender cannot be null");
-        this.fileDao = Assert.assertNull( fileDao, "File DAO cannot be null");
+        this.mailSender = Assert.assertNull(mailSender, "Mail sender cannot be null");
+        this.fileDao = Assert.assertNull(fileDao, "File DAO cannot be null");
     }
 
     public void sendMail(Feedback feedback, UUID feedbackId) {
@@ -39,7 +38,7 @@ public class EmailServiceImpl implements EmailService {
 
             boolean isAnonymous = feedback.getEmailAddress() == null || feedback.getEmailAddress().length() == 0;
 
-            Log.debug("Generating email");
+            Log.debug("Generating email. isAnonymous is {}", isAnonymous);
 
             mimeMessageHelper.setFrom(isAnonymous ? "<anonymous@globallogic.com>" : "<" + feedback.getEmailAddress() + ">");
             mimeMessageHelper.setTo("<engineeringcenterbot@globallogic.com>");
@@ -69,7 +68,7 @@ public class EmailServiceImpl implements EmailService {
                 case "improvement" -> {
                     mimeMessageHelper.setSubject("New improvement proposal");
                     textPart = isAnonymous ? String.format("An anonymous improvement has been proposed:\n%s\n%s", feedback.getFeedbackBody(), textAttachmentLink) : String.format("%s %s has proposed an improvement:\n%s\n%s\nReturn address: %s", feedback.getFirstName(), feedback.getLastName(), feedback.getFeedbackBody(), textAttachmentLink, feedback.getEmailAddress());
-                    htmlPart = isAnonymous ? String.format("%s<div class='email'><h2>An anonymous improvement has been proposed:</h2><p>%s</p><br/>" + htmlAttachmentLink + "</div>", feedback.getFeedbackBody()) : String.format(style + "<div class='email'><h2>%s %s has proposed an improvement:</h2><p>%s</p><br/>%s<br/><strong>Return address: %s</strong></div>", style, feedback.getFirstName(), feedback.getLastName(), feedback.getFeedbackBody(), htmlAttachmentLink, feedback.getEmailAddress());
+                    htmlPart = isAnonymous ? String.format("%s<div class='email'><h2>An anonymous improvement has been proposed:</h2><p>%s</p><br/>%s</div>", style, feedback.getFeedbackBody(), htmlAttachmentLink) : String.format(style + "<div class='email'><h2>%s %s has proposed an improvement:</h2><p>%s</p><br/>%s<br/><strong>Return address: %s</strong></div>", style, feedback.getFirstName(), feedback.getLastName(), feedback.getFeedbackBody(), htmlAttachmentLink, feedback.getEmailAddress());
                 }
                 default -> {
                     textPart = "There was an issue generating this email";
@@ -77,7 +76,7 @@ public class EmailServiceImpl implements EmailService {
                 }
             }
             mimeMessageHelper.setText(textPart, htmlPart);
-            Log.debug("Sending email");
+            Log.debug("Sending email.\nText part is:\n{}\n\nHTML part is:\n{}\n\nisAnonumous value is: {}", textPart, htmlPart, isAnonymous);
             mailSender.send(mimeMessage);
         } catch (Exception e) {
             throw new MailSendException("There was a problem sending this email", e);
