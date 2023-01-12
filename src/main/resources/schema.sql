@@ -22,3 +22,14 @@ create table if not exists files
     feedback_id  uuid references feedback (id) on delete cascade
 );
 
+create table if not exists attachments (
+    id uuid primary key,
+    name text,
+    download_uri text,
+    content_type text,
+    size text,
+    crc bigint,
+    metadata text,
+    data bytea
+);
+
