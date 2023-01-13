@@ -11,8 +11,12 @@ public interface BookService {
 
     Book save(Book book);
 
-    List<BookResponse> getAll();
+    Book get(UUID id);
 
-    BookResponse get(UUID id);
+    List<Book> getAll();
+
+    Book reserve(UUID id, Book reservedBook);
+
+    void delete(UUID id);
     
 }

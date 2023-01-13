@@ -1,19 +1,25 @@
 package com.globallogic.amcr.persistence.model.librarycomponent;
 
+import jakarta.validation.constraints.NotNull;
+
 import java.util.Objects;
 import java.util.UUID;
 
 public class Book {
 
     private UUID id;
+    @NotNull
     private String title;
+    @NotNull
     private String genre;
+    @NotNull
     private String author;
     private String reader;
+    @NotNull
     private Boolean available;
+    @NotNull
     private String cover;
     private String email;
-
 
     public Book() {
     }

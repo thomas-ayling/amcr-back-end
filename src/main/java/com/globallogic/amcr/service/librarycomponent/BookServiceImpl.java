@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.UUID;
 
 import com.globallogic.amcr.persistence.model.librarycomponent.Book;
+import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import com.globallogic.amcr.persistence.dao.librarycomponent.BookDao;
 import com.globallogic.amcr.persistence.payload.librarycomponent.BookResponse;
@@ -34,13 +36,27 @@ public class BookServiceImpl implements BookService {
     }
 
     @Transactional(readOnly = true)
-    public List<BookResponse> getAll() {
+    public List<Book> getAll() {
+        Log.debug("Service requesting all books");
         return bookDao.getAll();
     }
 
     @Transactional(readOnly = true)
-    public BookResponse get(UUID id) {
+    public Book get(UUID id) {
+        Assert.assertNull(id, "Id cannot be null to request");
+        Log.debug("Service saving new book");
         return bookDao.get(id);
     }
 
+    @Transactional
+    public Book reserve(UUID id, Book reservedBook) {
+        Assert.assertNull(id, "ID must be included to reserve book");
+        Assert.assertNull(reservedBook, "New reservation cannot be empty");
+        Book oldbook = Assert.assertNull(bookDao.get(id), "Objects with specified ID could not be found. Try again");
+        Log.debug("Service requesting reservation of book with ID {}", id);
+        return bookDao.reserve(id, oldbook, reservedBook);
+    }
+
+    @Transactional
+    public void delete(UUID id) {bookDao.delete(id);}
 }

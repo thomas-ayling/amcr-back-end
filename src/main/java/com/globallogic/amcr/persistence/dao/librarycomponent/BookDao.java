@@ -5,13 +5,16 @@ import java.util.UUID;
 
 import com.globallogic.amcr.persistence.dao.Dao;
 import com.globallogic.amcr.persistence.model.librarycomponent.Book;
+import com.globallogic.amcr.persistence.payload.librarycomponent.BookResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.globallogic.amcr.mapper.librarycomponent.BookMapper;
-import com.globallogic.amcr.persistence.payload.librarycomponent.BookResponse;
+import com.globallogic.amcr.persistence.mapper.librarycomponent.BookMapper;
 
 @Repository
-public class BookDao implements Dao<Book, BookResponse> {
+public class BookDao implements Dao<Book, Book> {
+    public static final Logger Log = LoggerFactory.getLogger(BookDao.class.getName());
     final BookMapper bookMapper;
 
     public BookDao(BookMapper bookMapper) {
@@ -27,12 +30,48 @@ public class BookDao implements Dao<Book, BookResponse> {
             throw new RuntimeException("DAO could not save book", e);
         }
     }
-    
-    public BookResponse get(UUID id) {
+
+    public Book get(UUID id) {
         return bookMapper.get(id);
     }
 
-    public List<BookResponse> getAll() {
+    public List<Book> getAll() {
         return bookMapper.getAll();
+    }
+
+    public Book reserve(UUID id, Book oldBook, Book reservedBook) {
+        reservedBook.setId(id);
+        if (oldBook.equals(reservedBook)) {
+            return reservedBook;
+        }
+        if (reservedBook.getTitle() == null) {
+            reservedBook.setTitle(oldBook.getTitle());
+        }
+        if (reservedBook.getAuthor() == null) {
+            reservedBook.setAuthor(oldBook.getAuthor());
+        }
+        if (reservedBook.getGenre() == null) {
+            reservedBook.setGenre(oldBook.getGenre());
+        }
+        if (reservedBook.getCover() == null) {
+            reservedBook.setCover(oldBook.getCover());
+        }
+        if (reservedBook.getTitle() == null) {
+            reservedBook.setTitle(oldBook.getTitle());
+        }
+        if (reservedBook.getTitle() == null) {
+            reservedBook.setTitle(oldBook.getTitle());
+        }
+            Log.trace("DAO reserving book with ID {} and Content: \n{}\n\n\n\n with new book:\n\n{}", id , oldBook, reservedBook);
+            bookMapper.reserve(id, reservedBook);
+            return reservedBook;
+    }
+    public void delete(UUID id) {
+        try {
+            Log.trace("DAO deleting book with ID {}", id);
+            bookMapper.delete(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Error in BookDao - could not delete book with ID {}" + id, e);
+        }
     }
 }
