@@ -1,8 +1,7 @@
 package com.globallogic.amcr.persistence.dao.contactcomponent;
 
-import com.globallogic.amcr.controller.casestudies.CaseStudyController;
-import com.globallogic.amcr.mapper.contactcomponent.FeedbackMapper;
-import com.globallogic.amcr.mapper.contactcomponent.FileMapper;
+import com.globallogic.amcr.persistence.mapper.contactcomponent.FeedbackMapper;
+import com.globallogic.amcr.persistence.mapper.contactcomponent.FileMapper;
 import com.globallogic.amcr.persistence.dao.Dao;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
@@ -18,7 +17,7 @@ import java.util.UUID;
 public class FeedbackDao implements Dao<Feedback, FeedbackResponse> {
     final FeedbackMapper feedbackMapper;
     final FileMapper fileMapper;
-    private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class.getName());
+    private final Logger Log = LoggerFactory.getLogger(FeedbackDao.class.getName());
 
     public FeedbackDao(FeedbackMapper feedbackMapper, FileMapper fileMapper) {
         this.feedbackMapper = Assert.assertNull(feedbackMapper, "Feedback mapper cannot be null");

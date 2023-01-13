@@ -1,6 +1,6 @@
 package com.globallogic.amcr.persistence.dao.casestudies;
 
-import com.globallogic.amcr.mapper.casestudies.CaseStudyMapper;
+import com.globallogic.amcr.persistence.mapper.casestudies.CaseStudyMapper;
 import com.globallogic.amcr.persistence.dao.Dao;
 import com.globallogic.amcr.persistence.model.casestudies.CaseStudy;
 import com.globallogic.amcr.persistence.model.casestudies.CaseStudyOverview;
@@ -14,8 +14,8 @@ import java.util.UUID;
 
 @Repository
 public class CaseStudyDao implements Dao<CaseStudy, CaseStudy> {
-    public final Logger Log = LoggerFactory.getLogger(CaseStudyDao.class.getName());
-    final CaseStudyMapper caseStudyMapper;
+    private final Logger Log = LoggerFactory.getLogger(CaseStudyDao.class.getName());
+    private final CaseStudyMapper caseStudyMapper;
 
     public CaseStudyDao(CaseStudyMapper caseStudyMapper) {
         this.caseStudyMapper = Assert.assertNull(caseStudyMapper, "Case study mapper cannot be null");
@@ -25,7 +25,7 @@ public class CaseStudyDao implements Dao<CaseStudy, CaseStudy> {
     public CaseStudy save(CaseStudy caseStudy, UUID caseStudyId) {
         try {
             caseStudy.setId(caseStudyId);
-            Log.trace("Saving new case study {}", caseStudy);
+            Log.trace("DAO saving new case study:\n{}", caseStudy);
             caseStudyMapper.save(caseStudy);
             return caseStudy;
         } catch (Exception e) {
@@ -35,13 +35,13 @@ public class CaseStudyDao implements Dao<CaseStudy, CaseStudy> {
 
     @Override
     public CaseStudy get(UUID id) {
-        Log.trace("Requesting case study with ID {}", id);
+        Log.trace("DAO requesting case study with ID {}", id);
         return caseStudyMapper.get(id);
     }
 
     @Override
     public List<CaseStudy> getAll() {
-        Log.trace("Requesting all case studies");
+        Log.trace("DAO requesting all case studies");
         return caseStudyMapper.getAll();
     }
 
@@ -51,7 +51,7 @@ public class CaseStudyDao implements Dao<CaseStudy, CaseStudy> {
      * @return returns a list of CaseStudyOverview objects
      */
     public List<CaseStudyOverview> getAllOverviews() {
-        Log.trace("Requesting all case study overviews");
+        Log.trace("DAO requesting all case study overviews");
         return caseStudyMapper.getAllOverviews();
     }
 
@@ -61,8 +61,14 @@ public class CaseStudyDao implements Dao<CaseStudy, CaseStudy> {
      * @return returns a list of CaseStudyOverview objects
      */
     public List<CaseStudyOverview> getSpotlitOverviews() {
-        Log.trace("Requesting all spotlit case study overviews");
+        Log.trace("DAO requesting all spotlit case study overviews");
         return caseStudyMapper.getSpotlitOverviews();
+    }
+
+
+    public List<CaseStudyOverview> getLatestOverviews(int entries) {
+        Log.trace("DAO requesting the 5 most recent overviews");
+        return caseStudyMapper.getLatestOverviews(entries);
     }
 
     /**
@@ -92,7 +98,7 @@ public class CaseStudyDao implements Dao<CaseStudy, CaseStudy> {
         if (newCaseStudy.getDownloadLinks() == null) {
             newCaseStudy.setDownloadLinks(oldCaseStudy.getDownloadLinks());
         }
-        Log.trace("Updating case study with ID {} and content {} with {}", id, oldCaseStudy, newCaseStudy);
+        Log.trace("DAO updating case study with ID {} and content:\n{}\n\n\n\nwith new case study:\n\n{}", id, oldCaseStudy, newCaseStudy);
         caseStudyMapper.update(id, newCaseStudy);
         return newCaseStudy;
     }
@@ -102,10 +108,11 @@ public class CaseStudyDao implements Dao<CaseStudy, CaseStudy> {
      *
      * @param id the if of the entry to be deleted
      */
-    public void delete(UUID id) {
+    public UUID delete(UUID id) {
         try {
-            Log.trace("Deleting case study with ID {}", id);
+            Log.trace("DAO deleting case study with ID {}", id);
             caseStudyMapper.delete(id);
+            return id;
         } catch (Exception e) {
             throw new RuntimeException("Error in CaseStudyDao - could not delete case study with id " + id, e);
         }
