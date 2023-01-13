@@ -31,10 +31,11 @@ public class Feedback {
      * @param bookLink     link to the book that the user has requested, optional and always null if feedback type is not 'library'
      */
 
-    public Feedback(String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink) {
+    public Feedback(UUID id, String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink) {
         if (!feedbackType.equals("library")) Assert.assertNull(feedbackBody, "feedbackBody is null");
         if (feedbackType.equals("library")) Assert.assertNull(bookLink, "bookLink is null");
 
+        setId(id);
         setFeedbackType(feedbackType);
         this.firstName = firstName;
         this.lastName = lastName;
