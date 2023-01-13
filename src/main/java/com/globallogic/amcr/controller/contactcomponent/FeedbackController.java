@@ -2,7 +2,7 @@ package com.globallogic.amcr.controller.contactcomponent;
 
 import com.globallogic.amcr.controller.casestudies.CaseStudyController;
 import com.globallogic.amcr.exception.NotFoundException;
-import com.globallogic.amcr.persistence.model.contactcomponent.*;
+import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachment;
 import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachmentResponse;
 import com.globallogic.amcr.service.contactcomponent.FeedbackService;
@@ -62,7 +62,7 @@ public class FeedbackController {
 
     }
 
-    @GetMapping(value=("/{id}"), produces = "application/json")
+    @GetMapping(value = ("/{id}"), produces = "application/json")
     public ResponseEntity<Feedback> get(@PathVariable UUID id) {
         Log.debug("Controller requesting feedback with ID {}", id);
         return ResponseEntity.ok().body(feedbackService.get(id));
@@ -110,12 +110,8 @@ public class FeedbackController {
      */
     @GetMapping("/attachment/{attachmentId}")
     public ResponseEntity<Resource> getAttachment(@PathVariable UUID attachmentId) {
-        try {
-            Log.debug("Controller requesting attachment with ID {}", attachmentId);
-            FeedbackAttachmentResponse feedbackAttachmentResponse = feedbackService.getAttachment(attachmentId);
-            return ResponseEntity.ok().contentType(MediaType.parseMediaType(feedbackAttachmentResponse.getAttachmentType())).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + feedbackAttachmentResponse.getAttachmentName() + "\"").body(new ByteArrayResource(feedbackAttachmentResponse.getData()));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        Log.debug("Controller requesting attachment with ID {}", attachmentId);
+        FeedbackAttachmentResponse feedbackAttachmentResponse = feedbackService.getAttachment(attachmentId);
+        return ResponseEntity.ok().contentType(MediaType.parseMediaType(feedbackAttachmentResponse.getAttachmentType())).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + feedbackAttachmentResponse.getAttachmentName() + "\"").body(new ByteArrayResource(feedbackAttachmentResponse.getData()));
     }
 }
