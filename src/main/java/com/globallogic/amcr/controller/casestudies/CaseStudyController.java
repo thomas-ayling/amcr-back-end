@@ -49,10 +49,16 @@ public class CaseStudyController {
     }
 
     @GetMapping(value = "/overviews", produces = "application/json")
-    public ResponseEntity<List<CaseStudyOverview>> getAllOverviews(@RequestParam(required = false) Boolean spotlit) {
+    public ResponseEntity<List<CaseStudyOverview>> getAllOverviews(@RequestParam(required = false) Boolean spotlit, @RequestParam(required = false) Boolean latest, @RequestParam(required = false) Integer entries) {
         spotlit = spotlit != null && spotlit;
-        Log.debug(spotlit ? "Controller requesting all spotlit case study overviews" : "Controller requesting all case study overviews");
-        return ResponseEntity.ok().body(spotlit ? caseStudyService.getSpotlitOverviews() : caseStudyService.getAllOverviews());
+        latest = latest != null && latest;
+        entries = entries == null ? 5 : entries;
+
+        if (spotlit && latest) {
+            throw new RuntimeException("Spotlit and Latest cannot both be true. Choose one and try again.");
+        }
+        Log.debug(spotlit ? "Controller requesting all spotlit case study overviews" : latest ? "Controller requesting latest case study overviews" : "Controller requesting all case study overviews");
+        return ResponseEntity.ok().body(spotlit ? caseStudyService.getSpotlitOverviews() : latest ? caseStudyService.getLatestOverviews(entries) : caseStudyService.getAllOverviews());
     }
 
     @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
