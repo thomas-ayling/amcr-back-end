@@ -10,9 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import com.globallogic.amcr.persistence.dao.librarycomponent.BookDao;
-import com.globallogic.amcr.persistence.payload.librarycomponent.BookResponse;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -58,5 +56,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Transactional
-    public void delete(UUID id) {bookDao.delete(id);}
+    public void delete(UUID id) {
+        Assert.assertNull(id, "ID cannot be null to delete a book");
+        Log.debug("Service requesting deletion of book with ID {}", id);
+        bookDao.delete(id);}
 }

@@ -22,7 +22,7 @@ create table if not exists files
     feedback_id  uuid references feedback (id) on delete cascade
 );
 
-create table if not exists book
+create table if not exists library
 (
     id          uuid primary key,
     title       text,

@@ -1,6 +1,7 @@
 package com.globallogic.amcr.persistence.mapper.librarycomponent;
 
 import com.globallogic.amcr.persistence.model.librarycomponent.Book;
+import com.globallogic.amcr.typehandler.UUIDTypeHandler;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.Alias;
 
@@ -23,13 +24,35 @@ public interface BookMapper {
      * @param id - UUID book id for identifying book.
      * @return - Book Object containing all the information for selected book.
      */
-    @Select("SELECT title, genre, author, cover, email, reader, available FROM library WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
+    @Results(id = "bookSingleResult")
+    @ConstructorArgs({
+            @Arg(column = "id", javaType = UUID.class, typeHandler = UUIDTypeHandler.class, id = true),
+            @Arg(column = "title", javaType = String.class),
+            @Arg(column = "genre", javaType = String.class),
+            @Arg(column = "author", javaType = String.class),
+            @Arg(column = "reader", javaType = String.class),
+            @Arg(column = "available", javaType = Boolean.class),
+            @Arg(column = "cover", javaType = String.class),
+            @Arg(column = "email", javaType = String.class)
+    })
+    @Select("SELECT * FROM library WHERE #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler} = id")
     Book get(@Param("id") UUID id);
 
     /**
      * Method that allows you to retrieve a list of books and content from the database.
      * @return - List of books.
      */
+    @Results(id = "bookAllResults")
+    @ConstructorArgs({
+            @Arg(column = "id", javaType = UUID.class, typeHandler = UUIDTypeHandler.class, id = true),
+            @Arg(column = "title", javaType = String.class),
+            @Arg(column = "genre", javaType = String.class),
+            @Arg(column = "author", javaType = String.class),
+            @Arg(column = "reader", javaType = String.class),
+            @Arg(column = "available", javaType = Boolean.class),
+            @Arg(column = "cover", javaType = String.class),
+            @Arg(column = "email", javaType = String.class)
+    })
     @Select("SELECT id, title, genre, author, cover, email, reader, available FROM library")
     List<Book> getAll();
 

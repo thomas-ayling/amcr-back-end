@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import com.globallogic.amcr.persistence.dao.Dao;
 import com.globallogic.amcr.persistence.model.librarycomponent.Book;
-import com.globallogic.amcr.persistence.payload.librarycomponent.BookResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -32,10 +31,12 @@ public class BookDao implements Dao<Book, Book> {
     }
 
     public Book get(UUID id) {
+        Log.trace("DAO requesting book with ID {}", id);
         return bookMapper.get(id);
     }
 
     public List<Book> getAll() {
+        Log.trace("DAO requesting all books");
         return bookMapper.getAll();
     }
 

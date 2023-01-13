@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.globallogic.amcr.persistence.payload.librarycomponent.BookResponse;
 import com.globallogic.amcr.service.librarycomponent.BookServiceImpl;
 
 @RestController
@@ -29,6 +28,7 @@ public class BookController {
     @GetMapping(value = "/", produces = "application/json")
     public List<Book> getMany() {
         try {
+            Log.debug("Controller requesting all books");
             return bookServiceImpl.getAll();
         } catch (Exception e) {
             throw new RuntimeException("There was an error in the BookController  - could not retrieve all books", e);
@@ -39,6 +39,7 @@ public class BookController {
     @GetMapping(value = "/{id}", produces = "application/json")
     public Book get(@PathVariable UUID id) {
         try {
+            Log.debug("Controller requesting book with ID {}", id);
             return bookServiceImpl.get(id);
         } catch (Exception e) {
             throw new RuntimeException("There was an error in the BookController  - could not retrieve all books", e);
@@ -60,13 +61,14 @@ public class BookController {
     @PostMapping("/upload")
     public ResponseEntity<?> saveBook(@RequestBody @Validated Book book, BindingResult errors) {
         if (errors.hasErrors()) {
-            System.out.println(errors.toString());
+            System.out.println(errors);
         }
         try {
+            Log.debug("Controller requesting a new book to be saved with {}", book);
             Book returnedBook = bookServiceImpl.save(book);
             return ResponseEntity.ok().body(returnedBook);
         } catch (Exception e) {
-            throw new RuntimeException("There was an error in the BookController  - could not save book");
+            throw new RuntimeException("There was an error in the BookController  - could not save book", e);
         }
 
 
@@ -79,7 +81,7 @@ public class BookController {
             bookServiceImpl.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            throw new RuntimeException("There was an error in the BookController - could not delete book with ID " + id);
+            throw new RuntimeException("There was an error in the BookController - could not delete book with ID " + id, e);
         }
     }
 
