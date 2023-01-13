@@ -1,7 +1,6 @@
 package com.globallogic.amcr.service.pagecontent;
 
 import com.globallogic.amcr.persistence.model.pagecontent.Diagram;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.UUID;
@@ -11,7 +10,7 @@ public interface DiagramService {
     /**
      * @param diagram the diagram object with the data to be saved
      */
-    void save(Diagram diagram);
+    Diagram save(Diagram diagram);
 
     /**
      * @param id the id of the diagram object that will be returned
@@ -20,10 +19,10 @@ public interface DiagramService {
     Diagram get (UUID id);
 
     /**
-     * @param nodeId the node id of the diagram object that will be returned
+     * @param nodePosition the node id of the diagram object that will be returned
      * @return the diagram object with the specified node id
      */
-    Diagram getByNode (int nodeId);
+    Diagram getByNode (int nodePosition);
 
     /**
      * @return a list of all markdown objects in the table
@@ -31,19 +30,19 @@ public interface DiagramService {
     List<Diagram> getAll();
 
     /**
-     * @param diagram the diagram object with the data to be updated
+     * @param newDiagram the diagram object with the data to be updated
      * @param id the id of the diagram object to be updated
      */
     Diagram update(UUID id, Diagram newDiagram);
 
     /**
-     * @param diagram the diagram object with the data to be updated
-     * @param nodeId the node id of the diagram object to be updated
+     * @param newDiagram the diagram object with the data to be updated
+     * @param nodePosition the node id of the diagram object to be updated
      */
-    Diagram updateByNode(Diagram newDiagram, int nodeId);
+    Diagram updateByNode(Diagram newDiagram, int nodePosition);
 
     /**
-     * @param nodeId the node id of the diagram object to be deleted
+     * @param nodePosition the node id of the diagram object to be deleted
      */
-    void delete(int nodeId);
+    void delete(int nodePosition);
 }
