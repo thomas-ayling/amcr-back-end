@@ -1,10 +1,15 @@
 package com.globallogic.amcr.persistence.payload.contactcomponent;
 
+import com.globallogic.amcr.utils.Assert;
+import jakarta.validation.constraints.NotNull;
+
 /**
  * Response object for feedback requests from the database
  */
 public class FeedbackResponse {
+    @NotNull
     private Integer feedbackOrder;
+    @NotNull
     private String feedbackType;
     private String firstName;
     private String lastName;
@@ -27,8 +32,8 @@ public class FeedbackResponse {
      */
 
     public FeedbackResponse(Integer feedbackOrder, String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink, String downloadUri) {
-        this.feedbackOrder = feedbackOrder;
-        this.feedbackType = feedbackType;
+        this.feedbackOrder = Assert.assertNull(feedbackOrder, "Feedback order cannot be null");
+        this.feedbackType = Assert.assertNull(feedbackType, "Feedback type cannot be null");
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
@@ -43,7 +48,7 @@ public class FeedbackResponse {
     }
 
     public void setFeedbackOrder(Integer feedbackOrder) {
-        this.feedbackOrder = feedbackOrder;
+        this.feedbackOrder = Assert.assertNull(feedbackOrder, "Feedback order cannot be null");
     }
 
     public String getFeedbackType() {
@@ -51,7 +56,7 @@ public class FeedbackResponse {
     }
 
     public void setFeedbackType(String feedbackType) {
-        this.feedbackType = feedbackType;
+        this.feedbackType = Assert.assertNull(feedbackType, "Feedback type cannot be null");
     }
 
     public String getFirstName() {

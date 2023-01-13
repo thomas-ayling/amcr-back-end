@@ -1,5 +1,6 @@
 package com.globallogic.amcr.utils;
-import com.globallogic.amcr.exception.contactcomponent.NotFoundException;
+
+import com.globallogic.amcr.exception.NotFoundException;
 
 @SuppressWarnings("FinalStaticMethod")
 public class Assert {
@@ -11,4 +12,6 @@ public class Assert {
             throw new NotFoundException(message);
         }
         return object;
-    }}
+    }
+}
+
