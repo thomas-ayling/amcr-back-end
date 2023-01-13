@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Mapper
-@Alias(value = "UUIDTypeHandler")
 public interface BookMapper {
 
     /**

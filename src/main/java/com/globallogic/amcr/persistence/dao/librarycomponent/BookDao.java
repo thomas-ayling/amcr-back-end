@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import com.globallogic.amcr.persistence.dao.Dao;
 import com.globallogic.amcr.persistence.model.librarycomponent.Book;
+import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -13,11 +14,11 @@ import com.globallogic.amcr.persistence.mapper.librarycomponent.BookMapper;
 
 @Repository
 public class BookDao implements Dao<Book, Book> {
-    public static final Logger Log = LoggerFactory.getLogger(BookDao.class.getName());
-    final BookMapper bookMapper;
+    private static final Logger Log = LoggerFactory.getLogger(BookDao.class.getName());
+    private final BookMapper bookMapper;
 
     public BookDao(BookMapper bookMapper) {
-        this.bookMapper = bookMapper;
+        this.bookMapper = Assert.assertNull(bookMapper, "Id cannot be null to request");
     }
 
     public Book save(Book book, UUID id) {
@@ -56,12 +57,6 @@ public class BookDao implements Dao<Book, Book> {
         }
         if (reservedBook.getCover() == null) {
             reservedBook.setCover(oldBook.getCover());
-        }
-        if (reservedBook.getTitle() == null) {
-            reservedBook.setTitle(oldBook.getTitle());
-        }
-        if (reservedBook.getTitle() == null) {
-            reservedBook.setTitle(oldBook.getTitle());
         }
             Log.trace("DAO reserving book with ID {} and Content: \n{}\n\n\n\n with new book:\n\n{}", id , oldBook, reservedBook);
             bookMapper.reserve(id, reservedBook);
