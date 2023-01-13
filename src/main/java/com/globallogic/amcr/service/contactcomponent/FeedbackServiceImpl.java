@@ -47,6 +47,13 @@ public class FeedbackServiceImpl implements FeedbackService {
         }
     }
 
+    @Transactional
+    public FeedbackResponse get(UUID id) {
+        Assert.assertNull(id, "ID cannot be null to request entry");
+        Log.debug("Service requesting feedback with ID {}", id);
+        return feedbackDao.get(id);
+    }
+
     @Transactional(readOnly = true)
     public List<FeedbackResponse> getAll() {
         Log.debug("Service requesting all feedback entries");

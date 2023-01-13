@@ -63,6 +63,12 @@ public class FeedbackController {
 
     }
 
+    @GetMapping(value=("/{id}"), produces = "application/json")
+    public ResponseEntity<FeedbackResponse> get(@PathVariable UUID id) {
+        Log.debug("Controller requesting feedback with ID {}", id);
+        return ResponseEntity.ok().body(feedbackService.get(id));
+    }
+
     /**
      * Usage is as follows:
      * Calling url/feedback returns all feedback
@@ -74,8 +80,8 @@ public class FeedbackController {
      * @param last   must be included if 'older' is true, the server returns the 10 last entries older than the specified entry
      * @return returns a list of all entries in the feedback table
      */
-    @GetMapping()
-    public List<FeedbackResponse> get(@RequestParam(required = false) Boolean latest, @RequestParam(required = false) Boolean older, @RequestParam(required = false) Integer last) {
+    @GetMapping(produces = "application/json")
+    public List<FeedbackResponse> getWithParams(@RequestParam(required = false) Boolean latest, @RequestParam(required = false) Boolean older, @RequestParam(required = false) Integer last) {
         latest = latest != null && latest;
         older = older != null && older;
         if (!older && last != null) {

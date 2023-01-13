@@ -18,7 +18,7 @@ public interface FeedbackMapper {
     @Insert("INSERT INTO feedback(id, feedback_type, first_name, last_name, email_address, feedback_body, book_name, book_link) VALUES (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{feedbackType}, #{firstName}, #{lastName}, #{emailAddress}, #{feedbackBody}, #{bookName}, #{bookLink})")
     void save(Feedback feedback);
 
-    @Select("SELECT feedback_order, feedback_type, first_name, last_name, email_address, feedback_body, book_name, book_link, download_uri FROM feedback LEFT OUTER JOIN feedback_attachments ON feedback.id = feedback_attachments.feedback_id WHERE  #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler} = id")
+    @Select("SELECT feedback_order, feedback_type, first_name, last_name, email_address, feedback_body, book_name, book_link, download_uri FROM feedback LEFT OUTER JOIN feedback_attachments ON feedback.id = feedback_attachments.feedback_id WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     FeedbackResponse get(@Param("id") UUID id);
 
     @Select("SELECT feedback_order, feedback_type, first_name, last_name, email_address, feedback_body, book_name, book_link, download_uri FROM feedback LEFT OUTER JOIN feedback_attachments ON feedback.id = feedback_attachments.feedback_id")
