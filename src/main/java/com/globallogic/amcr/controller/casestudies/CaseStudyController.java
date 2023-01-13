@@ -4,6 +4,7 @@ import com.globallogic.amcr.exception.NotFoundException;
 import com.globallogic.amcr.persistence.model.casestudies.CaseStudy;
 import com.globallogic.amcr.persistence.model.casestudies.CaseStudyOverview;
 import com.globallogic.amcr.service.casestudies.CaseStudyService;
+import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class CaseStudyController {
     private final CaseStudyService caseStudyService;
 
     public CaseStudyController(CaseStudyService caseStudyService) {
-        this.caseStudyService = caseStudyService;
+        this.caseStudyService = Assert.assertNull(caseStudyService, "Case study service cannot be null");
     }
 
     @PostMapping(value = "/", consumes = "application/json", produces = "application/json")

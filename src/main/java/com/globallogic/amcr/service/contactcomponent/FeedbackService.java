@@ -1,6 +1,6 @@
 package com.globallogic.amcr.service.contactcomponent;
 
-import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
+import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachment;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
@@ -12,10 +12,10 @@ public interface FeedbackService {
 
     /**
      * @param feedback   the feedback object with the data to be saved
-     * @param attachment the attachment that needs to be saved belonging to the feedback
+     *                        * @param feedbackAttachment the feedbackAttachment that needs to be saved belonging to the feedback
      * @return a response entity with the status of the request
      */
-    Feedback save(Feedback feedback, Attachment attachment);
+    Feedback save(Feedback feedback, FeedbackAttachment feedbackAttachment);
 
     /**
      * @return a list of all entries in the feedback that also contains download links to attachments if applicable
@@ -35,7 +35,7 @@ public interface FeedbackService {
 
     /**
      * @param id the id of the requested attachment
-     * @return a response entity with the file data embedded
+     * @return a response entity with the attachment data embedded
      */
     AttachmentResponse getFile(UUID id);
 }

@@ -1,6 +1,6 @@
 package com.globallogic.amcr.service.contactcomponent;
 
-import com.globallogic.amcr.persistence.dao.contactcomponent.FileDao;
+import com.globallogic.amcr.persistence.dao.contactcomponent.FeedbackAttachmentDao;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
 import com.globallogic.amcr.utils.Assert;
@@ -20,18 +20,18 @@ import java.util.UUID;
 public class EmailServiceImpl implements EmailService {
     private final Logger Log = LoggerFactory.getLogger(EmailServiceImpl.class.getName());
     private final JavaMailSender mailSender;
-    private final FileDao fileDao;
+    private final FeedbackAttachmentDao feedbackAttachmentDao;
 
-    public EmailServiceImpl(JavaMailSender mailSender, FileDao fileDao) {
+    public EmailServiceImpl(JavaMailSender mailSender, FeedbackAttachmentDao feedbackAttachmentDao) {
         this.mailSender = Assert.assertNull(mailSender, "Mail sender cannot be null");
-        this.fileDao = Assert.assertNull(fileDao, "File DAO cannot be null");
+        this.feedbackAttachmentDao = Assert.assertNull(feedbackAttachmentDao, "File DAO cannot be null");
     }
 
     public void sendMail(Feedback feedback, UUID feedbackId) {
         try {
-            // Get data for file link
+            // Get data for attachment link
             Log.debug("Requesting download link data for email");
-            AttachmentMetadata attachmentMetadata = fileDao.getAttachmentMetadata(feedbackId);
+            AttachmentMetadata attachmentMetadata = feedbackAttachmentDao.getAttachmentMetadata(feedbackId);
 
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
@@ -44,8 +44,8 @@ public class EmailServiceImpl implements EmailService {
             mimeMessageHelper.setTo("<engineeringcenterbot@globallogic.com>");
 
             String style = "<style>.email { font-family: Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif; }</style>";
-            String textAttachmentLink = attachmentMetadata == null ? "" : String.format("Follow this link to download attachment: %s (%s, %s)", attachmentMetadata.getDownloadUri(), attachmentMetadata.getFileName(), ByteConverter.bytesToReadable(attachmentMetadata.getFileSize()));
-            String htmlAttachmentLink = attachmentMetadata == null ? "" : String.format("<span>Download attachment: <a href=%s>%s (%s)</a></span>", attachmentMetadata.getDownloadUri(), attachmentMetadata.getFileName(), ByteConverter.bytesToReadable(attachmentMetadata.getFileSize()));
+            String textAttachmentLink = attachmentMetadata == null ? "" : String.format("Follow this link to download attachment: %s (%s, %s)", attachmentMetadata.getDownloadUri(), attachmentMetadata.getAttachmentName(), ByteConverter.bytesToReadable(attachmentMetadata.getAttachmentSize()));
+            String htmlAttachmentLink = attachmentMetadata == null ? "" : String.format("<span>Download attachment: <a href=%s>%s (%s)</a></span>", attachmentMetadata.getDownloadUri(), attachmentMetadata.getAttachmentName(), ByteConverter.bytesToReadable(attachmentMetadata.getAttachmentSize()));
             String textPart;
             String htmlPart;
 

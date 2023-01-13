@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
 import java.util.UUID;
 
+@SuppressWarnings("unused")
 public class CaseStudyOverview {
     private UUID id;
     @NotNull

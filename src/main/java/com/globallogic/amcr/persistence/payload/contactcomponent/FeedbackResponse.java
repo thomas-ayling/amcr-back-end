@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 /**
  * Response object for feedback requests from the database
  */
+@SuppressWarnings("unused")
 public class FeedbackResponse {
     @NotNull
     private Integer feedbackOrder;
@@ -28,7 +29,7 @@ public class FeedbackResponse {
      * @param feedbackBody  the main chunk of text that was left in the feedback form, not null
      * @param bookName      the name of a book requested through the library form, always null if feedback type is not 'library'
      * @param bookLink      the link to the book that the user has requested, optional and always null if feedback type  is not 'library'
-     * @param downloadUri   the download link to any related attachments retrieved from the files table using the foreign key, null if no attachments were uploaded with the feedback
+     * @param downloadUri   the download link to any related attachments retrieved from the attachments table using the foreign key, null if no attachments were uploaded with the feedback
      */
 
     public FeedbackResponse(Integer feedbackOrder, String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink, String downloadUri) {

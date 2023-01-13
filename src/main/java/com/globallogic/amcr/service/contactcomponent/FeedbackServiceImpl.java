@@ -2,8 +2,8 @@ package com.globallogic.amcr.service.contactcomponent;
 
 import com.globallogic.amcr.controller.casestudies.CaseStudyController;
 import com.globallogic.amcr.persistence.dao.contactcomponent.FeedbackDao;
-import com.globallogic.amcr.persistence.dao.contactcomponent.FileDao;
-import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
+import com.globallogic.amcr.persistence.dao.contactcomponent.FeedbackAttachmentDao;
+import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachment;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
@@ -20,30 +20,30 @@ import java.util.UUID;
 public class FeedbackServiceImpl implements FeedbackService {
     private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class.getName());
     private final FeedbackDao feedbackDao;
-    private final FileDao fileDao;
+    private final FeedbackAttachmentDao feedbackAttachmentDao;
     private final EmailService emailService;
 
-    public FeedbackServiceImpl(FeedbackDao feedbackDao, FileDao fileDao, EmailService emailService) {
+    public FeedbackServiceImpl(FeedbackDao feedbackDao, FeedbackAttachmentDao feedbackAttachmentDao, EmailService emailService) {
         this.feedbackDao = Assert.assertNull(feedbackDao, "Feedback DAO cannot be null");
-        this.fileDao = Assert.assertNull(fileDao, "File DAO cannot be null");
+        this.feedbackAttachmentDao = Assert.assertNull(feedbackAttachmentDao, "File DAO cannot be null");
         this.emailService = Assert.assertNull(emailService, "Email service cannot be null");
     }
 
     @Transactional
-    public Feedback save(Feedback feedback, Attachment attachment) {
+    public Feedback save(Feedback feedback, FeedbackAttachment feedbackAttachment) {
         try {
             UUID feedbackId = UUID.randomUUID();
             Log.debug("Service saving feedback");
             Feedback returnedFeedback = feedbackDao.save(feedback, feedbackId);
-            if (attachment != null) {
-                Log.debug("Service saving attachment");
-                fileDao.save(attachment, feedbackId);
+            if (feedbackAttachment != null) {
+                Log.debug("Service saving feedbackAttachment");
+                feedbackAttachmentDao.save(feedbackAttachment, feedbackId);
             }
             Log.debug("Service sending email");
             emailService.sendMail(feedback, feedbackId);
             return returnedFeedback;
         } catch (Exception e) {
-            throw new RuntimeException("Error saving feedback and attachment to database", e);
+            throw new RuntimeException("Error saving feedback and feedbackAttachment to database", e);
         }
     }
 
@@ -68,6 +68,6 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Transactional(readOnly = true)
     public AttachmentResponse getFile(UUID id) {
         Log.debug("Service requesting attachment with ID {}", id);
-        return fileDao.get(id);
+        return feedbackAttachmentDao.get(id);
     }
 }

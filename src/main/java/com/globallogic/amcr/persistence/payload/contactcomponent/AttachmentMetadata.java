@@ -6,43 +6,44 @@ import jakarta.validation.constraints.NotNull;
 /**
  * File response for email attachment download link
  */
+@SuppressWarnings("unused")
 public class AttachmentMetadata {
     @NotNull
-    private String fileName;
+    private String attachmentName;
     @NotNull
-    private long fileSize;
+    private long attachmentSize;
     @NotNull
     private String downloadUri;
 
     /**
-     * @param fileName    the name of the file
-     * @param fileSize    the size of the file in bytes, converted to a readable format when added to the email
-     * @param downloadUri the uri for the file download
+     * @param attachmentName    the name of the attachment
+     * @param attachmentSize    the size of the attachment in bytes, converted to a readable format when added to the email
+     * @param downloadUri the uri for the attachment download
      */
 
-    public AttachmentMetadata(String fileName, long fileSize, String downloadUri) {
-        this.fileName = Assert.assertNull(fileName, "File name cannot be null");
-        this.fileSize = Assert.assertNull(fileSize, "File size cannot be null");
+    public AttachmentMetadata(String attachmentName, long attachmentSize, String downloadUri) {
+        this.attachmentName = Assert.assertNull(attachmentName, "File name cannot be null");
+        this.attachmentSize = Assert.assertNull(attachmentSize, "File size cannot be null");
         this.downloadUri = Assert.assertNull(downloadUri, "Download URI cannot be null");
     }
 
     public AttachmentMetadata() {
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getAttachmentName() {
+        return attachmentName;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = Assert.assertNull(fileName, "File name cannot be null");
+    public void setAttachmentName(String attachmentName) {
+        this.attachmentName = Assert.assertNull(attachmentName, "File name cannot be null");
     }
 
-    public long getFileSize() {
-        return fileSize;
+    public long getAttachmentSize() {
+        return attachmentSize;
     }
 
-    public void setFileSize(long fileSize) {
-        this.fileSize = Assert.assertNull(fileSize, "File size cannot be null");
+    public void setAttachmentSize(long attachmentSize) {
+        this.attachmentSize = Assert.assertNull(attachmentSize, "File size cannot be null");
     }
 
     public String getDownloadUri() {

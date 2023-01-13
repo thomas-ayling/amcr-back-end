@@ -2,11 +2,12 @@ package com.globallogic.amcr.controller.contactcomponent;
 
 import com.globallogic.amcr.controller.casestudies.CaseStudyController;
 import com.globallogic.amcr.exception.NotFoundException;
-import com.globallogic.amcr.persistence.model.contactcomponent.Attachment;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
+import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachment;
 import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
 import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
 import com.globallogic.amcr.service.contactcomponent.FeedbackService;
+import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ByteArrayResource;
@@ -19,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.util.List;
@@ -36,7 +38,7 @@ public class FeedbackController {
     private final FeedbackService feedbackService;
 
     public FeedbackController(FeedbackService feedbackService) {
-        this.feedbackService = feedbackService;
+        this.feedbackService = Assert.assertNull(feedbackService, "Feedback service cannot be null");
     }
 
     /**
@@ -44,17 +46,17 @@ public class FeedbackController {
      * @param incomingAttachment the optional attachment from the client
      * @return returns a response entity either OK (200) or INTERNAL_SERVER_ERROR (500)
      */
-    @RequestMapping(value = "/", method = RequestMethod.POST, consumes = {"multipart/form-data"})
-    public ResponseEntity<?> uploadFeedback(@RequestPart("feedback") @Validated Feedback feedback, BindingResult errors, @RequestPart(value = "attachment", required = false) MultipartFile incomingAttachment) {
+    @PostMapping(value = "/", consumes = {"multipart/form-data"}, produces = {"application/json"})
+    public ResponseEntity<Feedback> uploadFeedback(@RequestPart("feedback") @Validated Feedback feedback, BindingResult errors, @RequestPart(value = "attachment", required = false) MultipartFile incomingAttachment) {
         if (errors.hasErrors()) {
             throw new NotFoundException(errors.toString());
         }
         try {
-            // Create new Attachment object with params taken from MultipartFile
-            Attachment attachment = incomingAttachment == null ? null : new Attachment(StringUtils.cleanPath(Objects.requireNonNull(incomingAttachment.getOriginalFilename())), incomingAttachment.getContentType(), incomingAttachment.getSize(), incomingAttachment.getBytes());
+            // Create new FeedbackAttachment object with params taken from MultipartFile
+            FeedbackAttachment feedbackAttachment = incomingAttachment == null ? null : new FeedbackAttachment(StringUtils.cleanPath(Objects.requireNonNull(incomingAttachment.getOriginalFilename())), incomingAttachment.getContentType(), incomingAttachment.getSize(), incomingAttachment.getBytes());
             Log.debug("Controller saving new feedback");
-            Feedback returnedFeedback = feedbackService.save(feedback, attachment);
-            return ResponseEntity.ok().body(returnedFeedback);
+            Feedback createdCaseStudy = feedbackService.save(feedback, feedbackAttachment);
+            return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdCaseStudy).toUri()).body(createdCaseStudy);
         } catch (IOException ioe) {
             throw new RuntimeException("Error in feedback controller - attachment could not be read", ioe);
         }
@@ -93,19 +95,20 @@ public class FeedbackController {
             Log.debug("Controller requesting older feedback entries");
             return feedbackService.getOlder(last);
         }
+        Log.debug("Controller requesting all feedback");
         return feedbackService.getAll();
     }
 
     /**
-     * @param fileId the id of the file to be downloaded
+     * @param attachmentId the id of the attachment to be downloaded
      * @return returns a response entity with the relevant headers and the binary data to allow for easy download on the front end
      */
-    @GetMapping("/file/{fileId}")
-    public ResponseEntity<Resource> getAttachment(@PathVariable UUID fileId) {
+    @GetMapping("/attachment/{attachmentId}")
+    public ResponseEntity<Resource> getAttachment(@PathVariable UUID attachmentId) {
         try {
-            Log.debug("Controller requesting file with ID {}", fileId);
-            AttachmentResponse attachmentResponse = feedbackService.getFile(fileId);
-            return ResponseEntity.ok().contentType(MediaType.parseMediaType(attachmentResponse.getFileType())).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + attachmentResponse.getFileName() + "\"").body(new ByteArrayResource(attachmentResponse.getData()));
+            Log.debug("Controller requesting attachment with ID {}", attachmentId);
+            AttachmentResponse attachmentResponse = feedbackService.getFile(attachmentId);
+            return ResponseEntity.ok().contentType(MediaType.parseMediaType(attachmentResponse.getAttachmentType())).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + attachmentResponse.getAttachmentName() + "\"").body(new ByteArrayResource(attachmentResponse.getData()));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }

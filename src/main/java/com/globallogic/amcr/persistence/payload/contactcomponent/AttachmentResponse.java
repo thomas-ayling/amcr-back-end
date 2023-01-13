@@ -4,45 +4,46 @@ import com.globallogic.amcr.utils.Assert;
 import jakarta.validation.constraints.NotNull;
 
 /**
- * Attachment response to download a file from the files database
+ * FeedbackAttachment response to download an attachment from the attachments database
  */
+@SuppressWarnings("unused")
 public class AttachmentResponse {
     @NotNull
-    private String fileName;
+    private String attachmentName;
     @NotNull
-    private String fileType;
+    private String attachmentType;
     @NotNull
     private byte[] data;
 
     /**
-     * @param fileName the name of the file
-     * @param fileType the type of the file
-     * @param data     the raw binary data of the file to be downloaded
+     * @param attachmentName the name of the attachment
+     * @param attachmentType the type of the attachment
+     * @param data           the raw binary data of the attachment to be downloaded
      */
 
-    public AttachmentResponse(String fileName, String fileType, byte[] data) {
-        this.fileName = Assert.assertNull(fileName, "File name cannot be null");
-        this.fileType = Assert.assertNull(fileType, "File type cannot be null");
+    public AttachmentResponse(String attachmentName, String attachmentType, byte[] data) {
+        this.attachmentName = Assert.assertNull(attachmentName, "File name cannot be null");
+        this.attachmentType = Assert.assertNull(attachmentType, "File type cannot be null");
         this.data = Assert.assertNull(data, "Data cannot be null");
     }
 
     public AttachmentResponse() {
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getAttachmentName() {
+        return attachmentName;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = Assert.assertNull(fileName, "File name cannot be null");
+    public void setAttachmentName(String attachmentName) {
+        this.attachmentName = Assert.assertNull(attachmentName, "File name cannot be null");
     }
 
-    public String getFileType() {
-        return fileType;
+    public String getAttachmentType() {
+        return attachmentType;
     }
 
-    public void setFileType(String fileType) {
-        this.fileType = Assert.assertNull(fileType, "File type cannot be null");
+    public void setAttachmentType(String attachmentType) {
+        this.attachmentType = Assert.assertNull(attachmentType, "File type cannot be null");
     }
 
     public byte[] getData() {

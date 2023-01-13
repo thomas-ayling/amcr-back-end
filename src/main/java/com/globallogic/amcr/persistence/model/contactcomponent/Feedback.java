@@ -9,6 +9,7 @@ import java.util.UUID;
 /**
  * Feedback model for submitted feedback
  */
+@SuppressWarnings("unused")
 public class Feedback {
     private UUID id;
     @NotNull
