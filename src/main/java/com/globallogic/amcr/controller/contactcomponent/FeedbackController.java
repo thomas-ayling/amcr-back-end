@@ -54,8 +54,8 @@ public class FeedbackController {
             // Create new FeedbackAttachment object with params taken from MultipartFile
             FeedbackAttachment feedbackAttachment = incomingAttachment == null ? null : new FeedbackAttachment(StringUtils.cleanPath(Objects.requireNonNull(incomingAttachment.getOriginalFilename())), incomingAttachment.getContentType(), incomingAttachment.getSize(), incomingAttachment.getBytes());
             Log.debug("Controller saving new feedback");
-            Feedback createdCaseStudy = feedbackService.save(feedback, feedbackAttachment);
-            return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdCaseStudy).toUri()).body(createdCaseStudy);
+            Feedback createdFeedback = feedbackService.save(feedback, feedbackAttachment);
+            return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdFeedback.getId()).toUri()).body(createdFeedback);
         } catch (IOException ioe) {
             throw new RuntimeException("Error in feedback controller - attachment could not be read", ioe);
         }

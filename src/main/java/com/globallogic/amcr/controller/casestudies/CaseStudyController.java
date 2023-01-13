@@ -34,7 +34,7 @@ public class CaseStudyController {
         }
         Log.debug("Controller saving new case study");
         CaseStudy createdCaseStudy = caseStudyService.save(caseStudy);
-        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdCaseStudy).toUri()).body(createdCaseStudy);
+        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdCaseStudy.getId()).toUri()).body(createdCaseStudy);
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
