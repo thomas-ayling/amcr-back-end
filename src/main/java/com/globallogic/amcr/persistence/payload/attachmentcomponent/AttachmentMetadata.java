@@ -1,8 +1,7 @@
 package com.globallogic.amcr.persistence.payload.attachmentcomponent;
 
-import javax.imageio.metadata.IIOMetadata;
-import java.awt.Dimension;
 import java.util.Map;
+import java.util.Objects;
 
 public class AttachmentMetadata {
     private String name;
@@ -57,5 +56,29 @@ public class AttachmentMetadata {
 
     public void setMetadata(Map<Object,Object> metadata) {
         this.metadata = metadata;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AttachmentMetadata that = (AttachmentMetadata) o;
+        return crc == that.crc && Objects.equals(name, that.name) && Objects.equals(downloadUri, that.downloadUri) && Objects.equals(size, that.size) && Objects.equals(metadata, that.metadata);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, downloadUri, size, crc, metadata);
+    }
+
+    @Override
+    public String toString() {
+        return "AttachmentMetadata{" +
+                "name='" + name + '\'' +
+                ", downloadUri='" + downloadUri + '\'' +
+                ", size='" + size + '\'' +
+                ", crc=" + crc +
+                ", metadata=" + metadata +
+                '}';
     }
 }
