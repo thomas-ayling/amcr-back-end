@@ -74,7 +74,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Transactional(readOnly = true)
-    public FeedbackAttachmentResponse getFile(UUID id) {
+    public FeedbackAttachmentResponse getAttachment(UUID id) {
         Assert.assertNull(id, "ID cannot be null for file request");
         Log.debug("Service requesting attachment with ID {}", id);
         return feedbackAttachmentDao.get(id);

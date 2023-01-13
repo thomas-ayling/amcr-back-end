@@ -112,7 +112,7 @@ public class FeedbackController {
     public ResponseEntity<Resource> getAttachment(@PathVariable UUID attachmentId) {
         try {
             Log.debug("Controller requesting attachment with ID {}", attachmentId);
-            FeedbackAttachmentResponse feedbackAttachmentResponse = feedbackService.getFile(attachmentId);
+            FeedbackAttachmentResponse feedbackAttachmentResponse = feedbackService.getAttachment(attachmentId);
             return ResponseEntity.ok().contentType(MediaType.parseMediaType(feedbackAttachmentResponse.getAttachmentType())).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + feedbackAttachmentResponse.getAttachmentName() + "\"").body(new ByteArrayResource(feedbackAttachmentResponse.getData()));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();

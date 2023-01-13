@@ -42,5 +42,5 @@ public interface FeedbackService {
      * @param id the id of the requested attachment
      * @return a response entity with the attachment data embedded
      */
-    FeedbackAttachmentResponse getFile(UUID id);
+    FeedbackAttachmentResponse getAttachment(UUID id);
 }
