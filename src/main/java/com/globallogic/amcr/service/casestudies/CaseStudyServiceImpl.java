@@ -60,6 +60,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
 
     @Transactional
     public List<CaseStudyOverview> getLatestOverviews(int entries) {
+        Assert.assertNull(entries, "Entries cannot be null");
         Log.debug("Service requesting 5 most recent overviews");
         return caseStudyDao.getLatestOverviews(entries);
     }

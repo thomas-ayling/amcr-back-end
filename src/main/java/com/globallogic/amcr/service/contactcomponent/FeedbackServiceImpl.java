@@ -31,6 +31,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Transactional
     public Feedback save(Feedback feedback, FeedbackAttachment feedbackAttachment) {
+        Assert.assertNull(feedback, "Feedback cannot be null");
         try {
             UUID feedbackId = UUID.randomUUID();
             Log.debug("Service saving feedback");
@@ -49,7 +50,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Transactional
     public FeedbackResponse get(UUID id) {
-        Assert.assertNull(id, "ID cannot be null to request entry");
+        Assert.assertNull(id, "ID cannot be null to request feedback");
         Log.debug("Service requesting feedback with ID {}", id);
         return feedbackDao.get(id);
     }
@@ -68,12 +69,14 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Transactional(readOnly = true)
     public List<FeedbackResponse> getOlder(int last) {
+        Assert.assertNull(last, "Last cannot be null");
         Log.debug("Service requesting 10 older feedback entries");
         return feedbackDao.getOlder(last);
     }
 
     @Transactional(readOnly = true)
     public AttachmentResponse getFile(UUID id) {
+        Assert.assertNull(id, "ID cannot be null for file request");
         Log.debug("Service requesting attachment with ID {}", id);
         return feedbackAttachmentDao.get(id);
     }
