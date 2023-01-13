@@ -1,4 +1,4 @@
-package com.globallogic.amcr.persistence.payload.contactcomponent;
+package com.globallogic.amcr.persistence.model.contactcomponent;
 
 import com.globallogic.amcr.utils.Assert;
 import jakarta.validation.constraints.NotNull;
@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
  * File response for email attachment download link
  */
 @SuppressWarnings("unused")
-public class AttachmentMetadata {
+public class FeedbackAttachmentMetadata {
     @NotNull
     private String attachmentName;
     @NotNull
@@ -21,13 +21,13 @@ public class AttachmentMetadata {
      * @param downloadUri the uri for the attachment download
      */
 
-    public AttachmentMetadata(String attachmentName, long attachmentSize, String downloadUri) {
-        this.attachmentName = Assert.assertNull(attachmentName, "File name cannot be null");
-        this.attachmentSize = Assert.assertNull(attachmentSize, "File size cannot be null");
-        this.downloadUri = Assert.assertNull(downloadUri, "Download URI cannot be null");
+    public FeedbackAttachmentMetadata(String attachmentName, long attachmentSize, String downloadUri) {
+        setAttachmentName(attachmentName);
+        setAttachmentSize(attachmentSize);
+        setDownloadUri(downloadUri);
     }
 
-    public AttachmentMetadata() {
+    public FeedbackAttachmentMetadata() {
     }
 
     public String getAttachmentName() {

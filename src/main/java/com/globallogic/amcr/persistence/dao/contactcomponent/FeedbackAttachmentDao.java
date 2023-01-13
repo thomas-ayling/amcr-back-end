@@ -3,9 +3,11 @@ package com.globallogic.amcr.persistence.dao.contactcomponent;
 import com.globallogic.amcr.persistence.mapper.contactcomponent.FeedbackAttachmentMapper;
 import com.globallogic.amcr.persistence.dao.Dao;
 import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachment;
-import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
-import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
+import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachmentMetadata;
+import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachmentResponse;
 import com.globallogic.amcr.utils.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -13,18 +15,15 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public class FeedbackAttachmentDao implements Dao<FeedbackAttachment, AttachmentResponse> {
+public class FeedbackAttachmentDao implements Dao<FeedbackAttachment, FeedbackAttachmentResponse> {
+    private final Logger Log = LoggerFactory.getLogger(FeedbackAttachmentDao.class.getName());
     private final FeedbackAttachmentMapper feedbackAttachmentMapper;
 
     public FeedbackAttachmentDao(FeedbackAttachmentMapper feedbackAttachmentMapper) {
         this.feedbackAttachmentMapper = Assert.assertNull(feedbackAttachmentMapper, "File mapper cannot be null");
     }
 
-    /**
-     * @param feedbackAttachment feedbackAttachment being received from the client
-     * @param feedbackId the id of the feedback that the feedbackAttachment belongs to (foreign key)
-     */
-
+    @Override
     public FeedbackAttachment save(FeedbackAttachment feedbackAttachment, UUID feedbackId) {
         try {
             // Generate UUID for the feedbackAttachment
@@ -35,27 +34,25 @@ public class FeedbackAttachmentDao implements Dao<FeedbackAttachment, Attachment
             feedbackAttachment.setDownloadUri(ServletUriComponentsBuilder.fromCurrentContextPath().path("/feedback/attachment/").path(attachmentId.toString()).toUriString());
             // Set feedback id
             feedbackAttachment.setFeedbackId(feedbackId);
+            Log.trace("DAO saving feedback attachment {}", feedbackAttachment);
             // Save feedbackAttachment
             feedbackAttachmentMapper.save(feedbackAttachment);
             // Return feedbackAttachment
             return feedbackAttachment;
         } catch (Exception e) {
-            throw new RuntimeException("Could not save feedbackAttachment", e);
+            throw new RuntimeException("Could not save feedback attachment", e);
         }
     }
 
-    /**
-     * @param id the id of the attachment to be downloaded
-     * @return returns the appropriate attachment from the mapper
-     */
-    public AttachmentResponse get(UUID id) {
+    @Override
+    public FeedbackAttachmentResponse get(UUID id) {
+        Log.trace("DAO requesting attachment with ID {}", id);
         return feedbackAttachmentMapper.get(id);
     }
 
-    /**
-     * @return returns a list of all the attachment in the attachment table
-     */
-    public List<AttachmentResponse> getAll() {
+    @Override
+    public List<FeedbackAttachmentResponse> getAll() {
+        Log.trace("DAO requesting all attachments");
         return feedbackAttachmentMapper.getAll();
     }
 
@@ -63,7 +60,8 @@ public class FeedbackAttachmentDao implements Dao<FeedbackAttachment, Attachment
      * @param feedbackId the id of the foreign key for the requested metadata
      * @return returns an attachment metadata object as received from the database
      */
-    public AttachmentMetadata getAttachmentMetadata(UUID feedbackId) {
+    public FeedbackAttachmentMetadata getAttachmentMetadata(UUID feedbackId) {
+        Log.trace("DAO requesting metadata for attachment with ID {}", feedbackId);
         return feedbackAttachmentMapper.getAttachmentMetadata(feedbackId);
     }
 }

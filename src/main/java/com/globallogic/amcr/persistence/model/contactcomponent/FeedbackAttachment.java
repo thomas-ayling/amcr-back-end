@@ -1,6 +1,5 @@
 package com.globallogic.amcr.persistence.model.contactcomponent;
 
-import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
 import com.globallogic.amcr.utils.Assert;
 
 import java.util.Objects;
@@ -10,7 +9,7 @@ import java.util.UUID;
  * FeedbackAttachment model for sending attachments to the database
  */
 @SuppressWarnings("unused")
-public class FeedbackAttachment extends AttachmentResponse {
+public class FeedbackAttachment extends FeedbackAttachmentResponse {
     private UUID id;
     private long attachmentSize;
     private String downloadUri;
@@ -25,7 +24,7 @@ public class FeedbackAttachment extends AttachmentResponse {
 
     public FeedbackAttachment(String attachmentName, String attachmentType, long attachmentSize, byte[] data) {
         super(attachmentName, attachmentType, data);
-        this.attachmentSize = Assert.assertNull(attachmentSize, "Data cannot be null");
+        setAttachmentSize(attachmentSize);
     }
 
     public UUID getId() {
@@ -34,7 +33,6 @@ public class FeedbackAttachment extends AttachmentResponse {
 
     public void setId(UUID id) {
         this.id = Assert.assertNull(id, "ID cannot be null");
-
     }
 
     public long getAttachmentSize() {

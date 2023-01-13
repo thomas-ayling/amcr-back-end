@@ -3,7 +3,6 @@ package com.globallogic.amcr.persistence.dao.contactcomponent;
 import com.globallogic.amcr.persistence.mapper.contactcomponent.FeedbackMapper;
 import com.globallogic.amcr.persistence.dao.Dao;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
-import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public class FeedbackDao implements Dao<Feedback, FeedbackResponse> {
+public class FeedbackDao implements Dao<Feedback, Feedback> {
     final FeedbackMapper feedbackMapper;
     private final Logger Log = LoggerFactory.getLogger(FeedbackDao.class.getName());
 
@@ -42,7 +41,7 @@ public class FeedbackDao implements Dao<Feedback, FeedbackResponse> {
      * @return returns the appropriate feedback entry
      */
     @Override
-    public FeedbackResponse get(UUID id) {
+    public Feedback get(UUID id) {
         Log.trace("DAO requesting feedback with ID {}", id);
         return feedbackMapper.get(id);
     }
@@ -51,7 +50,7 @@ public class FeedbackDao implements Dao<Feedback, FeedbackResponse> {
      * @return returns a list all the entries in the feedback table
      */
     @Override
-    public List<FeedbackResponse> getAll() {
+    public List<Feedback> getAll() {
         Log.trace("DAO requesting all feedback");
         return feedbackMapper.getAll();
     }
@@ -59,7 +58,7 @@ public class FeedbackDao implements Dao<Feedback, FeedbackResponse> {
     /**
      * @return returns a list of the last 10 entries in the feedback table
      */
-    public List<FeedbackResponse> getLatest() {
+    public List<Feedback> getLatest() {
         Log.trace("DAO requesting latest feedback");
         return feedbackMapper.getLatest();
     }
@@ -68,7 +67,7 @@ public class FeedbackDao implements Dao<Feedback, FeedbackResponse> {
      * @param last the 'feedback order' of the last received feedback entry
      * @return returns the 10 entries that follow the 'last' entry
      */
-    public List<FeedbackResponse> getOlder(int last) {
+    public List<Feedback> getOlder(int last) {
         Log.trace("DAO requesting 10 feedback entries older than entry {}", last);
         return feedbackMapper.getOlder(last);
     }

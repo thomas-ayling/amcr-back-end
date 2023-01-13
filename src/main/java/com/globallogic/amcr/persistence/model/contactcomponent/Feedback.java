@@ -35,7 +35,7 @@ public class Feedback {
         if (!feedbackType.equals("library")) Assert.assertNull(feedbackBody, "feedbackBody is null");
         if (feedbackType.equals("library")) Assert.assertNull(bookLink, "bookLink is null");
 
-        this.feedbackType = Assert.assertNull(feedbackType, "feedbackType is null");
+        setFeedbackType(feedbackType);
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
@@ -53,7 +53,6 @@ public class Feedback {
 
     public void setId(UUID id) {
         this.id = Assert.assertNull(id, "id is null");
-
     }
 
     public String getFeedbackType() {
@@ -106,7 +105,6 @@ public class Feedback {
 
     public void setBookName(String bookName) {
         this.bookName = Assert.assertNull(bookName, "bookName is null");
-
     }
 
     public String getBookLink() {

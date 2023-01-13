@@ -1,4 +1,4 @@
-package com.globallogic.amcr.persistence.payload.contactcomponent;
+package com.globallogic.amcr.persistence.model.contactcomponent;
 
 import com.globallogic.amcr.utils.Assert;
 import jakarta.validation.constraints.NotNull;
@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
  * FeedbackAttachment response to download an attachment from the attachments database
  */
 @SuppressWarnings("unused")
-public class AttachmentResponse {
+public class FeedbackAttachmentResponse {
     @NotNull
     private String attachmentName;
     @NotNull
@@ -21,13 +21,13 @@ public class AttachmentResponse {
      * @param data           the raw binary data of the attachment to be downloaded
      */
 
-    public AttachmentResponse(String attachmentName, String attachmentType, byte[] data) {
-        this.attachmentName = Assert.assertNull(attachmentName, "File name cannot be null");
-        this.attachmentType = Assert.assertNull(attachmentType, "File type cannot be null");
-        this.data = Assert.assertNull(data, "Data cannot be null");
+    public FeedbackAttachmentResponse(String attachmentName, String attachmentType, byte[] data) {
+        setAttachmentName(attachmentName);
+        setAttachmentType(attachmentType);
+        setData(data);
     }
 
-    public AttachmentResponse() {
+    public FeedbackAttachmentResponse() {
     }
 
     public String getAttachmentName() {

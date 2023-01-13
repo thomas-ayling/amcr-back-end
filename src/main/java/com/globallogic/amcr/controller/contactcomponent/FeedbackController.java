@@ -2,10 +2,9 @@ package com.globallogic.amcr.controller.contactcomponent;
 
 import com.globallogic.amcr.controller.casestudies.CaseStudyController;
 import com.globallogic.amcr.exception.NotFoundException;
-import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
+import com.globallogic.amcr.persistence.model.contactcomponent.*;
 import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachment;
-import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentResponse;
-import com.globallogic.amcr.persistence.payload.contactcomponent.FeedbackResponse;
+import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachmentResponse;
 import com.globallogic.amcr.service.contactcomponent.FeedbackService;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
@@ -64,7 +63,7 @@ public class FeedbackController {
     }
 
     @GetMapping(value=("/{id}"), produces = "application/json")
-    public ResponseEntity<FeedbackResponse> get(@PathVariable UUID id) {
+    public ResponseEntity<Feedback> get(@PathVariable UUID id) {
         Log.debug("Controller requesting feedback with ID {}", id);
         return ResponseEntity.ok().body(feedbackService.get(id));
     }
@@ -81,7 +80,7 @@ public class FeedbackController {
      * @return returns a list of all entries in the feedback table
      */
     @GetMapping(produces = "application/json")
-    public List<FeedbackResponse> getWithParams(@RequestParam(required = false) Boolean latest, @RequestParam(required = false) Boolean older, @RequestParam(required = false) Integer last) {
+    public List<Feedback> getWithParams(@RequestParam(required = false) Boolean latest, @RequestParam(required = false) Boolean older, @RequestParam(required = false) Integer last) {
         latest = latest != null && latest;
         older = older != null && older;
         if (!older && last != null) {
@@ -113,8 +112,8 @@ public class FeedbackController {
     public ResponseEntity<Resource> getAttachment(@PathVariable UUID attachmentId) {
         try {
             Log.debug("Controller requesting attachment with ID {}", attachmentId);
-            AttachmentResponse attachmentResponse = feedbackService.getFile(attachmentId);
-            return ResponseEntity.ok().contentType(MediaType.parseMediaType(attachmentResponse.getAttachmentType())).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + attachmentResponse.getAttachmentName() + "\"").body(new ByteArrayResource(attachmentResponse.getData()));
+            FeedbackAttachmentResponse feedbackAttachmentResponse = feedbackService.getFile(attachmentId);
+            return ResponseEntity.ok().contentType(MediaType.parseMediaType(feedbackAttachmentResponse.getAttachmentType())).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + feedbackAttachmentResponse.getAttachmentName() + "\"").body(new ByteArrayResource(feedbackAttachmentResponse.getData()));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }

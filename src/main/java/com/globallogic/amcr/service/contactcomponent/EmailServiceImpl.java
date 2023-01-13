@@ -2,7 +2,7 @@ package com.globallogic.amcr.service.contactcomponent;
 
 import com.globallogic.amcr.persistence.dao.contactcomponent.FeedbackAttachmentDao;
 import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
-import com.globallogic.amcr.persistence.payload.contactcomponent.AttachmentMetadata;
+import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachmentMetadata;
 import com.globallogic.amcr.utils.Assert;
 import com.globallogic.amcr.utils.ByteConverter;
 import jakarta.mail.internet.MimeMessage;
@@ -31,7 +31,7 @@ public class EmailServiceImpl implements EmailService {
         try {
             // Get data for attachment link
             Log.debug("Requesting download link data for email");
-            AttachmentMetadata attachmentMetadata = feedbackAttachmentDao.getAttachmentMetadata(feedbackId);
+            FeedbackAttachmentMetadata feedbackAttachmentMetadata = feedbackAttachmentDao.getAttachmentMetadata(feedbackId);
 
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
@@ -44,8 +44,8 @@ public class EmailServiceImpl implements EmailService {
             mimeMessageHelper.setTo("<engineeringcenterbot@globallogic.com>");
 
             String style = "<style>.email { font-family: Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif; }</style>";
-            String textAttachmentLink = attachmentMetadata == null ? "" : String.format("Follow this link to download attachment: %s (%s, %s)", attachmentMetadata.getDownloadUri(), attachmentMetadata.getAttachmentName(), ByteConverter.bytesToReadable(attachmentMetadata.getAttachmentSize()));
-            String htmlAttachmentLink = attachmentMetadata == null ? "" : String.format("<span>Download attachment: <a href=%s>%s (%s)</a></span>", attachmentMetadata.getDownloadUri(), attachmentMetadata.getAttachmentName(), ByteConverter.bytesToReadable(attachmentMetadata.getAttachmentSize()));
+            String textAttachmentLink = feedbackAttachmentMetadata == null ? "" : String.format("Follow this link to download attachment: %s (%s, %s)", feedbackAttachmentMetadata.getDownloadUri(), feedbackAttachmentMetadata.getAttachmentName(), ByteConverter.bytesToReadable(feedbackAttachmentMetadata.getAttachmentSize()));
+            String htmlAttachmentLink = feedbackAttachmentMetadata == null ? "" : String.format("<span>Download attachment: <a href=%s>%s (%s)</a></span>", feedbackAttachmentMetadata.getDownloadUri(), feedbackAttachmentMetadata.getAttachmentName(), ByteConverter.bytesToReadable(feedbackAttachmentMetadata.getAttachmentSize()));
             String textPart;
             String htmlPart;
 
