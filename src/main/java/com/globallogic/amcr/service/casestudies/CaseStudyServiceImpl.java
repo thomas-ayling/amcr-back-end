@@ -14,8 +14,8 @@ import java.util.UUID;
 
 @Service
 public class CaseStudyServiceImpl implements CaseStudyService {
-    private final CaseStudyDao caseStudyDao;
     private final Logger Log = LoggerFactory.getLogger(CaseStudyServiceImpl.class.getName());
+    private final CaseStudyDao caseStudyDao;
 
     public CaseStudyServiceImpl(CaseStudyDao caseStudyDao) {
         this.caseStudyDao = Assert.assertNull(caseStudyDao, "CaseStudyDao is not present");
