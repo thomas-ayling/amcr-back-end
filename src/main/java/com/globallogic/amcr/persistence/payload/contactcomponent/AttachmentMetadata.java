@@ -1,11 +1,17 @@
 package com.globallogic.amcr.persistence.payload.contactcomponent;
 
+import com.globallogic.amcr.utils.Assert;
+import jakarta.validation.constraints.NotNull;
+
 /**
  * File response for email attachment download link
  */
 public class AttachmentMetadata {
+    @NotNull
     private String fileName;
+    @NotNull
     private long fileSize;
+    @NotNull
     private String downloadUri;
 
     /**
@@ -15,9 +21,9 @@ public class AttachmentMetadata {
      */
 
     public AttachmentMetadata(String fileName, long fileSize, String downloadUri) {
-        this.fileName = fileName;
-        this.fileSize = fileSize;
-        this.downloadUri = downloadUri;
+        this.fileName = Assert.assertNull(fileName, "File name cannot be null");
+        this.fileSize = Assert.assertNull(fileSize, "File size cannot be null");
+        this.downloadUri = Assert.assertNull(downloadUri, "Download URI cannot be null");
     }
 
     public AttachmentMetadata() {
@@ -28,7 +34,7 @@ public class AttachmentMetadata {
     }
 
     public void setFileName(String fileName) {
-        this.fileName = fileName;
+        this.fileName = Assert.assertNull(fileName, "File name cannot be null");
     }
 
     public long getFileSize() {
@@ -36,7 +42,7 @@ public class AttachmentMetadata {
     }
 
     public void setFileSize(long fileSize) {
-        this.fileSize = fileSize;
+        this.fileSize = Assert.assertNull(fileSize, "File size cannot be null");
     }
 
     public String getDownloadUri() {
@@ -44,6 +50,6 @@ public class AttachmentMetadata {
     }
 
     public void setDownloadUri(String downloadUri) {
-        this.downloadUri = downloadUri;
+        this.downloadUri = Assert.assertNull(downloadUri, "Download URI cannot be null");
     }
 }

@@ -16,7 +16,8 @@ import java.util.UUID;
 public interface FeedbackMapper {
 
     @Insert("INSERT INTO feedback(id, feedback_type, first_name, last_name, email_address, feedback_body, book_name, book_link) VALUES (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{feedbackType}, #{firstName}, #{lastName}, #{emailAddress}, #{feedbackBody}, #{bookName}, #{bookLink})")
-    int save(Feedback feedback);
+
+    void save(Feedback feedback);
 
     @Select("SELECT feedback_order, feedback_type, first_name, last_name, email_address, feedback_body, book_name, book_link, download_uri FROM feedback LEFT OUTER JOIN files ON feedback.id = files.feedback_id WHERE  #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler} = id")
     FeedbackResponse get(@Param("id") UUID id);
