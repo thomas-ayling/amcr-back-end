@@ -59,6 +59,12 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     }
 
     @Transactional
+    public List<CaseStudyOverview> getLatestOverviews(int entries) {
+        Log.debug("Service requesting 5 most recent overviews");
+        return caseStudyDao.getLatestOverviews(entries);
+    }
+
+    @Transactional
     public CaseStudy update(UUID id, CaseStudy newCaseStudy) {
         Assert.assertNull(id, "ID must be included to update a case study");
         Assert.assertNull(newCaseStudy, "New case study must not be null");

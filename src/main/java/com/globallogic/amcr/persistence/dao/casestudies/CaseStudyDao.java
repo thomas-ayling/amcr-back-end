@@ -65,6 +65,12 @@ public class CaseStudyDao implements Dao<CaseStudy, CaseStudy> {
         return caseStudyMapper.getSpotlitOverviews();
     }
 
+
+    public List<CaseStudyOverview> getLatestOverviews(int entries) {
+        Log.trace("DAO requesting the 5 most recent overviews");
+        return caseStudyMapper.getLatestOverviews(entries);
+    }
+
     /**
      * requests an update to a specified object in the case_studies table
      *
