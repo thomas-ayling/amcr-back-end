@@ -80,7 +80,7 @@ public class FeedbackController {
      * @return returns a list of all entries in the feedback table
      */
     @GetMapping(produces = "application/json")
-    public List<Feedback> getWithParams(@RequestParam(required = false) Boolean latest, @RequestParam(required = false) Boolean older, @RequestParam(required = false) Integer last) {
+    public ResponseEntity<List<Feedback>> getWithParams(@RequestParam(required = false) Boolean latest, @RequestParam(required = false) Boolean older, @RequestParam(required = false) Integer last) {
         latest = latest != null && latest;
         older = older != null && older;
         if (!older && last != null) {
@@ -94,14 +94,14 @@ public class FeedbackController {
         }
         if (latest) {
             Log.debug("Controller requesting latest feedback entries");
-            return feedbackService.getLatest();
+            return ResponseEntity.ok().body(feedbackService.getLatest());
         }
         if (older) {
             Log.debug("Controller requesting older feedback entries");
-            return feedbackService.getOlder(last);
+            return ResponseEntity.ok().body(feedbackService.getOlder(last));
         }
         Log.debug("Controller requesting all feedback");
-        return feedbackService.getAll();
+        return ResponseEntity.ok().body(feedbackService.getAll());
     }
 
     /**
