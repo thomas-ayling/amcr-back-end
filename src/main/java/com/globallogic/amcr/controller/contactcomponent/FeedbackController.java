@@ -27,7 +27,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * endpoint for feedback upload and download
+ * Endpoint for feedback upload and download
  */
 @RestController
 @RequestMapping("/feedback")
@@ -41,9 +41,9 @@ public class FeedbackController {
     }
 
     /**
-     * @param feedback           the feedback json object that gets mapped to feedback type
-     * @param incomingAttachment the optional attachment from the client
-     * @return returns a response entity either OK (200) or INTERNAL_SERVER_ERROR (500)
+     * @param feedback           The feedback json object that gets mapped to feedback type
+     * @param incomingAttachment The optional attachment from the client
+     * @return Returns a response entity either OK (200) or INTERNAL_SERVER_ERROR (500)
      */
     @PostMapping(value = "/", consumes = {"multipart/form-data"}, produces = {"application/json"})
     public ResponseEntity<Feedback> uploadFeedback(@RequestPart("feedback") @Validated Feedback feedback, BindingResult errors, @RequestPart(value = "attachment", required = false) MultipartFile incomingAttachment) {
