@@ -30,14 +30,14 @@ public class AttachmentDAO implements DAO<MultipartFile, AttachmentResponse> {
         this.attachmentMapper = Assert.assertNull(attachmentMapper, "Attachment mapper cannot be null");
     }
 
-    public void save(MultipartFile attachment) {
+    public void save(MultipartFile attachmentFile) {
         try {
 
-            String attachmentName = StringUtils.cleanPath(Objects.requireNonNull(attachment.getOriginalFilename()));
+            String attachmentName = StringUtils.cleanPath(Objects.requireNonNull(attachmentFile.getOriginalFilename()));
 
             UUID id = UUID.randomUUID();
 
-            byte[] data1 = attachment.getBytes();
+            byte[] data1 = attachmentFile.getBytes();
             Checksum crc32c = new CRC32C();
             crc32c.update(data1);
             long crc = crc32c.getValue();
@@ -50,28 +50,28 @@ public class AttachmentDAO implements DAO<MultipartFile, AttachmentResponse> {
             File file = new File(attachmentName);
             String mimeType = Files.probeContentType(file.toPath());
 
-            Attachment attachment1 = new Attachment(id, attachmentName, downloadUri, attachment.getContentType(),
-                    ByteConverter.bytesToReadable(attachment.getSize()), crc, attachment.getBytes());
+            Attachment attachment = new Attachment(id, attachmentName, downloadUri, attachmentFile.getContentType(),
+                    ByteConverter.bytesToReadable(attachmentFile.getSize()), crc, attachmentFile.getBytes());
 
             if (mimeType != null && mimeType.split("/")[0].equalsIgnoreCase("image")) {
                 try {
-                    ImageInfo imageInfo = Imaging.getImageInfo(attachment.getInputStream().readAllBytes());
+                    ImageInfo imageInfo = Imaging.getImageInfo(attachmentFile.getInputStream().readAllBytes());
 
                     Map<String, Object> metadata = new HashMap<>();
-                    metadata.put("Height In Pixels", imageInfo.getHeight());
-                    metadata.put("Width In Pixels", imageInfo.getWidth());
+                    metadata.put("Height In Pixels", imageInfo.getWidth());
+                    metadata.put("Width In Pixels", imageInfo.getHeight());
 
-                    attachment1.setMetadata(metadata);
+                    attachment.setMetadata(metadata);
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-            Log.trace("Attempts to upload a new attachment {}", attachment1);
-            attachmentMapper.save(attachment1);
+            Log.trace("Attempts to upload a new attachment {}", attachment);
+            attachmentMapper.save(attachment);
 
         } catch (Exception e) {
-            throw new RuntimeException(attachment.getName() + " could not be saved.", e);
+            throw new RuntimeException(attachmentFile.getName() + " could not be saved.", e);
         }
     }
 

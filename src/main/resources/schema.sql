@@ -50,7 +50,7 @@ create table if not exists academy_project.attachments
     content_type text             not null,
     size         text             not null,
     crc          bigint           not null,
-    metadata     jsonb,
+    metadata     jsonb default '{}'::jsonb,
     data         bytea            not null
 );
 

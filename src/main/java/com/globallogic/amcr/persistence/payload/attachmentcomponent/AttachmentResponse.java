@@ -1,5 +1,3 @@
-
-
 package com.globallogic.amcr.persistence.payload.attachmentcomponent;
 
 import java.util.Arrays;
