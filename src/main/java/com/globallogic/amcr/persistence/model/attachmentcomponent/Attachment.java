@@ -12,7 +12,7 @@ public class Attachment {
     private String contentType;
     private String size;
     private long crc;
-    private Map<Object, Object> metadata;
+    private Map<String, Object> metadata;
     private byte[] data;
 
     public Attachment() {
@@ -29,7 +29,7 @@ public class Attachment {
         this.data = data;
     }
 
-    public Attachment(UUID id, String name, String downloadUri, String contentType, String size, long crc, Map<Object, Object> metadata, byte[] data) {
+    public Attachment(UUID id, String name, String downloadUri, String contentType, String size, long crc, Map<String, Object> metadata, byte[] data) {
         this.id = id;
         this.name = name;
         this.downloadUri = downloadUri;
@@ -88,11 +88,11 @@ public class Attachment {
         this.crc = crc;
     }
 
-    public Map<Object,Object> getMetadata() {
+    public Map<String,Object> getMetadata() {
         return metadata;
     }
 
-    public void setMetadata(Map<Object,Object> metadata) {
+    public void setMetadata(Map<String,Object> metadata) {
         this.metadata = metadata;
     }
 
@@ -107,16 +107,13 @@ public class Attachment {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Attachment that = (Attachment) o;
-        return crc == that.crc && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(downloadUri, that.downloadUri) && Objects.equals(contentType, that.contentType) && Objects.equals(size, that.size) && Objects.equals(metadata, that.metadata) && Arrays.equals(data, that.data);
+        if (!(o instanceof Attachment that)) return false;
+        return getCrc() == that.getCrc() && Objects.equals(getName(), that.getName()) && Objects.equals(getContentType(), that.getContentType()) && Objects.equals(getSize(), that.getSize());
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(id, name, downloadUri, contentType, size, crc, metadata);
-        result = 31 * result + Arrays.hashCode(data);
-        return result;
+        return Objects.hash(getName(), getContentType(), getSize(), getCrc());
     }
 
     @Override

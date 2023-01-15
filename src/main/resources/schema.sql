@@ -42,17 +42,20 @@ create table if not exists academy_project.case_studies
 ALTER TABLE academy_project.case_studies
     OWNER TO CURRENT_USER;
 
-create table if not exists attachments
+create table if not exists academy_project.attachments
 (
-    id           uuid primary key,
-    name         text,
-    download_uri text,
-    content_type text,
-    size         text,
-    crc          bigint,
+    id           uuid primary key not null,
+    name         text             not null,
+    download_uri text             not null,
+    content_type text             not null,
+    size         text             not null,
+    crc          bigint           not null,
     metadata     jsonb,
-    data         bytea
+    data         bytea            not null
 );
+
+ALTER TABLE academy_project.attachments
+    OWNER TO CURRENT_USER;
 
 -- Object format:
 

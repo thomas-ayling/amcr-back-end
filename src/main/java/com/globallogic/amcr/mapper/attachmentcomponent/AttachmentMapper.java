@@ -17,7 +17,7 @@ public interface AttachmentMapper {
             "javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{name}, #{downloadUri}, " +
             "#{contentType}, #{size}, #{crc}, #{metadata, javaType=java.util.Map, jdbcType=OTHER, " +
             "typeHandler=JSONMapHandler}, #{data})")
-    public void insert(Attachment file);
+    public void save(Attachment file);
 
     @Results(id = "attachmentResponse")
     @ConstructorArgs({
@@ -28,7 +28,7 @@ public interface AttachmentMapper {
 
     @Select("SELECT * FROM attachments WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER," +
             " typeHandler=UUIDTypeHandler}")
-    public AttachmentResponse retrieve(@Param("id") UUID id);
+    public AttachmentResponse get(@Param("id") UUID id);
 
     @Results(id = "attachmentMetadataResponse")
     @ConstructorArgs({
@@ -39,7 +39,7 @@ public interface AttachmentMapper {
             @Arg(column = "metadata", javaType = Map.class, typeHandler = JSONMapHandler.class)
     })
     @Select("SELECT name, download_uri, size, crc, metadata FROM attachments")
-    List<AttachmentMetadata> retrieveAll();
+    List<AttachmentMetadata> getAll();
 
     @Delete("DELETE FROM attachments WHERE #{id, javaType=java.util.UUID, jdbcType=OTHER, " +
             "typeHandler=UUIDTypeHandler} = id")

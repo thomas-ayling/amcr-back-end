@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 
 @Service
 public class AttachmentServiceImpl implements AttachmentService {
-    public  final Logger Log = LoggerFactory.getLogger(AttachmentServiceImpl.class.getName());
+    public  final Logger Log = LoggerFactory.getLogger(AttachmentServiceImpl.class);
     private final AttachmentDAO attachmentDAO;
 
     public AttachmentServiceImpl(AttachmentDAO attachmentDAO) {
@@ -30,36 +30,36 @@ public class AttachmentServiceImpl implements AttachmentService {
     }
 
     @Transactional
-    public ResponseEntity upload(MultipartFile attachment) {
+    public ResponseEntity create(MultipartFile attachment) {
         try {
             Log.debug("Attempting to upload an attachment {}", attachment);
-            attachmentDAO.upload(attachment);
+            attachmentDAO.save(attachment);
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().build();
         }
     }
 
     @Transactional(readOnly = true)
-    public ResponseEntity<Resource> retrieve(UUID id) {
+    public ResponseEntity<Resource> get(UUID id) {
         Assert.assertNull(id, "Attachment ID cannot be null");
         try {
             Log.debug("Attempting to retrieve an attachment with ID {}", id);
-            AttachmentResponse attachmentResponse = attachmentDAO.retrieve(id);
+            AttachmentResponse attachmentResponse = attachmentDAO.get(id);
             return ResponseEntity.ok().contentType(MediaType.parseMediaType(attachmentResponse
                             .getContentType())).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; name=\""
                             + attachmentResponse.getName() + "\"")
                     .body(new ByteArrayResource(attachmentResponse
                             .getData()));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().build();
         }
     }
 
     @Transactional(readOnly = true)
-    public List<AttachmentMetadata> retrieveAll() {
+    public List<AttachmentMetadata> getAll() {
         Log.debug("Attempting to retrieve all metadata for all attachments in the database");
-        return attachmentDAO.retrieveAll();
+        return attachmentDAO.getALl();
     }
 
     @Transactional

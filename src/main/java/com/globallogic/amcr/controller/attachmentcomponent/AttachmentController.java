@@ -30,19 +30,19 @@ public class AttachmentController {
     @RequestMapping(value = "/", method = RequestMethod.POST, consumes = {"multipart/form-data"})
     public ResponseEntity uploadAttachment(@RequestPart(value = "attachment") MultipartFile attachment) {
         Log.debug("Saving a new attachment {}", attachment);
-        return attachmentServiceImpl.upload(attachment);
+        return attachmentServiceImpl.create(attachment);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Resource> retrieveAttachment(@PathVariable UUID id) {
         Log.debug("Requesting an attachment with ID {}", id);
-        return attachmentServiceImpl.retrieve(id);
+        return attachmentServiceImpl.get(id);
     }
 
-    @GetMapping("/retrieve-all-metadata")
+    @GetMapping("/")
     public List<AttachmentMetadata> retrieveAllAttachments() {
         Log.debug("Requesting all attachments");
-        return attachmentServiceImpl.retrieveAll();
+        return attachmentServiceImpl.getAll();
     }
 
     @DeleteMapping(value = "/{id}", produces = "application/json")
@@ -50,7 +50,7 @@ public class AttachmentController {
         try {
             Log.debug("Requesting to delete attachment with ID {}", id);
             attachmentService.delete(id);
-            return ResponseEntity.ok().body("File with ID: " + id + " was deleted.");
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new RuntimeException("Controller could not delete attachment", e);
         }
