@@ -48,7 +48,7 @@ create table if not exists academy_project.attachments
     name         text             not null,
     download_uri text             not null,
     content_type text             not null,
-    size         text             not null,
+    size         bigint           not null,
     crc          bigint           not null,
     metadata     jsonb default '{}'::jsonb,
     data         bytea            not null

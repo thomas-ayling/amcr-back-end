@@ -7,11 +7,22 @@ public class AttachmentResponse {
     private String name;
     private String contentType;
     private byte[] data;
+    private long size;
+    private String readableSize;
 
-    public AttachmentResponse(String name, String contentType, byte[] data) {
+    public AttachmentResponse(String name, String contentType, byte[] data, long size) {
         this.name = name;
         this.contentType = contentType;
         this.data = data;
+        this.size = size;
+    }
+
+    public String getReadableSize() {
+        return readableSize;
+    }
+
+    public void setReadableSize(String readableSize) {
+        this.readableSize = readableSize;
     }
 
     public String getName() {
@@ -36,6 +47,14 @@ public class AttachmentResponse {
 
     public void setData(byte[] data) {
         this.data = data;
+    }
+
+    public long getSize() {
+        return size;
+    }
+
+    public void setSize(long size) {
+        this.size = size;
     }
 
     @Override

@@ -6,11 +6,11 @@ import java.util.Objects;
 public class AttachmentMetadata {
     private String name;
     private String downloadUri;
-    private String size;
+    private long size;
     private long crc;
     private Map<Object,Object> metadata;
 
-    public AttachmentMetadata(String name, String downloadUri, String size, long crc, Map<Object,Object> metadata) {
+    public AttachmentMetadata(String name, String downloadUri, long size, long crc, Map<Object,Object> metadata) {
         this.name = name;
         this.downloadUri = downloadUri;
         this.size = size;
@@ -34,11 +34,11 @@ public class AttachmentMetadata {
         this.downloadUri = downloadUri;
     }
 
-    public String getSize() {
+    public long getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(long size) {
         this.size = size;
     }
 

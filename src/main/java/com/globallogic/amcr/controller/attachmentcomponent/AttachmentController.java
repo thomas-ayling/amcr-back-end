@@ -1,56 +1,101 @@
 package com.globallogic.amcr.controller.attachmentcomponent;
 
+import com.globallogic.amcr.persistence.model.attachmentcomponent.Attachment;
 import com.globallogic.amcr.persistence.payload.attachmentcomponent.AttachmentMetadata;
+import com.globallogic.amcr.persistence.payload.attachmentcomponent.AttachmentResponse;
 import com.globallogic.amcr.service.attachmentcomponent.AttachmentService;
-import com.globallogic.amcr.service.attachmentcomponent.AttachmentServiceImpl;
+import org.apache.commons.imaging.ImageInfo;
+import org.apache.commons.imaging.Imaging;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-import java.util.UUID;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.*;
+import java.util.zip.CRC32C;
+import java.util.zip.Checksum;
 
 @RestController
 @RequestMapping("/attachments")
 @CrossOrigin
 public class AttachmentController {
-    public final Logger Log = LoggerFactory.getLogger(AttachmentController.class.getName());
-    private final AttachmentServiceImpl attachmentServiceImpl;
+    public final Logger Log = LoggerFactory.getLogger(AttachmentController.class);
     private final AttachmentService attachmentService;
 
-    public AttachmentController(AttachmentServiceImpl attachmentServiceImpl, AttachmentService attachmentService) {
-        this.attachmentServiceImpl = attachmentServiceImpl;
+    public AttachmentController(AttachmentService attachmentService) {
         this.attachmentService = attachmentService;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST, consumes = {"multipart/form-data"})
-    public ResponseEntity uploadAttachment(@RequestPart(value = "attachment") MultipartFile attachment) {
-        Log.debug("Saving a new attachment {}", attachment);
-        return attachmentServiceImpl.create(attachment);
+    public ResponseEntity<Attachment> uploadAttachment(@RequestPart(value = "attachment") MultipartFile incomingAttachment) {
+        String attachmentName = StringUtils.cleanPath(Objects.requireNonNull(incomingAttachment.getOriginalFilename()));
+        try {
+            byte[] data1 = incomingAttachment.getBytes();
+            Checksum crc32c = new CRC32C();
+            crc32c.update(data1);
+            long crc = crc32c.getValue();
+            File file = new File(attachmentName);
+            String mimeType = Files.probeContentType(file.toPath());
+
+            if (mimeType != null && mimeType.split("/")[0].equalsIgnoreCase("image")) {
+                try {
+                    ImageInfo imageInfo = Imaging.getImageInfo(incomingAttachment.getInputStream().readAllBytes());
+
+                    Map<String, Object> metadata = new HashMap<>();
+                    metadata.put("Height In Pixels", imageInfo.getWidth());
+                    metadata.put("Width In Pixels", imageInfo.getHeight());
+
+                    Attachment attachment = new Attachment(attachmentName, incomingAttachment.getContentType(), incomingAttachment.getSize(), crc, metadata, incomingAttachment.getBytes());
+                    attachmentService.save(attachment);
+                    return ResponseEntity.ok().build();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            Attachment attachment = new Attachment(attachmentName, incomingAttachment.getContentType(), incomingAttachment.getSize(), crc, incomingAttachment.getBytes());
+
+            Log.trace("Attempts to upload a new attachment {}", attachment);
+            Log.debug("Saving a new attachment {}", attachment);
+            attachmentService.save(attachment);
+            return ResponseEntity.ok().build();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Resource> retrieveAttachment(@PathVariable UUID id) {
         Log.debug("Requesting an attachment with ID {}", id);
-        return attachmentServiceImpl.get(id);
+        AttachmentResponse attachmentResponse = attachmentService.get(id);
+        return ResponseEntity.ok().contentType(MediaType.parseMediaType(attachmentResponse
+                        .getContentType())).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; name=\""
+                        + attachmentResponse.getName() + "\"")
+                .body(new ByteArrayResource(attachmentResponse
+                        .getData()));
     }
 
     @GetMapping("/")
-    public List<AttachmentMetadata> retrieveAllAttachments() {
+    public ResponseEntity<List<AttachmentMetadata>> retrieveAllAttachments() {
         Log.debug("Requesting all attachments");
-        return attachmentServiceImpl.getAll();
+        return ResponseEntity.ok().body(attachmentService.getAll());
     }
 
     @DeleteMapping(value = "/{id}", produces = "application/json")
-    public ResponseEntity<?> deleteAttachment(@PathVariable UUID id) {
+    public ResponseEntity<?> deleteAttachment (@PathVariable UUID id) {
         try {
             Log.debug("Requesting to delete attachment with ID {}", id);
             attachmentService.delete(id);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.noContent().build();
         } catch (Exception e) {
             throw new RuntimeException("Controller could not delete attachment", e);
         }

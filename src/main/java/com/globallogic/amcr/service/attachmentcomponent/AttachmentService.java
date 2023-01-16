@@ -1,20 +1,22 @@
 package com.globallogic.amcr.service.attachmentcomponent;
 
+import com.globallogic.amcr.persistence.model.attachmentcomponent.Attachment;
 import com.globallogic.amcr.persistence.payload.attachmentcomponent.AttachmentMetadata;
-import org.springframework.core.io.Resource;
+import com.globallogic.amcr.persistence.payload.attachmentcomponent.AttachmentResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface AttachmentService {
 
-    ResponseEntity create(MultipartFile attachment);
+    ResponseEntity save(Attachment attachment);
 
-    ResponseEntity<Resource> get(UUID id);
+    AttachmentResponse get(UUID id);
 
     List<AttachmentMetadata> getAll();
+
+    // Something here
 
     void delete(UUID id);
 }

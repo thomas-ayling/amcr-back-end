@@ -10,16 +10,15 @@ public class Attachment {
     private String name;
     private String downloadUri;
     private String contentType;
-    private String size;
+    private long size;
     private long crc;
     private Map<String, Object> metadata;
     private byte[] data;
 
     public Attachment() {
-
     }
 
-    public Attachment(UUID id, String name, String downloadUri, String contentType, String size, long crc, byte[] data) {
+    public Attachment(UUID id, String name, String downloadUri, String contentType, long size, long crc, byte[] data) {
         this.id = id;
         this.name = name;
         this.downloadUri = downloadUri;
@@ -29,14 +28,20 @@ public class Attachment {
         this.data = data;
     }
 
-    public Attachment(UUID id, String name, String downloadUri, String contentType, String size, long crc, Map<String, Object> metadata, byte[] data) {
-        this.id = id;
+    public Attachment(String name, String contentType, long size, long crc, Map<String, Object> metadata, byte[] data) {
         this.name = name;
-        this.downloadUri = downloadUri;
         this.contentType = contentType;
         this.size = size;
         this.crc = crc;
         this.metadata = metadata;
+        this.data = data;
+    }
+
+    public Attachment(String name, String contentType, long size, long crc, byte[] data) {
+        this.name = name;
+        this.contentType = contentType;
+        this.size = size;
+        this.crc = crc;
         this.data = data;
     }
 
@@ -72,11 +77,11 @@ public class Attachment {
         this.contentType = contentType;
     }
 
-    public String getSize() {
+    public long getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(long size) {
         this.size = size;
     }
 
@@ -88,11 +93,11 @@ public class Attachment {
         this.crc = crc;
     }
 
-    public Map<String,Object> getMetadata() {
+    public Map<String, Object> getMetadata() {
         return metadata;
     }
 
-    public void setMetadata(Map<String,Object> metadata) {
+    public void setMetadata(Map<String, Object> metadata) {
         this.metadata = metadata;
     }
 

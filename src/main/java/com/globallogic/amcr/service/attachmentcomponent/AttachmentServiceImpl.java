@@ -1,39 +1,35 @@
 package com.globallogic.amcr.service.attachmentcomponent;
 
-import com.globallogic.amcr.persistence.dao.attachmentcomponent.AttachmentDAO;
+import com.globallogic.amcr.persistence.dao.attachmentcomponent.AttachmentDaoImpl;
+import com.globallogic.amcr.persistence.model.attachmentcomponent.Attachment;
 import com.globallogic.amcr.persistence.payload.attachmentcomponent.AttachmentMetadata;
 import com.globallogic.amcr.persistence.payload.attachmentcomponent.AttachmentResponse;
 import com.globallogic.amcr.utils.Assert;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 @Service
 public class AttachmentServiceImpl implements AttachmentService {
-    public  final Logger Log = LoggerFactory.getLogger(AttachmentServiceImpl.class);
-    private final AttachmentDAO attachmentDAO;
+    public final Logger Log = LoggerFactory.getLogger(AttachmentServiceImpl.class);
+    private final AttachmentDaoImpl attachmentDAOImpl;
 
-    public AttachmentServiceImpl(AttachmentDAO attachmentDAO) {
-        this.attachmentDAO = Assert.assertNull(attachmentDAO, "AttachmentDAO is not present");
+    public AttachmentServiceImpl(AttachmentDaoImpl attachmentDAOImpl) {
+        this.attachmentDAOImpl = Assert.assertNull(attachmentDAOImpl, "AttachmentDAO is not present");
     }
 
     @Transactional
-    public ResponseEntity create(MultipartFile attachment) {
+    public ResponseEntity<Attachment> save(Attachment attachment) {
         try {
+            UUID id = UUID.randomUUID();
             Log.debug("Attempting to upload an attachment {}", attachment);
-            attachmentDAO.save(attachment);
+            attachmentDAOImpl.save(attachment, id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().build();
@@ -41,30 +37,21 @@ public class AttachmentServiceImpl implements AttachmentService {
     }
 
     @Transactional(readOnly = true)
-    public ResponseEntity<Resource> get(UUID id) {
+    public AttachmentResponse get(UUID id) {
         Assert.assertNull(id, "Attachment ID cannot be null");
-        try {
-            Log.debug("Attempting to retrieve an attachment with ID {}", id);
-            AttachmentResponse attachmentResponse = attachmentDAO.get(id);
-            return ResponseEntity.ok().contentType(MediaType.parseMediaType(attachmentResponse
-                            .getContentType())).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; name=\""
-                            + attachmentResponse.getName() + "\"")
-                    .body(new ByteArrayResource(attachmentResponse
-                            .getData()));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().build();
-        }
+        Log.debug("Attempting to retrieve an attachment with ID {}", id);
+        return attachmentDAOImpl.get(id);
     }
 
     @Transactional(readOnly = true)
     public List<AttachmentMetadata> getAll() {
-        Log.debug("Attempting to retrieve all metadata for all attachments in the database");
-        return attachmentDAO.getALl();
+        Log.debug("Service attempting to retrieve all metadata for all attachments in the database");
+        return attachmentDAOImpl.getAllMetadata();
     }
 
     @Transactional
     public void delete(UUID id) {
         Log.debug("Attempting to delete an attachment with a ID {}", id);
-        attachmentDAO.delete(id);
+        attachmentDAOImpl.delete(id);
     }
 }
