@@ -7,7 +7,7 @@ import java.util.UUID;
  * @param <T> The type of object to be saved
  * @param <R> The type of object to be returned
  */
-public interface Dao<T, R> extends AttachmentDao<T, R> {
+public interface Dao<T, R> {
 
     /**
      * Prepares and saves an object to a table

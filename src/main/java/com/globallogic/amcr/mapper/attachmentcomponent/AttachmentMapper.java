@@ -23,10 +23,11 @@ public interface AttachmentMapper {
     @ConstructorArgs({
             @Arg(column = "name", javaType = String.class),
             @Arg(column = "content_type", javaType = String.class),
-            @Arg(column = "data", javaType = byte[].class)
+            @Arg(column = "data", javaType = byte[].class),
+            @Arg(column = "size", javaType = long.class)
     })
 
-    @Select("SELECT * FROM attachments WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER," +
+    @Select("SELECT name, content_type, data, size FROM attachments WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER," +
             " typeHandler=UUIDTypeHandler}")
     AttachmentResponse get(@Param("id") UUID id);
 
@@ -34,23 +35,22 @@ public interface AttachmentMapper {
     @ConstructorArgs({
             @Arg(column = "name", javaType = String.class),
             @Arg(column = "download_uri", javaType = String.class),
-            @Arg(column = "size", javaType = String.class),
+            @Arg(column = "size", javaType = long.class),
             @Arg(column = "crc", javaType = long.class),
             @Arg(column = "metadata", javaType = Map.class, typeHandler = JSONMapHandler.class)
     })
     @Select("SELECT name, download_uri, size, crc, metadata FROM attachments")
     List<AttachmentMetadata> getAllMetadata();
 
-    @Results(id = "attachmentResponse")
+    @Results(id = "attachmentResponseTwo")
     @ConstructorArgs({
             @Arg(column = "name", javaType = String.class),
             @Arg(column = "content_type", javaType = String.class),
             @Arg(column = "data", javaType = byte[].class),
-            @Arg(column = "size", javaType = String.class),
-            @Arg(column = "readable_size", javaType = String.class)
+            @Arg(column = "size", javaType = String.class)
     })
 
-    @Select("SELECT * FROM attachments")
+    @Select("SELECT name, content_type, data, size FROM attachments")
     List<AttachmentResponse> getAll();
 
     @Delete("DELETE FROM attachments WHERE #{id, javaType=java.util.UUID, jdbcType=OTHER, " +
