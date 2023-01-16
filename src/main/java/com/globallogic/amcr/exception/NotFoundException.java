@@ -11,6 +11,6 @@ public class NotFoundException extends RuntimeException {
     }
 
     public NotFoundException(String msg, Exception e) {
-        super(msg + " because of " + e.toString());
+        super(msg, e);
     }
 }
