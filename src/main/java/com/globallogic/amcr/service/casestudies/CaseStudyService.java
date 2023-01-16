@@ -45,6 +45,13 @@ public interface CaseStudyService {
     List<CaseStudyOverview> getSpotlitOverviews();
 
     /**
+     * requests the latest 5 overviews of entries in the database
+     *
+     * @return returns a list of the last 5 overviews in the database
+     */
+    List<CaseStudyOverview> getLatestOverviews(int entries);
+
+    /**
      * requests an update to the specified case study
      *
      * @param id           the id of the case study to be updated
@@ -58,5 +65,6 @@ public interface CaseStudyService {
      *
      * @param id the id of the entry to be deleted
      */
-    void delete(UUID id);
+    UUID delete(UUID id);
+
 }
