@@ -22,7 +22,7 @@ public interface BookMapper {
      * @param id - UUID book id for identifying book.
      * @return - Book Object containing all the information for selected book.
      */
-    @ResultMap("bookSingleResult")
+    @Results(id = "bookSingleResult")
     @ConstructorArgs({
             @Arg(column = "id", javaType = UUID.class, typeHandler = UUIDTypeHandler.class, id = true),
             @Arg(column = "title", javaType = String.class),
@@ -40,7 +40,7 @@ public interface BookMapper {
      * Method that allows you to retrieve a list of books and content from the database.
      * @return - List of books.
      */
-    @ResultMap("bookAllResults")
+    @Results(id = "bookAllResults")
     @ConstructorArgs({
             @Arg(column = "id", javaType = UUID.class, typeHandler = UUIDTypeHandler.class, id = true),
             @Arg(column = "title", javaType = String.class),
