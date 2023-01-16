@@ -68,9 +68,9 @@ public class CaseStudyController {
         return ResponseEntity.accepted().body(caseStudyService.update(id, newCaseStudy));
     }
 
-    @DeleteMapping(value = "/{id}", produces = "application/json")
-    public ResponseEntity<UUID> delete(@PathVariable UUID id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
         Log.debug("Controller requesting deletion of case study with ID {}", id);
-        return ResponseEntity.ok().body(caseStudyService.delete(id));
+        return ResponseEntity.noContent().build();
     }
 }
