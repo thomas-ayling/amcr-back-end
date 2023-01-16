@@ -16,20 +16,19 @@ public class DiagramServiceImpl implements DiagramService{
     private final DiagramDao diagramDao;
     private  final Logger Log = LoggerFactory.getLogger(DiagramServiceImpl.class.getName());
 
-
     public DiagramServiceImpl(DiagramDao diagramDao) {
         this.diagramDao = Assert.assertNull(diagramDao, "DiagramDao cannot be null");
     }
 
     @Transactional
     public Diagram save(Diagram diagram) {
-        Assert.assertNull(diagram, "Service: Diagram data cannout be null");
+        Assert.assertNull(diagram, "Service: Diagram data cannot be null");
         try {
             UUID diagramId = UUID.randomUUID();
             Log.debug("Service: Saving new diagram data");
             return diagramDao.save(diagram, diagramId);
         } catch (Exception e) {
-            throw new RuntimeException("Service Error: Could not save diagram", e);
+            throw new RuntimeException("Error in Service Implementation - Could not save diagram", e);
         }
     }
 
@@ -73,11 +72,9 @@ public class DiagramServiceImpl implements DiagramService{
     }
 
     @Transactional
-    public void delete(int nodePosition) {
-        try {
-            diagramDao.delete(nodePosition);
-        } catch (Exception e) {
-            throw new RuntimeException("Error: Service could not delete diagram", e);
-        }
+    public int delete(int nodePosition) {
+        Assert.assertNull(nodePosition, "Node position cannot be null to delete entry");
+        Log.debug("Service requesting deletion of diagram data at node position {}", nodePosition);
+        return diagramDao.delete(nodePosition);
     }
 }

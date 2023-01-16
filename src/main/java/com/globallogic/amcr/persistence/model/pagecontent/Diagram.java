@@ -1,6 +1,6 @@
 package com.globallogic.amcr.persistence.model.pagecontent;
 
-import org.springframework.util.Assert;
+import com.globallogic.amcr.utils.Assert;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -12,23 +12,23 @@ public class Diagram {
 
     private UUID id;
 
-    private int nodeId;
+    private int nodePosition;
 
     private String title;
 
     private String body;
 
     /**
-     * @param nodeId the text input that is converted into markdown
-     * @param title the text input that is converted into markdown
-     * @param body the text input that is converted into markdown
+     * @param nodePosition the position in the diagram of each individual node
+     * @param title the title text input of a diagram node
+     * @param body the title text input of a diagram node
      */
 
-    public Diagram(UUID id, int nodeId, String title, String body) {
-        this.id = id;
-        this.nodeId = nodeId;
-        this.title = title;
-        this.body = body;
+    public Diagram(UUID id, int nodePosition, String title, String body) {
+        setId(id);
+        setNodePosition(nodePosition);
+        setTitle(title);
+        setBody(body);
     }
 
     public Diagram() {
@@ -39,17 +39,15 @@ public class Diagram {
     }
 
     public void setId(UUID id) {
-        Assert.notNull(id, "ID is null");
-        this.id = id;
+        this.id = Assert.assertNull(id, "ID cannot be null");
     }
 
-    public int getNodeId() {
-        return nodeId;
+    public int getNodePosition() {
+        return nodePosition;
     }
 
-    public void setNodeId(int nodeId) {
-        Assert.notNull(nodeId, "Node ID is null");
-        this.nodeId = nodeId;
+    public void setNodePosition(int nodePosition) {
+        this.nodePosition = nodePosition;
     }
 
     public String getTitle() {
@@ -73,19 +71,19 @@ public class Diagram {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Diagram diagram = (Diagram) o;
-        return nodeId == diagram.nodeId && Objects.equals(id, diagram.id) && Objects.equals(title, diagram.title) && Objects.equals(body, diagram.body);
+        return nodePosition == diagram.nodePosition && Objects.equals(title, diagram.title) && Objects.equals(body, diagram.body);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nodeId, title, body);
+        return Objects.hash(id, nodePosition, title, body);
     }
 
     @Override
     public String toString() {
         return "Diagram{" +
                 "id=" + id +
-                ", nodeId=" + nodeId +
+                ", nodePosition=" + nodePosition +
                 ", title='" + title + '\'' +
                 ", body='" + body + '\'' +
                 '}';

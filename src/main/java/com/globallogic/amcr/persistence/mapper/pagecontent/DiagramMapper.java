@@ -1,4 +1,4 @@
-package com.globallogic.amcr.mapper.pagecontent;
+package com.globallogic.amcr.persistence.mapper.pagecontent;
 
 import com.globallogic.amcr.persistence.model.pagecontent.Diagram;
 import com.globallogic.amcr.typehandler.UUIDTypeHandler;
@@ -10,7 +10,7 @@ import java.util.UUID;
 @Mapper
 public interface DiagramMapper {
     @Insert("INSERT INTO diagram (id, node_position, title, body) VALUES (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{nodePosition}, #{title}, #{body})")
-    public void save(Diagram diagram);
+    void save(Diagram diagram);
 
     @Results(id = "getByIdDiagram")
         @ConstructorArgs({
@@ -20,7 +20,7 @@ public interface DiagramMapper {
                 @Arg(column = "body", javaType = String.class)
         })
     @Select("SELECT * FROM diagram WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
-    public Diagram get(@Param("id") UUID id);
+    Diagram get(@Param("id") UUID id);
 
     @Results(id = "getByNodeDiagram")
     @ConstructorArgs({
@@ -30,7 +30,7 @@ public interface DiagramMapper {
             @Arg(column = "body", javaType = String.class)
     })
     @Select("SELECT * FROM diagram WHERE node_position = #{nodePosition}")
-    public Diagram getByNode(@Param("nodePosition") int nodePosition);
+    Diagram getByNode(@Param("nodePosition") int nodePosition);
 
     @Results(id = "getAllDiagram")
     @ConstructorArgs({
@@ -40,14 +40,14 @@ public interface DiagramMapper {
             @Arg(column = "body", javaType = String.class)
     })
     @Select("SELECT * FROM diagram ORDER BY node_position ASC")
-    public List<Diagram> getAll();
+    List<Diagram> getAll();
 
     @Update("UPDATE diagram SET node_position = #{nodePosition}, title = #{title}, body = #{body} WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
-    public void update(UUID id, Diagram diagram);
+    void update(UUID id, Diagram diagram);
 
-    @Update("UPDATE diagram SET node_position = #{nodePosition}, title = #{title}, body = #{body} WHERE node_position = #{nodePosition}")
-    public void updateByNode(int nodePosition, Diagram diagram);
+    @Update("UPDATE diagram SET node_position = #{nodePosition}, title = #{diagram.title}, body = #{diagram.body} WHERE node_position = #{nodePosition}")
+    void updateByNode(int nodePosition, Diagram diagram);
 
     @Delete("DELETE FROM diagram WHERE node_position = #{nodePosition}")
-    public void delete(@Param("nodePosition") int nodePosition);
+    void delete(@Param("nodePosition") int nodePosition);
 }

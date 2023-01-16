@@ -11,7 +11,8 @@ create table if not exists academy_project.feedback
     book_link      text
 );
 
-ALTER TABLE academy_project.feedback OWNER TO CURRENT_USER;
+ALTER TABLE academy_project.feedback
+    OWNER TO CURRENT_USER;
 
 create table if not exists academy_project.files
 (
@@ -24,7 +25,8 @@ create table if not exists academy_project.files
     feedback_id  uuid references feedback (id) on delete cascade
 );
 
-ALTER TABLE academy_project.files OWNER TO CURRENT_USER;
+ALTER TABLE academy_project.files
+    OWNER TO CURRENT_USER;
 
 create table if not exists academy_project.case_studies
 (
@@ -37,7 +39,19 @@ create table if not exists academy_project.case_studies
     download_links   text[]
 );
 
-ALTER TABLE academy_project.case_studies OWNER TO CURRENT_USER;
+ALTER TABLE academy_project.case_studies
+    OWNER TO CURRENT_USER;
+
+create table if not exists academy_project.diagram
+(
+    id            uuid primary key not null,
+    node_position smallint         not null,
+    title         text,
+    body          text
+);
+
+ALTER TABLE academy_project.diagram
+    OWNER TO CURRENT_USER;
 
 -- Object format:
 

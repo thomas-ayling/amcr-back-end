@@ -2,9 +2,12 @@ package com.globallogic.amcr.controller.pagecontent;
 
 import com.globallogic.amcr.persistence.model.pagecontent.Diagram;
 import com.globallogic.amcr.service.pagecontent.DiagramServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,6 +20,7 @@ import java.util.UUID;
 @CrossOrigin(origins = "*")
 public class DiagramController {
 
+    private final Logger Log = LoggerFactory.getLogger(DiagramController.class.getName());
     private final DiagramServiceImpl diagramServiceImpl;
 
     public DiagramController(DiagramServiceImpl diagramServiceImpl) {
@@ -27,60 +31,64 @@ public class DiagramController {
      * @param diagram the diagram json object
      * @return returns a response entity either CREATED (201) or INTERNAL_SERVER_ERROR (500)
      */
-    @PostMapping("/upload")
-    public ResponseEntity saveDiagram(@RequestBody Diagram diagram) {
-        diagramServiceImpl.save(diagram);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    @PostMapping(value="/", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Diagram> saveDiagram(@RequestBody Diagram diagram) {
+        Log.debug("Controller saving new diagram data");
+        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(diagramServiceImpl.save(diagram)).toUri()).body(diagramServiceImpl.save(diagram));
     }
 
     /**
      * @param id the id of the diagram object to be displayed
      * @return returns the diagram data related to the given id
      */
-    @GetMapping("/{id}")
-    public Diagram getByIdDiagram(@PathVariable UUID id) {
-        return diagramServiceImpl.get(id);
+    @GetMapping(value="/{id}", produces = "application/json")
+    public ResponseEntity<Diagram> getByIdDiagram(@PathVariable UUID id) {
+        Log.debug("Controller requesting diagram data with ID {}", id);
+        return ResponseEntity.ok().body(diagramServiceImpl.get(id));
     }
 
     /**
-     * @param nodeId the node id of the diagram object to be displayed
+     * @param nodePosition the node id of the diagram object to be displayed
      * @return returns the diagram data related to the given node id
      */
-    @GetMapping("/node/{nodeId}")
-    public Diagram getbyNodeDiagram(@PathVariable int nodeId) {
-        return diagramServiceImpl.getByNode(nodeId);
+    @GetMapping(value="/node/{nodePosition}", produces = "application/json")
+    public ResponseEntity<Diagram> getbyNodeDiagram(@PathVariable int nodePosition) {
+        Log.debug("Controller requesting diagram data at node position {}", nodePosition);
+        return ResponseEntity.ok().body(diagramServiceImpl.getByNode(nodePosition));
     }
     /**
      * @return returns a list of all diagram data
      */
-    @GetMapping("/")
-    public List<Diagram> getAllDiagram() {
-        return diagramServiceImpl.getAll();
+    @GetMapping(value="/", produces = "application/json")
+    public ResponseEntity<List<Diagram>> getAllDiagram() {
+        Log.debug("Controller requesting all diagram data");
+        return ResponseEntity.ok().body(diagramServiceImpl.getAll());
     }
 
     /**
      * @param id      the id of the diagram entry to be updated
      * @param diagram the diagram object with the values that the database will be updated with
      */
-    @PutMapping("/{id}")
-    public ResponseEntity updateDiagram(@PathVariable UUID id, @RequestBody Diagram diagram) {
-        diagramServiceImpl.update(diagram, id);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    @PutMapping(value="/{id}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Diagram> updateDiagram(@PathVariable UUID id, @RequestBody Diagram diagram) {
+        Log.debug("Controller updating diagram data with ID {}", id);
+        return ResponseEntity.accepted().body(diagramServiceImpl.update(id, diagram));
     }
 
     /**
-     * @param nodeId  the node id of the diagram entry to be updated
+     * @param nodePosition  the node position of the diagram entry to be updated
      * @param diagram the diagram object with the values that the database will be updated with
      */
-    @PutMapping("/node/{nodeId}")
-    public ResponseEntity updateByNodeDiagram(@PathVariable int nodeId, @RequestBody Diagram diagram) {
-        diagramServiceImpl.updateByNode(diagram, nodeId);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    @PutMapping(value="/node/{nodePosition}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Diagram> updateByNodeDiagram(@PathVariable int nodePosition, @RequestBody Diagram diagram) {
+        Log.debug("Controller updating diagram data at node position {}", nodePosition);
+        return ResponseEntity.accepted().body(diagramServiceImpl.updateByNode(diagram, nodePosition));
     }
 
-    @DeleteMapping("/node/{nodeId}")
-    public ResponseEntity deleteDiagram(@PathVariable int nodeId) {
-        diagramServiceImpl.delete(nodeId);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @DeleteMapping(value = "/node/{nodePosition}", produces = "application/json")
+    public ResponseEntity<Integer> deleteDiagram(@PathVariable int nodePosition) {
+        Log.debug("Controller requesting deletion of diagram  data at node position {}", nodePosition);
+        diagramServiceImpl.delete(nodePosition);
+        return ResponseEntity.ok().body(diagramServiceImpl.delete(nodePosition));
     }
 }
