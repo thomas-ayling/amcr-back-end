@@ -19,7 +19,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.zip.CRC32C;
@@ -36,7 +35,7 @@ public class AttachmentController {
         this.attachmentService = attachmentService;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST, consumes = {"multipart/form-data"})
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<Attachment> uploadAttachment(@RequestPart(value = "attachment") MultipartFile incomingAttachment) {
         String attachmentName = StringUtils.cleanPath(Objects.requireNonNull(incomingAttachment.getOriginalFilename()));
         try {
