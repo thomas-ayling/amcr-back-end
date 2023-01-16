@@ -1,8 +1,8 @@
 package com.globallogic.amcr.controller.casestudies;
 
 import com.globallogic.amcr.exception.NotFoundException;
-import com.globallogic.amcr.persistence.model.casestudies.CaseStudy;
-import com.globallogic.amcr.persistence.model.casestudies.CaseStudyOverview;
+import com.globallogic.amcr.model.casestudies.CaseStudy;
+import com.globallogic.amcr.model.casestudies.CaseStudyOverview;
 import com.globallogic.amcr.service.casestudies.CaseStudyService;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
@@ -71,6 +71,7 @@ public class CaseStudyController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         Log.debug("Controller requesting deletion of case study with ID {}", id);
+        caseStudyService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

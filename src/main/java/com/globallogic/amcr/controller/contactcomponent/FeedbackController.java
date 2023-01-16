@@ -2,9 +2,9 @@ package com.globallogic.amcr.controller.contactcomponent;
 
 import com.globallogic.amcr.controller.casestudies.CaseStudyController;
 import com.globallogic.amcr.exception.NotFoundException;
-import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
-import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachment;
-import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachmentResponse;
+import com.globallogic.amcr.model.contactcomponent.Feedback;
+import com.globallogic.amcr.model.contactcomponent.FeedbackAttachment;
+import com.globallogic.amcr.model.contactcomponent.FeedbackAttachmentResponse;
 import com.globallogic.amcr.service.contactcomponent.FeedbackService;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
@@ -54,7 +54,7 @@ public class FeedbackController {
             // Create new FeedbackAttachment object with params taken from MultipartFile
             FeedbackAttachment feedbackAttachment = incomingAttachment == null ? null : new FeedbackAttachment(StringUtils.cleanPath(Objects.requireNonNull(incomingAttachment.getOriginalFilename())), incomingAttachment.getContentType(), incomingAttachment.getSize(), incomingAttachment.getBytes());
             Log.debug("Controller saving new feedback");
-            Feedback createdFeedback = feedbackService.save(feedback, feedbackAttachment);
+            Feedback createdFeedback = feedbackAttachment == null ? feedbackService.save(feedback) : feedbackService.save(feedback, feedbackAttachment);
             return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdFeedback.getId()).toUri()).body(createdFeedback);
         } catch (IOException ioe) {
             throw new RuntimeException("Error in feedback controller - attachment could not be read", ioe);

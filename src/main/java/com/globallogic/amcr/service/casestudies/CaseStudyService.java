@@ -1,70 +1,33 @@
 package com.globallogic.amcr.service.casestudies;
 
-import com.globallogic.amcr.persistence.model.casestudies.CaseStudy;
-import com.globallogic.amcr.persistence.model.casestudies.CaseStudyOverview;
+import com.globallogic.amcr.model.casestudies.CaseStudy;
+import com.globallogic.amcr.model.casestudies.CaseStudyOverview;
+import com.globallogic.amcr.service.CrudService;
 
 import java.util.List;
-import java.util.UUID;
 
-public interface CaseStudyService {
-    /**
-     * saves a case study object to the database
-     *
-     * @param caseStudy takes in a case study object
-     * @return returns the case study object if the request is successful
-     */
-    CaseStudy save(CaseStudy caseStudy);
+public interface CaseStudyService extends CrudService<CaseStudy> {
+    // Extra get methods
 
     /**
-     * requests a case study with a given id
+     * Requests the overviews of all case studies where the spotlight boolean is set to true (for use on the case studies main page)
      *
-     * @param id the id of the case study to be found
-     * @return returns the requested cases study with all fields if found, else throws 404 not found error
-     */
-    CaseStudy get(UUID id);
-
-    /**
-     * requests all case studies in the database
-     *
-     * @return returns a list of all saved case studies with all fields
-     */
-    List<CaseStudy> getAll();
-
-    /**
-     * requests the overviews of all case studies in the database
-     *
-     * @return returns a list of overviews of all entries in the database
-     */
-    List<CaseStudyOverview> getAllOverviews();
-
-    /**
-     * requests the overviews of all case studies where the spotlight boolean is set to true (for use on the case studies main page)
-     *
-     * @return returns a list of all spotlit case studies
+     * @return Returns a list of all spotlit case studies
      */
     List<CaseStudyOverview> getSpotlitOverviews();
 
     /**
-     * requests the latest 5 overviews of entries in the database
+     * Requests the latest 5 overviews of entries in the database
      *
-     * @return returns a list of the last 5 overviews in the database
+     * @return Returns a list of the last 5 overviews in the database
      */
     List<CaseStudyOverview> getLatestOverviews(int entries);
 
     /**
-     * requests an update to the specified case study
+     * Requests the overviews of all case studies in the database
      *
-     * @param id           the id of the case study to be updated
-     * @param newCaseStudy the new case study object to overwrite the previously saved case study. the id must match the id of the entry to update
-     * @return returns the complete updated case study
+     * @return Returns a list of overviews of all entries in the database
      */
-    CaseStudy update(UUID id, CaseStudy newCaseStudy);
-
-    /**
-     * requests deletion of an entry with a specified id
-     *
-     * @param id the id of the entry to be deleted
-     */
-    UUID delete(UUID id);
+    List<CaseStudyOverview> getAllOverviews();
 
 }
