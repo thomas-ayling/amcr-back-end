@@ -1,7 +1,7 @@
 package com.globallogic.amcr.service.casestudies;
 
-import com.globallogic.amcr.persistence.model.casestudies.CaseStudy;
-import com.globallogic.amcr.persistence.model.casestudies.CaseStudyOverview;
+import com.globallogic.amcr.model.casestudies.CaseStudy;
+import com.globallogic.amcr.model.casestudies.CaseStudyOverview;
 
 import java.util.List;
 import java.util.UUID;
@@ -43,6 +43,13 @@ public interface CaseStudyService {
      * @return returns a list of all spotlit case studies
      */
     List<CaseStudyOverview> getSpotlitOverviews();
+
+    /**
+     * requests the latest 5 overviews of entries in the database
+     *
+     * @return returns a list of the last 5 overviews in the database
+     */
+    List<CaseStudyOverview> getLatestOverviews(int entries);
 
     /**
      * requests an update to the specified case study

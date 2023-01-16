@@ -1,4 +1,4 @@
-package com.globallogic.amcr.persistence.model.contactcomponent;
+package com.globallogic.amcr.model.contactcomponent;
 
 import com.globallogic.amcr.utils.Assert;
 import jakarta.validation.constraints.NotNull;
@@ -9,6 +9,7 @@ import java.util.UUID;
 /**
  * Feedback model for submitted feedback
  */
+@SuppressWarnings("unused")
 public class Feedback {
     private UUID id;
     @NotNull
@@ -30,11 +31,12 @@ public class Feedback {
      * @param bookLink     link to the book that the user has requested, optional and always null if feedback type is not 'library'
      */
 
-    public Feedback(String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink) {
+    public Feedback(UUID id, String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink) {
         if (!feedbackType.equals("library")) Assert.assertNotNull(feedbackBody, "feedbackBody is null");
         if (feedbackType.equals("library")) Assert.assertNotNull(bookLink, "bookLink is null");
 
-        this.feedbackType = Assert.assertNotNull(feedbackType, "feedbackType is null");
+        setId(id);
+        setFeedbackType(feedbackType);
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
@@ -52,7 +54,6 @@ public class Feedback {
 
     public void setId(UUID id) {
         this.id = Assert.assertNotNull(id, "id is null");
-
     }
 
     public String getFeedbackType() {
@@ -105,7 +106,6 @@ public class Feedback {
 
     public void setBookName(String bookName) {
         this.bookName = Assert.assertNotNull(bookName, "bookName is null");
-
     }
 
     public String getBookLink() {

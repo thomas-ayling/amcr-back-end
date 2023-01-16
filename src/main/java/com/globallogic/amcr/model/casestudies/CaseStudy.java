@@ -1,4 +1,4 @@
-package com.globallogic.amcr.persistence.model.casestudies;
+package com.globallogic.amcr.model.casestudies;
 
 import com.globallogic.amcr.utils.Assert;
 import jakarta.validation.constraints.NotNull;
@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
+@SuppressWarnings("unused")
 public class CaseStudy extends CaseStudyOverview {
     @NotNull
     private Map<?, ?> body;
@@ -20,13 +21,13 @@ public class CaseStudy extends CaseStudyOverview {
      * @param overview       the text intro to be displayed in the main case study page
      * @param coverImageLink the link to the image to be used as the cover (on the carousels for example)
      * @param body           the main data to be displayed on the single page, stored as JSON
-     * @param downloadLinks  the list of download links to related files
+     * @param downloadLinks  the list of download links to related attachments
      */
 
     public CaseStudy(UUID id, boolean spotlight, String title, String overview, String coverImageLink, Map<?, ?> body, String[] downloadLinks) {
         super(id, spotlight, title, overview, coverImageLink);
-        this.body = Assert.assertNotNull(body, "Case study's body cannot be null");
-        this.downloadLinks = downloadLinks;
+        setBody(body);
+        setDownloadLinks(downloadLinks);
     }
 
     public CaseStudy() {
