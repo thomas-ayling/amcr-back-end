@@ -4,8 +4,6 @@ import com.globallogic.amcr.persistence.model.attachmentcomponent.Attachment;
 import com.globallogic.amcr.persistence.payload.attachmentcomponent.AttachmentMetadata;
 import com.globallogic.amcr.persistence.payload.attachmentcomponent.AttachmentResponse;
 import com.globallogic.amcr.service.attachmentcomponent.AttachmentService;
-import org.apache.commons.imaging.ImageInfo;
-import org.apache.commons.imaging.Imaging;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ByteArrayResource;
@@ -17,8 +15,11 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.*;
 import java.util.zip.CRC32C;
@@ -48,11 +49,11 @@ public class AttachmentController {
 
             if (mimeType != null && mimeType.split("/")[0].equalsIgnoreCase("image")) {
                 try {
-                    ImageInfo imageInfo = Imaging.getImageInfo(incomingAttachment.getInputStream().readAllBytes());
+                    BufferedImage image = ImageIO.read(incomingAttachment.getInputStream());
 
                     Map<String, Object> metadata = new HashMap<>();
-                    metadata.put("Height In Pixels", imageInfo.getWidth());
-                    metadata.put("Width In Pixels", imageInfo.getHeight());
+                    metadata.put("heightInPixels", image.getWidth());
+                    metadata.put("widthInPixels", image.getHeight());
 
                     Attachment attachment = new Attachment(attachmentName, incomingAttachment.getContentType(), incomingAttachment.getSize(), crc, metadata, incomingAttachment.getBytes());
                     attachmentService.save(attachment);
@@ -91,7 +92,7 @@ public class AttachmentController {
     }
 
     @DeleteMapping(value = "/{id}", produces = "application/json")
-    public ResponseEntity<?> deleteAttachment (@PathVariable UUID id) {
+    public ResponseEntity<?> deleteAttachment(@PathVariable UUID id) {
         try {
             Log.debug("Requesting to delete attachment with ID {}", id);
             attachmentService.delete(id);
