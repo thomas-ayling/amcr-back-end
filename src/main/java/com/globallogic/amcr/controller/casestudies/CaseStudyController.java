@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/case-study")
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class CaseStudyController {
     private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class);
     private final CaseStudyService caseStudyService;
