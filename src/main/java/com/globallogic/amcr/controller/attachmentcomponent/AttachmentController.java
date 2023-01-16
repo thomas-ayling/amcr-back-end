@@ -40,13 +40,14 @@ public class AttachmentController {
     public ResponseEntity<Attachment> uploadAttachment(@RequestPart(value = "attachment") MultipartFile incomingAttachment) {
         String attachmentName = StringUtils.cleanPath(Objects.requireNonNull(incomingAttachment.getOriginalFilename()));
         try {
-            byte[] data1 = incomingAttachment.getBytes();
+            byte[] attachmentData = incomingAttachment.getBytes();
             Checksum crc32c = new CRC32C();
-            crc32c.update(data1);
+            crc32c.update(attachmentData);
             long crc = crc32c.getValue();
             File file = new File(attachmentName);
             String mimeType = Files.probeContentType(file.toPath());
 
+            Attachment attachment = null;
             if (mimeType != null && mimeType.split("/")[0].equalsIgnoreCase("image")) {
                 try {
                     BufferedImage image = ImageIO.read(incomingAttachment.getInputStream());
@@ -55,17 +56,15 @@ public class AttachmentController {
                     metadata.put("heightInPixels", image.getWidth());
                     metadata.put("widthInPixels", image.getHeight());
 
-                    Attachment attachment = new Attachment(attachmentName, incomingAttachment.getContentType(),
+                    attachment = new Attachment(attachmentName, incomingAttachment.getContentType(),
                             incomingAttachment.getSize(), crc, metadata, incomingAttachment.getBytes());
-                    attachmentService.save(attachment);
-                    return ResponseEntity.ok().build();
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            } else {
+                attachment = new Attachment(attachmentName, incomingAttachment.getContentType(),
+                        incomingAttachment.getSize(), crc, incomingAttachment.getBytes());
             }
-            Attachment attachment = new Attachment(attachmentName, incomingAttachment.getContentType(),
-                    incomingAttachment.getSize(), crc, incomingAttachment.getBytes());
 
             Log.trace("Attempts to upload a new attachment {}", attachment);
             Log.debug("Saving a new attachment {}", attachment);
