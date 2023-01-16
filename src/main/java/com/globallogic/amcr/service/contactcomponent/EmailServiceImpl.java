@@ -23,8 +23,8 @@ public class EmailServiceImpl implements EmailService {
     private final FileDao fileDao;
 
     public EmailServiceImpl(JavaMailSender mailSender, FileDao fileDao) {
-        this.mailSender = Assert.assertNull(mailSender, "Mail sender cannot be null");
-        this.fileDao = Assert.assertNull(fileDao, "File DAO cannot be null");
+        this.mailSender = Assert.assertNotNull(mailSender, "Mail sender cannot be null");
+        this.fileDao = Assert.assertNotNull(fileDao, "File DAO cannot be null");
     }
 
     public void sendMail(Feedback feedback, UUID feedbackId) {

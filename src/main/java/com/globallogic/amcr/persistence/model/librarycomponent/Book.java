@@ -41,7 +41,7 @@ public class Book {
     }
 
     public void setId(UUID id) {
-        this.id = Assert.assertNull(id, "id cannot be null");;
+        this.id = Assert.assertNotNull(id, "id cannot be null");;
     }
 
     public String getTitle() {
@@ -49,7 +49,7 @@ public class Book {
     }
 
     public void setTitle(String title) {
-        this.title = Assert.assertNull(title, "title cannot be null");;
+        this.title = Assert.assertNotNull(title, "title cannot be null");;
     }
 
     public String getGenre() {
@@ -57,7 +57,7 @@ public class Book {
     }
 
     public void setGenre(String genre) {
-        this.genre = Assert.assertNull(genre, "genre cannot be null");;
+        this.genre = Assert.assertNotNull(genre, "genre cannot be null");;
     }
 
     public String getAuthor() {
@@ -65,7 +65,7 @@ public class Book {
     }
 
     public void setAuthor(String author) {
-        this.author = Assert.assertNull(author, "author cannot be null");;
+        this.author = Assert.assertNotNull(author, "author cannot be null");;
     }
 
     public String getReader() {
@@ -73,7 +73,7 @@ public class Book {
     }
 
     public void setReader(String reader) {
-        this.reader = Assert.assertNull(reader, "Reader cannot be null");;
+        this.reader = Assert.assertNotNull(reader, "Reader cannot be null");;
     }
 
     public Boolean isAvailable() {
@@ -81,7 +81,7 @@ public class Book {
     }
 
     public void setAvailable(Boolean available) {
-        this.available = Assert.assertNull(available, "Available cannot be null");;
+        this.available = Assert.assertNotNull(available, "Available cannot be null");;
     }
 
     public String getCover() {
@@ -89,7 +89,7 @@ public class Book {
     }
 
     public void setCover(String cover) {
-        this.cover = Assert.assertNull(cover, "Cover cannot be null");;
+        this.cover = Assert.assertNotNull(cover, "Cover cannot be null");;
     }
 
     public String getEmail() {
@@ -97,7 +97,7 @@ public class Book {
     }
 
     public void setEmail(String email) {
-        this.email = Assert.assertNull(email, "Email cannot be null");;
+        this.email = Assert.assertNotNull(email, "Email cannot be null");;
     }
 
     @Override

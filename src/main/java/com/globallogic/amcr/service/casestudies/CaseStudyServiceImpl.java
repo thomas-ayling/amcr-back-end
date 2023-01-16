@@ -18,12 +18,12 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     public  final Logger Log = LoggerFactory.getLogger(CaseStudyServiceImpl.class.getName());
 
     public CaseStudyServiceImpl(CaseStudyDao caseStudyDao) {
-        this.caseStudyDao = Assert.assertNull(caseStudyDao, "CaseStudyDao is not present");
+        this.caseStudyDao = Assert.assertNotNull(caseStudyDao, "CaseStudyDao is not present");
     }
 
     @Transactional
     public CaseStudy save(CaseStudy caseStudy) {
-        Assert.assertNull(caseStudy, "Case study cannot be null");
+        Assert.assertNotNull(caseStudy, "Case study cannot be null");
         try {
             UUID caseStudyId = UUID.randomUUID();
             Log.debug("Saving new case study with ID {} and content {}", caseStudyId, caseStudy);
@@ -35,7 +35,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
 
     @Transactional
     public CaseStudy get(UUID id) {
-        Assert.assertNull(id, "ID cannot be null to request entry");
+        Assert.assertNotNull(id, "ID cannot be null to request entry");
         Log.debug("Requesting case study with ID {}", id);
         return caseStudyDao.get(id);
     }
@@ -60,16 +60,16 @@ public class CaseStudyServiceImpl implements CaseStudyService {
 
     @Transactional
     public CaseStudy update(UUID id, CaseStudy newCaseStudy) {
-        Assert.assertNull(id, "ID must be included to update a case study");
-        Assert.assertNull(newCaseStudy, "New case study must not be null");
-        CaseStudy oldCaseStudy = Assert.assertNull(caseStudyDao.get(id), "Object with specified ID could not be found. Revise ID and try again");
+        Assert.assertNotNull(id, "ID must be included to update a case study");
+        Assert.assertNotNull(newCaseStudy, "New case study must not be null");
+        CaseStudy oldCaseStudy = Assert.assertNotNull(caseStudyDao.get(id), "Object with specified ID could not be found. Revise ID and try again");
         Log.debug("Updating case study with ID {} and content {} with {}", id, oldCaseStudy, newCaseStudy);
         return caseStudyDao.update(id, newCaseStudy, oldCaseStudy);
     }
 
     @Transactional
     public void delete(UUID id) {
-        Assert.assertNull(id, "ID cannot be null to delete entry");
+        Assert.assertNotNull(id, "ID cannot be null to delete entry");
         Log.debug("Deleting case study with ID {}", id);
         caseStudyDao.delete(id);
     }

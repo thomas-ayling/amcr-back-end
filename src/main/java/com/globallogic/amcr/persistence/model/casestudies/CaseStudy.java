@@ -25,7 +25,7 @@ public class CaseStudy extends CaseStudyOverview {
 
     public CaseStudy(UUID id, boolean spotlight, String title, String overview, String coverImageLink, Map<?, ?> body, String[] downloadLinks) {
         super(id, spotlight, title, overview, coverImageLink);
-        this.body = Assert.assertNull(body, "Case study's body cannot be null");
+        this.body = Assert.assertNotNull(body, "Case study's body cannot be null");
         this.downloadLinks = downloadLinks;
     }
 
@@ -38,7 +38,7 @@ public class CaseStudy extends CaseStudyOverview {
     }
 
     public void setBody(Map<?, ?> body) {
-        this.body = Assert.assertNull(body, "Case study's body cannot be null");
+        this.body = Assert.assertNotNull(body, "Case study's body cannot be null");
     }
 
     public String[] getDownloadLinks() {

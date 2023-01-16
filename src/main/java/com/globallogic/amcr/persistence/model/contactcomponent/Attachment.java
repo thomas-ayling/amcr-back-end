@@ -25,7 +25,7 @@ public class Attachment extends AttachmentResponse {
 
     public Attachment(String fileName, String fileType, long fileSize, byte[] data) {
         super(fileName, fileType, data);
-        this.fileSize = Assert.assertNull(fileSize, "Data cannot be null");
+        this.fileSize = Assert.assertNotNull(fileSize, "Data cannot be null");
     }
 
     public UUID getId() {
@@ -33,7 +33,7 @@ public class Attachment extends AttachmentResponse {
     }
 
     public void setId(UUID id) {
-        this.id = Assert.assertNull(id, "ID cannot be null");
+        this.id = Assert.assertNotNull(id, "ID cannot be null");
 
     }
 
@@ -42,7 +42,7 @@ public class Attachment extends AttachmentResponse {
     }
 
     public void setFileSize(long fileSize) {
-        this.fileSize = Assert.assertNull(fileSize, "File size cannot be null");
+        this.fileSize = Assert.assertNotNull(fileSize, "File size cannot be null");
     }
 
     public String getDownloadUri() {
@@ -50,7 +50,7 @@ public class Attachment extends AttachmentResponse {
     }
 
     public void setDownloadUri(String downloadUri) {
-        this.downloadUri = Assert.assertNull(downloadUri, "Download uri cannot be null");
+        this.downloadUri = Assert.assertNotNull(downloadUri, "Download uri cannot be null");
     }
 
     public UUID getFeedbackId() {
@@ -58,7 +58,7 @@ public class Attachment extends AttachmentResponse {
     }
 
     public void setFeedbackId(UUID feedbackId) {
-        this.feedbackId = Assert.assertNull(feedbackId, "Feedback id cannot be null");
+        this.feedbackId = Assert.assertNotNull(feedbackId, "Feedback id cannot be null");
     }
 
     @Override

@@ -17,7 +17,7 @@ public class FileDao implements Dao<Attachment, AttachmentResponse> {
     private final FileMapper fileMapper;
 
     public FileDao(FileMapper fileMapper) {
-        this.fileMapper = Assert.assertNull(fileMapper, "File mapper cannot be null");
+        this.fileMapper = Assert.assertNotNull(fileMapper, "File mapper cannot be null");
     }
 
     /**

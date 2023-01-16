@@ -24,9 +24,9 @@ public class FeedbackServiceImpl implements FeedbackService {
     private final EmailService emailService;
 
     public FeedbackServiceImpl(FeedbackDao feedbackDao, FileDao fileDao, EmailService emailService) {
-        this.feedbackDao = Assert.assertNull(feedbackDao, "Feedback DAO cannot be null");
-        this.fileDao = Assert.assertNull(fileDao, "File DAO cannot be null");
-        this.emailService = Assert.assertNull(emailService, "Email service cannot be null");
+        this.feedbackDao = Assert.assertNotNull(feedbackDao, "Feedback DAO cannot be null");
+        this.fileDao = Assert.assertNotNull(fileDao, "File DAO cannot be null");
+        this.emailService = Assert.assertNotNull(emailService, "Email service cannot be null");
     }
 
     @Transactional

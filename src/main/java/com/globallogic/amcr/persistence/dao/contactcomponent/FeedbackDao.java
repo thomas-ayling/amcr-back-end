@@ -21,8 +21,8 @@ public class FeedbackDao implements Dao<Feedback, FeedbackResponse> {
     private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class.getName());
 
     public FeedbackDao(FeedbackMapper feedbackMapper, FileMapper fileMapper) {
-        this.feedbackMapper = Assert.assertNull(feedbackMapper, "Feedback mapper cannot be null");
-        this.fileMapper = Assert.assertNull(fileMapper, "File mapper cannot be null");
+        this.feedbackMapper = Assert.assertNotNull(feedbackMapper, "Feedback mapper cannot be null");
+        this.fileMapper = Assert.assertNotNull(fileMapper, "File mapper cannot be null");
     }
 
     /**

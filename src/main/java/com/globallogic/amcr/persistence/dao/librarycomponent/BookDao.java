@@ -14,11 +14,11 @@ import com.globallogic.amcr.persistence.mapper.librarycomponent.BookMapper;
 
 @Repository
 public class BookDao implements Dao<Book, Book> {
-    private static final Logger LOG = LoggerFactory.getLogger(BookDao.class);
+    private final Logger LOG = LoggerFactory.getLogger(BookDao.class);
     private final BookMapper bookMapper;
 
     public BookDao(BookMapper bookMapper) {
-        this.bookMapper = Assert.assertNull(bookMapper, "Id cannot be null to request");
+        this.bookMapper = Assert.assertNotNull(bookMapper, "Id cannot be null to request");
     }
 
     public Book save(Book book, UUID id) {

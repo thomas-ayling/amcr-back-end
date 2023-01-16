@@ -21,9 +21,9 @@ public class AttachmentResponse {
      */
 
     public AttachmentResponse(String fileName, String fileType, byte[] data) {
-        this.fileName = Assert.assertNull(fileName, "File name cannot be null");
-        this.fileType = Assert.assertNull(fileType, "File type cannot be null");
-        this.data = Assert.assertNull(data, "Data cannot be null");
+        this.fileName = Assert.assertNotNull(fileName, "File name cannot be null");
+        this.fileType = Assert.assertNotNull(fileType, "File type cannot be null");
+        this.data = Assert.assertNotNull(data, "Data cannot be null");
     }
 
     public AttachmentResponse() {
@@ -34,7 +34,7 @@ public class AttachmentResponse {
     }
 
     public void setFileName(String fileName) {
-        this.fileName = Assert.assertNull(fileName, "File name cannot be null");
+        this.fileName = Assert.assertNotNull(fileName, "File name cannot be null");
     }
 
     public String getFileType() {
@@ -42,7 +42,7 @@ public class AttachmentResponse {
     }
 
     public void setFileType(String fileType) {
-        this.fileType = Assert.assertNull(fileType, "File type cannot be null");
+        this.fileType = Assert.assertNotNull(fileType, "File type cannot be null");
     }
 
     public byte[] getData() {
@@ -50,6 +50,6 @@ public class AttachmentResponse {
     }
 
     public void setData(byte[] data) {
-        this.data = Assert.assertNull(data, "Data cannot be null");
+        this.data = Assert.assertNotNull(data, "Data cannot be null");
     }
 }

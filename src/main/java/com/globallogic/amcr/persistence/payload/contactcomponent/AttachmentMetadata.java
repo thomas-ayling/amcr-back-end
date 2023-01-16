@@ -21,9 +21,9 @@ public class AttachmentMetadata {
      */
 
     public AttachmentMetadata(String fileName, long fileSize, String downloadUri) {
-        this.fileName = Assert.assertNull(fileName, "File name cannot be null");
-        this.fileSize = Assert.assertNull(fileSize, "File size cannot be null");
-        this.downloadUri = Assert.assertNull(downloadUri, "Download URI cannot be null");
+        this.fileName = Assert.assertNotNull(fileName, "File name cannot be null");
+        this.fileSize = Assert.assertNotNull(fileSize, "File size cannot be null");
+        this.downloadUri = Assert.assertNotNull(downloadUri, "Download URI cannot be null");
     }
 
     public AttachmentMetadata() {
@@ -34,7 +34,7 @@ public class AttachmentMetadata {
     }
 
     public void setFileName(String fileName) {
-        this.fileName = Assert.assertNull(fileName, "File name cannot be null");
+        this.fileName = Assert.assertNotNull(fileName, "File name cannot be null");
     }
 
     public long getFileSize() {
@@ -42,7 +42,7 @@ public class AttachmentMetadata {
     }
 
     public void setFileSize(long fileSize) {
-        this.fileSize = Assert.assertNull(fileSize, "File size cannot be null");
+        this.fileSize = Assert.assertNotNull(fileSize, "File size cannot be null");
     }
 
     public String getDownloadUri() {
@@ -50,6 +50,6 @@ public class AttachmentMetadata {
     }
 
     public void setDownloadUri(String downloadUri) {
-        this.downloadUri = Assert.assertNull(downloadUri, "Download URI cannot be null");
+        this.downloadUri = Assert.assertNotNull(downloadUri, "Download URI cannot be null");
     }
 }

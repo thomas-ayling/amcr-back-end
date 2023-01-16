@@ -18,7 +18,7 @@ public class CaseStudyDao implements Dao<CaseStudy, CaseStudy> {
     final CaseStudyMapper caseStudyMapper;
 
     public CaseStudyDao(CaseStudyMapper caseStudyMapper) {
-        this.caseStudyMapper = Assert.assertNull(caseStudyMapper, "Case study mapper cannot be null");
+        this.caseStudyMapper = Assert.assertNotNull(caseStudyMapper, "Case study mapper cannot be null");
     }
 
     @Override

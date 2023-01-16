@@ -18,7 +18,7 @@ public class BookServiceImpl implements BookService {
     private final Logger LOG = LoggerFactory.getLogger(BookServiceImpl.class.getName());
 
     public BookServiceImpl(BookDao bookDao) {
-        this.bookDao = Assert.assertNull(bookDao, "Dao cannot be null to request");
+        this.bookDao = Assert.assertNotNull(bookDao, "Dao cannot be null to request");
     }
 
     @Transactional
@@ -36,23 +36,23 @@ public class BookServiceImpl implements BookService {
 
     @Transactional(readOnly = true)
     public Book get(UUID id) {
-        Assert.assertNull(id, "Id cannot be null to request");
+        Assert.assertNotNull(id, "Id cannot be null to request");
         LOG.debug("Service saving new book");
         return bookDao.get(id);
     }
 
     @Transactional
     public Book reserve(UUID id, Book reservedBook) {
-        Assert.assertNull(id, "ID must be included to reserve book");
-        Assert.assertNull(reservedBook, "New reservation cannot be empty");
-        Book oldbook = Assert.assertNull(bookDao.get(id), "Objects with specified ID could not be found. Try again");
+        Assert.assertNotNull(id, "ID must be included to reserve book");
+        Assert.assertNotNull(reservedBook, "New reservation cannot be empty");
+        Book oldbook = Assert.assertNotNull(bookDao.get(id), "Objects with specified ID could not be found. Try again");
         LOG.debug("Service requesting reservation of book with ID {}", id);
         return bookDao.reserve(id, oldbook, reservedBook);
     }
 
     @Transactional
     public void delete(UUID id) {
-        Assert.assertNull(id, "ID cannot be null to delete a book");
+        Assert.assertNotNull(id, "ID cannot be null to delete a book");
         LOG.debug("Service requesting deletion of book with ID {}", id);
         bookDao.delete(id);}
 }

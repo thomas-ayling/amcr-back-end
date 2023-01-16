@@ -32,8 +32,8 @@ public class FeedbackResponse {
      */
 
     public FeedbackResponse(Integer feedbackOrder, String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink, String downloadUri) {
-        this.feedbackOrder = Assert.assertNull(feedbackOrder, "Feedback order cannot be null");
-        this.feedbackType = Assert.assertNull(feedbackType, "Feedback type cannot be null");
+        this.feedbackOrder = Assert.assertNotNull(feedbackOrder, "Feedback order cannot be null");
+        this.feedbackType = Assert.assertNotNull(feedbackType, "Feedback type cannot be null");
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
@@ -48,7 +48,7 @@ public class FeedbackResponse {
     }
 
     public void setFeedbackOrder(Integer feedbackOrder) {
-        this.feedbackOrder = Assert.assertNull(feedbackOrder, "Feedback order cannot be null");
+        this.feedbackOrder = Assert.assertNotNull(feedbackOrder, "Feedback order cannot be null");
     }
 
     public String getFeedbackType() {
@@ -56,7 +56,7 @@ public class FeedbackResponse {
     }
 
     public void setFeedbackType(String feedbackType) {
-        this.feedbackType = Assert.assertNull(feedbackType, "Feedback type cannot be null");
+        this.feedbackType = Assert.assertNotNull(feedbackType, "Feedback type cannot be null");
     }
 
     public String getFirstName() {
