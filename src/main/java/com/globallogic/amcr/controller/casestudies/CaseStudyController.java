@@ -24,7 +24,7 @@ public class CaseStudyController {
     private final CaseStudyService caseStudyService;
 
     public CaseStudyController(CaseStudyService caseStudyService) {
-        this.caseStudyService = Assert.assertNull(caseStudyService, "Case study service cannot be null");
+        this.caseStudyService = Assert.assertNotNull(caseStudyService, "Case study service cannot be null");
     }
 
     @PostMapping(value = "/", consumes = "application/json", produces = "application/json")

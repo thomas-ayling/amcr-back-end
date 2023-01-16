@@ -16,7 +16,7 @@ public class FeedbackDaoImpl implements FeedbackDao {
     private final Logger Log = LoggerFactory.getLogger(FeedbackDaoImpl.class);
 
     public FeedbackDaoImpl(FeedbackMapper feedbackMapper) {
-        this.feedbackMapper = Assert.assertNull(feedbackMapper, "Feedback mapper cannot be null");
+        this.feedbackMapper = Assert.assertNotNull(feedbackMapper, "Feedback mapper cannot be null");
     }
 
     @Override

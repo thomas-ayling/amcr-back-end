@@ -25,15 +25,15 @@ public class FeedbackServiceImpl implements FeedbackService {
     private final EmailService emailService;
 
     public FeedbackServiceImpl(FeedbackDao feedbackDao, FeedbackAttachmentDao feedbackAttachmentDao, EmailService emailService) {
-        this.feedbackDao = Assert.assertNull(feedbackDao, "Feedback DAO cannot be null");
-        this.feedbackAttachmentDao = Assert.assertNull(feedbackAttachmentDao, "File DAO cannot be null");
-        this.emailService = Assert.assertNull(emailService, "Email service cannot be null");
+        this.feedbackDao = Assert.assertNotNull(feedbackDao, "Feedback DAO cannot be null");
+        this.feedbackAttachmentDao = Assert.assertNotNull(feedbackAttachmentDao, "File DAO cannot be null");
+        this.emailService = Assert.assertNotNull(emailService, "Email service cannot be null");
     }
 
     @Override
     @Transactional
     public Feedback save(Feedback feedback, FeedbackAttachment feedbackAttachment) {
-        Assert.assertNull(feedback, "Feedback cannot be null");
+        Assert.assertNotNull(feedback, "Feedback cannot be null");
         try {
             UUID feedbackId = UUID.randomUUID();
             Log.debug("Service saving feedback");
@@ -53,7 +53,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     @Transactional
     public Feedback get(UUID id) {
-        Assert.assertNull(id, "ID cannot be null to request feedback");
+        Assert.assertNotNull(id, "ID cannot be null to request feedback");
         Log.debug("Service requesting feedback with ID {}", id);
         return feedbackDao.get(id);
     }
@@ -75,7 +75,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     @Transactional(readOnly = true)
     public List<Feedback> getOlder(int last) {
-        Assert.assertNull(last, "Last cannot be null");
+        Assert.assertNotNull(last, "Last cannot be null");
         Log.debug("Service requesting 10 older feedback entries");
         return feedbackDao.getOlder(last);
     }
@@ -83,7 +83,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     @Transactional(readOnly = true)
     public FeedbackAttachmentResponse getAttachment(UUID id) {
-        Assert.assertNull(id, "ID cannot be null for file request");
+        Assert.assertNotNull(id, "ID cannot be null for file request");
         Log.debug("Service requesting attachment with ID {}", id);
         return feedbackAttachmentDao.get(id);
     }

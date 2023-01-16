@@ -32,7 +32,7 @@ public class FeedbackAttachment extends FeedbackAttachmentResponse {
     }
 
     public void setId(UUID id) {
-        this.id = Assert.assertNull(id, "ID cannot be null");
+        this.id = Assert.assertNotNull(id, "ID cannot be null");
     }
 
     public long getAttachmentSize() {
@@ -40,7 +40,7 @@ public class FeedbackAttachment extends FeedbackAttachmentResponse {
     }
 
     public void setAttachmentSize(long attachmentSize) {
-        this.attachmentSize = Assert.assertNull(attachmentSize, "File size cannot be null");
+        this.attachmentSize = Assert.assertNotNull(attachmentSize, "File size cannot be null");
     }
 
     public String getDownloadUri() {
@@ -48,7 +48,7 @@ public class FeedbackAttachment extends FeedbackAttachmentResponse {
     }
 
     public void setDownloadUri(String downloadUri) {
-        this.downloadUri = Assert.assertNull(downloadUri, "Download uri cannot be null");
+        this.downloadUri = Assert.assertNotNull(downloadUri, "Download uri cannot be null");
     }
 
     public UUID getFeedbackId() {
@@ -56,7 +56,7 @@ public class FeedbackAttachment extends FeedbackAttachmentResponse {
     }
 
     public void setFeedbackId(UUID feedbackId) {
-        this.feedbackId = Assert.assertNull(feedbackId, "Feedback id cannot be null");
+        this.feedbackId = Assert.assertNotNull(feedbackId, "Feedback id cannot be null");
     }
 
     @Override

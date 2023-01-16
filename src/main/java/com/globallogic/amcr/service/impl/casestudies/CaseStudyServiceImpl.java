@@ -19,13 +19,13 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     private final CaseStudyDao caseStudyDao;
 
     public CaseStudyServiceImpl(CaseStudyDao caseStudyDao) {
-        this.caseStudyDao = Assert.assertNull(caseStudyDao, "CaseStudyDao is not present");
+        this.caseStudyDao = Assert.assertNotNull(caseStudyDao, "CaseStudyDao is not present");
     }
 
     @Override
     @Transactional
     public CaseStudy save(CaseStudy caseStudy) {
-        Assert.assertNull(caseStudy, "Case study cannot be null");
+        Assert.assertNotNull(caseStudy, "Case study cannot be null");
         try {
             UUID caseStudyId = UUID.randomUUID();
             Log.debug("Service saving new case study");
@@ -38,7 +38,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     @Override
     @Transactional
     public CaseStudy get(UUID id) {
-        Assert.assertNull(id, "ID cannot be null to request entry");
+        Assert.assertNotNull(id, "ID cannot be null to request entry");
         Log.debug("Service requesting case study with ID {}", id);
         return caseStudyDao.get(id);
     }
@@ -67,7 +67,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     @Override
     @Transactional
     public List<CaseStudyOverview> getLatestOverviews(int entries) {
-        Assert.assertNull(entries, "Entries cannot be null");
+        Assert.assertNotNull(entries, "Entries cannot be null");
         Log.debug("Service requesting 5 most recent overviews");
         return caseStudyDao.getLatestOverviews(entries);
     }
@@ -75,9 +75,9 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     @Override
     @Transactional
     public CaseStudy update(UUID id, CaseStudy newCaseStudy) {
-        Assert.assertNull(id, "ID must be included to update a case study");
-        Assert.assertNull(newCaseStudy, "New case study must not be null");
-        CaseStudy oldCaseStudy = Assert.assertNull(caseStudyDao.get(id), "Object with specified ID could not be found. Revise ID and try again");
+        Assert.assertNotNull(id, "ID must be included to update a case study");
+        Assert.assertNotNull(newCaseStudy, "New case study must not be null");
+        CaseStudy oldCaseStudy = Assert.assertNotNull(caseStudyDao.get(id), "Object with specified ID could not be found. Revise ID and try again");
         Log.debug("Service updating case study with ID {}", id);
         return caseStudyDao.update(id, newCaseStudy, oldCaseStudy);
     }
@@ -85,7 +85,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     @Override
     @Transactional
     public void delete(UUID id) {
-        Assert.assertNull(id, "ID cannot be null to delete entry");
+        Assert.assertNotNull(id, "ID cannot be null to delete entry");
         Log.debug("Service requesting deletion of case study with ID {}", id);
         caseStudyDao.delete(id);
     }

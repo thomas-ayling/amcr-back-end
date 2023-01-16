@@ -26,7 +26,7 @@ public interface FeedbackMapper {
             @Arg(column = "book_link", javaType = String.class),
             @Arg(column = "download_uri", javaType = String.class),
     })
-    @Select("SELECT feedback.id, feedback_type, first_name, last_name, email_address, feedback_body, book_name, book_link, download_uri FROM feedback LEFT OUTER JOIN feedback_attachments ON feedback.id = feedback_attachments.feedback_id WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
+    @Select("SELECT feedback.id, feedback_type, first_name, last_name, email_address, feedback_body, book_name, book_link, download_uri FROM feedback LEFT OUTER JOIN feedback_attachments ON feedback.id = feedback_attachments.feedback_id WHERE feedback.id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     Feedback get(@Param("id") UUID id);
 
     @ResultMap("feedbackResults")
