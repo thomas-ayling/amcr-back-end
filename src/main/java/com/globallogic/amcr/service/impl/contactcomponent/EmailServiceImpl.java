@@ -43,7 +43,7 @@ public class EmailServiceImpl implements EmailService {
             Log.debug("Generating email. isAnonymous is {}", isAnonymous);
 
             mimeMessageHelper.setFrom(isAnonymous ? "<anonymous@globallogic.com>" : "<" + feedback.getEmailAddress() + ">");
-            mimeMessageHelper.setTo("<engineeringcenterbot@globallogic.com>");
+            mimeMessageHelper.setTo("<test>");
 
             String style = "<style>.email { font-family: Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif; }</style>";
             String textAttachmentLink = feedbackAttachmentMetadata == null ? "" : String.format("Follow this link to download attachment: %s (%s, %s)", feedbackAttachmentMetadata.getDownloadUri(), feedbackAttachmentMetadata.getAttachmentName(), ByteConverter.bytesToReadable(feedbackAttachmentMetadata.getAttachmentSize()));
