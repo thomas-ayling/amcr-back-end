@@ -35,7 +35,7 @@ public class FeedbackAttachmentResponse {
     }
 
     public void setAttachmentName(String attachmentName) {
-        this.attachmentName = Assert.assertNull(attachmentName, "File name cannot be null");
+        this.attachmentName = Assert.assertNotNull(attachmentName, "File name cannot be null");
     }
 
     public String getAttachmentType() {
@@ -43,7 +43,7 @@ public class FeedbackAttachmentResponse {
     }
 
     public void setAttachmentType(String attachmentType) {
-        this.attachmentType = Assert.assertNull(attachmentType, "File type cannot be null");
+        this.attachmentType = Assert.assertNotNull(attachmentType, "File type cannot be null");
     }
 
     public byte[] getData() {
@@ -51,6 +51,6 @@ public class FeedbackAttachmentResponse {
     }
 
     public void setData(byte[] data) {
-        this.data = Assert.assertNull(data, "Data cannot be null");
+        this.data = Assert.assertNotNull(data, "Data cannot be null");
     }
 }

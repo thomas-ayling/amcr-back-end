@@ -19,7 +19,7 @@ public class FeedbackAttachmentDaoImpl implements FeedbackAttachmentDao {
     private final FeedbackAttachmentMapper feedbackAttachmentMapper;
 
     public FeedbackAttachmentDaoImpl(FeedbackAttachmentMapper feedbackAttachmentMapper) {
-        this.feedbackAttachmentMapper = Assert.assertNull(feedbackAttachmentMapper, "File mapper cannot be null");
+        this.feedbackAttachmentMapper = Assert.assertNotNull(feedbackAttachmentMapper, "File mapper cannot be null");
     }
 
     @Override

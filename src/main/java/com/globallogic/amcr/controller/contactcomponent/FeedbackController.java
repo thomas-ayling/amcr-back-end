@@ -37,7 +37,7 @@ public class FeedbackController {
     private final FeedbackService feedbackService;
 
     public FeedbackController(FeedbackService feedbackService) {
-        this.feedbackService = Assert.assertNull(feedbackService, "Feedback service cannot be null");
+        this.feedbackService = Assert.assertNotNull(feedbackService, "Feedback service cannot be null");
     }
 
     /**

@@ -32,8 +32,8 @@ public class Feedback {
      */
 
     public Feedback(UUID id, String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink) {
-        if (!feedbackType.equals("library")) Assert.assertNull(feedbackBody, "feedbackBody is null");
-        if (feedbackType.equals("library")) Assert.assertNull(bookLink, "bookLink is null");
+        if (!feedbackType.equals("library")) Assert.assertNotNull(feedbackBody, "feedbackBody is null");
+        if (feedbackType.equals("library")) Assert.assertNotNull(bookLink, "bookLink is null");
 
         setId(id);
         setFeedbackType(feedbackType);
@@ -53,7 +53,7 @@ public class Feedback {
     }
 
     public void setId(UUID id) {
-        this.id = Assert.assertNull(id, "id is null");
+        this.id = Assert.assertNotNull(id, "id is null");
     }
 
     public String getFeedbackType() {
@@ -61,7 +61,7 @@ public class Feedback {
     }
 
     public void setFeedbackType(String feedbackType) {
-        this.feedbackType = Assert.assertNull(feedbackType, "feedbackType is null");
+        this.feedbackType = Assert.assertNotNull(feedbackType, "feedbackType is null");
 
     }
 
@@ -70,7 +70,7 @@ public class Feedback {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = Assert.assertNull(firstName, "firstName is null");
+        this.firstName = Assert.assertNotNull(firstName, "firstName is null");
 
     }
 
@@ -79,7 +79,7 @@ public class Feedback {
     }
 
     public void setLastName(String lastName) {
-        this.lastName = Assert.assertNull(lastName, "lastName is null");
+        this.lastName = Assert.assertNotNull(lastName, "lastName is null");
 
     }
 
@@ -88,7 +88,7 @@ public class Feedback {
     }
 
     public void setEmailAddress(String emailAddress) {
-        this.emailAddress = Assert.assertNull(emailAddress, "emailAddress is null");
+        this.emailAddress = Assert.assertNotNull(emailAddress, "emailAddress is null");
 
     }
 
@@ -97,7 +97,7 @@ public class Feedback {
     }
 
     public void setFeedbackBody(String feedbackBody) {
-        this.feedbackBody = Assert.assertNull(feedbackBody, "feedbackBody is null");
+        this.feedbackBody = Assert.assertNotNull(feedbackBody, "feedbackBody is null");
     }
 
     public String getBookName() {
@@ -105,7 +105,7 @@ public class Feedback {
     }
 
     public void setBookName(String bookName) {
-        this.bookName = Assert.assertNull(bookName, "bookName is null");
+        this.bookName = Assert.assertNotNull(bookName, "bookName is null");
     }
 
     public String getBookLink() {
@@ -113,7 +113,7 @@ public class Feedback {
     }
 
     public void setBookLink(String bookLink) {
-        this.bookLink = Assert.assertNull(bookLink, "bookLink is null");
+        this.bookLink = Assert.assertNotNull(bookLink, "bookLink is null");
     }
 
     @Override

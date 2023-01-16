@@ -39,7 +39,7 @@ public class CaseStudy extends CaseStudyOverview {
     }
 
     public void setBody(Map<?, ?> body) {
-        this.body = Assert.assertNull(body, "Case study's body cannot be null");
+        this.body = Assert.assertNotNull(body, "Case study's body cannot be null");
     }
 
     public String[] getDownloadLinks() {

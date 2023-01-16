@@ -35,7 +35,7 @@ public class FeedbackAttachmentMetadata {
     }
 
     public void setAttachmentName(String attachmentName) {
-        this.attachmentName = Assert.assertNull(attachmentName, "File name cannot be null");
+        this.attachmentName = Assert.assertNotNull(attachmentName, "File name cannot be null");
     }
 
     public long getAttachmentSize() {
@@ -43,7 +43,7 @@ public class FeedbackAttachmentMetadata {
     }
 
     public void setAttachmentSize(long attachmentSize) {
-        this.attachmentSize = Assert.assertNull(attachmentSize, "File size cannot be null");
+        this.attachmentSize = Assert.assertNotNull(attachmentSize, "File size cannot be null");
     }
 
     public String getDownloadUri() {
@@ -51,6 +51,6 @@ public class FeedbackAttachmentMetadata {
     }
 
     public void setDownloadUri(String downloadUri) {
-        this.downloadUri = Assert.assertNull(downloadUri, "Download URI cannot be null");
+        this.downloadUri = Assert.assertNotNull(downloadUri, "Download URI cannot be null");
     }
 }

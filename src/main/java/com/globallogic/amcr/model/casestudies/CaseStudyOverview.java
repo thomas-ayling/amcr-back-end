@@ -34,7 +34,7 @@ public class CaseStudyOverview {
     }
 
     public void setId(UUID id) {
-        this.id = Assert.assertNull(id, "ID cannot be null");
+        this.id = Assert.assertNotNull(id, "ID cannot be null");
     }
 
     public boolean getSpotlight() {
@@ -42,7 +42,7 @@ public class CaseStudyOverview {
     }
 
     public void setSpotlight(boolean spotlight) {
-        this.spotlight = Assert.assertNull(spotlight, "Spotlight cannot be null");
+        this.spotlight = Assert.assertNotNull(spotlight, "Spotlight cannot be null");
     }
 
     public String getTitle() {
@@ -50,7 +50,7 @@ public class CaseStudyOverview {
     }
 
     public void setTitle(String title) {
-        this.title = Assert.assertNull(title, "Title cannot be null");
+        this.title = Assert.assertNotNull(title, "Title cannot be null");
     }
 
     public String getOverview() {
@@ -58,7 +58,7 @@ public class CaseStudyOverview {
     }
 
     public void setOverview(String overview) {
-        this.overview = Assert.assertNull(overview, "Overview cannot be null");
+        this.overview = Assert.assertNotNull(overview, "Overview cannot be null");
     }
 
     public String getCoverImageLink() {
@@ -66,7 +66,7 @@ public class CaseStudyOverview {
     }
 
     public void setCoverImageLink(String coverImageLink) {
-        this.coverImageLink = Assert.assertNull(coverImageLink, "Cover image link cannot be null");
+        this.coverImageLink = Assert.assertNotNull(coverImageLink, "Cover image link cannot be null");
     }
 
     @Override

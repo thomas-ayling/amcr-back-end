@@ -24,8 +24,8 @@ public class EmailServiceImpl implements EmailService {
     private final FeedbackAttachmentDao feedbackAttachmentDao;
 
     public EmailServiceImpl(JavaMailSender mailSender, FeedbackAttachmentDao feedbackAttachmentDao) {
-        this.mailSender = Assert.assertNull(mailSender, "Mail sender cannot be null");
-        this.feedbackAttachmentDao = Assert.assertNull(feedbackAttachmentDao, "File DAO cannot be null");
+        this.mailSender = Assert.assertNotNull(mailSender, "Mail sender cannot be null");
+        this.feedbackAttachmentDao = Assert.assertNotNull(feedbackAttachmentDao, "File DAO cannot be null");
     }
 
     @Override
