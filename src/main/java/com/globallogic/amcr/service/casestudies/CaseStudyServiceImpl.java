@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @Service
 public class CaseStudyServiceImpl implements CaseStudyService {
-    private final Logger Log = LoggerFactory.getLogger(CaseStudyServiceImpl.class.getName());
+    private final Logger Log = LoggerFactory.getLogger(CaseStudyServiceImpl.class);
     private final CaseStudyDao caseStudyDao;
 
     public CaseStudyServiceImpl(CaseStudyDao caseStudyDao) {

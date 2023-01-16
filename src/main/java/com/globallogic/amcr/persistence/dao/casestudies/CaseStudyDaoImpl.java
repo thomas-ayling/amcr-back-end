@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Repository
 public class CaseStudyDaoImpl implements CaseStudyDao {
-    private final Logger Log = LoggerFactory.getLogger(CaseStudyDaoImpl.class.getName());
+    private final Logger Log = LoggerFactory.getLogger(CaseStudyDaoImpl.class);
     private final CaseStudyMapper caseStudyMapper;
 
     public CaseStudyDaoImpl(CaseStudyMapper caseStudyMapper) {

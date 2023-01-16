@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @Service
 public class FeedbackServiceImpl implements FeedbackService {
-    private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class.getName());
+    private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class);
     private final FeedbackDao feedbackDao;
     private final FeedbackAttachmentDao feedbackAttachmentDao;
     private final EmailService emailService;

@@ -20,7 +20,7 @@ import java.util.UUID;
 @RequestMapping("/case-study")
 @CrossOrigin
 public class CaseStudyController {
-    private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class.getName());
+    private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class);
     private final CaseStudyService caseStudyService;
 
     public CaseStudyController(CaseStudyService caseStudyService) {

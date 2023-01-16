@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Repository
 public class FeedbackAttachmentDaoImpl implements FeedbackAttachmentDao {
-    private final Logger Log = LoggerFactory.getLogger(FeedbackAttachmentDaoImpl.class.getName());
+    private final Logger Log = LoggerFactory.getLogger(FeedbackAttachmentDaoImpl.class);
     private final FeedbackAttachmentMapper feedbackAttachmentMapper;
 
     public FeedbackAttachmentDaoImpl(FeedbackAttachmentMapper feedbackAttachmentMapper) {

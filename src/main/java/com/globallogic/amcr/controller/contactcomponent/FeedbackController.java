@@ -33,7 +33,7 @@ import java.util.UUID;
 @RequestMapping("/feedback")
 @CrossOrigin
 public class FeedbackController {
-    private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class.getName());
+    private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class);
     private final FeedbackService feedbackService;
 
     public FeedbackController(FeedbackService feedbackService) {

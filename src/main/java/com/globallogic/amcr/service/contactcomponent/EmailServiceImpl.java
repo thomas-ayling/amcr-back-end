@@ -18,7 +18,7 @@ import java.util.UUID;
 @SuppressWarnings("SpellCheckingInspection")
 @Service
 public class EmailServiceImpl implements EmailService {
-    private final Logger Log = LoggerFactory.getLogger(EmailServiceImpl.class.getName());
+    private final Logger Log = LoggerFactory.getLogger(EmailServiceImpl.class);
     private final JavaMailSender mailSender;
     private final FeedbackAttachmentDao feedbackAttachmentDao;
 

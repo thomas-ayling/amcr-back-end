@@ -13,7 +13,7 @@ import java.util.UUID;
 @Repository
 public class FeedbackDaoImpl implements FeedbackDao {
     final FeedbackMapper feedbackMapper;
-    private final Logger Log = LoggerFactory.getLogger(FeedbackDaoImpl.class.getName());
+    private final Logger Log = LoggerFactory.getLogger(FeedbackDaoImpl.class);
 
     public FeedbackDaoImpl(FeedbackMapper feedbackMapper) {
         this.feedbackMapper = Assert.assertNull(feedbackMapper, "Feedback mapper cannot be null");
