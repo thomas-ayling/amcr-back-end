@@ -1,7 +1,7 @@
 package com.globallogic.amcr.service.casestudies;
 
-import com.globallogic.amcr.persistence.model.casestudies.CaseStudy;
-import com.globallogic.amcr.persistence.model.casestudies.CaseStudyOverview;
+import com.globallogic.amcr.model.casestudies.CaseStudy;
+import com.globallogic.amcr.model.casestudies.CaseStudyOverview;
 
 import java.util.List;
 import java.util.UUID;
@@ -65,6 +65,5 @@ public interface CaseStudyService {
      *
      * @param id the id of the entry to be deleted
      */
-    UUID delete(UUID id);
-
+    void delete(UUID id);
 }

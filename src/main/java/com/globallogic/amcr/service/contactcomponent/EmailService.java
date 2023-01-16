@@ -1,6 +1,6 @@
 package com.globallogic.amcr.service.contactcomponent;
 
-import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
+import com.globallogic.amcr.model.contactcomponent.Feedback;
 
 import java.util.UUID;
 

@@ -2,9 +2,9 @@ package com.globallogic.amcr.controller.contactcomponent;
 
 import com.globallogic.amcr.controller.casestudies.CaseStudyController;
 import com.globallogic.amcr.exception.NotFoundException;
-import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
-import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachment;
-import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachmentResponse;
+import com.globallogic.amcr.model.contactcomponent.Feedback;
+import com.globallogic.amcr.model.contactcomponent.FeedbackAttachment;
+import com.globallogic.amcr.model.contactcomponent.FeedbackAttachmentResponse;
 import com.globallogic.amcr.service.contactcomponent.FeedbackService;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;

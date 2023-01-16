@@ -1,4 +1,4 @@
-package com.globallogic.amcr.persistence.model.casestudies;
+package com.globallogic.amcr.model.casestudies;
 
 import com.globallogic.amcr.utils.Assert;
 import jakarta.validation.constraints.NotNull;

@@ -1,8 +1,8 @@
-package com.globallogic.amcr.persistence.dao.casestudies;
+package com.globallogic.amcr.repository.casestudies;
 
-import com.globallogic.amcr.persistence.dao.CrudDao;
-import com.globallogic.amcr.persistence.model.casestudies.CaseStudy;
-import com.globallogic.amcr.persistence.model.casestudies.CaseStudyOverview;
+import com.globallogic.amcr.repository.CrudDao;
+import com.globallogic.amcr.model.casestudies.CaseStudy;
+import com.globallogic.amcr.model.casestudies.CaseStudyOverview;
 
 import java.util.List;
 

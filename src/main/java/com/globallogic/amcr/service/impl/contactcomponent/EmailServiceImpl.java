@@ -1,8 +1,9 @@
-package com.globallogic.amcr.service.contactcomponent;
+package com.globallogic.amcr.service.impl.contactcomponent;
 
-import com.globallogic.amcr.persistence.dao.contactcomponent.FeedbackAttachmentDao;
-import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
-import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachmentMetadata;
+import com.globallogic.amcr.repository.contactcomponent.FeedbackAttachmentDao;
+import com.globallogic.amcr.model.contactcomponent.Feedback;
+import com.globallogic.amcr.model.contactcomponent.FeedbackAttachmentMetadata;
+import com.globallogic.amcr.service.contactcomponent.EmailService;
 import com.globallogic.amcr.utils.Assert;
 import com.globallogic.amcr.utils.ByteConverter;
 import jakarta.mail.internet.MimeMessage;
@@ -27,6 +28,7 @@ public class EmailServiceImpl implements EmailService {
         this.feedbackAttachmentDao = Assert.assertNull(feedbackAttachmentDao, "File DAO cannot be null");
     }
 
+    @Override
     public void sendMail(Feedback feedback, UUID feedbackId) {
         try {
             // Get data for attachment link

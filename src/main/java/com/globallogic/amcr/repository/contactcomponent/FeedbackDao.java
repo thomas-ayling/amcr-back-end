@@ -1,7 +1,7 @@
-package com.globallogic.amcr.persistence.dao.contactcomponent;
+package com.globallogic.amcr.repository.contactcomponent;
 
-import com.globallogic.amcr.persistence.dao.Dao;
-import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
+import com.globallogic.amcr.repository.Dao;
+import com.globallogic.amcr.model.contactcomponent.Feedback;
 
 import java.util.List;
 

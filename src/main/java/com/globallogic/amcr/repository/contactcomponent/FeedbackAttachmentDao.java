@@ -1,9 +1,9 @@
-package com.globallogic.amcr.persistence.dao.contactcomponent;
+package com.globallogic.amcr.repository.contactcomponent;
 
-import com.globallogic.amcr.persistence.dao.Dao;
-import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachment;
-import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachmentMetadata;
-import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachmentResponse;
+import com.globallogic.amcr.repository.Dao;
+import com.globallogic.amcr.model.contactcomponent.FeedbackAttachment;
+import com.globallogic.amcr.model.contactcomponent.FeedbackAttachmentMetadata;
+import com.globallogic.amcr.model.contactcomponent.FeedbackAttachmentResponse;
 
 import java.util.UUID;
 

@@ -1,6 +1,6 @@
-package com.globallogic.amcr.persistence.mapper.contactcomponent;
+package com.globallogic.amcr.repository.impl.contactcomponent;
 
-import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
+import com.globallogic.amcr.model.contactcomponent.Feedback;
 import com.globallogic.amcr.typehandler.UUIDTypeHandler;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.Alias;

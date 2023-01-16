@@ -1,4 +1,4 @@
-package com.globallogic.amcr.persistence.dao;
+package com.globallogic.amcr.repository;
 
 import java.util.UUID;
 
@@ -19,7 +19,6 @@ public interface CrudDao<T, R> extends Dao<T, R> {
      * Deletes an entry in the database with a specified ID
      *
      * @param id The ID of the entry to be deleted
-     * @return Returns the ID of the deleted entry
      */
-    UUID delete(UUID id);
+    void delete(UUID id);
 }

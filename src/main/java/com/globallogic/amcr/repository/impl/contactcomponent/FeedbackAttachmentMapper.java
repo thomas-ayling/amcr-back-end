@@ -1,8 +1,8 @@
-package com.globallogic.amcr.persistence.mapper.contactcomponent;
+package com.globallogic.amcr.repository.impl.contactcomponent;
 
-import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachment;
-import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachmentMetadata;
-import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachmentResponse;
+import com.globallogic.amcr.model.contactcomponent.FeedbackAttachment;
+import com.globallogic.amcr.model.contactcomponent.FeedbackAttachmentMetadata;
+import com.globallogic.amcr.model.contactcomponent.FeedbackAttachmentResponse;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -27,5 +27,4 @@ public interface FeedbackAttachmentMapper {
 
     @Select("select attachment_name, attachment_size, download_uri from feedback_attachments where #{feedbackId, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler} = feedback_id")
     FeedbackAttachmentMetadata getAttachmentMetadata(@Param("feedbackId") UUID feedbackId);
-
 }

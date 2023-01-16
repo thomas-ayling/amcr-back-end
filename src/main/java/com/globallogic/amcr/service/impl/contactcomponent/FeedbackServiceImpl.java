@@ -1,11 +1,13 @@
-package com.globallogic.amcr.service.contactcomponent;
+package com.globallogic.amcr.service.impl.contactcomponent;
 
 import com.globallogic.amcr.controller.casestudies.CaseStudyController;
-import com.globallogic.amcr.persistence.dao.contactcomponent.FeedbackAttachmentDao;
-import com.globallogic.amcr.persistence.dao.contactcomponent.FeedbackDao;
-import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachment;
-import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
-import com.globallogic.amcr.persistence.model.contactcomponent.FeedbackAttachmentResponse;
+import com.globallogic.amcr.model.contactcomponent.Feedback;
+import com.globallogic.amcr.model.contactcomponent.FeedbackAttachment;
+import com.globallogic.amcr.model.contactcomponent.FeedbackAttachmentResponse;
+import com.globallogic.amcr.repository.contactcomponent.FeedbackAttachmentDao;
+import com.globallogic.amcr.repository.contactcomponent.FeedbackDao;
+import com.globallogic.amcr.service.contactcomponent.EmailService;
+import com.globallogic.amcr.service.contactcomponent.FeedbackService;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +30,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         this.emailService = Assert.assertNull(emailService, "Email service cannot be null");
     }
 
+    @Override
     @Transactional
     public Feedback save(Feedback feedback, FeedbackAttachment feedbackAttachment) {
         Assert.assertNull(feedback, "Feedback cannot be null");
@@ -47,6 +50,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         }
     }
 
+    @Override
     @Transactional
     public Feedback get(UUID id) {
         Assert.assertNull(id, "ID cannot be null to request feedback");
@@ -54,18 +58,21 @@ public class FeedbackServiceImpl implements FeedbackService {
         return feedbackDao.get(id);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<Feedback> getAll() {
         Log.debug("Service requesting all feedback entries");
         return feedbackDao.getAll();
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<Feedback> getLatest() {
         Log.debug("Service requesting latest feedback");
         return feedbackDao.getLatest();
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<Feedback> getOlder(int last) {
         Assert.assertNull(last, "Last cannot be null");
@@ -73,6 +80,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         return feedbackDao.getOlder(last);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public FeedbackAttachmentResponse getAttachment(UUID id) {
         Assert.assertNull(id, "ID cannot be null for file request");

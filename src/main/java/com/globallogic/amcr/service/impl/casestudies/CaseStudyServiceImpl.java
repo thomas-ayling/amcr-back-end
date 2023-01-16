@@ -1,8 +1,9 @@
-package com.globallogic.amcr.service.casestudies;
+package com.globallogic.amcr.service.impl.casestudies;
 
-import com.globallogic.amcr.persistence.dao.casestudies.CaseStudyDao;
-import com.globallogic.amcr.persistence.model.casestudies.CaseStudy;
-import com.globallogic.amcr.persistence.model.casestudies.CaseStudyOverview;
+import com.globallogic.amcr.repository.casestudies.CaseStudyDao;
+import com.globallogic.amcr.model.casestudies.CaseStudy;
+import com.globallogic.amcr.model.casestudies.CaseStudyOverview;
+import com.globallogic.amcr.service.casestudies.CaseStudyService;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
         this.caseStudyDao = Assert.assertNull(caseStudyDao, "CaseStudyDao is not present");
     }
 
+    @Override
     @Transactional
     public CaseStudy save(CaseStudy caseStudy) {
         Assert.assertNull(caseStudy, "Case study cannot be null");
@@ -33,6 +35,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
         }
     }
 
+    @Override
     @Transactional
     public CaseStudy get(UUID id) {
         Assert.assertNull(id, "ID cannot be null to request entry");
@@ -40,24 +43,28 @@ public class CaseStudyServiceImpl implements CaseStudyService {
         return caseStudyDao.get(id);
     }
 
+    @Override
     @Transactional
     public List<CaseStudy> getAll() {
         Log.debug("Service requesting all case studies");
         return caseStudyDao.getAll();
     }
 
+    @Override
     @Transactional
     public List<CaseStudyOverview> getAllOverviews() {
         Log.debug("Service requesting all case study overviews");
         return caseStudyDao.getAllOverviews();
     }
 
+    @Override
     @Transactional
     public List<CaseStudyOverview> getSpotlitOverviews() {
         Log.debug("Service requesting all spotlit case study overviews");
         return caseStudyDao.getSpotlitOverviews();
     }
 
+    @Override
     @Transactional
     public List<CaseStudyOverview> getLatestOverviews(int entries) {
         Assert.assertNull(entries, "Entries cannot be null");
@@ -65,6 +72,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
         return caseStudyDao.getLatestOverviews(entries);
     }
 
+    @Override
     @Transactional
     public CaseStudy update(UUID id, CaseStudy newCaseStudy) {
         Assert.assertNull(id, "ID must be included to update a case study");
@@ -74,10 +82,11 @@ public class CaseStudyServiceImpl implements CaseStudyService {
         return caseStudyDao.update(id, newCaseStudy, oldCaseStudy);
     }
 
+    @Override
     @Transactional
-    public UUID delete(UUID id) {
+    public void delete(UUID id) {
         Assert.assertNull(id, "ID cannot be null to delete entry");
         Log.debug("Service requesting deletion of case study with ID {}", id);
-        return caseStudyDao.delete(id);
+        caseStudyDao.delete(id);
     }
 }

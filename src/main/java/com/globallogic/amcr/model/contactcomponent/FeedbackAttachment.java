@@ -1,4 +1,4 @@
-package com.globallogic.amcr.persistence.model.contactcomponent;
+package com.globallogic.amcr.model.contactcomponent;
 
 import com.globallogic.amcr.utils.Assert;
 

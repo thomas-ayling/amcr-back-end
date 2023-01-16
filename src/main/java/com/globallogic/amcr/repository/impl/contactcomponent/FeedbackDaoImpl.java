@@ -1,7 +1,7 @@
-package com.globallogic.amcr.persistence.dao.contactcomponent;
+package com.globallogic.amcr.repository.impl.contactcomponent;
 
-import com.globallogic.amcr.persistence.mapper.contactcomponent.FeedbackMapper;
-import com.globallogic.amcr.persistence.model.contactcomponent.Feedback;
+import com.globallogic.amcr.repository.contactcomponent.FeedbackDao;
+import com.globallogic.amcr.model.contactcomponent.Feedback;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

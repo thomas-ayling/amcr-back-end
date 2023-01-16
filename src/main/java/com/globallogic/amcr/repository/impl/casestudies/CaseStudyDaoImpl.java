@@ -1,8 +1,8 @@
-package com.globallogic.amcr.persistence.dao.casestudies;
+package com.globallogic.amcr.repository.impl.casestudies;
 
-import com.globallogic.amcr.persistence.mapper.casestudies.CaseStudyMapper;
-import com.globallogic.amcr.persistence.model.casestudies.CaseStudy;
-import com.globallogic.amcr.persistence.model.casestudies.CaseStudyOverview;
+import com.globallogic.amcr.repository.casestudies.CaseStudyDao;
+import com.globallogic.amcr.model.casestudies.CaseStudy;
+import com.globallogic.amcr.model.casestudies.CaseStudyOverview;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,11 +71,10 @@ public class CaseStudyDaoImpl implements CaseStudyDao {
     }
 
     @Override
-    public UUID delete(UUID id) {
+    public void delete(UUID id) {
         try {
             Log.trace("DAO deleting case study with ID {}", id);
             caseStudyMapper.delete(id);
-            return id;
         } catch (Exception e) {
             throw new RuntimeException("Error in CaseStudyDaoImpl - could not delete case study with id " + id, e);
         }
