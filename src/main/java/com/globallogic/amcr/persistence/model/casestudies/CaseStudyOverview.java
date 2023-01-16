@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
 import java.util.UUID;
 
+@SuppressWarnings("unused")
 public class CaseStudyOverview {
     private UUID id;
     @NotNull
@@ -18,11 +19,11 @@ public class CaseStudyOverview {
     private String coverImageLink;
 
     public CaseStudyOverview(UUID id, boolean spotlight, String title, String overview, String coverImageLink) {
-        this.id = id;
-        this.spotlight = Assert.assertNull(spotlight, "Spotlight cannot be null");
-        this.title = Assert.assertNull(title, "Title cannot be null");
-        this.overview = Assert.assertNull(overview, "Overview cannot be null");
-        this.coverImageLink = Assert.assertNull(coverImageLink, "Cover image cannot be null");
+        setId(id);
+        setSpotlight(spotlight);
+        setTitle(title);
+        setOverview(overview);
+        setCoverImageLink(coverImageLink);
     }
 
     public CaseStudyOverview() {
@@ -49,7 +50,7 @@ public class CaseStudyOverview {
     }
 
     public void setTitle(String title) {
-        this.title = Assert.assertNull(title, "");
+        this.title = Assert.assertNull(title, "Title cannot be null");
     }
 
     public String getOverview() {
@@ -57,7 +58,7 @@ public class CaseStudyOverview {
     }
 
     public void setOverview(String overview) {
-        this.overview = overview;
+        this.overview = Assert.assertNull(overview, "Overview cannot be null");
     }
 
     public String getCoverImageLink() {
@@ -65,7 +66,7 @@ public class CaseStudyOverview {
     }
 
     public void setCoverImageLink(String coverImageLink) {
-        this.coverImageLink = coverImageLink;
+        this.coverImageLink = Assert.assertNull(coverImageLink, "Cover image link cannot be null");
     }
 
     @Override
@@ -83,10 +84,6 @@ public class CaseStudyOverview {
 
     @Override
     public String toString() {
-        return "CaseStudyOverview{" +
-                "title='" + title + '\'' +
-                ", overview='" + overview + '\'' +
-                ", coverImageLink='" + coverImageLink + '\'' +
-                '}';
+        return "CaseStudyOverview{" + "title='" + title + '\'' + ", overview='" + overview + '\'' + ", coverImageLink='" + coverImageLink + '\'' + '}';
     }
 }
