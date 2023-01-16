@@ -34,7 +34,7 @@ create table if not exists academy_projects.library
     title       text  not null,
     genre       text  not null,
     author      text  not null, 
-    available   boolean,
+    available   boolean not null,
     reader      text,
     cover       text  not null,
     email       text
