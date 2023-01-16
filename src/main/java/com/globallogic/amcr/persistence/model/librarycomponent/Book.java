@@ -1,5 +1,6 @@
 package com.globallogic.amcr.persistence.model.librarycomponent;
 
+import com.globallogic.amcr.utils.Assert;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
@@ -40,7 +41,7 @@ public class Book {
     }
 
     public void setId(UUID id) {
-        this.id = id;
+        this.id = Assert.assertNull(id, "id cannot be null");;
     }
 
     public String getTitle() {
@@ -48,7 +49,7 @@ public class Book {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = Assert.assertNull(title, "title cannot be null");;
     }
 
     public String getGenre() {
@@ -56,7 +57,7 @@ public class Book {
     }
 
     public void setGenre(String genre) {
-        this.genre = genre;
+        this.genre = Assert.assertNull(genre, "genre cannot be null");;
     }
 
     public String getAuthor() {
@@ -64,7 +65,7 @@ public class Book {
     }
 
     public void setAuthor(String author) {
-        this.author = author;
+        this.author = Assert.assertNull(author, "author cannot be null");;
     }
 
     public String getReader() {
@@ -72,7 +73,7 @@ public class Book {
     }
 
     public void setReader(String reader) {
-        this.reader = reader;
+        this.reader = Assert.assertNull(reader, "Reader cannot be null");;
     }
 
     public Boolean isAvailable() {
@@ -80,7 +81,7 @@ public class Book {
     }
 
     public void setAvailable(Boolean available) {
-        this.available = available;
+        this.available = Assert.assertNull(available, "Available cannot be null");;
     }
 
     public String getCover() {
@@ -88,7 +89,7 @@ public class Book {
     }
 
     public void setCover(String cover) {
-        this.cover = cover;
+        this.cover = Assert.assertNull(cover, "Cover cannot be null");;
     }
 
     public String getEmail() {
@@ -96,42 +97,7 @@ public class Book {
     }
 
     public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Book title(String title) {
-        setTitle(title);
-        return this;
-    }
-
-    public Book genre(String genre) {
-        setGenre(genre);
-        return this;
-    }
-
-    public Book author(String author) {
-        setAuthor(author);
-        return this;
-    }
-
-    public Book reader(String reader) {
-        setReader(reader);
-        return this;
-    }
-
-    public Book available(Boolean available) {
-        setAvailable(available);
-        return this;
-    }
-
-    public Book cover(String cover) {
-        setCover(cover);
-        return this;
-    }
-
-    public Book email(String email) {
-        setEmail(email);
-        return this;
+        this.email = Assert.assertNull(email, "Email cannot be null");;
     }
 
     @Override
@@ -146,7 +112,7 @@ public class Book {
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, genre, author, reader, available, cover, email);
+        return Objects.hash(title, author);
     }
 
     @Override

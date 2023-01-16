@@ -17,7 +17,6 @@ import java.util.UUID;
 public interface FileMapper {
 
     @Insert("insert into files(id, file_name, file_type, file_size, data, download_uri, feedback_id) values (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{fileName}, #{fileType}, #{fileSize}, #{data}, #{downloadUri}, #{feedbackId, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler})")
-
     void save(Attachment attachment);
 
     @Select("select * from files where id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
