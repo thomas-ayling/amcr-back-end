@@ -32,31 +32,22 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     @Transactional
-    public Feedback save(Feedback feedback) {
-        Assert.assertNull(feedback, "Feedback cannot be null");
-        UUID feedbackId = UUID.randomUUID();
-        Log.debug("Service saving feedback");
-        Feedback createdFeedback = feedbackDao.save(feedback, feedbackId);
-        Log.debug("Service sending email");
-        emailService.sendMail(feedback, feedbackId);
-        return createdFeedback;
-
-    }
-
-    @Override
-    @Transactional
     public Feedback save(Feedback feedback, FeedbackAttachment feedbackAttachment) {
         Assert.assertNull(feedback, "Feedback cannot be null");
-        Assert.assertNull(feedbackAttachment, "Feedback attachment cannot be null");
-        UUID feedbackId = UUID.randomUUID();
-        Log.debug("Service saving feedback");
-        Feedback createdFeedback = feedbackDao.save(feedback, feedbackId);
-        Log.debug("Service saving feedback attachment");
-        feedbackAttachmentDao.save(feedbackAttachment, feedbackId);
-        Log.debug("Service sending email");
-        emailService.sendMail(feedback, feedbackId);
-        return createdFeedback;
-
+        try {
+            UUID feedbackId = UUID.randomUUID();
+            Log.debug("Service saving feedback");
+            Feedback createdFeedback = feedbackDao.save(feedback, feedbackId);
+            if (feedbackAttachment != null) {
+                Log.debug("Service saving feedbackAttachment");
+                feedbackAttachmentDao.save(feedbackAttachment, feedbackId);
+            }
+            Log.debug("Service sending email");
+            emailService.sendMail(feedback, feedbackId);
+            return createdFeedback;
+        } catch (Exception e) {
+            throw new RuntimeException("Error saving feedback and feedbackAttachment to database", e);
+        }
     }
 
     @Override
