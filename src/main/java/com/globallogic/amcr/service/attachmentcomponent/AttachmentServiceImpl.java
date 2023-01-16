@@ -25,15 +25,11 @@ public class AttachmentServiceImpl implements AttachmentService {
     }
 
     @Transactional
-    public ResponseEntity<Attachment> save(Attachment attachment) {
-        try {
-            UUID id = UUID.randomUUID();
-            Log.debug("Attempting to upload an attachment {}", attachment);
-            attachmentDAOImpl.save(attachment, id);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().build();
-        }
+    public Attachment save(Attachment attachment) {
+        UUID id = UUID.randomUUID();
+        Log.debug("Attempting to upload an attachment {}", attachment);
+        return attachmentDAOImpl.save(attachment, id);
+
     }
 
     @Transactional(readOnly = true)

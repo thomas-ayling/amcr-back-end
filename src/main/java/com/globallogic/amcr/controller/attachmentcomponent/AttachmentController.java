@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -54,7 +55,8 @@ public class AttachmentController {
                     metadata.put("heightInPixels", image.getWidth());
                     metadata.put("widthInPixels", image.getHeight());
 
-                    Attachment attachment = new Attachment(attachmentName, incomingAttachment.getContentType(), incomingAttachment.getSize(), crc, metadata, incomingAttachment.getBytes());
+                    Attachment attachment = new Attachment(attachmentName, incomingAttachment.getContentType(),
+                            incomingAttachment.getSize(), crc, metadata, incomingAttachment.getBytes());
                     attachmentService.save(attachment);
                     return ResponseEntity.ok().build();
 
@@ -62,12 +64,14 @@ public class AttachmentController {
                     e.printStackTrace();
                 }
             }
-            Attachment attachment = new Attachment(attachmentName, incomingAttachment.getContentType(), incomingAttachment.getSize(), crc, incomingAttachment.getBytes());
+            Attachment attachment = new Attachment(attachmentName, incomingAttachment.getContentType(),
+                    incomingAttachment.getSize(), crc, incomingAttachment.getBytes());
 
             Log.trace("Attempts to upload a new attachment {}", attachment);
             Log.debug("Saving a new attachment {}", attachment);
-            attachmentService.save(attachment);
-            return ResponseEntity.ok().build();
+            Attachment createdAttachment = attachmentService.save(attachment);
+            return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                    .buildAndExpand(createdAttachment.getId()).toUri()).body(createdAttachment);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
