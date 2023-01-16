@@ -1,4 +1,4 @@
-package com.globallogic.amcr.persistence.model.librarycomponent;
+package com.globallogic.amcr.model.librarycomponent;
 
 import com.globallogic.amcr.utils.Assert;
 import jakarta.validation.constraints.NotNull;
@@ -118,14 +118,14 @@ public class Book {
     @Override
     public String toString() {
         return "{" +
-            " title='" + getTitle() + "'" +
-            ", genre='" + getGenre() + "'" +
-            ", author='" + getAuthor() + "'" +
-            ", reader='" + getReader() + "'" +
-            ", available='" + isAvailable() + "'" +
-            ", cover='" + getCover() + "'" +
-            ", email='" + getEmail() + "'" +
-            "}";
+                " title='" + getTitle() + "'" +
+                ", genre='" + getGenre() + "'" +
+                ", author='" + getAuthor() + "'" +
+                ", reader='" + getReader() + "'" +
+                ", available='" + isAvailable() + "'" +
+                ", cover='" + getCover() + "'" +
+                ", email='" + getEmail() + "'" +
+                "}";
     }
 
 }

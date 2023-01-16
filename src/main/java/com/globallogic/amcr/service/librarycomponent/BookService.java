@@ -3,7 +3,7 @@ package com.globallogic.amcr.service.librarycomponent;
 import java.util.List;
 import java.util.UUID;
 
-import com.globallogic.amcr.persistence.model.librarycomponent.Book;
+import com.globallogic.amcr.model.librarycomponent.Book;
 
 public interface BookService {
 

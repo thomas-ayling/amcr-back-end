@@ -1,16 +1,17 @@
-package com.globallogic.amcr.service.librarycomponent;
+package com.globallogic.amcr.service.impl.librarycomponent;
 
 import java.util.List;
 import java.util.UUID;
 
-import com.globallogic.amcr.persistence.model.librarycomponent.Book;
+import com.globallogic.amcr.model.librarycomponent.Book;
+import com.globallogic.amcr.repository.impl.librarycomponent.BookDao;
+import com.globallogic.amcr.service.librarycomponent.BookService;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.globallogic.amcr.persistence.dao.librarycomponent.BookDao;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -47,7 +48,7 @@ public class BookServiceImpl implements BookService {
         Assert.assertNotNull(reservedBook, "New reservation cannot be empty");
         Book oldbook = Assert.assertNotNull(bookDao.get(id), "Objects with specified ID could not be found. Try again");
         LOG.debug("Service requesting reservation of book with ID {}", id);
-        return bookDao.reserve(id, oldbook, reservedBook);
+        return bookDao.update(id, oldbook, reservedBook);
     }
 
     @Transactional

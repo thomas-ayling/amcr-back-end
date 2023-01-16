@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.globallogic.amcr.exception.contactcomponent.NotFoundException;
-import com.globallogic.amcr.persistence.model.librarycomponent.Book;
+import com.globallogic.amcr.model.librarycomponent.Book;
 import com.globallogic.amcr.service.librarycomponent.BookService;
 import com.globallogic.amcr.utils.Assert;
 import org.springframework.http.ResponseEntity;

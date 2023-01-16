@@ -1,19 +1,17 @@
-package com.globallogic.amcr.persistence.dao.librarycomponent;
+package com.globallogic.amcr.repository.impl.librarycomponent;
 
 import java.util.List;
 import java.util.UUID;
 
-import com.globallogic.amcr.persistence.dao.Dao;
-import com.globallogic.amcr.persistence.model.librarycomponent.Book;
+import com.globallogic.amcr.model.librarycomponent.Book;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.globallogic.amcr.persistence.mapper.librarycomponent.BookMapper;
 
 @Repository
-public class BookDao implements Dao<Book, Book> {
+public class BookDao implements com.globallogic.amcr.repository.librarycomponent.BookDao {
     private final Logger LOG = LoggerFactory.getLogger(BookDao.class);
     private final BookMapper bookMapper;
 
@@ -21,6 +19,7 @@ public class BookDao implements Dao<Book, Book> {
         this.bookMapper = Assert.assertNotNull(bookMapper, "Id cannot be null to request");
     }
 
+    @Override
     public Book save(Book book, UUID id) {
         try {
             book.setId(id);
@@ -31,17 +30,20 @@ public class BookDao implements Dao<Book, Book> {
         }
     }
 
+    @Override
     public Book get(UUID id) {
         LOG.trace("DAO requesting book with ID {}", id);
         return bookMapper.get(id);
     }
 
+    @Override
     public List<Book> getAll() {
         LOG.trace("DAO requesting all books");
         return bookMapper.getAll();
     }
 
-    public Book reserve(UUID id, Book oldBook, Book reservedBook) {
+    @Override
+    public Book update(UUID id, Book oldBook, Book reservedBook) {
         reservedBook.setId(id);
         if (oldBook.equals(reservedBook)) {
             return reservedBook;
@@ -58,10 +60,12 @@ public class BookDao implements Dao<Book, Book> {
         if (reservedBook.getCover() == null) {
             reservedBook.setCover(oldBook.getCover());
         }
-            LOG.trace("DAO reserving book with ID {} and Content: \n{}\n\n\n\n with new book:\n\n{}", id , oldBook, reservedBook);
-            bookMapper.reserve(id, reservedBook);
-            return reservedBook;
+        LOG.trace("DAO reserving book with ID {} and Content: \n{}\n\n\n\n with new book:\n\n{}", id , oldBook, reservedBook);
+        bookMapper.reserve(id, reservedBook);
+        return reservedBook;
     }
+
+    @Override
     public void delete(UUID id) {
         try {
             LOG.trace("DAO deleting book with ID {}", id);

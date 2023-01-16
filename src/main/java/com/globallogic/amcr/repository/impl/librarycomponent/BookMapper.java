@@ -1,9 +1,8 @@
-package com.globallogic.amcr.persistence.mapper.librarycomponent;
+package com.globallogic.amcr.repository.impl.librarycomponent;
 
-import com.globallogic.amcr.persistence.model.librarycomponent.Book;
+import com.globallogic.amcr.model.librarycomponent.Book;
 import com.globallogic.amcr.typehandler.UUIDTypeHandler;
 import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.type.Alias;
 
 import java.util.List;
 import java.util.UUID;
