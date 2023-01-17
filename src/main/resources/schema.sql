@@ -28,6 +28,20 @@ create table if not exists academy_project.files
 ALTER TABLE academy_project.files
     OWNER TO CURRENT_USER;
 
+create table if not exists academy_projects.library
+(
+    id          uuid primary key,
+    title       text  not null,
+    genre       text  not null,
+    author      text  not null, 
+    available   boolean not null,
+    reader      text,
+    cover       text  not null,
+    email       text
+);
+
+ALTER TABLE academy_project.library OWNER TO CURRENT_USER;
+
 create table if not exists academy_project.case_studies
 (
     id               uuid primary key not null,
