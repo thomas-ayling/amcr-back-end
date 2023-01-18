@@ -9,7 +9,5 @@ public class NotFoundException extends RuntimeException {
         super(msg);
     }
 
-    public NotFoundException(String msg, Exception e) {
-        super(msg + " because of " + e.toString());
-    }
+    public NotFoundException(String msg, Exception e) {super(msg, e);}
 }
