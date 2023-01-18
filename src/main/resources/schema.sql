@@ -11,7 +11,8 @@ create table if not exists academy_project.feedback
     book_link      text
 );
 
-ALTER TABLE academy_project.feedback OWNER TO CURRENT_USER;
+ALTER TABLE academy_project.feedback
+    OWNER TO CURRENT_USER;
 
 create table if not exists academy_project.files
 (
@@ -24,7 +25,8 @@ create table if not exists academy_project.files
     feedback_id  uuid references feedback (id) on delete cascade
 );
 
-ALTER TABLE academy_project.files OWNER TO CURRENT_USER;
+ALTER TABLE academy_project.files
+    OWNER TO CURRENT_USER;
 
 create table if not exists academy_project.case_studies
 (
@@ -51,6 +53,22 @@ create table if not exists academy_project.attachments
     crc          bigint           not null,
     metadata     jsonb default '{}'::jsonb,
     data         bytea            not null
+);
+
+create table if not exists metadata
+(
+    id       uuid primary key not null,
+    name     text             not null,
+    size     bigint           not null,
+    crc      bigint,
+    metadata jsonb default '{}'::jsonb,
+    media_id uuid references media (id) on delete cascade
+);
+
+create table if not exists media
+(
+    id    uuid primary key not null,
+    media bytea
 );
 
 ALTER TABLE academy_project.attachments
