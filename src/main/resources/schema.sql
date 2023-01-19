@@ -44,11 +44,8 @@ ALTER TABLE academy_project.case_studies
 
 create table if not exists academy_project.diagram
 (
-    id            uuid primary key not null,
-    node_position smallint         not null,
-    title         text,
-    body          text
-    
+    id    uuid primary key not null,
+    nodes jsonb[]          not null
 );
 
 ALTER TABLE academy_project.diagram

@@ -35,12 +35,6 @@ public class DiagramDaoImpl implements DiagramDao {
     }
 
     @Override
-    public Diagram getByNode(int nodePosition) {
-        Log.trace("DAO requesting diagram data at node position {}", nodePosition);
-        return diagramMapper.getByNode(nodePosition);
-    }
-
-    @Override
     public List<Diagram> getAll() {
         Log.trace("DAO requesting all diagram data");
         return diagramMapper.getAll();
@@ -52,40 +46,17 @@ public class DiagramDaoImpl implements DiagramDao {
         if(oldDiagram.equals(newDiagram)) {
             return newDiagram;
         }
-        if(newDiagram.getNodePosition() < 1 || newDiagram.getNodePosition() > 8) {
-            newDiagram.setNodePosition(oldDiagram.getNodePosition());
+        if(newDiagram.getNodes() == null) {
+            newDiagram.setNodes(oldDiagram.getNodes());
         }
-        if(newDiagram.getTitle() == null) {
-            newDiagram.setTitle(oldDiagram.getTitle());
-        }
-        if(newDiagram.getBody() == null) {
-            newDiagram.setBody(oldDiagram.getBody());
-        }
-        Log.trace("DAO updating diagram data with ID {} and content:\n{}\nwith new data:\n{}",id,oldDiagram,newDiagram);
+        Log.trace("DAO updating diagram data with ID {} and content:\n{}\nwith new content:\n{}",id,oldDiagram,newDiagram);
         diagramMapper.update(id, newDiagram);
         return newDiagram;
     }
 
     @Override
-    public Diagram updateByNode(int nodePosition, Diagram newDiagram, Diagram oldDiagram) {
-        newDiagram.setNodePosition(nodePosition);
-        if(newDiagram.getId() == null) {
-            newDiagram.setId(oldDiagram.getId());
-        }
-        if(newDiagram.getTitle() == null) {
-            newDiagram.setTitle(oldDiagram.getTitle());
-        }
-        if(newDiagram.getBody() == null) {
-            newDiagram.setBody(oldDiagram.getBody());
-        }
-        Log.trace("DAO updating diagram data at node position {} and content:\n{}\nwith new data:\n{}",nodePosition,oldDiagram,newDiagram);
-        diagramMapper.updateByNode(nodePosition, newDiagram);
-        return newDiagram;
-    }
-
-    @Override
     public void delete(UUID id) {
-            Log.trace("DAO deleting diagram data at node position {}", id);
+            Log.trace("DAO deleting diagram data with ID {}", id);
             diagramMapper.delete(id);
     }
 }
