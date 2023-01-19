@@ -1,6 +1,6 @@
 package com.globallogic.amcr.service.pagecontent;
 
-import com.globallogic.amcr.persistence.model.pagecontent.Diagram;
+import com.globallogic.amcr.model.pagecontent.Diagram;
 
 import java.util.List;
 import java.util.UUID;
@@ -57,7 +57,7 @@ public interface DiagramService {
     /**
      * Requests the deletion of a diagram object with the specified node position
      *
-     * @param nodePosition the node position of the diagram object to be deleted
+     * @param id the id of the diagram object to be deleted
      */
-    int delete(int nodePosition);
+    void delete(UUID id);
 }

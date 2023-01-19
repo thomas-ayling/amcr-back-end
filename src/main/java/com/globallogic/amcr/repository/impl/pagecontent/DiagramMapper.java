@@ -1,6 +1,6 @@
-package com.globallogic.amcr.persistence.mapper.pagecontent;
+package com.globallogic.amcr.repository.impl.pagecontent;
 
-import com.globallogic.amcr.persistence.model.pagecontent.Diagram;
+import com.globallogic.amcr.model.pagecontent.Diagram;
 import com.globallogic.amcr.typehandler.UUIDTypeHandler;
 import org.apache.ibatis.annotations.*;
 
@@ -48,6 +48,6 @@ public interface DiagramMapper {
     @Update("UPDATE diagram SET node_position = #{nodePosition}, title = #{diagram.title}, body = #{diagram.body} WHERE node_position = #{nodePosition}")
     void updateByNode(int nodePosition, Diagram diagram);
 
-    @Delete("DELETE FROM diagram WHERE node_position = #{nodePosition}")
-    void delete(@Param("nodePosition") int nodePosition);
+    @Delete("DELETE FROM diagram WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
+    void delete(@Param("id") UUID id);
 }

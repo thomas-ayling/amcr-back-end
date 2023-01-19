@@ -1,7 +1,7 @@
 package com.globallogic.amcr.controller.pagecontent;
 
-import com.globallogic.amcr.persistence.model.pagecontent.Diagram;
-import com.globallogic.amcr.service.pagecontent.DiagramServiceImpl;
+import com.globallogic.amcr.model.pagecontent.Diagram;
+import com.globallogic.amcr.service.impl.pagecontent.DiagramServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -78,16 +78,16 @@ public class DiagramController {
      * @param nodePosition  the node position of the diagram entry to be updated
      * @param diagram the diagram object with the values that the database will be updated with
      */
-    @PutMapping(value="/node", consumes = "application/json", produces = "application/json")
+    @PutMapping(value="/node/{nodePosition}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Diagram> updateByNodeDiagram(@PathVariable int nodePosition, @RequestBody Diagram diagram) {
         Log.debug("Controller updating diagram data at node position {}", nodePosition);
         return ResponseEntity.accepted().body(diagramServiceImpl.updateByNode(diagram, nodePosition));
     }
 
-    @DeleteMapping(value = "/node/{nodePosition}", produces = "application/json")
-    public ResponseEntity<Integer> deleteDiagram(@PathVariable int nodePosition) {
-        Log.debug("Controller requesting deletion of diagram  data at node position {}", nodePosition);
-        diagramServiceImpl.delete(nodePosition);
-        return ResponseEntity.ok().body(diagramServiceImpl.delete(nodePosition));
+    @DeleteMapping(value = "/{id}", produces = "application/json")
+    public ResponseEntity<UUID> deleteDiagram(@PathVariable UUID id) {
+        Log.debug("Controller requesting deletion of diagram  data with ID {}", id);
+        diagramServiceImpl.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

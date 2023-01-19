@@ -1,4 +1,4 @@
-package com.globallogic.amcr.persistence.model.pagecontent;
+package com.globallogic.amcr.model.pagecontent;
 
 import com.globallogic.amcr.utils.Assert;
 

@@ -48,6 +48,7 @@ create table if not exists academy_project.diagram
     node_position smallint         not null,
     title         text,
     body          text
+    
 );
 
 ALTER TABLE academy_project.diagram

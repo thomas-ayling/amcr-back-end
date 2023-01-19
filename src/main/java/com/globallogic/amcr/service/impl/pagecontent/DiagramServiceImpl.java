@@ -1,7 +1,8 @@
-package com.globallogic.amcr.service.pagecontent;
+package com.globallogic.amcr.service.impl.pagecontent;
 
-import com.globallogic.amcr.persistence.dao.pagecontent.DiagramDao;
-import com.globallogic.amcr.persistence.model.pagecontent.Diagram;
+import com.globallogic.amcr.repository.impl.pagecontent.DiagramDaoImpl;
+import com.globallogic.amcr.model.pagecontent.Diagram;
+import com.globallogic.amcr.service.pagecontent.DiagramService;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,13 +12,13 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class DiagramServiceImpl implements DiagramService{
+public class DiagramServiceImpl implements DiagramService {
 
-    private final DiagramDao diagramDao;
+    private final DiagramDaoImpl diagramDaoImpl;
     private  final Logger Log = LoggerFactory.getLogger(DiagramServiceImpl.class.getName());
 
-    public DiagramServiceImpl(DiagramDao diagramDao) {
-        this.diagramDao = Assert.assertNotNull(diagramDao, "DiagramDao cannot be null");
+    public DiagramServiceImpl(DiagramDaoImpl diagramDaoImpl) {
+        this.diagramDaoImpl = Assert.assertNotNull(diagramDaoImpl, "DiagramDao cannot be null");
     }
 
     @Transactional
@@ -26,7 +27,7 @@ public class DiagramServiceImpl implements DiagramService{
         try {
             UUID diagramId = UUID.randomUUID();
             Log.debug("Service: Saving new diagram data");
-            return diagramDao.save(diagram, diagramId);
+            return diagramDaoImpl.save(diagram, diagramId);
         } catch (Exception e) {
             throw new RuntimeException("Error in Service Implementation - Could not save diagram", e);
         }
@@ -36,19 +37,19 @@ public class DiagramServiceImpl implements DiagramService{
     public Diagram get(UUID id) {
         Assert.assertNotNull(id, "Service: ID cannot be null");
         Log.debug("Service requesting diagram data with ID {}", id);
-        return diagramDao.get(id);
+        return diagramDaoImpl.get(id);
     }
 
     @Transactional(readOnly = true)
     public Diagram getByNode(int nodePosition) {
         Assert.assertNotNull(nodePosition, "Service: Node position variable cannot be null");
         Log.debug("Service requesting diagram data with node position {}", nodePosition);
-        return diagramDao.getByNode(nodePosition);
+        return diagramDaoImpl.getByNode(nodePosition);
     }
     @Transactional(readOnly = true)
     public List<Diagram> getAll() {
         Log.debug("Service requesting all diagram data");
-        return diagramDao.getAll();
+        return diagramDaoImpl.getAll();
     }
 
     @Transactional
@@ -56,9 +57,9 @@ public class DiagramServiceImpl implements DiagramService{
         Assert.assertNotNull(id, "Service: ID must be included to update the diagram");
         Assert.assertNotNull(newDiagram, "Service: New diagram data must be included to update");
 
-        Diagram oldDiagram = Assert.assertNotNull(diagramDao.get(id), "Object with specified ID could not be found");
+        Diagram oldDiagram = Assert.assertNotNull(diagramDaoImpl.get(id), "Object with specified ID could not be found");
         Log.debug("Service updating diagram data with ID {}", id);
-        return diagramDao.update(id, newDiagram, oldDiagram);
+        return diagramDaoImpl.update(id, newDiagram, oldDiagram);
     }
 
     @Transactional
@@ -66,15 +67,14 @@ public class DiagramServiceImpl implements DiagramService{
         Assert.assertNotNull(nodePosition, "Service: Node position must be included to update the diagram");
         Assert.assertNotNull(newDiagram, "Service: New diagram object must be included to update");
 
-        Diagram oldDiagram = Assert.assertNotNull(diagramDao.getByNode(nodePosition), "Object with specified node position could not be found");
+        Diagram oldDiagram = Assert.assertNotNull(diagramDaoImpl.getByNode(nodePosition), "Object with specified node position could not be found");
         Log.debug("Service updating case study with node position {}", nodePosition);
-        return diagramDao.updateByNode(nodePosition, newDiagram, oldDiagram);
+        return diagramDaoImpl.updateByNode(nodePosition, newDiagram, oldDiagram);
     }
 
     @Transactional
-    public int delete(int nodePosition) {
-        Assert.assertNotNull(nodePosition, "Node position cannot be null to delete entry");
-        Log.debug("Service requesting deletion of diagram data at node position {}", nodePosition);
-        return diagramDao.delete(nodePosition);
+    public void delete(UUID id) {
+        Assert.assertNotNull(id, "ID cannot be null to delete entry");
+        Log.debug("Service requesting deletion of diagram data with ID {}", id);
     }
 }
