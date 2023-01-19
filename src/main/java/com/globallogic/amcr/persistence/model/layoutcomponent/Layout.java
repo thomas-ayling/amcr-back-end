@@ -10,18 +10,18 @@ public class Layout {
     private int yPosition;
     private int width;
     private int height;
-    private Boolean movable;
+    private Boolean Static;
     private String page;
 
 
-    public Layout(UUID id, String elementName, int xPosition, int yPosition, int width, int height, boolean movable, String page) {
+    public Layout(UUID id, String elementName, int xPosition, int yPosition, int width, int height, boolean Static, String page) {
         this.id = id;
         this.elementName = elementName;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.width = width;
         this.height = height;
-        this.movable = movable;
+        this.Static = Static;
         this.page = page;
     }
 
@@ -44,19 +44,19 @@ public class Layout {
         this.elementName = elementName;
     }
 
-    public int getxPosition() {
+    public int getXPosition() {
         return xPosition;
     }
 
-    public void setxPosition(int xPosition) {
+    public void setXPosition(int xPosition) {
         this.xPosition = xPosition;
     }
 
-    public Integer getyPosition() {
+    public Integer getYPosition() {
         return yPosition;
     }
 
-    public void setyPosition(int yPosition) {
+    public void setYPosition(int yPosition) {
         this.yPosition = yPosition;
     }
 
@@ -76,12 +76,12 @@ public class Layout {
         this.height = height;
     }
 
-    public Boolean isMovable() {
-        return movable;
+    public Boolean getStatic() {
+        return Static;
     }
 
-    public void setMovable(Boolean movable) {
-        this.movable = movable;
+    public void setStatic(Boolean Static) {
+        this.Static = Static;
     }
 
     public String getPage() {
@@ -97,6 +97,8 @@ public class Layout {
 
     @Override
     public String toString() {
-        return "Layout{" + "id=" + id + ", elementName='" + elementName + '\'' + ", xPosition=" + xPosition + ", yPosition=" + yPosition + ", width=" + width + ", height=" + height + ", movable=" + movable + ", page='" + page + '\'' +'}';
+        return "Layout{" + "id=" + id + ", elementName='" + elementName + '\'' + ", xPosition=" + xPosition + ", yPosition=" + yPosition + ", width=" + width + ", height=" + height + ", static=" + getStatic() + ", page='" + page + '\'' +'}';
     }
+
+
 }
