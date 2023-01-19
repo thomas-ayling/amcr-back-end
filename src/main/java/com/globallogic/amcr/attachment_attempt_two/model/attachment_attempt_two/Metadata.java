@@ -12,6 +12,9 @@ public class Metadata {
     private Map<String, Object> metadata;
     private UUID mediaId;
 
+    public Metadata() {
+    }
+
     public Metadata(UUID id, String name, long size, String type, long crc, Map<String, Object> metadata, UUID mediaId) {
         this.id = id;
         this.name = name;

@@ -6,6 +6,9 @@ public class BinaryObject {
     private UUID id;
     private byte[] media;
 
+    public BinaryObject() {
+    }
+
     public BinaryObject(UUID id, byte[] media) {
         this.id = id;
         this.media = media;

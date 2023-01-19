@@ -27,11 +27,8 @@ public class BinaryObjectServiceImpl implements BinaryObjectService {
     public Metadata save(Metadata metadata) {
         UUID id = UUID.randomUUID();
         UUID mediaId = UUID.randomUUID();
-
         LOG.debug("Service saving metadata with id {}:\n {}", id, metadata);
-
-        Metadata returnedMetadata = binaryObjectDao.saveMetadata(metadata, id, mediaId);
-        return returnedMetadata;
+        return binaryObjectDao.saveMetadata(metadata, id, mediaId);
     }
 
     @Override

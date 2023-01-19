@@ -7,7 +7,6 @@ import com.globallogic.amcr.attachment_attempt_two.model.attachment_attempt_two.
 import java.util.UUID;
 
 public interface BinaryObjectDao {
-//    BinaryObject save(BinaryObject binaryObject, UUID id);x
 
     BinaryObject get(UUID id);
 
