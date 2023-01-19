@@ -2,19 +2,18 @@ package com.globallogic.amcr.repository.impl.casestudies;
 
 import com.globallogic.amcr.model.casestudies.CaseStudy;
 import com.globallogic.amcr.model.casestudies.CaseStudyOverview;
-import com.globallogic.amcr.typehandler.JSONMapHandler;
+import com.globallogic.amcr.typehandler.JSONListMapHandler;
 import com.globallogic.amcr.typehandler.TextArrayTypeHandler;
 import com.globallogic.amcr.typehandler.UUIDTypeHandler;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Mapper
 public interface CaseStudyMapper {
 
-    @Insert("INSERT INTO case_studies(id, spotlight, title, overview, cover_image_link, body, download_links) VALUES (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{spotlight}, #{title}, #{overview}, #{coverImageLink}, #{body, javaType=java.util.Map, jdbcType=OTHER, typeHandler=JSONMapHandler}, #{downloadLinks, javaType=java.util.Arrays, jdbcType=OTHER, typeHandler=TextArrayTypeHandler})")
+    @Insert("INSERT INTO case_studies(id, spotlight, title, overview, cover_image_link, body, download_links) VALUES (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{spotlight}, #{title}, #{overview}, #{coverImageLink}, #{body, javaType=java.util.List, jdbcType=OTHER, typeHandler=JSONListMapHandler}, #{downloadLinks, javaType=java.util.Arrays, jdbcType=OTHER, typeHandler=TextArrayTypeHandler})")
     void save(CaseStudy caseStudy);
 
     @Results(id = "caseStudyResults")
@@ -24,10 +23,10 @@ public interface CaseStudyMapper {
             @Arg(column = "title", javaType = String.class),
             @Arg(column = "overview", javaType = String.class),
             @Arg(column = "cover_image_link", javaType = String.class),
-            @Arg(column = "body", javaType = Map.class, typeHandler = JSONMapHandler.class),
+            @Arg(column = "body", javaType = List.class, typeHandler = JSONListMapHandler.class),
             @Arg(column = "download_links", javaType = String[].class, typeHandler = TextArrayTypeHandler.class)
     })
-    @Select("SELECT * FROM case_studies WHERE #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler} = id")
+    @Select("SELECT * FROM case_studies WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     CaseStudy get(@Param("id") UUID id);
 
     @ResultMap("caseStudyResults")
@@ -54,7 +53,7 @@ public interface CaseStudyMapper {
     @Select("SELECT id, spotlight, title, overview, cover_image_link FROM case_studies ORDER BY case_study_order DESC LIMIT #{entries}")
     List<CaseStudyOverview> getLatestOverviews(@Param("entries") int entries);
 
-    @Update("UPDATE case_studies SET spotlight = #{caseStudy.spotlight}, title = #{caseStudy.title}, overview = #{caseStudy.overview}, cover_image_link = #{caseStudy.coverImageLink}, body = #{caseStudy.body, javaType=java.util.Map, jdbcType=OTHER, typeHandler=JSONMapHandler}, download_links = #{caseStudy.downloadLinks, javaType=java.util.Arrays, jdbcType=OTHER, typeHandler=TextArrayTypeHandler} WHERE id = #{caseStudyId, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
+    @Update("UPDATE case_studies SET spotlight = #{caseStudy.spotlight}, title = #{caseStudy.title}, overview = #{caseStudy.overview}, cover_image_link = #{caseStudy.coverImageLink}, body = #{caseStudy.body, javaType=java.util.List, jdbcType=OTHER, typeHandler=JSONListMapHandler}, download_links = #{caseStudy.downloadLinks, javaType=java.util.Arrays, jdbcType=OTHER, typeHandler=TextArrayTypeHandler} WHERE id = #{caseStudyId, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     void update(UUID caseStudyId, CaseStudy caseStudy);
 
     @Delete("DELETE from case_studies WHERE #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler} = id")
