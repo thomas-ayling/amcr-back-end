@@ -4,7 +4,6 @@ import com.globallogic.amcr.persistence.model.pagecontent.Diagram;
 import com.globallogic.amcr.service.pagecontent.DiagramServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -69,7 +68,7 @@ public class DiagramController {
      * @param id      the id of the diagram entry to be updated
      * @param diagram the diagram object with the values that the database will be updated with
      */
-    @PutMapping(value="/{id}", consumes = "application/json", produces = "application/json")
+    @PutMapping(value="/", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Diagram> updateDiagram(@PathVariable UUID id, @RequestBody Diagram diagram) {
         Log.debug("Controller updating diagram data with ID {}", id);
         return ResponseEntity.accepted().body(diagramServiceImpl.update(id, diagram));
@@ -79,7 +78,7 @@ public class DiagramController {
      * @param nodePosition  the node position of the diagram entry to be updated
      * @param diagram the diagram object with the values that the database will be updated with
      */
-    @PutMapping(value="/node/{nodePosition}", consumes = "application/json", produces = "application/json")
+    @PutMapping(value="/node", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Diagram> updateByNodeDiagram(@PathVariable int nodePosition, @RequestBody Diagram diagram) {
         Log.debug("Controller updating diagram data at node position {}", nodePosition);
         return ResponseEntity.accepted().body(diagramServiceImpl.updateByNode(diagram, nodePosition));

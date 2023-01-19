@@ -39,7 +39,7 @@ public class Diagram {
     }
 
     public void setId(UUID id) {
-        this.id = Assert.assertNull(id, "ID cannot be null");
+        this.id = Assert.assertNotNull(id, "ID cannot be null");
     }
 
     public int getNodePosition() {

@@ -1,7 +1,7 @@
 package com.globallogic.amcr.persistence.dao.pagecontent;
 
 import com.globallogic.amcr.persistence.mapper.pagecontent.DiagramMapper;
-import com.globallogic.amcr.persistence.dao.Dao;
+import com.globallogic.amcr.repository.Dao;
 import com.globallogic.amcr.persistence.model.pagecontent.Diagram;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
@@ -18,7 +18,7 @@ public class DiagramDao implements Dao<Diagram, Diagram> {
     private final DiagramMapper diagramMapper;
 
     public DiagramDao (DiagramMapper diagramMapper) {
-        this.diagramMapper = Assert.assertNull(diagramMapper, "Diagram mapper cannot be null");
+        this.diagramMapper = Assert.assertNotNull(diagramMapper, "Diagram mapper cannot be null");
     }
     /**
      * @param diagram the diagram object received from client, no ID set
