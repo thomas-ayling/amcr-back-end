@@ -22,7 +22,7 @@
         },
         {
           "name": "AMCR_DB_HOST",
-          "value": "18.132.17.250"
+          "value": "172.31.47.82"
         },
         {
           "name": "AMCR_DB_PORT",

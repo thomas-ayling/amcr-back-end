@@ -18,8 +18,7 @@ import java.util.Map;
 
 @MappedJdbcTypes(JdbcType.OTHER)
 public class JSONListMapHandler extends BaseTypeHandler<List<Map<String, Object>>> {
-    private static final TypeReference<Map<String, Object>> MAP_TYPE = new TypeReference<Map<String, Object>>() {
-    };
+    private static final TypeReference<Map<String, Object>> MAP_TYPE = new TypeReference<Map<String, Object>>() {};
 
     @Override
     public void setNonNullParameter(final PreparedStatement statement, final int columnIndex,
