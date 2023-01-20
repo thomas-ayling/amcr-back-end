@@ -13,16 +13,16 @@
       ],
       "environment": [
         {
-          "name": "AMCR_DB_USERNAME",
+          "name": "AMCR_DB_UN",
           "value": "ec_acad_psql"
         },
         {
-          "name": "AMCR_DB_PASSWORD",
+          "name": "AMCR_DB_PW",
           "value": "Letme1n!*"
         },
         {
           "name": "AMCR_DB_HOST",
-          "value": "18.132.17.250"
+          "value": "18.134.74.141"
         },
         {
           "name": "AMCR_DB_PORT",
@@ -34,7 +34,7 @@
         },
         {
           "name": "AMCR_MAIL_HOST",
-          "value": "18.134.156.185"
+          "value": "172.31.41.117"
         },
         {
           "name": "AMCR_MAIL_PORT",
