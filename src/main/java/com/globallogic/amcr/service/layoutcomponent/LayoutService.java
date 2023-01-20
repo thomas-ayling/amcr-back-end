@@ -69,13 +69,13 @@ public class LayoutService {
         return layoutDao.update(id, newLayout, oldLayout);
     }
 
-    @Transactional
-    public List<Layout> updateByPage(String page, Layout newLayout) {
-        Assert.assertNotNull(page, "ID must be included to update a layout");
-        Assert.assertNotNull(newLayout, "New layout must not be null");
-        Layout oldLayout = layoutDao.get(page);
-        return layoutDao.updateByPage(page, newLayout, oldLayout);
-    }
+//    @Transactional
+//    public List<Layout> updateByPage(String page, Layout newLayout) {
+//        Assert.assertNotNull(page, "ID must be included to update a layout");
+//        Assert.assertNotNull(newLayout, "New layout must not be null");
+//        Layout oldLayout = layoutDao.get(page);
+//        return layoutDao.updateByPage(page, newLayout, oldLayout);
+//    }
 //    @Transactional
 //    public Layout updateIsMovable(UUID id, Layout newLayout) {
 //        Objects.requireNonNull(id, "ID must be included to update a layout");

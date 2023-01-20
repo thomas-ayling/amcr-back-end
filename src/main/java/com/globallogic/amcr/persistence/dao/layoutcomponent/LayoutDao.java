@@ -74,24 +74,24 @@ public class LayoutDao implements Dao<Layout, Layout> {
         return newLayout;
     }
 
-    public List<Layout> updateByPage(UUID id, List<Layout> newLayouts, List<Layout> oldLayouts) {
-        newLayouts.setId(id);
-        if (oldLayouts.equals(newLayouts)) {
-            return newLayouts;
-        }
-        if (newLayouts.getElementName() == null) {
-            newLayouts.setElementName(oldLayouts.getElementName());
-        }
-
-        if (newLayouts.getStatic() == null) {
-            newLayouts.setStatic(oldLayouts.getStatic());
-        }
-        if (newLayouts.getPage() == null) {
-            newLayouts.setPage(oldLayouts.getPage());
-        }
-        layoutMapper.update(id, newLayouts);
-        return newLayouts;
-    }
+//    public List<Layout> updateByPage(UUID id, List<Layout> newLayouts, List<Layout> oldLayouts) {
+//        newLayouts.setId(id);
+//        if (oldLayouts.equals(newLayouts)) {
+//            return newLayouts;
+//        }
+//        if (newLayouts.getElementName() == null) {
+//            newLayouts.setElementName(oldLayouts.getElementName());
+//        }
+//
+//        if (newLayouts.getStatic() == null) {
+//            newLayouts.setStatic(oldLayouts.getStatic());
+//        }
+//        if (newLayouts.getPage() == null) {
+//            newLayouts.setPage(oldLayouts.getPage());
+//        }
+//        layoutMapper.update(id, newLayouts);
+//        return newLayouts;
+//    }
 
     /*layoutMapper.updateIsMovable(page, newLayout);
         newLayout.setIsMovable(isMovable);

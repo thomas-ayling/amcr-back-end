@@ -11,18 +11,19 @@ public class Layout {
     private int width;
     private int height;
     private Boolean Static;
-    private String page;
+
+    private UUID pageId;
 
 
-    public Layout(UUID id, String elementName, int xPosition, int yPosition, int width, int height, boolean Static, String page) {
+    public Layout(UUID id, String elementName, int xPosition, int yPosition, int width, int height, Boolean aStatic, UUID pageId) {
         this.id = id;
         this.elementName = elementName;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.width = width;
         this.height = height;
-        this.Static = Static;
-        this.page = page;
+        Static = aStatic;
+        this.pageId = pageId;
     }
 
     public Layout() {
@@ -84,21 +85,25 @@ public class Layout {
         this.Static = Static;
     }
 
-    public String getPage() {
-        return page;
+    public UUID getPageId() {
+        return pageId;
     }
 
-    public void setPage(String page) {
-        this.page = page;
+    public void setPageId(UUID pageId) {
+        this.pageId = pageId;
     }
-
-
-
 
     @Override
     public String toString() {
-        return "Layout{" + "id=" + id + ", elementName='" + elementName + '\'' + ", xPosition=" + xPosition + ", yPosition=" + yPosition + ", width=" + width + ", height=" + height + ", static=" + getStatic() + ", page='" + page + '\'' +'}';
+        return "Layout{" +
+                "id=" + id +
+                ", elementName='" + elementName + '\'' +
+                ", xPosition=" + xPosition +
+                ", yPosition=" + yPosition +
+                ", width=" + width +
+                ", height=" + height +
+                ", Static=" + Static +
+                ", pageId=" + pageId +
+                '}';
     }
-
-
 }

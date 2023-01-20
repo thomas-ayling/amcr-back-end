@@ -78,11 +78,11 @@ public class LayoutController {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-    @PutMapping(value = "/page={page}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity updateByPage(@PathVariable String page, @RequestBody @Validated Layout newLayout) {
-        layoutService.updateByPage(page, newLayout);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
-    }
+//    @PutMapping(value = "/page={page}", consumes = "application/json", produces = "application/json")
+//    public ResponseEntity updateByPage(@PathVariable String page, @RequestBody @Validated Layout newLayout) {
+//        layoutService.updateByPage(page, newLayout);
+//        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable UUID id) {
