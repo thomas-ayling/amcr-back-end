@@ -16,7 +16,7 @@ public interface BinaryObjectMapper {
     @Insert("INSERT INTO media (id) VALUES (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler})")
     void saveMedia(@Param("id") UUID id);
 
-    @Insert("INSERT INTO metadata(id, name, type, size, crc, metadata, media_id) VALUES (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{name}, #{type}, #{size}, #{crc}, #{metadata, javaType=java.util.Map, jdbcType=OTHER, typeHandler=JSONMapHandler}, #{mediaId, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler})")
+    @Insert("INSERT INTO metadata(id, name, type, size, crc, metadata, media_id, download_uri) VALUES (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{name}, #{type}, #{size}, #{crc}, #{metadata, javaType=java.util.Map, jdbcType=OTHER, typeHandler=JSONMapHandler}, #{mediaId, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{downloadUri})")
     void saveMetadata(Metadata metadata);
 
     @Results(id = "binaryObjectResults")
@@ -38,7 +38,8 @@ public interface BinaryObjectMapper {
             @Arg(column = "crc", javaType = long.class),
             @Arg(column = "metadata", javaType = Map.class, typeHandler = JSONMapHandler.class),
             @Arg(column = "media_id", javaType = UUID.class, typeHandler = UUIDTypeHandler.class, id = true),
-            @Arg(column = "media", javaType = byte[].class)
+            @Arg(column = "media", javaType = byte[].class),
+            @Arg(column = "download_uri", javaType = String.class)
     })
     @Select("SELECT * FROM media JOIN metadata m ON media.id = m.media_id WHERE m.id = #{metadataId, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     Response getMedia(@Param("metadataId") UUID metadataId);

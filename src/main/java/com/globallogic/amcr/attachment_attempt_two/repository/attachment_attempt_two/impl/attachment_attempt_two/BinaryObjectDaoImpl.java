@@ -10,6 +10,7 @@ import com.globallogic.amcr.utils.Assert;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.UUID;
 
@@ -26,6 +27,7 @@ public class BinaryObjectDaoImpl implements BinaryObjectDao {
     public Metadata saveMetadata(Metadata metadata, UUID id, UUID mediaId) {
         metadata.setId(id);
         metadata.setMediaId(mediaId);
+        metadata.setDownloadUri(ServletUriComponentsBuilder.fromCurrentContextPath().path("/binary/media/").path(id.toString()).toUriString());
         LOG.trace("DAO saving Metadata {}", metadata);
         binaryObjectMapper.saveMedia(metadata.getMediaId());
         binaryObjectMapper.saveMetadata(metadata);

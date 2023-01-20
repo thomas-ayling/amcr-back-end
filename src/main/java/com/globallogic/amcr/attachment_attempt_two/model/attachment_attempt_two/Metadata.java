@@ -11,11 +11,12 @@ public class Metadata {
     private long crc;
     private Map<String, Object> metadata;
     private UUID mediaId;
+    private String downloadUri;
 
     public Metadata() {
     }
 
-    public Metadata(UUID id, String name, long size, String type, long crc, Map<String, Object> metadata, UUID mediaId) {
+    public Metadata(UUID id, String name, long size, String type, long crc, Map<String, Object> metadata, UUID mediaId, String downloadUri) {
         this.id = id;
         this.name = name;
         this.size = size;
@@ -23,6 +24,15 @@ public class Metadata {
         this.crc = crc;
         this.metadata = metadata;
         this.mediaId = mediaId;
+        this.downloadUri = downloadUri;
+    }
+
+    public String getDownloadUri() {
+        return downloadUri;
+    }
+
+    public void setDownloadUri(String downloadUri) {
+        this.downloadUri = downloadUri;
     }
 
     public UUID getId() {

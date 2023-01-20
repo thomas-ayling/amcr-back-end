@@ -57,12 +57,13 @@ create table if not exists academy_project.attachments
 
 create table if not exists metadata
 (
-    id       uuid primary key not null,
-    name     text             not null,
-    size     bigint           not null,
-    crc      bigint,
-    metadata jsonb default '{}'::jsonb,
-    media_id uuid references media (id) on delete cascade
+    id           uuid primary key not null,
+    name         text             not null,
+    size         bigint           not null,
+    crc          bigint,
+    metadata     jsonb default '{}'::jsonb,
+    media_id     uuid references media (id) on delete cascade,
+    download_uri text
 );
 
 create table if not exists media
