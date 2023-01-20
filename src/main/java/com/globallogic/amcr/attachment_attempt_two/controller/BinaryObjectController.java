@@ -5,6 +5,8 @@ import com.globallogic.amcr.attachment_attempt_two.model.attachment_attempt_two.
 import com.globallogic.amcr.attachment_attempt_two.model.attachment_attempt_two.Response;
 import com.globallogic.amcr.attachment_attempt_two.service.BinaryObjectService;
 import com.globallogic.amcr.exception.NotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -13,14 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.io.IOException;
 import java.util.UUID;
-import java.util.zip.CRC32C;
-import java.util.zip.Checksum;
 
 @RestController
 @RequestMapping("/binary")
@@ -91,8 +86,5 @@ public class BinaryObjectController {
                 (response.getType())).header(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + response.getName()
                         + "\"").body(new ByteArrayResource(response.getMedia()));
-
-        //response.getDownloadUri(ServletUriComponentsBuilder.fromCurrentContextPath()
-        //                        .path("/attachments/retrieve/").path(metadataId.toString()).toUriString())
     }
 }
