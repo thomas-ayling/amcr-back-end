@@ -3,7 +3,11 @@ package com.globallogic.amcr.persistence.dao.layoutcomponent;
 import com.globallogic.amcr.mapper.layoutcomponent.LayoutMapper;
 import com.globallogic.amcr.persistence.model.layoutcomponent.Layout;
 import com.globallogic.amcr.persistence.dao.Dao;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -18,9 +22,17 @@ public class LayoutDao implements Dao<Layout, Layout> {
         this.layoutMapper = layoutMapper;
     }
 
-    @Override
-    public void save(Layout layout, UUID id) {
 
+    @Transactional
+    public void save(Layout layout, UUID layoutId) {
+        try {
+            UUID id = UUID.randomUUID();
+            layout.setId(id);
+            layoutMapper.save(layout);
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new RuntimeException("Error in layout dao - could not save feedback", e);
+        }
     }
 
     @Override
@@ -33,8 +45,8 @@ public class LayoutDao implements Dao<Layout, Layout> {
         return layoutMapper.getAll();
     }
 
-    public List<Layout> getByPage(String page) {
-        return layoutMapper.getByPage(page);
+    public List<Layout> getByPage(UUID pageId) {
+        return layoutMapper.getByPage(pageId);
     }
 
 //    public List<Layout> getLayoutByProfileId(UUID profileId) {
@@ -67,8 +79,8 @@ public class LayoutDao implements Dao<Layout, Layout> {
         if (newLayout.getStatic() == null) {
             newLayout.setStatic(oldLayout.getStatic());
         }
-        if (newLayout.getPage() == null) {
-            newLayout.setPage(oldLayout.getPage());
+        if (newLayout.getPageId() == null) {
+            newLayout.setPageId(oldLayout.getPageId());
         }
         layoutMapper.update(id, newLayout);
         return newLayout;

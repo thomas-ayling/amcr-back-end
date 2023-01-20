@@ -11,7 +11,6 @@ public class Layout {
     private int width;
     private int height;
     private Boolean Static;
-
     private UUID pageId;
 
 
