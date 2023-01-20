@@ -22,19 +22,6 @@ public class BinaryObjectDaoImpl implements BinaryObjectDao {
         this.binaryObjectMapper = Assert.assertNull(binaryObjectMapper, "BinaryObject mapper cannot be null");
     }
 
-//    @Override
-//    public BinaryObject save(BinaryObject binaryObject, UUID id) {
-//        try {
-//            UUID mediaId = UUID.randomUUID();
-//            binaryObject.setId(mediaId);
-//            LOG.trace("DAO saving BinaryObject {}", binaryObjectMapper);
-//            binaryObjectMapper.saveBinary(binaryObject);
-//            return binaryObject;
-//        } catch (Exception e) {
-//            throw new RuntimeException("Could not save BinaryObject", e);
-//        }
-//    }
-
     @Override
     public Metadata saveMetadata(Metadata metadata, UUID id, UUID mediaId) {
         metadata.setId(id);

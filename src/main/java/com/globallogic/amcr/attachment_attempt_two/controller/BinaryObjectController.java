@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
 import java.util.UUID;
 import java.util.zip.CRC32C;
 import java.util.zip.Checksum;
@@ -31,18 +33,7 @@ public class BinaryObjectController {
         this.binaryObjectService = binaryObjectService;
     }
 
-//    @PostMapping("/")
-//    public ResponseEntity<BinaryObject> saveBinary(@RequestBody BinaryObject binaryObject, BindingResult errors) {
-//        if (errors.hasErrors()) {
-//            throw new NotFoundException(errors.toString());
-//        }
-//        LOG.debug("Controller requesting a new BinaryObject to be saved with id {}", binaryObject.getId());
-//        BinaryObject incomingBinary = binaryObjectService.save(binaryObject);
-//        return ResponseEntity.accepted().body(incomingBinary);
-//    }
-
     /**
-     *
      * @param metadata
      * @param errors
      * @return the metadata + mediaId (the file id)
@@ -58,21 +49,28 @@ public class BinaryObjectController {
     }
 
     /**
-     *
      * @param id
-     * @return - gets the binary object
+     * @return - gets the binary object - HEEEEEEEEEEEEEEEEEEEEEEEERE
      */
     @GetMapping(value = "/{id}")
     public BinaryObject get(@PathVariable UUID id) {
         LOG.debug("Controller requesting BinaryObject with ID {}", id);
         return binaryObjectService.get(id);
+
+//        BinaryObject bo = new BinaryObject();
+//        byte[] b = bo.getMedia();
+//        if (b != null && b.length > 0) {
+//            LOG.debug("Controller requesting BinaryObject with ID {}", id);
+//            return binaryObjectService.get(id);
+//        } else {
+//            throw new RuntimeException("There is no binary");
+//        }
+
     }
 
     /**
-     *
      * @param id
-     * @param media
-     * You put the file you want to attach
+     * @param media You put the file you want to attach
      */
     @PutMapping(value = "/media/{id}")
     public void get(@PathVariable UUID id, @RequestBody byte[] media) {
@@ -81,7 +79,6 @@ public class BinaryObjectController {
     }
 
     /**
-     *
      * @param metadataId
      * @return returns the file you have attached
      */
@@ -94,5 +91,8 @@ public class BinaryObjectController {
                 (response.getType())).header(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + response.getName()
                         + "\"").body(new ByteArrayResource(response.getMedia()));
+
+        //response.getDownloadUri(ServletUriComponentsBuilder.fromCurrentContextPath()
+        //                        .path("/attachments/retrieve/").path(metadataId.toString()).toUriString())
     }
 }

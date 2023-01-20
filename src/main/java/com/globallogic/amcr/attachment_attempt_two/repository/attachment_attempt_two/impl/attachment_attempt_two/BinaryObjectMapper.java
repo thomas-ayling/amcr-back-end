@@ -21,10 +21,9 @@ public interface BinaryObjectMapper {
 
     @Results(id = "binaryObjectResults")
     @ConstructorArgs({
-            @Arg(column = "id", javaType = UUID.class, typeHandler = UUIDTypeHandler.class, id = true),
             @Arg(column = "media", javaType = byte[].class)
     })
-    @Select("SELECT * FROM media WHERE #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler} = id")
+    @Select("SELECT media FROM media WHERE #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler} = id")
     BinaryObject get(@Param("id") UUID id);
 
     @Update("UPDATE media SET media = #{media} WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")

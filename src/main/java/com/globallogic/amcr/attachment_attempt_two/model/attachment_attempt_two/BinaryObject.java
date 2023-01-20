@@ -9,6 +9,10 @@ public class BinaryObject {
     public BinaryObject() {
     }
 
+    public BinaryObject(byte[] media) {
+        this.media = media;
+    }
+
     public BinaryObject(UUID id, byte[] media) {
         this.id = id;
         this.media = media;
