@@ -39,9 +39,19 @@ public class BinaryObjectController {
     }
 
     @GetMapping(value = "/{id}")
-    public BinaryObject get(@PathVariable UUID id) {
-        LOG.debug("Controller requesting BinaryObject with ID {}", id);
-        return binaryObjectService.get(id);
+    public ResponseEntity<byte[]> getMediaInBytes(@PathVariable UUID id) {
+        BinaryObject bo = binaryObjectService.get(id);
+        if (bo == null) {
+            LOG.debug("Controller requesting BinaryObject with ID that does not exist {}", id);
+            return ResponseEntity.notFound().build();
+        }
+        byte[] bytes = bo.getMedia();
+        if (bytes != null && bytes.length > 0) {
+            LOG.debug("Controller requesting BinaryObject with ID {} that has no media", id);
+            return ResponseEntity.ok().body(bytes);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 //        BinaryObject bo = new BinaryObject();
