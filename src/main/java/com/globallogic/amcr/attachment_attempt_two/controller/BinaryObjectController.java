@@ -54,15 +54,6 @@ public class BinaryObjectController {
         }
     }
 
-//        BinaryObject bo = new BinaryObject();
-//        byte[] b = bo.getMedia();
-//        if (b != null && b.length > 0) {
-//            LOG.debug("Controller requesting BinaryObject with ID {}", id);
-//            return binaryObjectService.get(id);
-//        } else {
-//            throw new RuntimeException("There is no binary");
-//        }
-
     @DeleteMapping(value = "/media/{id}")
     public void delete(@PathVariable UUID id) {
         LOG.debug("Controller requesting to delete metadata with ID {}", id);
