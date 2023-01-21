@@ -1,6 +1,7 @@
 package com.globallogic.amcr.attachment_attempt_two.model.attachment_attempt_two;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Metadata {
@@ -89,5 +90,31 @@ public class Metadata {
 
     public void setMediaId(UUID mediaId) {
         this.mediaId = mediaId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Metadata metadata1)) return false;
+        return getSize() == metadata1.getSize() && getCrc() == metadata1.getCrc() && Objects.equals(getId(), metadata1.getId()) && Objects.equals(getName(), metadata1.getName()) && Objects.equals(getType(), metadata1.getType()) && Objects.equals(getMetadata(), metadata1.getMetadata()) && Objects.equals(getMediaId(), metadata1.getMediaId()) && Objects.equals(getDownloadUri(), metadata1.getDownloadUri());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getSize(), getType(), getCrc(), getMetadata(), getMediaId(), getDownloadUri());
+    }
+
+    @Override
+    public String toString() {
+        return "Metadata{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", size=" + size +
+                ", type='" + type + '\'' +
+                ", crc=" + crc +
+                ", metadata=" + metadata +
+                ", mediaId=" + mediaId +
+                ", downloadUri='" + downloadUri + '\'' +
+                '}';
     }
 }
