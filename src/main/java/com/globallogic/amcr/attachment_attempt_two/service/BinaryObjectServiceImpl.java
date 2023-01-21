@@ -51,4 +51,11 @@ public class BinaryObjectServiceImpl implements BinaryObjectService {
         LOG.debug("Service requesting media with ID {}", metadataId);
         return binaryObjectDao.getMedia(metadataId);
     }
+
+    @Override
+    @Transactional
+    public void delete(UUID id) {
+        LOG.debug("Service deleting metadata with ID {}", id);
+        binaryObjectDao.delete(id);
+    }
 }

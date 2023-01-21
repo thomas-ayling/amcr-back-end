@@ -43,4 +43,8 @@ public interface BinaryObjectMapper {
     })
     @Select("SELECT * FROM media JOIN metadata m ON media.id = m.media_id WHERE m.id = #{metadataId, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     Response getMedia(@Param("metadataId") UUID metadataId);
+
+    @Delete("DELETE FROM metadata WHERE #{id, javaType=java.util.UUID, jdbcType=OTHER, " +
+            "typeHandler=UUIDTypeHandler} = id")
+    void delete(@Param("id") UUID id);
 }

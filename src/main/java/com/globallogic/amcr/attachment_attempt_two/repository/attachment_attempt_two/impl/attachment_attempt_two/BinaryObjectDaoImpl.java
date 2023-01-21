@@ -51,4 +51,10 @@ public class BinaryObjectDaoImpl implements BinaryObjectDao {
         LOG.trace("Dao requesting media with ID {}", metadataId);
         return binaryObjectMapper.getMedia(metadataId);
     }
+
+    @Override
+    public void delete(UUID id) {
+        LOG.trace("DAO requesting to delete metadata with ID {}", id);
+        binaryObjectMapper.delete(id);
+    }
 }

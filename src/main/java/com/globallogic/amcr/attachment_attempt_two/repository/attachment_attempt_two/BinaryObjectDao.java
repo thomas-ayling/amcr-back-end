@@ -15,4 +15,6 @@ public interface BinaryObjectDao {
     void updateMedia(byte[] media, UUID id);
 
     Response getMedia(UUID metadataId);
+
+    void delete(UUID id);
 }

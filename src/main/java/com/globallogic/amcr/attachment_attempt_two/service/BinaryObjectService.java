@@ -14,5 +14,7 @@ public interface BinaryObjectService {
 
     void updateMedia(byte[] media, UUID id);
 
-    Response getMedia (UUID metadataId);
+    Response getMedia(UUID metadataId);
+
+    void delete(UUID id);
 }
