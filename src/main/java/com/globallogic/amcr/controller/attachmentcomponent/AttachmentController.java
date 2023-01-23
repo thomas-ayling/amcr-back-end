@@ -18,9 +18,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.UUID;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/attachment")
-@CrossOrigin
 public class AttachmentController {
     private final AttachmentService attachmentService;
     private final Logger LOG = LoggerFactory.getLogger(AttachmentController.class);
@@ -29,6 +29,7 @@ public class AttachmentController {
         this.attachmentService = Assert.assertNotNull(attachmentService, "Attachment service cannot be null");
     }
 
+    @CrossOrigin(exposedHeaders="Location")
     @PostMapping("/")
     public ResponseEntity<Attachment> save(@RequestBody Attachment attachment, BindingResult errors) {
         if (errors.hasErrors()) {
