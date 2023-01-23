@@ -10,7 +10,7 @@ public interface AttachmentService {
 
     byte[] getBinary(UUID id);
 
-    Attachment update(Attachment attachment, UUID id);
+    Attachment update(byte[] content, UUID id);
 
     Attachment get(UUID id);
 

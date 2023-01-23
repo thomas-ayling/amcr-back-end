@@ -19,7 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/attachments")
+@RequestMapping("/attachment")
 @CrossOrigin
 public class AttachmentController {
     private final AttachmentService attachmentService;
@@ -64,11 +64,9 @@ public class AttachmentController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<?> get(@PathVariable UUID id, @RequestBody byte[] content) {
-        Attachment attachment = new Attachment();
-        attachment.setContent(content);
+    public ResponseEntity<?> setContent(@PathVariable UUID id, @RequestBody byte[] content) {
         LOG.debug("Controller requesting to update with ID {}", id);
-        return ResponseEntity.accepted().body(attachmentService.update(attachment, id));
+        return ResponseEntity.accepted().body(attachmentService.update(content, id));
     }
 
     @GetMapping("/{id}")

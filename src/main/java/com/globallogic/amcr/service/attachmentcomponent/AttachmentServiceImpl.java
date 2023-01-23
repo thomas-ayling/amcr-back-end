@@ -38,10 +38,10 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     @Override
     @Transactional
-    public Attachment update(Attachment newAttachment, UUID id) {
+    public Attachment update(byte[] content, UUID id) {
         Attachment oldAttachment = attachmentDao.get(id);
         LOG.debug("Service updating new attachment");
-        return attachmentDao.update(id, newAttachment, oldAttachment);
+        return attachmentDao.update(id, content, oldAttachment);
     }
 
     @Override

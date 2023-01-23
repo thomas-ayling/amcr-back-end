@@ -13,7 +13,7 @@ import java.util.UUID;
 public interface AttachmentMapper {
 
     @Insert("INSERT INTO attachments(id, name, type, size, crc, metadata, download_uri) VALUES (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{name}, #{type}, #{size}, #{crc}, #{metadata, javaType=java.util.Map, jdbcType=OTHER, typeHandler=JSONMapHandler}, #{downloadUri})")
-    void saveMetadata(Attachment attachment);
+    void save(Attachment attachment);
 
     @Results(id = "binaryObjectResults")
     @ConstructorArgs({
@@ -22,8 +22,8 @@ public interface AttachmentMapper {
     @Select("SELECT content FROM attachments WHERE #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler} = id")
     byte[] getBinary(@Param("id") UUID id);
 
-    @Update("UPDATE attachments SET content = #{attachment.content} WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
-    void updateMedia(Attachment attachment, UUID id);
+    @Update("UPDATE attachments SET content = #{content} WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
+    void update(byte[] content, UUID id);
 
     @Results(id = "response")
     @ConstructorArgs({

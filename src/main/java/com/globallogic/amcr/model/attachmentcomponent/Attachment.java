@@ -27,14 +27,17 @@ public class Attachment {
         this.downloadUri = downloadUri;
     }
 
-    public void setAllButContent(Attachment attachment) {
-        this.id = attachment.getId();
-        this.name = attachment.getName();
-        this.size = attachment.getSize();
-        this.type = attachment.getType();
-        this.crc = attachment.getCrc();
-        this.metadata = attachment.getMetadata();
-        this.downloadUri = attachment.getDownloadUri();
+    public static Attachment from(Attachment attachment, byte[] content) {
+        Attachment newAttachment = new Attachment();
+        newAttachment.id = attachment.getId();
+        newAttachment.name = attachment.getName();
+        newAttachment.size = attachment.getSize();
+        newAttachment.type = attachment.getType();
+        newAttachment.crc = attachment.getCrc();
+        newAttachment.metadata = attachment.getMetadata();
+        newAttachment.downloadUri = attachment.getDownloadUri();
+        newAttachment.content = content;
+        return newAttachment;
     }
 
     public UUID getId() {

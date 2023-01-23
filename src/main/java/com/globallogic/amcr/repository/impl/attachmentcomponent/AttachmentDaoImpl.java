@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -27,16 +26,15 @@ public class AttachmentDaoImpl implements AttachmentDao {
         attachment.setId(id);
         attachment.setDownloadUri(ServletUriComponentsBuilder.fromCurrentContextPath().path("/attachment/").path(id.toString()).toUriString());
         LOG.trace("DAO saving attachment {}", attachment);
-        attachmentMapper.saveMetadata(attachment);
+        attachmentMapper.save(attachment);
         return attachment;
     }
 
     @Override
-    public Attachment update(UUID id, Attachment newAttachment, Attachment oldAttachment) {
+    public Attachment update(UUID id, byte[] content, Attachment oldAttachment) {
         LOG.trace("DAO updating attachment with ID {}", id);
-        attachmentMapper.updateMedia(newAttachment, id);
-        newAttachment.setAllButContent(oldAttachment);
-        return newAttachment;
+        attachmentMapper.update(content, id);
+        return Attachment.from(oldAttachment, content);
     }
 
     @Override
@@ -49,12 +47,6 @@ public class AttachmentDaoImpl implements AttachmentDao {
     public Attachment get(UUID id) {
         LOG.trace("Dao requesting attachment with ID {}", id);
         return attachmentMapper.get(id);
-    }
-
-    // Not needed
-    @Override
-    public List<Attachment> getAll() {
-        return null;
     }
 
     @Override
