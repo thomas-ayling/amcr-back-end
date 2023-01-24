@@ -52,7 +52,7 @@ public interface AttachmentMapper {
             @Arg(column = "size", javaType = long.class),
             @Arg(column = "type", javaType = String.class)
     })
-    @Select("SELECT name, size, type FROM attachments ORDER BY attachment_sequence LIMIT 20")
+    @Select("SELECT name, size, type FROM attachments ORDER BY attachment_sequence DESC LIMIT 20")
     List<AttachmentResponse> getAll();
 
     @Results(id = "responseMetadata")
