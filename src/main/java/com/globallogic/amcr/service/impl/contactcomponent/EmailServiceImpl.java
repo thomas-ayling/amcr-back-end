@@ -5,7 +5,7 @@ import com.globallogic.amcr.model.contactcomponent.Feedback;
 import com.globallogic.amcr.model.contactcomponent.FeedbackAttachmentMetadata;
 import com.globallogic.amcr.service.contactcomponent.EmailService;
 import com.globallogic.amcr.utils.Assert;
-import com.globallogic.amcr.utils.ByteConverter;
+import com.globallogic.amcr.utils.Utils;
 import jakarta.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,8 +46,8 @@ public class EmailServiceImpl implements EmailService {
             mimeMessageHelper.setTo("<test>");
 
             String style = "<style>.email { font-family: Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif; }</style>";
-            String textAttachmentLink = feedbackAttachmentMetadata == null ? "" : String.format("Follow this link to download attachment: %s (%s, %s)", feedbackAttachmentMetadata.getDownloadUri(), feedbackAttachmentMetadata.getAttachmentName(), ByteConverter.bytesToReadable(feedbackAttachmentMetadata.getAttachmentSize()));
-            String htmlAttachmentLink = feedbackAttachmentMetadata == null ? "" : String.format("<span>Download attachment: <a href=%s>%s (%s)</a></span>", feedbackAttachmentMetadata.getDownloadUri(), feedbackAttachmentMetadata.getAttachmentName(), ByteConverter.bytesToReadable(feedbackAttachmentMetadata.getAttachmentSize()));
+            String textAttachmentLink = feedbackAttachmentMetadata == null ? "" : String.format("Follow this link to download attachment: %s (%s, %s)", feedbackAttachmentMetadata.getDownloadUri(), feedbackAttachmentMetadata.getAttachmentName(), Utils.bytesToReadable(feedbackAttachmentMetadata.getAttachmentSize()));
+            String htmlAttachmentLink = feedbackAttachmentMetadata == null ? "" : String.format("<span>Download attachment: <a href=%s>%s (%s)</a></span>", feedbackAttachmentMetadata.getDownloadUri(), feedbackAttachmentMetadata.getAttachmentName(), Utils.bytesToReadable(feedbackAttachmentMetadata.getAttachmentSize()));
             String textPart;
             String htmlPart;
 
