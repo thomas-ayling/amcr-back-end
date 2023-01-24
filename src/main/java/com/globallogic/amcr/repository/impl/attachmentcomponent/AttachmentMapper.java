@@ -1,6 +1,7 @@
 package com.globallogic.amcr.repository.impl.attachmentcomponent;
 
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
+import com.globallogic.amcr.model.attachmentcomponent.AttachmentMetadata;
 import com.globallogic.amcr.model.attachmentcomponent.AttachmentResponse;
 import com.globallogic.amcr.typehandler.JSONMapHandler;
 import com.globallogic.amcr.typehandler.UUIDTypeHandler;
@@ -51,6 +52,19 @@ public interface AttachmentMapper {
             @Arg(column = "size", javaType = long.class),
             @Arg(column = "type", javaType = String.class)
     })
-    @Select("SELECT name, size, type FROM attachments")
+    @Select("SELECT name, size, type FROM attachments ORDER BY attachment_sequence LIMIT 20")
     List<AttachmentResponse> getAll();
+
+    @Results(id = "responseMetadata")
+    @ConstructorArgs({
+            @Arg(column = "id", javaType = UUID.class, typeHandler = UUIDTypeHandler.class, id = true),
+            @Arg(column = "name", javaType = String.class),
+            @Arg(column = "size", javaType = long.class),
+            @Arg(column = "type", javaType = String.class),
+            @Arg(column = "crc", javaType = long.class),
+            @Arg(column = "metadata", javaType = Map.class, typeHandler = JSONMapHandler.class),
+            @Arg(column = "download_uri", javaType = String.class)
+    })
+    @Select("SELECT id, name, size, type, crc, metadata, download_uri FROM attachments WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
+    AttachmentMetadata getMetadata(@Param("id") UUID id);
 }
