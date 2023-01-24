@@ -43,6 +43,40 @@ create table if not exists academy_project.case_studies
 ALTER TABLE academy_project.case_studies
     OWNER TO CURRENT_USER;
 
+create table if not exists academy_project.attachments
+(
+    id           uuid primary key not null,
+    name         text             not null,
+    download_uri text             not null,
+    content_type text             not null,
+    size         bigint           not null,
+    crc          bigint           not null,
+    metadata     jsonb default '{}'::jsonb,
+    data         bytea            not null
+);
+
+create table if not exists metadata
+(
+    id           uuid primary key not null,
+    name         text             not null,
+    size         bigint           not null,
+    crc          bigint,
+    metadata     jsonb default '{}'::jsonb,
+    media_id     uuid references media (id) on delete cascade,
+    download_uri text
+);
+
+create table if not exists media
+(
+    id    uuid primary key not null,
+    media bytea
+);
+
+ALTER TABLE academy_project.attachments
+    OWNER TO CURRENT_USER;
+ALTER TABLE academy_project.case_studies
+    OWNER TO CURRENT_USER;
+
 -- Object format:
 
 -- {
