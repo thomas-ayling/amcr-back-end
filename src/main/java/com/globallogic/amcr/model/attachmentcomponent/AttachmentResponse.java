@@ -1,14 +1,26 @@
 package com.globallogic.amcr.model.attachmentcomponent;
 
+import java.util.UUID;
+
 public class AttachmentResponse {
+    private UUID id;
     private String name;
     private long size;
     private String type;
 
-    public AttachmentResponse(String name, long size, String type) {
+    public AttachmentResponse(UUID id, String name, long size, String type) {
+        this.id = id;
         this.name = name;
         this.size = size;
         this.type = type;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public AttachmentResponse() {}
