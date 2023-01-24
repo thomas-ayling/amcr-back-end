@@ -6,8 +6,8 @@ import java.util.UUID;
 public class Attachment extends AttachmentMetadata {
     private byte[] content;
 
-    public Attachment( UUID id, String name, long size, String type, long crc, Map<String, Object> metadata, byte[] content, String downloadUri) {
-        super(name, size, type, id, crc, metadata, downloadUri);
+    public Attachment(UUID id, String name, long size, String type, long crc, Map<String, Object> metadata, byte[] content, String downloadUri) {
+        super(id, name, size, type, crc, metadata, downloadUri);
         this.content = content;
     }
 
