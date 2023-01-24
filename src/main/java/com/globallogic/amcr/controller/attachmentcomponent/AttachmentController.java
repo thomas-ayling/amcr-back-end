@@ -82,7 +82,6 @@ public class AttachmentController {
     @GetMapping("/")
     public ResponseEntity<?> getAllAttachments() {
         LOG.debug("Controller requesting to get all attachments");
-        attachmentService.getAll();
         return ResponseEntity.ok(attachmentService.getAll());
     }
 }
