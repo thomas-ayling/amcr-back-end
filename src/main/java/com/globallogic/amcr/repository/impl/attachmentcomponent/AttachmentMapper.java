@@ -6,6 +6,7 @@ import com.globallogic.amcr.typehandler.UUIDTypeHandler;
 
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -42,4 +43,18 @@ public interface AttachmentMapper {
     @Delete("DELETE FROM attachments WHERE #{id, javaType=java.util.UUID, jdbcType=OTHER, " +
             "typeHandler=UUIDTypeHandler} = id")
     void delete(@Param("id") UUID id);
+
+    @Results(id = "getAllResponse")
+    @ConstructorArgs({
+            @Arg(column = "id", javaType = UUID.class, typeHandler = UUIDTypeHandler.class, id = true),
+            @Arg(column = "name", javaType = String.class),
+            @Arg(column = "size", javaType = long.class),
+            @Arg(column = "type", javaType = String.class),
+            @Arg(column = "crc", javaType = long.class),
+            @Arg(column = "metadata", javaType = Map.class, typeHandler = JSONMapHandler.class),
+            @Arg(column = "content", javaType = byte[].class),
+            @Arg(column = "download_uri", javaType = String.class)
+    })
+    @Select("SELECT * FROM attachments")
+    List<Attachment> getAll();
 }

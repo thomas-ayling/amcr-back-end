@@ -78,4 +78,11 @@ public class AttachmentController {
                 "attachment; filename=\"" + attachment.getName()
                         + "\"").body(new ByteArrayResource(attachment.getContent()));
     }
+
+    @GetMapping("/")
+    public ResponseEntity<?> getAllAttachments() {
+        LOG.debug("Controller requesting to get all attachments");
+        attachmentService.getAll();
+        return ResponseEntity.ok(attachmentService.getAll());
+    }
 }

@@ -2,6 +2,7 @@ package com.globallogic.amcr.service.attachmentcomponent;
 
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface AttachmentService {
@@ -15,4 +16,6 @@ public interface AttachmentService {
     Attachment get(UUID id);
 
     void delete(UUID id);
+
+    List<Attachment> getAll();
 }

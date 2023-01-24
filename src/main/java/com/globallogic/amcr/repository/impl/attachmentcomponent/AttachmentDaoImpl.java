@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -53,5 +54,11 @@ public class AttachmentDaoImpl implements AttachmentDao {
     public void delete(UUID id) {
         LOG.trace("DAO requesting to delete attachment with ID {}", id);
         attachmentMapper.delete(id);
+    }
+
+    @Override
+    public List<Attachment> getAll() {
+        LOG.trace("DAO requesting all attachments");
+        return attachmentMapper.getAll();
     }
 }

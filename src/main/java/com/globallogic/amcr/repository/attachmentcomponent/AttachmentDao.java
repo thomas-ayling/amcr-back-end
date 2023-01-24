@@ -2,6 +2,7 @@ package com.globallogic.amcr.repository.attachmentcomponent;
 
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface AttachmentDao {
@@ -15,4 +16,6 @@ public interface AttachmentDao {
     Attachment save(Attachment attachment, UUID id);
 
     Attachment get(UUID id);
+
+    List<Attachment> getAll();
 }

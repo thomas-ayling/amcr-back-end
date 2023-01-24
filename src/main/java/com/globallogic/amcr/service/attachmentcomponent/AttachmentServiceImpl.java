@@ -10,6 +10,7 @@ import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -56,5 +57,12 @@ public class AttachmentServiceImpl implements AttachmentService {
     public void delete(UUID id) {
         LOG.debug("Service deleting attachment with ID {}", id);
         attachmentDao.delete(id);
+    }
+
+    @Override
+    @Transactional
+    public List<Attachment> getAll() {
+        LOG.debug("Service requesting all attachments");
+        return attachmentDao.getAll();
     }
 }
