@@ -28,7 +28,7 @@ public class CaseStudyDaoImpl implements CaseStudyDao {
             caseStudyMapper.save(caseStudy);
             return caseStudy;
         } catch (Exception e) {
-            throw new RuntimeException("Error in CaseStudyDaoImpl - could not save case study");
+            throw new RuntimeException("Error in CaseStudyDaoImpl - could not save case study", e);
         }
     }
 

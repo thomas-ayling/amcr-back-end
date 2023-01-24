@@ -48,19 +48,13 @@ public class CaseStudyServiceImpl implements CaseStudyService {
         List<String> attachmentLinks = new ArrayList<>();
         if (caseStudy.getAttachmentIds() != null) {
             for (UUID attachmentId : caseStudy.getAttachmentIds()) {
-                attachmentLinks.add(ServletUriComponentsBuilder.fromCurrentRequest().path("attachment/{attachmentId}").buildAndExpand(attachmentId).toUri().toString());
+                attachmentLinks.add(ServletUriComponentsBuilder.fromCurrentRequest().path("/attachment/{id}").buildAndExpand(attachmentId).toUri().toString());
             }
         }
-        final String coverImageLink = ServletUriComponentsBuilder.fromCurrentRequest().path("attachment/{id}").buildAndExpand(caseStudy.getCoverImageId()).toUri().toString();
-        //////////////////////////////////////////////////////////////////////////////////////////////////////
-        System.out.println(caseStudy);
-        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        final String coverImageLink = ServletUriComponentsBuilder.fromCurrentRequest().path("/attachment/{id}").buildAndExpand(caseStudy.getCoverImageId()).toUri().toString();
         for (Map<String, String> row : caseStudy.getBody()) {
-            row.replace("imageId", ServletUriComponentsBuilder.fromCurrentRequest().path("attachment/{id}").buildAndExpand(row.get("imageID")).toUri().toString());
+            row.replace("imageId", ServletUriComponentsBuilder.fromCurrentRequest().path("/attachment/{id}").buildAndExpand(row.get("imageId")).toUri().toString());
         }
-        //////////////////////////////////////////////////////////////////////////////////////////////////////
-        System.out.println(caseStudy);
-        //////////////////////////////////////////////////////////////////////////////////////////////////////
         return new CaseStudyResponse(caseStudy, attachmentLinks, coverImageLink);
     }
 
