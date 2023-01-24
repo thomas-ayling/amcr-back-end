@@ -10,6 +10,7 @@ public class CaseStudy extends CaseStudyOverview {
     @NotNull
     private List<Map<String, String>> body;
     private UUID[] attachmentIds;
+    private List<String> attachmentLinks;
 
     /**
      * @param id             the id of the object
@@ -45,6 +46,14 @@ public class CaseStudy extends CaseStudyOverview {
 
     public void setAttachmentIds(UUID[] attachmentIds) {
         this.attachmentIds = attachmentIds;
+    }
+
+    public List<String> getAttachmentLinks() {
+        return attachmentLinks;
+    }
+
+    public void setAttachmentLinks(List<String> attachmentLinks) {
+        this.attachmentLinks = attachmentLinks;
     }
 
     @Override

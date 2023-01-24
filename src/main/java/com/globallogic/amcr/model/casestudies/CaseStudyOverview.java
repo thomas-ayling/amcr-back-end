@@ -3,6 +3,7 @@ package com.globallogic.amcr.model.casestudies;
 import com.globallogic.amcr.utils.Assert;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -17,6 +18,7 @@ public class CaseStudyOverview {
     private String overview;
     @NotNull
     private UUID coverImageId;
+    private String coverImageLink;
 
     public CaseStudyOverview(UUID id, boolean spotlight, String title, String overview, UUID coverImageId) {
         setId(id);
@@ -67,6 +69,14 @@ public class CaseStudyOverview {
 
     public void setCoverImageId(UUID coverImageId) {
         this.coverImageId = Assert.assertNotNull(coverImageId, "Cover image link cannot be null");
+    }
+
+    public String getCoverImageLink() {
+        return coverImageLink;
+    }
+
+    public void setCoverImageLink(String coverImageLink) {
+        this.coverImageLink = coverImageLink;
     }
 
     @Override
