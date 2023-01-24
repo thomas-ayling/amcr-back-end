@@ -1,14 +1,22 @@
 package com.globallogic.amcr.utils;
 
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
+import java.util.UUID;
 
-@SuppressWarnings({"FinalStaticMethod", "SpellCheckingInspection"})
-public class ByteConverter {
-    private ByteConverter() {
-        throw new UnsupportedOperationException("ByteConverter cannot be used dynamically and should only be referenced statically");
+public class Utils {
+    public Utils() {
+        throw new UnsupportedOperationException("Utils class is static and should not be instantiated using the constructor.");
     }
-    public final static String bytesToReadable(long bytes) {
+
+    public static URI generateUri (String path, UUID id) {
+        return ServletUriComponentsBuilder.fromCurrentRequest().path(path).buildAndExpand(id).toUri();
+    }
+
+    public static String bytesToReadable(long bytes) {
         long absB = bytes == Long.MIN_VALUE ? Long.MAX_VALUE : Math.abs(bytes);
         if (absB < 1024) {
             return bytes + " B";
