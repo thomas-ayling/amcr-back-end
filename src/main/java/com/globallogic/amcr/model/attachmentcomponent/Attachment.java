@@ -3,7 +3,7 @@ package com.globallogic.amcr.model.attachmentcomponent;
 import java.util.Map;
 import java.util.UUID;
 
-public class Attachment {
+public class Attachment extends AttachmentResponse {
     private UUID id;
     private String name;
     private long size;
@@ -14,6 +14,7 @@ public class Attachment {
     private String downloadUri;
 
     public Attachment() {
+        super();
     }
 
     public Attachment(UUID id, String name, long size, String type, long crc, Map<String, Object> metadata, byte[] content, String downloadUri) {

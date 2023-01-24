@@ -1,6 +1,7 @@
 package com.globallogic.amcr.repository.impl.attachmentcomponent;
 
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
+import com.globallogic.amcr.model.attachmentcomponent.AttachmentResponse;
 import com.globallogic.amcr.typehandler.JSONMapHandler;
 import com.globallogic.amcr.typehandler.UUIDTypeHandler;
 
@@ -44,17 +45,12 @@ public interface AttachmentMapper {
             "typeHandler=UUIDTypeHandler} = id")
     void delete(@Param("id") UUID id);
 
-    @Results(id = "getAllResponse")
+    @Results(id = "attachmentResponse")
     @ConstructorArgs({
-            @Arg(column = "id", javaType = UUID.class, typeHandler = UUIDTypeHandler.class, id = true),
             @Arg(column = "name", javaType = String.class),
             @Arg(column = "size", javaType = long.class),
-            @Arg(column = "type", javaType = String.class),
-            @Arg(column = "crc", javaType = long.class),
-            @Arg(column = "metadata", javaType = Map.class, typeHandler = JSONMapHandler.class),
-            @Arg(column = "content", javaType = byte[].class),
-            @Arg(column = "download_uri", javaType = String.class)
+            @Arg(column = "type", javaType = String.class)
     })
-    @Select("SELECT * FROM attachments")
-    List<Attachment> getAll();
+    @Select("SELECT name, size, type FROM attachments")
+    List<AttachmentResponse> getAll();
 }

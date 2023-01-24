@@ -1,6 +1,7 @@
 package com.globallogic.amcr.service.attachmentcomponent;
 
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
+import com.globallogic.amcr.model.attachmentcomponent.AttachmentResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,7 +62,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     @Override
     @Transactional
-    public List<Attachment> getAll() {
+    public List<AttachmentResponse> getAll() {
         LOG.debug("Service requesting all attachments");
         return attachmentDao.getAll();
     }
