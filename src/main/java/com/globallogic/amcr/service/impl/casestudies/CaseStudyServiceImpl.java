@@ -1,16 +1,20 @@
 package com.globallogic.amcr.service.impl.casestudies;
 
-import com.globallogic.amcr.repository.casestudies.CaseStudyDao;
 import com.globallogic.amcr.model.casestudies.CaseStudy;
 import com.globallogic.amcr.model.casestudies.CaseStudyOverview;
+import com.globallogic.amcr.model.casestudies.CaseStudyResponse;
+import com.globallogic.amcr.repository.casestudies.CaseStudyDao;
 import com.globallogic.amcr.service.casestudies.CaseStudyService;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -37,10 +41,27 @@ public class CaseStudyServiceImpl implements CaseStudyService {
 
     @Override
     @Transactional
-    public CaseStudy get(UUID id) {
+    public CaseStudyResponse get(UUID id) {
         Assert.assertNotNull(id, "ID cannot be null to request entry");
         Log.debug("Service requesting case study with ID {}", id);
-        return caseStudyDao.get(id);
+        final CaseStudy caseStudy = caseStudyDao.get(id);
+        List<String> attachmentLinks = new ArrayList<>();
+        if (caseStudy.getAttachmentIds() != null) {
+            for (UUID attachmentId : caseStudy.getAttachmentIds()) {
+                attachmentLinks.add(ServletUriComponentsBuilder.fromCurrentRequest().path("attachment/{attachmentId}").buildAndExpand(attachmentId).toUri().toString());
+            }
+        }
+        final String coverImageLink = ServletUriComponentsBuilder.fromCurrentRequest().path("attachment/{id}").buildAndExpand(caseStudy.getCoverImageId()).toUri().toString();
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        System.out.println(caseStudy);
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        for (Map<String, String> row : caseStudy.getBody()) {
+            row.replace("imageId", ServletUriComponentsBuilder.fromCurrentRequest().path("attachment/{id}").buildAndExpand(row.get("imageID")).toUri().toString());
+        }
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        System.out.println(caseStudy);
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        return new CaseStudyResponse(caseStudy, attachmentLinks, coverImageLink);
     }
 
     @Override

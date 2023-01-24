@@ -1,8 +1,8 @@
 package com.globallogic.amcr.mapper.attachmentcomponent;
 
-import com.globallogic.amcr.persistence.model.attachmentcomponent.Attachment;
-import com.globallogic.amcr.persistence.payload.attachmentcomponent.AttachmentMetadata;
-import com.globallogic.amcr.persistence.payload.attachmentcomponent.AttachmentResponse;
+import com.globallogic.amcr.model.attachmentcomponent.Attachment;
+import com.globallogic.amcr.model.attachmentcomponent.AttachmentMetadata;
+import com.globallogic.amcr.model.attachmentcomponent.AttachmentResponse;
 import com.globallogic.amcr.typehandler.JSONMapHandler;
 import org.apache.ibatis.annotations.*;
 

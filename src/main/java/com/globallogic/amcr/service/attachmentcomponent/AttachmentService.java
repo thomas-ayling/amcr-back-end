@@ -1,8 +1,8 @@
 package com.globallogic.amcr.service.attachmentcomponent;
 
-import com.globallogic.amcr.persistence.model.attachmentcomponent.Attachment;
-import com.globallogic.amcr.persistence.payload.attachmentcomponent.AttachmentMetadata;
-import com.globallogic.amcr.persistence.payload.attachmentcomponent.AttachmentResponse;
+import com.globallogic.amcr.model.attachmentcomponent.Attachment;
+import com.globallogic.amcr.model.attachmentcomponent.AttachmentMetadata;
+import com.globallogic.amcr.model.attachmentcomponent.AttachmentResponse;
 
 import java.util.List;
 import java.util.UUID;

@@ -1,4 +1,4 @@
-create table if not exists academy_project.feedback
+create table if not exists feedback
 (
     id             uuid primary key,
     feedback_order serial not null,
@@ -11,10 +11,10 @@ create table if not exists academy_project.feedback
     book_link      text
 );
 
-ALTER TABLE academy_project.feedback
+ALTER TABLE feedback
     OWNER TO CURRENT_USER;
 
-create table if not exists academy_project.files
+create table if not exists files
 (
     id           uuid primary key,
     file_name    text   not null,
@@ -25,22 +25,22 @@ create table if not exists academy_project.files
     feedback_id  uuid references feedback (id) on delete cascade
 );
 
-ALTER TABLE academy_project.files
+ALTER TABLE files
     OWNER TO CURRENT_USER;
 
-create table if not exists academy_project.case_studies
+create table if not exists case_studies
 (
     id               uuid primary key not null,
     case_study_order serial           not null,
     spotlight        boolean          not null,
     title            text             not null,
     overview         text             not null,
-    cover_image_link text             not null,
     body             jsonb            not null,
-    download_links   text[]
+    attachment_ids   uuid[],
+    cover_image_id   uuid             not null
 );
 
-ALTER TABLE academy_project.case_studies
+ALTER TABLE case_studies
     OWNER TO CURRENT_USER;
 
 create table if not exists academy_project.attachments

@@ -8,43 +8,43 @@ import java.util.*;
 @SuppressWarnings("unused")
 public class CaseStudy extends CaseStudyOverview {
     @NotNull
-    private List<Map<?, ?>> body;
-    private String[] downloadLinks;
+    private List<Map<String, String>> body;
+    private UUID[] attachmentIds;
 
     /**
      * @param id             the id of the object
      * @param spotlight      keeps track of whether the case study should be spotlighted on the case studies page
      * @param title          the title of the case study
      * @param overview       the text intro to be displayed in the main case study page
-     * @param coverImageLink the link to the image to be used as the cover (on the carousels for example)
+     * @param coverImageId the id of the image to be used as the cover image (on the carousels for example)
      * @param body           the main data to be displayed on the single page, stored as JSON
-     * @param downloadLinks  the list of download links to related attachments
+     * @param attachmentIds  the list of ids to related attachments
      */
 
-    public CaseStudy(UUID id, boolean spotlight, String title, String overview, String coverImageLink, List<Map<?, ?>> body, String[] downloadLinks) {
-        super(id, spotlight, title, overview, coverImageLink);
+    public CaseStudy(UUID id, boolean spotlight, String title, String overview, UUID coverImageId, List<Map<String, String>> body, UUID[] attachmentIds) {
+        super(id, spotlight, title, overview, coverImageId);
         setBody(body);
-        setDownloadLinks(downloadLinks);
+        setAttachmentIds(attachmentIds);
     }
 
     public CaseStudy() {
         super();
     }
 
-    public List<Map<?, ?>> getBody() {
+    public List<Map<String, String>> getBody() {
         return body;
     }
 
-    public void setBody(List<Map<?, ?>> body) {
+    public void setBody(List<Map<String, String>> body) {
         this.body = Assert.assertNotNull(body, "Case study's body cannot be null");
     }
 
-    public String[] getDownloadLinks() {
-        return downloadLinks;
+    public UUID[] getAttachmentIds() {
+        return attachmentIds;
     }
 
-    public void setDownloadLinks(String[] downloadLinks) {
-        this.downloadLinks = downloadLinks;
+    public void setAttachmentIds(UUID[] attachmentIds) {
+        this.attachmentIds = attachmentIds;
     }
 
     @Override
@@ -53,13 +53,13 @@ public class CaseStudy extends CaseStudyOverview {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         CaseStudy caseStudy = (CaseStudy) o;
-        return getBody().equals(caseStudy.getBody()) && Arrays.equals(getDownloadLinks(), caseStudy.getDownloadLinks());
+        return getBody().equals(caseStudy.getBody()) && Arrays.equals(getAttachmentIds(), caseStudy.getAttachmentIds());
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hash(super.hashCode(), getBody());
-        result = 31 * result + Arrays.hashCode(getDownloadLinks());
+        result = 31 * result + Arrays.hashCode(getAttachmentIds());
         return result;
     }
 
@@ -67,7 +67,7 @@ public class CaseStudy extends CaseStudyOverview {
     public String toString() {
         return "CaseStudy{" +
                 "body=" + body +
-                ", downloadLinks=" + Arrays.toString(downloadLinks) +
+                ", downloadLinks=" + Arrays.toString(attachmentIds) +
                 '}' + super.toString();
     }
 }

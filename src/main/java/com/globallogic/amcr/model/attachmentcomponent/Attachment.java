@@ -1,4 +1,4 @@
-package com.globallogic.amcr.persistence.model.attachmentcomponent;
+package com.globallogic.amcr.model.attachmentcomponent;
 
 import java.util.Arrays;
 import java.util.Map;

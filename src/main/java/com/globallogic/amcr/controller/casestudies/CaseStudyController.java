@@ -5,6 +5,7 @@ import com.globallogic.amcr.model.casestudies.CaseStudy;
 import com.globallogic.amcr.model.casestudies.CaseStudyOverview;
 import com.globallogic.amcr.service.casestudies.CaseStudyService;
 import com.globallogic.amcr.utils.Assert;
+import jakarta.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,11 @@ public class CaseStudyController {
     public ResponseEntity<CaseStudy> get(@PathVariable UUID id) {
         Log.debug("Controller requesting case study with ID {}", id);
         return ResponseEntity.ok().body(caseStudyService.get(id));
+    }
+
+    @GetMapping(value = "/{id}/attachment/{attachmentId}")
+    public String getAttachment(@PathVariable UUID id, @PathVariable UUID attachmentId) {
+        return "forward:/attachment/" + attachmentId;
     }
 
     @GetMapping(produces = "application/json")

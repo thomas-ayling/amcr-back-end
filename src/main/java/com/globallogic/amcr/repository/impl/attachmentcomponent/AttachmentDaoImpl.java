@@ -1,10 +1,10 @@
-package com.globallogic.amcr.persistence.dao.attachmentcomponent;
+package com.globallogic.amcr.repository.impl.attachmentcomponent;
 
 import com.globallogic.amcr.mapper.attachmentcomponent.AttachmentMapper;
-import com.globallogic.amcr.persistence.dao.Dao;
-import com.globallogic.amcr.persistence.model.attachmentcomponent.Attachment;
-import com.globallogic.amcr.persistence.payload.attachmentcomponent.AttachmentMetadata;
-import com.globallogic.amcr.persistence.payload.attachmentcomponent.AttachmentResponse;
+import com.globallogic.amcr.repository.Dao;
+import com.globallogic.amcr.model.attachmentcomponent.Attachment;
+import com.globallogic.amcr.model.attachmentcomponent.AttachmentMetadata;
+import com.globallogic.amcr.model.attachmentcomponent.AttachmentResponse;
 import com.globallogic.amcr.utils.Assert;
 import com.globallogic.amcr.utils.ByteConverter;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ public class AttachmentDaoImpl implements Dao<Attachment, AttachmentResponse> {
     private final AttachmentMapper attachmentMapper;
 
     public AttachmentDaoImpl(AttachmentMapper attachmentMapper) {
-        this.attachmentMapper = Assert.assertNull(attachmentMapper, "Attachment mapper cannot be null");
+        this.attachmentMapper = Assert.assertNotNull(attachmentMapper, "Attachment mapper cannot be null");
     }
 
     @Override

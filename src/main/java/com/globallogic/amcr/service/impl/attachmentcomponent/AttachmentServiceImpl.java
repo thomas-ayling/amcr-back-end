@@ -1,14 +1,13 @@
-package com.globallogic.amcr.service.attachmentcomponent;
+package com.globallogic.amcr.service.impl.attachmentcomponent;
 
-import com.globallogic.amcr.persistence.dao.attachmentcomponent.AttachmentDaoImpl;
-import com.globallogic.amcr.persistence.model.attachmentcomponent.Attachment;
-import com.globallogic.amcr.persistence.payload.attachmentcomponent.AttachmentMetadata;
-import com.globallogic.amcr.persistence.payload.attachmentcomponent.AttachmentResponse;
+import com.globallogic.amcr.repository.impl.attachmentcomponent.AttachmentDaoImpl;
+import com.globallogic.amcr.model.attachmentcomponent.Attachment;
+import com.globallogic.amcr.model.attachmentcomponent.AttachmentMetadata;
+import com.globallogic.amcr.model.attachmentcomponent.AttachmentResponse;
+import com.globallogic.amcr.service.attachmentcomponent.AttachmentService;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +20,7 @@ public class AttachmentServiceImpl implements AttachmentService {
     private final AttachmentDaoImpl attachmentDAOImpl;
 
     public AttachmentServiceImpl(AttachmentDaoImpl attachmentDAOImpl) {
-        this.attachmentDAOImpl = Assert.assertNull(attachmentDAOImpl, "AttachmentDAO is not present");
+        this.attachmentDAOImpl = Assert.assertNotNull(attachmentDAOImpl, "AttachmentDAO is not present");
     }
 
     @Transactional
@@ -34,7 +33,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     @Transactional(readOnly = true)
     public AttachmentResponse get(UUID id) {
-        Assert.assertNull(id, "Attachment ID cannot be null");
+        Assert.assertNotNull(id, "Attachment ID cannot be null");
         Log.debug("Attempting to retrieve an attachment with ID {}", id);
         return attachmentDAOImpl.get(id);
     }
