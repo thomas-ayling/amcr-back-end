@@ -1,28 +1,18 @@
 package com.globallogic.amcr.model.attachmentcomponent;
 
-import java.util.Arrays;
-import java.util.Objects;
-
 public class AttachmentResponse {
     private String name;
-    private String contentType;
-    private byte[] data;
     private long size;
-    private String readableSize;
+    private String type;
 
-    public AttachmentResponse(String name, String contentType, byte[] data, long size) {
+    public AttachmentResponse(String name, long size, String type) {
         this.name = name;
-        this.contentType = contentType;
-        this.data = data;
         this.size = size;
+        this.type = type;
     }
 
-    public String getReadableSize() {
-        return readableSize;
-    }
+    public AttachmentResponse() {
 
-    public void setReadableSize(String readableSize) {
-        this.readableSize = readableSize;
     }
 
     public String getName() {
@@ -33,22 +23,6 @@ public class AttachmentResponse {
         this.name = name;
     }
 
-    public String getContentType() {
-        return contentType;
-    }
-
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
-    }
-
-    public byte[] getData() {
-        return data;
-    }
-
-    public void setData(byte[] data) {
-        this.data = data;
-    }
-
     public long getSize() {
         return size;
     }
@@ -57,27 +31,11 @@ public class AttachmentResponse {
         this.size = size;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AttachmentResponse that = (AttachmentResponse) o;
-        return Objects.equals(name, that.name) && Objects.equals(contentType, that.contentType) && Arrays.equals(data, that.data);
+    public String getType() {
+        return type;
     }
 
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(name, contentType);
-        result = 31 * result + Arrays.hashCode(data);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "AttachmentResponse{" +
-                "name='" + name + '\'' +
-                ", contentType='" + contentType + '\'' +
-                ", data=" + Arrays.toString(data) +
-                '}';
+    public void setType(String type) {
+        this.type = type;
     }
 }

@@ -1,4 +1,4 @@
-package com.globallogic.amcr.exception;
+package com.globallogic.amcr.exception.contactcomponent;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -8,6 +8,7 @@ public class NotFoundException extends RuntimeException {
     public NotFoundException(String msg) {
         super(msg);
     }
-
-    public NotFoundException(String msg, Exception e) {super(msg, e);}
+    public NotFoundException(String msg, Exception e) {
+        super(msg + " because of " + e.toString());
+    }
 }

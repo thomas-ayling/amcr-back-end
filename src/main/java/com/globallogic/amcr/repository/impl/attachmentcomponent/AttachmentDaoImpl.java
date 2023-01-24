@@ -1,23 +1,22 @@
 package com.globallogic.amcr.repository.impl.attachmentcomponent;
 
-import com.globallogic.amcr.mapper.attachmentcomponent.AttachmentMapper;
-import com.globallogic.amcr.repository.Dao;
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
-import com.globallogic.amcr.model.attachmentcomponent.AttachmentMetadata;
 import com.globallogic.amcr.model.attachmentcomponent.AttachmentResponse;
+import org.springframework.stereotype.Repository;
+
+import com.globallogic.amcr.repository.attachmentcomponent.AttachmentDao;
 import com.globallogic.amcr.utils.Assert;
-import com.globallogic.amcr.utils.ByteConverter;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 import java.util.UUID;
 
 @Repository
-public class AttachmentDaoImpl implements Dao<Attachment, AttachmentResponse> {
-    public final Logger Log = LoggerFactory.getLogger(AttachmentDaoImpl.class);
+public class AttachmentDaoImpl implements AttachmentDao {
+    private final Logger LOG = LoggerFactory.getLogger(AttachmentDaoImpl.class);
     private final AttachmentMapper attachmentMapper;
 
     public AttachmentDaoImpl(AttachmentMapper attachmentMapper) {
@@ -25,42 +24,42 @@ public class AttachmentDaoImpl implements Dao<Attachment, AttachmentResponse> {
     }
 
     @Override
-    public Attachment save(Attachment attachmentFile, UUID id) {
-        try {
-            attachmentFile.setId(id);
-            attachmentFile.setDownloadUri(ServletUriComponentsBuilder.fromCurrentContextPath().path("/attachments/retrieve/").path(id.toString()).toUriString());
-            attachmentMapper.save(attachmentFile);
-            return attachmentFile;
-        } catch (Exception e) {
-            throw new RuntimeException(attachmentFile.getName() + " could not be saved.", e);
-        }
+    public Attachment save(Attachment attachment, UUID id) {
+        attachment.setId(id);
+        attachment.setDownloadUri(ServletUriComponentsBuilder.fromCurrentContextPath().path("/attachment/").path(id.toString()).toUriString());
+        LOG.trace("DAO saving attachment {}", attachment);
+        attachmentMapper.save(attachment);
+        return attachment;
     }
 
     @Override
-    public AttachmentResponse get(UUID id) {
-        Log.trace("Requests an attachment with ID{}", id);
-        AttachmentResponse attachment = attachmentMapper.get(id);
-        attachment.setReadableSize(ByteConverter.bytesToReadable(attachment.getSize()));
+    public Attachment update(UUID id, byte[] content, Attachment oldAttachment) {
+        LOG.trace("DAO updating attachment with ID {}", id);
+        attachmentMapper.update(content, id);
+        return Attachment.from(oldAttachment, content);
+    }
+
+    @Override
+    public byte[] getBinary(UUID id) {
+        LOG.trace("DAO requesting attachment {}", id);
+        return attachmentMapper.getBinary(id);
+    }
+
+    @Override
+    public Attachment get(UUID id) {
+        LOG.trace("Dao requesting attachment with ID {}", id);
         return attachmentMapper.get(id);
     }
 
     @Override
-    public List<AttachmentResponse> getAll() {
-        Log.trace("DAO requests all metadata available for every attachment");
-        return attachmentMapper.getAll();
-    }
-
-    public List<AttachmentMetadata> getAllMetadata() {
-        Log.trace("DAO requests all metadata available for every attachment");
-        return attachmentMapper.getAllMetadata();
-    }
-
     public void delete(UUID id) {
-        try {
-            Log.trace("Attempts to delete an attachment with ID{}", id);
-            attachmentMapper.delete(id);
-        } catch (Exception e) {
-            throw new RuntimeException("DAO could not delete attachment with ID " + id, e);
-        }
+        LOG.trace("DAO requesting to delete attachment with ID {}", id);
+        attachmentMapper.delete(id);
+    }
+
+    @Override
+    public List<AttachmentResponse> getAll() {
+        LOG.trace("DAO requesting all attachments");
+        return attachmentMapper.getAll();
     }
 }
