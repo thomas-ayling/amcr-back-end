@@ -40,7 +40,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public CaseStudyResponse get(UUID id) {
         Assert.assertNotNull(id, "ID cannot be null to request entry");
         Log.debug("Service requesting case study with ID {}", id);
@@ -59,7 +59,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<CaseStudy> getAll() {
         Log.debug("Service requesting all case studies");
         return caseStudyDao.getAll();

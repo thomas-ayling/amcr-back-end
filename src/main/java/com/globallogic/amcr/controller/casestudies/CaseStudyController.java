@@ -5,7 +5,6 @@ import com.globallogic.amcr.model.casestudies.CaseStudy;
 import com.globallogic.amcr.model.casestudies.CaseStudyOverview;
 import com.globallogic.amcr.service.casestudies.CaseStudyService;
 import com.globallogic.amcr.utils.Assert;
-import jakarta.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/case-study")
-@CrossOrigin(origins = "*")
+@CrossOrigin
 public class CaseStudyController {
     private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class);
     private final CaseStudyService caseStudyService;
@@ -29,8 +28,9 @@ public class CaseStudyController {
         this.caseStudyService = Assert.assertNotNull(caseStudyService, "Case study service cannot be null");
     }
 
+    @CrossOrigin(exposedHeaders = "Location")
     @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<CaseStudy> saveCaseStudy(@RequestBody @Validated CaseStudy caseStudy, BindingResult errors) {
+    public ResponseEntity<CaseStudy> save(@RequestBody @Validated CaseStudy caseStudy, BindingResult errors) {
         if (errors.hasErrors()) {
             throw new NotFoundException(errors.toString());
         }
