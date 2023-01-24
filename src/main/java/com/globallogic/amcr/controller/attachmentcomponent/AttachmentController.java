@@ -71,7 +71,11 @@ public class AttachmentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Resource> getMedia(@PathVariable UUID id) {
+    public ResponseEntity<?> getMedia(@PathVariable UUID id, @RequestParam(required = false) Boolean metadata) {
+        metadata = metadata != null && metadata;
+        if (metadata) {
+            return ResponseEntity.ok().body(attachmentService.getMetadata(id));
+        }
         Attachment attachment = attachmentService.get(id);
         return ResponseEntity.ok().contentType(MediaType.parseMediaType
                 (attachment.getType())).header(HttpHeaders.CONTENT_DISPOSITION,

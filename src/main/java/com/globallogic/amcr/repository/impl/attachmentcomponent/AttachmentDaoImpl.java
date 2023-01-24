@@ -1,6 +1,7 @@
 package com.globallogic.amcr.repository.impl.attachmentcomponent;
 
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
+import com.globallogic.amcr.model.attachmentcomponent.AttachmentMetadata;
 import com.globallogic.amcr.model.attachmentcomponent.AttachmentResponse;
 import org.springframework.stereotype.Repository;
 
@@ -61,5 +62,11 @@ public class AttachmentDaoImpl implements AttachmentDao {
     public List<AttachmentResponse> getAll() {
         LOG.trace("DAO requesting all attachments");
         return attachmentMapper.getAll();
+    }
+
+    @Override
+    public AttachmentMetadata getMetadata(UUID id) {
+        LOG.trace("Dao requesting attachment metadata with ID {}", id);
+        return attachmentMapper.getMetadata(id);
     }
 }

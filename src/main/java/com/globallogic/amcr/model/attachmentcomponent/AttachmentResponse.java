@@ -11,9 +11,7 @@ public class AttachmentResponse {
         this.type = type;
     }
 
-    public AttachmentResponse() {
-
-    }
+    public AttachmentResponse() {}
 
     public String getName() {
         return name;

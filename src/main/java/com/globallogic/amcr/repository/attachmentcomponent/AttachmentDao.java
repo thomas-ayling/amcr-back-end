@@ -1,6 +1,7 @@
 package com.globallogic.amcr.repository.attachmentcomponent;
 
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
+import com.globallogic.amcr.model.attachmentcomponent.AttachmentMetadata;
 import com.globallogic.amcr.model.attachmentcomponent.AttachmentResponse;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface AttachmentDao {
     Attachment get(UUID id);
 
     List<AttachmentResponse> getAll();
+
+    AttachmentMetadata getMetadata(UUID id);
 }
