@@ -2,13 +2,10 @@ package com.globallogic.amcr.controller.attachmentcomponent;
 
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
 import com.globallogic.amcr.service.attachmentcomponent.AttachmentService;
-
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
