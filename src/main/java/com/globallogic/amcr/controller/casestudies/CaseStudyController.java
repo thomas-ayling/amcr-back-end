@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -46,8 +47,8 @@ public class CaseStudyController {
     }
 
     @GetMapping(value = "/{id}/attachment/{attachmentId}")
-    public RedirectView getAttachment(@PathVariable UUID id, @PathVariable UUID attachmentId) {
-        return new RedirectView("/attachment/" + attachmentId);
+    public ModelAndView getAttachment(@PathVariable UUID id, @PathVariable UUID attachmentId) {
+        return new ModelAndView("forward:/attachment/" + attachmentId);
     }
 
     @GetMapping(produces = "application/json")
