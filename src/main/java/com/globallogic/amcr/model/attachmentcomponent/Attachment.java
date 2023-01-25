@@ -1,13 +1,12 @@
 package com.globallogic.amcr.model.attachmentcomponent;
 
-import java.util.Map;
 import java.util.UUID;
 
 public class Attachment extends AttachmentMetadata {
     private byte[] content;
 
-    public Attachment(UUID id, String name, long size, String type, long crc, Map<String, Object> metadata, byte[] content, String downloadUri) {
-        super(id, name, size, type, crc, metadata, downloadUri);
+    public Attachment(UUID id, String name, long size, String type, long crc, byte[] content) {
+        super(id, name, size, type, crc);
         this.content = content;
     }
 
@@ -22,8 +21,6 @@ public class Attachment extends AttachmentMetadata {
         newAttachment.setSize(attachment.getSize());
         newAttachment.setType(attachment.getType());
         newAttachment.setCrc(attachment.getCrc());
-        newAttachment.setMetadata(attachment.getMetadata());
-        newAttachment.setDownloadUri(attachment.getDownloadUri());
         newAttachment.content = content;
         return newAttachment;
     }

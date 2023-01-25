@@ -3,14 +3,11 @@ package com.globallogic.amcr.repository.impl.attachmentcomponent;
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
 import com.globallogic.amcr.model.attachmentcomponent.AttachmentMetadata;
 import com.globallogic.amcr.model.attachmentcomponent.AttachmentResponse;
-import org.springframework.stereotype.Repository;
-
 import com.globallogic.amcr.repository.attachmentcomponent.AttachmentDao;
 import com.globallogic.amcr.utils.Assert;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.UUID;
@@ -27,7 +24,6 @@ public class AttachmentDaoImpl implements AttachmentDao {
     @Override
     public Attachment save(Attachment attachment, UUID id) {
         attachment.setId(id);
-        attachment.setDownloadUri(ServletUriComponentsBuilder.fromCurrentContextPath().path("/attachment/").path(id.toString()).toUriString());
         LOG.trace("DAO saving attachment {}", attachment);
         attachmentMapper.save(attachment);
         return attachment;
