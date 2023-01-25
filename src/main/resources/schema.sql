@@ -35,7 +35,7 @@ create table if not exists case_studies
     spotlight        boolean          not null,
     title            text             not null,
     overview         text             not null,
-    body             jsonb[]            not null,
+    body             jsonb[]          not null,
     attachment_ids   uuid[],
     cover_image_id   uuid             not null
 );
@@ -61,4 +61,17 @@ create table if not exists academy_project.diagram
 );
 
 ALTER TABLE academy_project.diagram
+    OWNER TO CURRENT_USER;
+
+create table if not exists academy_project.contacts
+(
+    id          uuid primary key not null,
+    spotlight   boolean          not null,
+    image_id    uuid             not null,
+    full_name   text             not null,
+    title       text             not null,
+    description text             not null
+);
+
+ALTER TABLE academy_project.contacts
     OWNER TO CURRENT_USER;
