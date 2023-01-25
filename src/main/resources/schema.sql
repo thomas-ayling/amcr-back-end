@@ -57,7 +57,7 @@ create table if not exists academy_project.attachments
     name                text             not null,
     size                bigint           not null,
     type                text             not null,
-    crc                 bigint,,
+    crc                 bigint           not null,
     content             bytea,
     attachment_sequence SERIAL           not null
 );
