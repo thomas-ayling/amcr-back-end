@@ -24,7 +24,6 @@ public class AttachmentController {
 
     public AttachmentController(AttachmentService attachmentService) {
         this.attachmentService = Assert.assertNotNull(attachmentService, "Attachment service cannot be null");
-        :)
     }
 
     @CrossOrigin(exposedHeaders="Location")
