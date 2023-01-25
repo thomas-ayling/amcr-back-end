@@ -43,27 +43,30 @@ create table if not exists case_studies
 ALTER TABLE case_studies
     OWNER TO CURRENT_USER;
 
-create table if not exists media
-(
-    id    uuid primary key not null,
-    media bytea
-);
-
-ALTER TABLE academy_project.attachments
-    OWNER TO CURRENT_USER;
-ALTER TABLE academy_project.case_studies
-    OWNER TO CURRENT_USER;
-
-create table if not exists academy_project.diagram
+create table if not exists diagram
 (
     id    uuid primary key not null,
     nodes jsonb[]          not null
 );
 
-ALTER TABLE academy_project.diagram
+ALTER TABLE diagram
     OWNER TO CURRENT_USER;
 
-create table if not exists academy_project.contacts
+create table if not exists attachments
+(
+    id                  uuid primary key not null,
+    name                text             not null,
+    size                bigint           not null,
+    type                text             not null,
+    crc                 bigint           not null,
+    content             bytea,
+    attachment_sequence SERIAL           not null
+);
+
+ALTER TABLE attachments
+    OWNER TO CURRENT_USER;
+
+create table if not exists contacts
 (
     id          uuid primary key not null,
     spotlight   boolean          not null,
@@ -73,5 +76,5 @@ create table if not exists academy_project.contacts
     description text             not null
 );
 
-ALTER TABLE academy_project.contacts
+ALTER TABLE contacts
     OWNER TO CURRENT_USER;
