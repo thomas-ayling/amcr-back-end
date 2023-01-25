@@ -3,19 +3,16 @@ package com.globallogic.amcr.repository.impl.attachmentcomponent;
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
 import com.globallogic.amcr.model.attachmentcomponent.AttachmentMetadata;
 import com.globallogic.amcr.model.attachmentcomponent.AttachmentResponse;
-import com.globallogic.amcr.typehandler.JSONMapHandler;
 import com.globallogic.amcr.typehandler.UUIDTypeHandler;
-
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Mapper
 public interface AttachmentMapper {
 
-    @Insert("INSERT INTO attachments(id, name, type, size, crc, metadata, download_uri) VALUES (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{name}, #{type}, #{size}, #{crc}, #{metadata, javaType=java.util.Map, jdbcType=OTHER, typeHandler=JSONMapHandler}, #{downloadUri})")
+    @Insert("INSERT INTO attachments(id, name, type, size, crc) VALUES (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{name}, #{type}, #{size}, #{crc})")
     void save(Attachment attachment);
 
     @Results(id = "binaryObjectResults")
@@ -35,9 +32,7 @@ public interface AttachmentMapper {
             @Arg(column = "size", javaType = long.class),
             @Arg(column = "type", javaType = String.class),
             @Arg(column = "crc", javaType = long.class),
-            @Arg(column = "metadata", javaType = Map.class, typeHandler = JSONMapHandler.class),
-            @Arg(column = "content", javaType = byte[].class),
-            @Arg(column = "download_uri", javaType = String.class)
+            @Arg(column = "content", javaType = byte[].class)
     })
     @Select("SELECT * FROM attachments WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     Attachment get(@Param("id") UUID id);
@@ -62,10 +57,8 @@ public interface AttachmentMapper {
             @Arg(column = "name", javaType = String.class),
             @Arg(column = "size", javaType = long.class),
             @Arg(column = "type", javaType = String.class),
-            @Arg(column = "crc", javaType = long.class),
-            @Arg(column = "metadata", javaType = Map.class, typeHandler = JSONMapHandler.class),
-            @Arg(column = "download_uri", javaType = String.class)
+            @Arg(column = "crc", javaType = long.class)
     })
-    @Select("SELECT id, name, size, type, crc, metadata, download_uri FROM attachments WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
+    @Select("SELECT id, name, size, type, crc FROM attachments WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     AttachmentMetadata getMetadata(@Param("id") UUID id);
 }
