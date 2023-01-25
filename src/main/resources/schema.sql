@@ -51,6 +51,16 @@ create table if not exists academy_project.diagram
 ALTER TABLE academy_project.diagram
     OWNER TO CURRENT_USER;
 
+create table if not exists academy_project.text-intro
+(
+    id              uuid primary key not null,
+    title           text             not null,
+    description     text             not null,
+    location        text             not null
+)
+
+ALTER TABLE academy_project.text-intro
+    OWNER TO CURRENT_USER;
 -- Object format:
 
 -- {
