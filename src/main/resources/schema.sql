@@ -1,4 +1,4 @@
-create table if not exists academy_project.feedback
+create table if not exists feedback
 (
     id             uuid primary key,
     feedback_order serial,
@@ -11,10 +11,10 @@ create table if not exists academy_project.feedback
     book_link      text
 );
 
-ALTER TABLE academy_project.feedback
+ALTER TABLE feedback
     OWNER TO CURRENT_USER;
 
-create table if not exists academy_project.files
+create table if not exists files
 (
     id           uuid primary key,
     file_name    text   not null,
@@ -25,33 +25,34 @@ create table if not exists academy_project.files
     feedback_id  uuid references feedback (id) on delete cascade
 );
 
-ALTER TABLE academy_project.files
+ALTER TABLE files
     OWNER TO CURRENT_USER;
 
-create table if not exists academy_project.case_studies
+create table if not exists case_studies
 (
     id               uuid primary key not null,
+    case_study_order serial           not null,
     spotlight        boolean          not null,
     title            text             not null,
     overview         text             not null,
-    cover_image_link text             not null,
-    body             jsonb            not null,
-    download_links   text[]
+    body             jsonb[]          not null,
+    attachment_ids   uuid[],
+    cover_image_id   uuid             not null
 );
 
-ALTER TABLE academy_project.case_studies
+ALTER TABLE case_studies
     OWNER TO CURRENT_USER;
 
-create table if not exists academy_project.diagram
+create table if not exists diagram
 (
     id    uuid primary key not null,
     nodes jsonb[]          not null
 );
 
-ALTER TABLE academy_project.diagram
+ALTER TABLE diagram
     OWNER TO CURRENT_USER;
 
-create table if not exists academy_project.attachments
+create table if not exists attachments
 (
     id                  uuid primary key not null,
     name                text             not null,
@@ -62,52 +63,18 @@ create table if not exists academy_project.attachments
     attachment_sequence SERIAL           not null
 );
 
-ALTER TABLE academy_project.attachments
+ALTER TABLE attachments
     OWNER TO CURRENT_USER;
 
--- Object format:
+create table if not exists contacts
+(
+    id          uuid primary key not null,
+    spotlight   boolean          not null,
+    image_id    uuid             not null,
+    full_name   text             not null,
+    title       text             not null,
+    description text             not null
+);
 
--- {
---     "spotlight": true,
---     "title": "This is the title - 8 parts ",
---     "overview": "This is the overview",
---     "coverImageLink": "This is a link :/",
---     "body": {
---         "content": [
---             {
---                 "imageLink": "https://picsum.photos/500/300",
---                 "markdownText": "A paragraph with *emphasis* and **strong importance**. > A block quote with ~strikethrough~ and a URL: https://reactjs.org. \n * Lists \n * [ ] todo \n * [x] done \n A table:\n \n | a | b |\n | - | - |"
---             },
---             {
---                 "imageLink": "https://picsum.photos/500/300",
---                 "markdownText": "## This is the header of the block \n This is even more text, just doing it for fun as you do ~~hello~~ \n #### subheading3 \n - bullet "
---             },
---             {
---                 "imageLink": "https://picsum.photos/500/300",
---                 "markdownText": "### This is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template,\n - this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, \n * [x] this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template"
---             },
---             {
---                 "imageLink": "https://picsum.photos/500/300",
---                 "markdownText": "This is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template"
---             },
---             {
---                 "imageLink": "https://picsum.photos/500/300",
---                 "markdownText": "## This is the header of the block \n This is even more text, just doing it for fun as you do ~~hello~~ \n #### subheading3 \n - bullet "
---             },
---             {
---                 "imageLink": "https://picsum.photos/500/300",
---                 "markdownText": "### This is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template,\n - this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, \n * [x] this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template"
---             },
---             {
---                 "imageLink": "https://picsum.photos/500/300",
---                 "markdownText": "## This is the header of the block \n This is even more text, just doing it for fun as you do ~~hello~~ \n #### subheading3 \n - bullet "
---             },
---             {
---                 "imageLink": "https://picsum.photos/500/300",
---                 "markdownText": "### This is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template,\n - this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, \n * [x] this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template"
---             }
---         ]
---     },
---         "downloadLinks": ["This is a PDF link", "This is a PPTX link"]
---     }
--- }
+ALTER TABLE contacts
+    OWNER TO CURRENT_USER;

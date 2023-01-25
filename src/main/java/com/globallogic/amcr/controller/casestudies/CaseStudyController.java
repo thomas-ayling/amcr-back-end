@@ -13,7 +13,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 import java.util.UUID;
@@ -48,6 +47,11 @@ public class CaseStudyController {
 
     @GetMapping(value = "/{id}/attachment/{attachmentId}")
     public ModelAndView getAttachment(@PathVariable UUID id, @PathVariable UUID attachmentId) {
+        return new ModelAndView("forward:/attachment/" + attachmentId);
+    }
+
+    @GetMapping(value = "/overviews/attachment/{attachmentId}")
+    public ModelAndView getAttachment(@PathVariable UUID attachmentId) {
         return new ModelAndView("forward:/attachment/" + attachmentId);
     }
 
