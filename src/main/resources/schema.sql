@@ -58,7 +58,7 @@ create table if not exists attachments
     name                text             not null,
     size                bigint           not null,
     type                text             not null,
-    crc                 bigint,,
+    crc                 bigint           not null,
     content             bytea,
     attachment_sequence SERIAL           not null
 );
