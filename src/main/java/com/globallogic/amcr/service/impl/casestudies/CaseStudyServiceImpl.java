@@ -5,15 +5,12 @@ import com.globallogic.amcr.model.casestudies.CaseStudyOverview;
 import com.globallogic.amcr.repository.casestudies.CaseStudyDao;
 import com.globallogic.amcr.service.casestudies.CaseStudyService;
 import com.globallogic.amcr.utils.Assert;
-import com.globallogic.amcr.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -43,19 +40,9 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     public CaseStudy get(UUID id) {
         Assert.assertNotNull(id, "ID cannot be null to request entry");
         Log.debug("Service requesting case study with ID {}", id);
-        CaseStudy caseStudy = caseStudyDao.get(id);
-        List<String> attachmentLinks = new ArrayList<>();
-        if (caseStudy.getAttachmentIds() != null) {
-            for (UUID attachmentId : caseStudy.getAttachmentIds()) {
-                attachmentLinks.add(Utils.generateUri("/attachment/{id}", attachmentId).toString());
-            }
-        }
-        for (Map<String, String> row : caseStudy.getBody()) {
-            row.replace("imageId", Utils.generateUri("/attachment/{id}", UUID.fromString(row.get("imageId"))).toString());
-        }
-        caseStudy.setAttachmentLinks(attachmentLinks);
-        caseStudy.setCoverImageLink(Utils.generateUri("/attachment/{id}", caseStudy.getCoverImageId()).toString());
-        return caseStudy;
+
+                return caseStudyDao.get(id);
+
     }
 
     @Override
@@ -69,22 +56,14 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     @Transactional
     public List<CaseStudyOverview> getAllOverviews() {
         Log.debug("Service requesting all case study overviews");
-        List<CaseStudyOverview> caseStudyOverviews = caseStudyDao.getAllOverviews();
-        for (CaseStudyOverview caseStudyOverview : caseStudyOverviews) {
-            caseStudyOverview.setCoverImageLink(Utils.generateUri("/attachment/{id}", caseStudyOverview.getCoverImageId()).toString());
-        }
-        return caseStudyOverviews;
+        return caseStudyDao.getAllOverviews();
     }
 
     @Override
     @Transactional
     public List<CaseStudyOverview> getSpotlitOverviews() {
         Log.debug("Service requesting all spotlit case study overviews");
-        List<CaseStudyOverview> caseStudyOverviews = caseStudyDao.getSpotlitOverviews();
-        for (CaseStudyOverview caseStudyOverview : caseStudyOverviews) {
-            caseStudyOverview.setCoverImageLink(Utils.generateUri("/attachment/{id}", caseStudyOverview.getCoverImageId()).toString());
-        }
-        return caseStudyOverviews;
+        return caseStudyDao.getSpotlitOverviews();
     }
 
     @Override
@@ -92,12 +71,8 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     public List<CaseStudyOverview> getLatestOverviews(int entries) {
         Assert.assertNotNull(entries, "Entries cannot be null");
         Log.debug("Service requesting {} most recent overviews", entries);
+        return caseStudyDao.getLatestOverviews(entries);
 
-        List<CaseStudyOverview> caseStudyOverviews = caseStudyDao.getLatestOverviews(entries);
-        for (CaseStudyOverview caseStudyOverview : caseStudyOverviews) {
-            caseStudyOverview.setCoverImageLink(Utils.generateUri("/attachment/{id}", caseStudyOverview.getCoverImageId()).toString());
-        }
-        return caseStudyOverviews;
     }
 
     @Override
