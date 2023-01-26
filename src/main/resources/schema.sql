@@ -43,13 +43,13 @@ create table if not exists case_studies
 ALTER TABLE case_studies
     OWNER TO CURRENT_USER;
 
-create table if not exists academy_project.diagram
+create table if not exists diagram
 (
     id    uuid primary key not null,
     nodes jsonb[]          not null
 );
 
-ALTER TABLE academy_project.diagram
+ALTER TABLE diagram
     OWNER TO CURRENT_USER;
 
 create table if not exists attachments
@@ -65,50 +65,3 @@ create table if not exists attachments
 
 ALTER TABLE attachments
     OWNER TO CURRENT_USER;
-
--- Object format:
-
--- {
---     "spotlight": true,
---     "title": "This is the title - 8 parts ",
---     "overview": "This is the overview",
---     "coverImageLink": "This is a link :/",
---     "body": {
---         "content": [
---             {
---                 "imageLink": "https://picsum.photos/500/300",
---                 "markdownText": "A paragraph with *emphasis* and **strong importance**. > A block quote with ~strikethrough~ and a URL: https://reactjs.org. \n * Lists \n * [ ] todo \n * [x] done \n A table:\n \n | a | b |\n | - | - |"
---             },
---             {
---                 "imageLink": "https://picsum.photos/500/300",
---                 "markdownText": "## This is the header of the block \n This is even more text, just doing it for fun as you do ~~hello~~ \n #### subheading3 \n - bullet "
---             },
---             {
---                 "imageLink": "https://picsum.photos/500/300",
---                 "markdownText": "### This is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template,\n - this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, \n * [x] this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template"
---             },
---             {
---                 "imageLink": "https://picsum.photos/500/300",
---                 "markdownText": "This is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template"
---             },
---             {
---                 "imageLink": "https://picsum.photos/500/300",
---                 "markdownText": "## This is the header of the block \n This is even more text, just doing it for fun as you do ~~hello~~ \n #### subheading3 \n - bullet "
---             },
---             {
---                 "imageLink": "https://picsum.photos/500/300",
---                 "markdownText": "### This is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template,\n - this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, \n * [x] this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template"
---             },
---             {
---                 "imageLink": "https://picsum.photos/500/300",
---                 "markdownText": "## This is the header of the block \n This is even more text, just doing it for fun as you do ~~hello~~ \n #### subheading3 \n - bullet "
---             },
---             {
---                 "imageLink": "https://picsum.photos/500/300",
---                 "markdownText": "### This is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template,\n - this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, \n * [x] this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template, this is a lot of markdown text to be used as a template"
---             }
---         ]
---     },
---         "downloadLinks": ["This is a PDF link", "This is a PPTX link"]
---     }
--- }
