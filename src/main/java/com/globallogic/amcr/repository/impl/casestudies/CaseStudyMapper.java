@@ -3,7 +3,6 @@ package com.globallogic.amcr.repository.impl.casestudies;
 import com.globallogic.amcr.model.casestudies.CaseStudy;
 import com.globallogic.amcr.model.casestudies.CaseStudyOverview;
 import com.globallogic.amcr.typehandler.JSONListMapHandler;
-import com.globallogic.amcr.typehandler.TextArrayTypeHandler;
 import com.globallogic.amcr.typehandler.UUIDArrayTypeHandler;
 import com.globallogic.amcr.typehandler.UUIDTypeHandler;
 import org.apache.ibatis.annotations.*;

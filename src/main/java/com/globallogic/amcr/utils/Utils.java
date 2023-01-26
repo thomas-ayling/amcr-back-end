@@ -8,7 +8,7 @@ import java.text.StringCharacterIterator;
 import java.util.UUID;
 
 public class Utils {
-    public Utils() {
+    private Utils() {
         throw new UnsupportedOperationException("Utils class is static and should not be instantiated using the constructor.");
     }
 
