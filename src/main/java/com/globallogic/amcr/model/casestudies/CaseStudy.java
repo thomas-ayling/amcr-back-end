@@ -10,7 +10,7 @@ public class CaseStudy extends CaseStudyOverview {
     @NotNull
     private List<Map<String, String>> body;
     private UUID[] attachmentIds;
-    private List<String> attachmentLinks;
+    private transient List<String> attachmentLinks;
 
     /**
      * @param id             the id of the object

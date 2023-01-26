@@ -3,7 +3,6 @@ package com.globallogic.amcr.model.casestudies;
 import com.globallogic.amcr.utils.Assert;
 import jakarta.validation.constraints.NotNull;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -18,7 +17,7 @@ public class CaseStudyOverview {
     private String overview;
     @NotNull
     private UUID coverImageId;
-    private String coverImageLink;
+    private transient String coverImageLink;
 
     public CaseStudyOverview(UUID id, boolean spotlight, String title, String overview, UUID coverImageId) {
         setId(id);
