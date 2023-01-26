@@ -3,6 +3,7 @@ package com.globallogic.amcr.model.contacts;
 import com.globallogic.amcr.utils.Assert;
 import jakarta.validation.constraints.NotNull;
 
+import java.beans.Transient;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -19,7 +20,7 @@ public class Contacts {
     @NotNull
     private UUID imageId;
 
-    private String imageLink;
+    private transient String imageLink;
 
     @NotNull
     private String fullName;
@@ -33,16 +34,14 @@ public class Contacts {
     /**
      * @param spotlight   whether the employee is spotlit and will be shown on the carousel
      * @param imageId     the ID for an employee's image
-     * @param imageLink   the link for an employee's image
      * @param fullName    the name of the employee
      * @param title       the job title of the employee
      * @param description a description that presents more information about the employee
      */
-    public Contacts(UUID id, boolean spotlight, UUID imageId, String imageLink, String fullName, String title, String description) {
+    public Contacts(UUID id, boolean spotlight, UUID imageId, String fullName, String title, String description) {
         setId(id);
         setSpotlight(spotlight);
         setImageId(imageId);
-        setImageLink(imageLink);
         setFullName(fullName);
         setTitle(title);
         setDescription(description);

@@ -37,31 +37,21 @@ public class ContactsServiceImpl implements ContactsService {
     public Contacts get(UUID id) {
         Assert.assertNotNull(id, "Service: ID cannot be null");
         Log.debug("Service requesting contacts page data with ID {}", id);
-        Contacts contact = contactsDao.get(id);
-        contact.setImageLink(Utils.generateUri("/attachment/{id}", contact.getImageId()).toString());
-        return contact;
+        return contactsDao.get(id);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Contacts> getAll() {
         Log.debug("Service requesting all contacts page data");
-        List<Contacts> allContacts = contactsDao.getAll();
-        for (Contacts contact : allContacts) {
-            contact.setImageLink(Utils.generateUri("/attachment/{id}", contact.getImageId()).toString());
-        }
-        return allContacts;
+        return contactsDao.getAll();
     }
 
     @Override
     @Transactional
     public List<Contacts> getSpotlitContacts() {
         Log.debug("Service requesting all spotlit contacts page data");
-        List<Contacts> spotlitContacts = contactsDao.getSpotlitContacts();
-        for (Contacts contact : spotlitContacts) {
-            contact.setImageLink(Utils.generateUri("/attachment/{id}", contact.getImageId()).toString());
-        }
-        return spotlitContacts;
+        return contactsDao.getSpotlitContacts();
     }
 
     @Override

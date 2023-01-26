@@ -32,7 +32,7 @@ public interface ContactsMapper {
     @Select("SELECT * FROM contacts WHERE spotlight = true")
     List<Contacts> getSpotlitContacts();
 
-    @Update("UPDATE contacts SET spotlight = #{contact.spotlight}, image_id=#{imageId, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, full_name = #{contact.fullName}, title = #{contact.title}, description = #{contact.description} WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
+    @Update("UPDATE contacts SET spotlight = #{contact.spotlight}, image_id=#{contact.imageId, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, full_name = #{contact.fullName}, title = #{contact.title}, description = #{contact.description} WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     void update(@Param("id") UUID id, Contacts contact);
 
     @Delete("DELETE FROM contacts WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")

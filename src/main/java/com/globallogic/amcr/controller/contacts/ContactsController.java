@@ -4,6 +4,7 @@ import com.globallogic.amcr.exception.NotFoundException;
 import com.globallogic.amcr.model.contacts.Contacts;
 import com.globallogic.amcr.service.contacts.ContactsService;
 import com.globallogic.amcr.utils.Assert;
+import com.globallogic.amcr.utils.Utils;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +52,9 @@ public class ContactsController {
     @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Contacts> get(@PathVariable UUID id) {
         Log.debug("Controller requesting contacts page data with ID {}", id);
-        return ResponseEntity.ok().body(contactsService.get(id));
+        Contacts createdContact = contactsService.get(id);
+        createdContact.setImageLink(Utils.generateUri("/attachment/{id}", createdContact.getImageId()).toString());
+        return ResponseEntity.ok().body(createdContact);
     }
 
     /**
@@ -60,7 +63,11 @@ public class ContactsController {
     @GetMapping(value = "/", produces = "application/json")
     public ResponseEntity<List<Contacts>> getAll() {
         Log.debug("Controller requesting all contacts page data");
-        return ResponseEntity.ok().body(contactsService.getAll());
+        List<Contacts> allContacts = contactsService.getAll();
+        for (Contacts contact : allContacts) {
+            contact.setImageLink(Utils.generateUri("/attachment/{id}", contact.getImageId()).toString());
+        }
+        return ResponseEntity.ok().body(allContacts);
     }
 
     /**
@@ -69,7 +76,11 @@ public class ContactsController {
     @GetMapping(value = "/spotlight", produces = "application/json")
     public ResponseEntity<List<Contacts>> getSpotlitContacts() {
         Log.debug("Controller requesting all spotlit contacts page data");
-        return ResponseEntity.ok().body(contactsService.getSpotlitContacts());
+        List<Contacts> spotlitContacts = contactsService.getSpotlitContacts();
+        for (Contacts contact : spotlitContacts) {
+            contact.setImageLink(Utils.generateUri("/attachment/{id}", contact.getImageId()).toString());
+        }
+        return ResponseEntity.ok().body(spotlitContacts);
     }
 
     @GetMapping(value = "/{id}/attachment/{attachmentId}", produces = "application/json")
@@ -77,8 +88,8 @@ public class ContactsController {
         return new ModelAndView("forward:/attachment/"+ attachmentId);
     }
 
-    @GetMapping(value = "/{id}/spotlight/attachment/{attachmentId}", produces = "application/json")
-    public ModelAndView getSpotlitAttachment(@PathVariable UUID id, @PathVariable UUID attachmentId) {
+    @GetMapping(value = "/spotlight/attachment/{attachmentId}", produces = "application/json")
+    public ModelAndView getSpotlitAttachment(@PathVariable UUID attachmentId) {
         return new ModelAndView("forward:/attachment/"+ attachmentId);
     }
 
