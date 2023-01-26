@@ -43,22 +43,11 @@ create table if not exists case_studies
 ALTER TABLE case_studies
     OWNER TO CURRENT_USER;
 
-create table if not exists media
-(
-    id    uuid primary key not null,
-    media bytea
-);
-
-ALTER TABLE academy_project.attachments
-    OWNER TO CURRENT_USER;
-ALTER TABLE academy_project.case_studies
-    OWNER TO CURRENT_USER;
-
-create table if not exists academy_project.diagram
+create table if not exists diagram
 (
     id    uuid primary key not null,
     nodes jsonb[]          not null
 );
 
-ALTER TABLE academy_project.diagram
+ALTER TABLE diagram
     OWNER TO CURRENT_USER;
