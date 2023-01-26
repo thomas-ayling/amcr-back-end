@@ -20,7 +20,7 @@ public interface AttachmentMapper {
             @Arg(column = "content", javaType = byte[].class)
     })
     @Select("SELECT content FROM attachments WHERE #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler} = id")
-    byte[] getBinary(@Param("id") UUID id);
+    byte[] getContent(@Param("id") UUID id);
 
     @Update("UPDATE attachments SET content = #{content} WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     void update(byte[] content, UUID id);

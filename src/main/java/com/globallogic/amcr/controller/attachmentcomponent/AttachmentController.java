@@ -26,7 +26,7 @@ public class AttachmentController {
         this.attachmentService = Assert.assertNotNull(attachmentService, "Attachment service cannot be null");
     }
 
-    @CrossOrigin(exposedHeaders="Location")
+    @CrossOrigin(exposedHeaders = "Location")
     @PostMapping("/")
     public ResponseEntity<Attachment> save(@RequestBody Attachment attachment, BindingResult errors) {
         if (errors.hasErrors()) {
@@ -38,33 +38,20 @@ public class AttachmentController {
                 .buildAndExpand(incomingAttachment.getId()).toUri()).body(incomingAttachment);
     }
 
-    @GetMapping(value = "/binary/{id}")
+    @GetMapping(value = "/content/{id}")
     public ResponseEntity<byte[]> getBytes(@PathVariable UUID id) {
         Attachment attachmentByte = attachmentService.get(id);
         if (attachmentByte == null) {
-            LOG.debug("Controller requesting attachment with ID that does not exist {}", id);
+            LOG.debug("Controller requesting attachment with ID {} that has no content", id);
             return ResponseEntity.notFound().build();
         }
         byte[] bytes = attachmentByte.getContent();
         if (bytes != null && bytes.length > 0) {
-            LOG.debug("Controller requesting attachment with ID {} that has no content", id);
+            LOG.debug("Controller requesting attachment content with ID {}", id);
             return ResponseEntity.ok().body(bytes);
         } else {
             return ResponseEntity.notFound().build();
         }
-    }
-
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> delete(@PathVariable UUID id) {
-        LOG.debug("Controller requesting to delete attachment with ID {}", id);
-        attachmentService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<?> setContent(@PathVariable UUID id, @RequestBody byte[] content) {
-        LOG.debug("Controller requesting to update with ID {}", id);
-        return ResponseEntity.accepted().body(attachmentService.update(content, id));
     }
 
     @GetMapping("/{id}")
@@ -84,5 +71,18 @@ public class AttachmentController {
     public ResponseEntity<?> getAllAttachments() {
         LOG.debug("Controller requesting to get all attachments");
         return ResponseEntity.ok(attachmentService.getAll());
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<?> setContent(@PathVariable UUID id, @RequestBody byte[] content) {
+        LOG.debug("Controller requesting to update with ID {}", id);
+        return ResponseEntity.accepted().body(attachmentService.update(content, id));
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
+        LOG.debug("Controller requesting to delete attachment with ID {}", id);
+        attachmentService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

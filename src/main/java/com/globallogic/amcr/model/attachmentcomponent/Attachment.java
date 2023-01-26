@@ -7,6 +7,9 @@ public class Attachment extends AttachmentMetadata {
 
     public Attachment(UUID id, String name, long size, String type, long crc, byte[] content) {
         super(id, name, size, type, crc);
+        if (content != null && content.length != size) {
+            throw new IllegalArgumentException("Length of the content array does not match the size");
+        }
         this.content = content;
     }
 
