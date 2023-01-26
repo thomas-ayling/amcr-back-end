@@ -1,8 +1,6 @@
 package com.globallogic.amcr.service.attachmentcomponent;
 
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
-import com.globallogic.amcr.model.attachmentcomponent.AttachmentMetadata;
-import com.globallogic.amcr.model.attachmentcomponent.AttachmentResponse;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +17,7 @@ public interface AttachmentService {
 
     void delete(UUID id);
 
-    List<AttachmentResponse> getAll();
+    List<Attachment> getAll();
 
-    AttachmentMetadata getMetadata(UUID id);
+    Attachment getMetadata(UUID id);
 }

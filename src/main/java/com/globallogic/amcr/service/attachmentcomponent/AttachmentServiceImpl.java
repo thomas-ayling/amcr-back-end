@@ -1,8 +1,6 @@
 package com.globallogic.amcr.service.attachmentcomponent;
 
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
-import com.globallogic.amcr.model.attachmentcomponent.AttachmentMetadata;
-import com.globallogic.amcr.model.attachmentcomponent.AttachmentResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,14 +61,14 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     @Override
     @Transactional
-    public List<AttachmentResponse> getAll() {
+    public List<Attachment> getAll() {
         LOG.debug("Service requesting all attachments");
         return attachmentDao.getAll();
     }
 
     @Override
     @Transactional
-    public AttachmentMetadata getMetadata(UUID id) {
+    public Attachment getMetadata(UUID id) {
         LOG.debug("Service requesting attachment metadata with ID {}", id);
         return attachmentDao.getMetadata(id);
     }

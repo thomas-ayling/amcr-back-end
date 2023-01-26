@@ -3,8 +3,10 @@ package com.globallogic.amcr.controller.attachmentcomponent;
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
 import com.globallogic.amcr.service.attachmentcomponent.AttachmentService;
 import com.globallogic.amcr.utils.Assert;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -34,11 +36,11 @@ public class AttachmentController {
         }
         LOG.debug("Controller requesting a new attachment to be saved with id {}", attachment.getId());
         Attachment incomingAttachment = attachmentService.save(attachment);
-        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/content/{id}")
                 .buildAndExpand(incomingAttachment.getId()).toUri()).body(incomingAttachment);
     }
 
-    @GetMapping(value = "/content/{id}")
+    @GetMapping("/content/{id}")
     public ResponseEntity<byte[]> getBytes(@PathVariable UUID id) {
         Attachment attachmentByte = attachmentService.get(id);
         if (attachmentByte == null) {
@@ -47,19 +49,20 @@ public class AttachmentController {
         }
         byte[] bytes = attachmentByte.getContent();
         if (bytes != null && bytes.length > 0) {
-            LOG.debug("Controller requesting attachment content with ID {}", id);
             return ResponseEntity.ok().body(bytes);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
+    @GetMapping("/metadata/{attachmentId}")
+    public ResponseEntity<?> getMetadata(@PathVariable UUID attachmentId) {
+        LOG.debug("controller requesting metadata of attachment with ID {}", attachmentId);
+        return ResponseEntity.ok(attachmentService.getMetadata(attachmentId));
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<?> getMedia(@PathVariable UUID id, @RequestParam(required = false) Boolean metadata) {
-        metadata = metadata != null && metadata;
-        if (metadata) {
-            return ResponseEntity.ok().body(attachmentService.getMetadata(id));
-        }
+    public ResponseEntity<?> getMedia(@PathVariable UUID id) {
         Attachment attachment = attachmentService.get(id);
         return ResponseEntity.ok().contentType(MediaType.parseMediaType
                 (attachment.getType())).header(HttpHeaders.CONTENT_DISPOSITION,
@@ -68,18 +71,18 @@ public class AttachmentController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<?> getAllAttachments() {
-        LOG.debug("Controller requesting to get all attachments");
+    public ResponseEntity<?> getAllAttachmentsMetadata() {
+        LOG.debug("Controller requesting to get all attachment metadata");
         return ResponseEntity.ok(attachmentService.getAll());
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "/content/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> setContent(@PathVariable UUID id, @RequestBody byte[] content) {
-        LOG.debug("Controller requesting to update with ID {}", id);
+        LOG.debug("Controller requesting to update content with ID {}", id);
         return ResponseEntity.accepted().body(attachmentService.update(content, id));
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         LOG.debug("Controller requesting to delete attachment with ID {}", id);
         attachmentService.delete(id);
