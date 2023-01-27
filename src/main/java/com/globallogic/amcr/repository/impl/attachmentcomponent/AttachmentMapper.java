@@ -1,7 +1,6 @@
 package com.globallogic.amcr.repository.impl.attachmentcomponent;
 
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
-import com.globallogic.amcr.model.attachmentcomponent.Content;
 import com.globallogic.amcr.typehandler.UUIDTypeHandler;
 import org.apache.ibatis.annotations.*;
 
@@ -14,12 +13,8 @@ public interface AttachmentMapper {
     @Insert("INSERT INTO attachments(id, name, type, size, crc) VALUES (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{name}, #{type}, #{size}, #{crc})")
     void save(Attachment attachment);
 
-    @Results(id = "attachmentContentResponse")
-    @ConstructorArgs({
-            @Arg(column = "content", javaType = byte[].class)
-    })
     @Select("SELECT content FROM attachments WHERE #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler} = id")
-    Content getContent(@Param("id") UUID id);
+    Attachment getContent(@Param("id") UUID id);
 
     @Update("UPDATE attachments SET content = #{content} WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     void update(byte[] content, UUID id);

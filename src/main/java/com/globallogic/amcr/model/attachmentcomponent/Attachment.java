@@ -2,22 +2,26 @@ package com.globallogic.amcr.model.attachmentcomponent;
 
 import java.util.UUID;
 
-public class Attachment extends Content {
+public class Attachment {
     private UUID id;
     private String name;
     private long size;
     private String type;
     private long crc;
+    private byte[] content;
 
     public Attachment() {}
 
     public Attachment(UUID id, String name, long size, String type, long crc, byte[] content) {
-        super(content);
         this.id = id;
         this.name = name;
         this.size = size;
         this.type = type;
         this.crc = crc;
+        if (content != null && content.length != size) {
+            throw new IllegalArgumentException("Length of the content array does not match the size");
+        }
+        this.content = content;
     }
 
     public Attachment(UUID id, String name, long size, String type, long crc) {
@@ -78,5 +82,13 @@ public class Attachment extends Content {
 
     public void setCrc(long crc) {
         this.crc = crc;
+    }
+
+    public byte[] getContent() {
+        return content;
+    }
+
+    public void setContent(byte[] content) {
+        this.content = content;
     }
 }

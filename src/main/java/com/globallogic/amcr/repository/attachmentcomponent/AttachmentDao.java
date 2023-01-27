@@ -1,14 +1,13 @@
 package com.globallogic.amcr.repository.attachmentcomponent;
 
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
-import com.globallogic.amcr.model.attachmentcomponent.Content;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface AttachmentDao {
 
-    Content getContent(UUID id);
+    Attachment getContent(UUID id);
 
     Attachment update(UUID id, byte[] content, Attachment oldAttachment);
 

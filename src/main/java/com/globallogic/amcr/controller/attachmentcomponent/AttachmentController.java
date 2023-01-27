@@ -1,13 +1,10 @@
 package com.globallogic.amcr.controller.attachmentcomponent;
 
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
-import com.globallogic.amcr.model.attachmentcomponent.Content;
 import com.globallogic.amcr.service.attachmentcomponent.AttachmentService;
 import com.globallogic.amcr.utils.Assert;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -43,7 +40,7 @@ public class AttachmentController {
 
     @GetMapping("/content/{id}")
     public ResponseEntity<byte []> getContent(@PathVariable UUID id) {
-        Content attachmentContent = attachmentService.getContent(id);
+        Attachment attachmentContent = attachmentService.getContent(id);
         if (attachmentContent == null) {
             LOG.debug("Controller requesting attachment with ID {} that has no content", id);
             return ResponseEntity.notFound().build();
