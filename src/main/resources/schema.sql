@@ -64,10 +64,11 @@ ALTER TABLE academy_project.text_intro
 
 create table if not exists academy_project.main_carousel
 (
-    id              uuid primary key not null,
-    title           text             not null,
-    location        text             not null,
-    imageid         uuid             not null
+    id               uuid primary key   not null,
+    titles           text[]             not null,
+    descriptions     text[],
+    location         text               not null,
+    imageids         uuid[]             not null
 )
 
 ALTER TABLE academy_project.main_carousel

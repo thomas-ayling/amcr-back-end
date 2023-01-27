@@ -1,20 +1,28 @@
 package com.globallogic.amcr.model.sharedcomponents;
 
+import jakarta.validation.constraints.NotNull;
+
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 public class MainCarousel {
 
     private UUID id;
-    private String title;
+    @NotNull
+    private String[] titles;
+    @NotNull
     private String location;
-    private UUID imageID;
-    private transient String imageLink;
+    private String[] descriptions;
+    private UUID[] imageIds;
+    private transient List<String> imageLinks;
 
-    public MainCarousel(UUID id, String title, String location, UUID imageID) {
+    public MainCarousel(UUID id, String[] title, String location, String[] descriptions, UUID[] imageIds) {
         this.id = id;
-        this.title = title;
+        this.titles = title;
         this.location = location;
-        this.imageID = imageID;
+        this.descriptions = descriptions;
+        this.imageIds = imageIds;
     }
 
     public MainCarousel(){}
@@ -23,9 +31,11 @@ public class MainCarousel {
     public String toString() {
         return "MainCarousel{" +
                 "id=" + id +
-                ", title='" + title + '\'' +
+                ", titles=" + titles +
                 ", location='" + location + '\'' +
-                ", imageID=" + imageID +
+                ", descriptions=" + descriptions +
+                ", imageIds=" + Arrays.toString(imageIds) +
+                ", imageLinks=" + imageLinks +
                 '}';
     }
 
@@ -37,12 +47,12 @@ public class MainCarousel {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String[] getTitles() {
+        return titles;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitles(String[] titles) {
+        this.titles = titles;
     }
 
     public String getLocation() {
@@ -53,32 +63,44 @@ public class MainCarousel {
         this.location = location;
     }
 
-    public UUID getImageID() {
-        return imageID;
+    public String[] getDescriptions() {
+        return descriptions;
     }
 
-    public void setImageID(UUID imageID) {
-        this.imageID = imageID;
+    public void setDescriptions(String[] descriptions) {
+        this.descriptions = descriptions;
     }
 
-    public String getImageLink() {
-        return imageLink;
+    public UUID[] getImageIds() {
+        return imageIds;
     }
 
-    public void setImageLink(String imageLink) {
-        this.imageLink = imageLink;
+    public void setImageIds(UUID[] imageIds) {
+        this.imageIds = imageIds;
+    }
+
+    public List<String> getImageLinks() {
+        return imageLinks;
+    }
+
+    public void setImageLinks(List<String> imageLinks) {
+        this.imageLinks = imageLinks;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof MainCarousel that)) return false;
-        return id.equals(that.id) && title.equals(that.title) && location.equals(that.location) && imageID.equals(that.imageID);
+        return Objects.equals(id, that.id) && Arrays.equals(titles, that.titles) && Objects.equals(location, that.location) && Arrays.equals(descriptions, that.descriptions) && Arrays.equals(imageIds, that.imageIds);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, location, imageID);
+        int result = Objects.hash(id, location);
+        result = 31 * result + Arrays.hashCode(titles);
+        result = 31 * result + Arrays.hashCode(descriptions);
+        result = 31 * result + Arrays.hashCode(imageIds);
+        return result;
     }
 }
 

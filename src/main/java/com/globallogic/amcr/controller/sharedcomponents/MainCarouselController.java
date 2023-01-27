@@ -3,14 +3,17 @@ package com.globallogic.amcr.controller.sharedcomponents;
 import com.globallogic.amcr.exception.NotFoundException;
 import com.globallogic.amcr.model.sharedcomponents.MainCarousel;
 import com.globallogic.amcr.service.sharedcomponents.MainCarouselService;
+import com.globallogic.amcr.utils.WebUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,7 +43,20 @@ public class MainCarouselController {
     @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<MainCarousel> get(@PathVariable UUID id) {
         LOG.debug("Controller requesting main carousel with ID {}", id);
-        return ResponseEntity.ok().body(mainCarouselService.get(id));
+        MainCarousel mainCarousel = mainCarouselService.get(id);
+        List<String> imageLinks = new ArrayList<>();
+        if (mainCarousel.getImageIds() != null) {
+            for (UUID imageId : mainCarousel.getImageIds()) {
+                imageLinks.add(WebUtil.generateUri("/attachment/{id}", imageId).toString());
+            }
+        }
+        mainCarousel.setImageLinks(imageLinks);
+        return ResponseEntity.ok().body(mainCarousel);
+    }
+
+    @GetMapping(value = "/{id}/attachment/{attachmentId}")
+    public ModelAndView getAttachment(@PathVariable UUID id, @PathVariable UUID attachmentId) {
+        return new ModelAndView("forward:/attachment/" + attachmentId);
     }
 
     @GetMapping(produces = "application/json")

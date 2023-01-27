@@ -24,14 +24,17 @@ public class MainCarouselDaoImpl implements MainCarouselDao {
         if (oldObject.equals(newObject)){
             return newObject;
         }
-        if (newObject.getTitle() == null) {
-            newObject.setTitle(oldObject.getTitle());
+        if (newObject.getTitles() == null) {
+            newObject.setTitles(oldObject.getTitles());
         }
         if (newObject.getLocation() == null) {
             newObject.setLocation(oldObject.getLocation());
         }
-        if (newObject.getImageID() == null) {
-            newObject.setImageID((oldObject.getImageID()));
+        if (newObject.getDescriptions() == null) {
+            newObject.setDescriptions(oldObject.getDescriptions());
+        }
+        if (newObject.getImageIds() == null) {
+            newObject.setImageIds((oldObject.getImageIds()));
         }
         LOG.trace("DAO updating main carousel with Id {}", id);
         mainCarouselMapper.update(id, newObject);

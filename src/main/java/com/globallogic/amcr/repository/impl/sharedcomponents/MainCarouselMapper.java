@@ -10,7 +10,7 @@ import java.util.UUID;
 @Mapper
 public interface MainCarouselMapper {
 
-    @Insert("INSERT INTO main_carousel(id, title, location, imageid) VALUES (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{title}, #{location}, #{imageid, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler})")
+    @Insert("INSERT INTO main_carousel(id, titles, location, descriptions, imageids) VALUES (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{titles}, #{location}, #{descriptions}, #{imageIds, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler})")
     void save(MainCarousel mainCarousel);
 
     @Select("SELECT * FROM main_carousel WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
@@ -23,7 +23,7 @@ public interface MainCarouselMapper {
     @Select("SELECT * FROM main_carousel WHERE location = #{location}")
     MainCarousel getByLocation(@Param("location") String location);
 
-    @Update("UPDATE main_carousel SET title = #{mainCarousel.title}, location = #{mainCarousel.overview}, imageid = #{mainCarousel.imageid} WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
+    @Update("UPDATE main_carousel SET titles = #{mainCarousel.titles}, location = #{mainCarousel.overview}, imageids = #{mainCarousel.imageids}, location = #{mainCarousel.location}, descriptions = #{mainCarousel.descriptions} WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     void update(UUID id, MainCarousel mainCarousel);
 
     @Delete("DELETE from main_carousel WHERE #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler} = id")
