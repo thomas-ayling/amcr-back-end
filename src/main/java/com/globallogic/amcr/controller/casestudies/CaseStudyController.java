@@ -5,7 +5,7 @@ import com.globallogic.amcr.model.casestudies.CaseStudy;
 import com.globallogic.amcr.model.casestudies.CaseStudyOverview;
 import com.globallogic.amcr.service.casestudies.CaseStudyService;
 import com.globallogic.amcr.utils.Assert;
-import com.globallogic.amcr.utils.Utils;
+import com.globallogic.amcr.utils.WebUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -49,19 +49,24 @@ public class CaseStudyController {
         List<String> attachmentLinks = new ArrayList<>();
         if (caseStudy.getAttachmentIds() != null) {
             for (UUID attachmentId : caseStudy.getAttachmentIds()) {
-                attachmentLinks.add(Utils.generateUri("/attachment/{id}", attachmentId).toString());
+                attachmentLinks.add(WebUtil.generateUri("/attachment/{id}", attachmentId).toString());
             }
         }
         for (Map<String, String> row : caseStudy.getBody()) {
-            row.replace("imageId", Utils.generateUri("/attachment/{id}", UUID.fromString(row.get("imageId"))).toString());
+            row.replace("imageId", WebUtil.generateUri("/attachment/{id}", UUID.fromString(row.get("imageId"))).toString());
         }
         caseStudy.setAttachmentLinks(attachmentLinks);
-        caseStudy.setCoverImageLink(Utils.generateUri("/attachment/{id}", caseStudy.getCoverImageId()).toString());
+        caseStudy.setCoverImageLink(WebUtil.generateUri("/attachment/{id}", caseStudy.getCoverImageId()).toString());
         return ResponseEntity.ok().body(caseStudy);
     }
 
     @GetMapping(value = "/{id}/attachment/{attachmentId}")
     public ModelAndView getAttachment(@PathVariable UUID id, @PathVariable UUID attachmentId) {
+        return new ModelAndView("forward:/attachment/" + attachmentId);
+    }
+
+    @GetMapping(value = "/overviews/attachment/{attachmentId}")
+    public ModelAndView getAttachment(@PathVariable UUID attachmentId) {
         return new ModelAndView("forward:/attachment/" + attachmentId);
     }
 
@@ -82,7 +87,7 @@ public class CaseStudyController {
         Log.debug(spotlit ? "Controller requesting all spotlit case study overviews" : latest ? "Controller requesting latest case study overviews" : "Controller requesting all case study overviews");
         List<CaseStudyOverview> caseStudyOverviews = spotlit ? caseStudyService.getSpotlitOverviews() : latest ? caseStudyService.getLatestOverviews(entries) : caseStudyService.getAllOverviews();
         for (CaseStudyOverview caseStudyOverview : caseStudyOverviews) {
-            caseStudyOverview.setCoverImageLink(Utils.generateUri("/attachment/{id}", caseStudyOverview.getCoverImageId()).toString());
+            caseStudyOverview.setCoverImageLink(WebUtil.generateUri("/attachment/{id}", caseStudyOverview.getCoverImageId()).toString());
         }
         return ResponseEntity.ok().body(caseStudyOverviews);
     }
