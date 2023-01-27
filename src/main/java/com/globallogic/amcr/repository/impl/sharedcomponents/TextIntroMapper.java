@@ -11,28 +11,30 @@ import java.util.UUID;
 
 @Mapper
 public interface TextIntroMapper {
-    @Insert("INSERT INTO diagram (id, nodes) VALUES (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{nodes, javaType=java.util.List, jdbcType=OTHER, typeHandler=JSONListMapHandler})")
+    @Insert("INSERT INTO text_intro (id, title, description, location) VALUES (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{title}, #{description}, #{location})")
     void save(TextIntro textIntro);
 
     @Results(id = "TextIntroResponse")
     @ConstructorArgs({
             @Arg(column = "id", javaType = UUID.class, typeHandler = UUIDTypeHandler.class, id = true),
             @Arg(column = "title", javaType = String.class),
-            @Arg(column = "description", javaType = String.class)
+            @Arg(column = "description", javaType = String.class),
+            @Arg(column = "location", javaType = String.class)
     })
-    @Select("SELECT * FROM text-intro WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
+    @Select("SELECT * FROM text_intro WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     TextIntro get(@Param("id") UUID id);
 
     @ResultMap("TextIntroLocationResponse")
-    @Select("SELECT * FROM text-intro WHERE #{location} = location")
+    @Select("SELECT * FROM text_intro WHERE #{location} = location")
     TextIntro getByLocation(@Param("location") String location);
+
     @ResultMap("TextIntroResponse")
-    @Select("SELECT * FROM text-intro")
+    @Select("SELECT * FROM text_intro")
     List<TextIntro> getAll();
 
-    @Update("UPDATE text-intro SET title = #{title}, description = #{description} WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
+    @Update("UPDATE text_intro SET title = #{title}, description = #{description}, location = #{location} WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     void update(@Param("id")UUID id, TextIntro textIntro);
 
-    @Delete("DELETE FROM text-intro WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
+    @Delete("DELETE FROM text_intro WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     void delete(@Param("id") UUID id);
 }

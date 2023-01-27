@@ -8,6 +8,7 @@ public class MainCarousel {
     private String title;
     private String location;
     private UUID imageID;
+    private transient String imageLink;
 
     public MainCarousel(UUID id, String title, String location, UUID imageID) {
         this.id = id;
@@ -58,6 +59,14 @@ public class MainCarousel {
 
     public void setImageID(UUID imageID) {
         this.imageID = imageID;
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 
     @Override

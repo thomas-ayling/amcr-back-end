@@ -51,7 +51,7 @@ create table if not exists academy_project.diagram
 ALTER TABLE academy_project.diagram
     OWNER TO CURRENT_USER;
 
-create table if not exists academy_project.text-intro
+create table if not exists academy_project.text_intro
 (
     id              uuid primary key not null,
     title           text             not null,
@@ -59,7 +59,18 @@ create table if not exists academy_project.text-intro
     location        text             not null
 )
 
-ALTER TABLE academy_project.text-intro
+ALTER TABLE academy_project.text_intro
+    OWNER TO CURRENT_USER;
+
+create table if not exists academy_project.main_carousel
+(
+    id              uuid primary key not null,
+    title           text             not null,
+    location        text             not null,
+    imageid         uuid             not null
+)
+
+ALTER TABLE academy_project.main_carousel
     OWNER TO CURRENT_USER;
 -- Object format:
 
