@@ -1,6 +1,7 @@
 package com.globallogic.amcr.repository.impl.attachmentcomponent;
 
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
+import com.globallogic.amcr.model.attachmentcomponent.Content;
 import com.globallogic.amcr.repository.attachmentcomponent.AttachmentDao;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
@@ -35,15 +36,9 @@ public class AttachmentDaoImpl implements AttachmentDao {
     }
 
     @Override
-    public byte[] getContent(UUID id) {
+    public Content getContent(UUID id) {
         LOG.trace("DAO requesting attachment {}", id);
         return attachmentMapper.getContent(id);
-    }
-
-    @Override
-    public Attachment get(UUID id) {
-        LOG.trace("Dao requesting attachment with ID {}", id);
-        return attachmentMapper.get(id);
     }
 
     @Override

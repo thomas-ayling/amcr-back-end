@@ -1,6 +1,7 @@
 package com.globallogic.amcr.controller.attachmentcomponent;
 
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
+import com.globallogic.amcr.model.attachmentcomponent.Content;
 import com.globallogic.amcr.service.attachmentcomponent.AttachmentService;
 import com.globallogic.amcr.utils.Assert;
 
@@ -41,19 +42,18 @@ public class AttachmentController {
     }
 
     @GetMapping("/content/{id}")
-    public ResponseEntity<byte[]> getBytes(@PathVariable UUID id) {
-        Attachment attachmentByte = attachmentService.get(id);
-        if (attachmentByte == null) {
+    public ResponseEntity<byte []> getContent(@PathVariable UUID id) {
+        Content attachmentContent = attachmentService.getContent(id);
+        if (attachmentContent == null) {
             LOG.debug("Controller requesting attachment with ID {} that has no content", id);
             return ResponseEntity.notFound().build();
         }
-        byte[] bytes = attachmentByte.getContent();
-        if (bytes != null && bytes.length > 0) {
-            return ResponseEntity.ok().body(bytes);
-        } else {
-            return ResponseEntity.notFound().build();
+        if (attachmentContent.getContent().length > 0) {
+            return ResponseEntity.ok().body(attachmentContent.getContent());
         }
+        return ResponseEntity.notFound().build();
     }
+
 
     @GetMapping("/metadata/{attachmentId}")
     public ResponseEntity<?> getMetadata(@PathVariable UUID attachmentId) {
@@ -62,8 +62,9 @@ public class AttachmentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getMedia(@PathVariable UUID id) {
-        Attachment attachment = attachmentService.get(id);
+    public ResponseEntity<?> get(@PathVariable UUID id) {
+        Attachment attachment = attachmentService.getMetadata(id);
+        attachment.setContent(attachmentService.getContent(id).getContent());
         return ResponseEntity.ok().contentType(MediaType.parseMediaType
                 (attachment.getType())).header(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + attachment.getName()

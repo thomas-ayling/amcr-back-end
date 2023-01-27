@@ -1,6 +1,7 @@
 package com.globallogic.amcr.service.attachmentcomponent;
 
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
+import com.globallogic.amcr.model.attachmentcomponent.Content;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +33,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     @Override
     @Transactional(readOnly = true)
-    public byte[] getBinary(UUID id) {
+    public Content getContent(UUID id) {
         LOG.debug("Service saving new attachment binary");
         return attachmentDao.getContent(id);
     }
@@ -40,16 +41,9 @@ public class AttachmentServiceImpl implements AttachmentService {
     @Override
     @Transactional
     public Attachment update(byte[] content, UUID id) {
-        Attachment oldAttachment = attachmentDao.get(id);
+        Attachment oldAttachment = attachmentDao.getMetadata(id);
         LOG.debug("Service updating new attachment");
         return attachmentDao.update(id, content, oldAttachment);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Attachment get (UUID id) {
-        LOG.debug("Service requesting attachment with ID {}", id);
-        return attachmentDao.get(id);
     }
 
     @Override
