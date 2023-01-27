@@ -3,13 +3,14 @@ package com.globallogic.amcr.service.attachmentcomponent;
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface AttachmentService {
 
     Attachment save(Attachment attachment);
 
-    Attachment getContent(UUID id);
+    byte[] getContent(UUID id);
 
     Attachment update(byte[] content, UUID id);
 

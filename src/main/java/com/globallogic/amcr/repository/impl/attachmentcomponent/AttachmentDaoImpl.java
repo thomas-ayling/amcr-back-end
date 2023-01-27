@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Repository
@@ -35,9 +36,9 @@ public class AttachmentDaoImpl implements AttachmentDao {
     }
 
     @Override
-    public Attachment getContent(UUID id) {
+    public byte[] getContent(UUID id) {
         LOG.trace("DAO requesting attachment {}", id);
-        return attachmentMapper.getContent(id);
+        return attachmentMapper.getContent(id).get("content");
     }
 
     @Override
