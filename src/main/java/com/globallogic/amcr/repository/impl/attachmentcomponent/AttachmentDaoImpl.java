@@ -1,8 +1,6 @@
 package com.globallogic.amcr.repository.impl.attachmentcomponent;
 
 import com.globallogic.amcr.model.attachmentcomponent.Attachment;
-import com.globallogic.amcr.model.attachmentcomponent.AttachmentMetadata;
-import com.globallogic.amcr.model.attachmentcomponent.AttachmentResponse;
 import com.globallogic.amcr.repository.attachmentcomponent.AttachmentDao;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
@@ -37,15 +35,9 @@ public class AttachmentDaoImpl implements AttachmentDao {
     }
 
     @Override
-    public byte[] getBinary(UUID id) {
+    public byte[] getContent(UUID id) {
         LOG.trace("DAO requesting attachment {}", id);
-        return attachmentMapper.getBinary(id);
-    }
-
-    @Override
-    public Attachment get(UUID id) {
-        LOG.trace("Dao requesting attachment with ID {}", id);
-        return attachmentMapper.get(id);
+        return attachmentMapper.getContent(id) != null ? attachmentMapper.getContent(id).get("content") : null;
     }
 
     @Override
@@ -55,13 +47,13 @@ public class AttachmentDaoImpl implements AttachmentDao {
     }
 
     @Override
-    public List<AttachmentResponse> getAll() {
+    public List<Attachment> getAll() {
         LOG.trace("DAO requesting all attachments");
         return attachmentMapper.getAll();
     }
 
     @Override
-    public AttachmentMetadata getMetadata(UUID id) {
+    public Attachment getMetadata(UUID id) {
         LOG.trace("Dao requesting attachment metadata with ID {}", id);
         return attachmentMapper.getMetadata(id);
     }
