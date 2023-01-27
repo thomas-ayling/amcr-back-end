@@ -28,7 +28,7 @@ public class CaseStudyDaoImpl implements CaseStudyDao {
             caseStudyMapper.save(caseStudy);
             return caseStudy;
         } catch (Exception e) {
-            throw new RuntimeException("Error in CaseStudyDaoImpl - could not save case study");
+            throw new RuntimeException("Error in CaseStudyDaoImpl - could not save case study", e);
         }
     }
 
@@ -56,14 +56,14 @@ public class CaseStudyDaoImpl implements CaseStudyDao {
         if (newCaseStudy.getOverview() == null) {
             newCaseStudy.setOverview(oldCaseStudy.getOverview());
         }
-        if (newCaseStudy.getCoverImageLink() == null) {
-            newCaseStudy.setCoverImageLink(oldCaseStudy.getCoverImageLink());
+        if (newCaseStudy.getCoverImageId() == null) {
+            newCaseStudy.setCoverImageId(oldCaseStudy.getCoverImageId());
         }
         if (newCaseStudy.getBody() == null) {
             newCaseStudy.setBody(oldCaseStudy.getBody());
         }
-        if (newCaseStudy.getDownloadLinks() == null) {
-            newCaseStudy.setDownloadLinks(oldCaseStudy.getDownloadLinks());
+        if (newCaseStudy.getAttachmentIds() == null) {
+            newCaseStudy.setAttachmentIds(oldCaseStudy.getAttachmentIds());
         }
         Log.trace("DAO updating case study with ID {} and content:\n{}\n\n\n\nwith new case study:\n\n{}", id, oldCaseStudy, newCaseStudy);
         caseStudyMapper.update(id, newCaseStudy);
