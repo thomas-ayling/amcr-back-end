@@ -38,7 +38,7 @@ public class AttachmentController {
                 .buildAndExpand(incomingAttachment.getId()).toUri()).body(incomingAttachment);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/content/{id}")
     public ResponseEntity<byte[]> getContent(@PathVariable UUID id) {
         byte[] attachmentContent = attachmentService.getContent(id);
         if (attachmentContent == null) {
