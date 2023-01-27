@@ -73,7 +73,7 @@ public class AttachmentController {
         return ResponseEntity.ok(attachmentService.getAll());
     }
 
-    @PutMapping(value = "/content/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> setContent(@PathVariable UUID id, @RequestBody byte[] content) {
         LOG.debug("Controller requesting to update content with ID {}", id);
         return ResponseEntity.accepted().body(attachmentService.update(content, id));
