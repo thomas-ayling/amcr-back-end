@@ -34,11 +34,11 @@ public class AttachmentController {
         }
         LOG.debug("Controller requesting a new attachment to be saved with id {}", attachment.getId());
         Attachment incomingAttachment = attachmentService.save(attachment);
-        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/content/{id}")
+        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(incomingAttachment.getId()).toUri()).body(incomingAttachment);
     }
 
-    @GetMapping("/content/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<byte[]> getContent(@PathVariable UUID id) {
         byte[] attachmentContent = attachmentService.getContent(id);
         if (attachmentContent == null) {
