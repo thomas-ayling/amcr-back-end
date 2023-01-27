@@ -35,9 +35,9 @@ public class AttachmentDaoImpl implements AttachmentDao {
     }
 
     @Override
-    public Attachment getContent(UUID id) {
+    public byte[] getContent(UUID id) {
         LOG.trace("DAO requesting attachment {}", id);
-        return attachmentMapper.getContent(id);
+        return attachmentMapper.getContent(id) != null ? attachmentMapper.getContent(id).get("content") : null;
     }
 
     @Override

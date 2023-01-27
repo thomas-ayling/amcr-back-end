@@ -34,23 +34,22 @@ public class AttachmentController {
         }
         LOG.debug("Controller requesting a new attachment to be saved with id {}", attachment.getId());
         Attachment incomingAttachment = attachmentService.save(attachment);
-        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/content/{id}")
+        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(incomingAttachment.getId()).toUri()).body(incomingAttachment);
     }
 
-    @GetMapping("/content/{id}")
-    public ResponseEntity<byte []> getContent(@PathVariable UUID id) {
-        Attachment attachmentContent = attachmentService.getContent(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<byte[]> getContent(@PathVariable UUID id) {
+        byte[] attachmentContent = attachmentService.getContent(id);
         if (attachmentContent == null) {
             LOG.debug("Controller requesting attachment with ID {} that has no content", id);
             return ResponseEntity.notFound().build();
         }
-        if (attachmentContent.getContent().length > 0) {
-            return ResponseEntity.ok().body(attachmentContent.getContent());
+        if (attachmentContent.length > 0) {
+            return ResponseEntity.ok().body(attachmentContent);
         }
         return ResponseEntity.notFound().build();
     }
-
 
     @GetMapping("/metadata/{attachmentId}")
     public ResponseEntity<?> getMetadata(@PathVariable UUID attachmentId) {
@@ -61,12 +60,12 @@ public class AttachmentController {
     @GetMapping("/{id}")
     public ResponseEntity<?> get(@PathVariable UUID id) {
         Attachment attachment = attachmentService.getMetadata(id);
-        attachment.setContent(attachmentService.getContent(id).getContent());
+        byte[] attachmentContent = attachmentService.getContent(id);
         return ResponseEntity.ok().contentType(MediaType.parseMediaType
                 (attachment.getType())).header(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + attachment.getName()
-                        + "\"").body(new ByteArrayResource(attachment.getContent()));
-    }
+                        + "\"").body(new ByteArrayResource(attachmentContent));
+}
 
     @GetMapping("/")
     public ResponseEntity<?> getAllAttachmentsMetadata() {

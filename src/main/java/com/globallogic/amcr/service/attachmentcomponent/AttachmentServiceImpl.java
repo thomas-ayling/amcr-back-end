@@ -30,7 +30,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     @Override
     @Transactional(readOnly = true)
-    public Attachment getContent(UUID id) {
+    public byte[] getContent(UUID id) {
         LOG.debug("Service saving new attachment binary");
         return attachmentDao.getContent(id);
     }

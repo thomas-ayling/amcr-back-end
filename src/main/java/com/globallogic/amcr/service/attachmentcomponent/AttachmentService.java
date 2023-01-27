@@ -9,7 +9,7 @@ public interface AttachmentService {
 
     Attachment save(Attachment attachment);
 
-    Attachment getContent(UUID id);
+    byte[] getContent(UUID id);
 
     Attachment update(byte[] content, UUID id);
 

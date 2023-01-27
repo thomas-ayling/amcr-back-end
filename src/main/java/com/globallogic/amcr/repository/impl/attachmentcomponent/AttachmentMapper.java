@@ -5,6 +5,7 @@ import com.globallogic.amcr.typehandler.UUIDTypeHandler;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Mapper
@@ -14,7 +15,7 @@ public interface AttachmentMapper {
     void save(Attachment attachment);
 
     @Select("SELECT content FROM attachments WHERE #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler} = id")
-    Attachment getContent(@Param("id") UUID id);
+    Map<String, byte[]> getContent(@Param("id") UUID id);
 
     @Update("UPDATE attachments SET content = #{content} WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     void update(byte[] content, UUID id);

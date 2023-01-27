@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface AttachmentDao {
 
-    Attachment getContent(UUID id);
+    byte[] getContent(UUID id);
 
     Attachment update(UUID id, byte[] content, Attachment oldAttachment);
 
