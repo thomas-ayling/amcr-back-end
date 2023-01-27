@@ -13,7 +13,7 @@ import java.util.UUID;
 @Repository
 public class ContactsDaoImpl implements ContactsDao {
 
-    private final Logger Log = LoggerFactory.getLogger(ContactsDaoImpl.class.getName());
+    private final Logger LOG = LoggerFactory.getLogger(ContactsDaoImpl.class);
     private final ContactsMapper contactsMapper;
 
     public ContactsDaoImpl(ContactsMapper contactsMapper) {
@@ -23,26 +23,26 @@ public class ContactsDaoImpl implements ContactsDao {
     @Override
     public Contacts save(Contacts contact, UUID id) {
         contact.setId(id);
-        Log.trace("DAO saving new contacts data:\n{}", contact);
+        LOG.trace("DAO saving new contacts data:\n{}", contact);
         contactsMapper.save(contact);
         return contact;
     }
 
     @Override
     public Contacts get(UUID id) {
-        Log.trace("DAO requesting contacts data with ID {}", id);
+        LOG.trace("DAO requesting contacts data with ID {}", id);
         return contactsMapper.get(id);
     }
 
     @Override
     public List<Contacts> getAll() {
-        Log.trace("DAO requesting all contacts data");
+        LOG.trace("DAO requesting all contacts data");
         return contactsMapper.getAll();
     }
 
     @Override
     public List<Contacts> getSpotlitContacts() {
-        Log.trace("DAO requesting all spotlit contacts data");
+        LOG.trace("DAO requesting all spotlit contacts data");
         return contactsMapper.getSpotlitContacts();
     }
 
@@ -64,14 +64,14 @@ public class ContactsDaoImpl implements ContactsDao {
         if (newContact.getDescription() == null) {
             newContact.setDescription(oldContact.getDescription());
         }
-        Log.trace("DAO updating contacts data with ID {} and content\n{}\nwith new content:\n{}", id, oldContact, newContact);
+        LOG.trace("DAO updating contacts data with ID {} and content\n{}\nwith new content:\n{}", id, oldContact, newContact);
         contactsMapper.update(id, newContact);
         return newContact;
     }
 
     @Override
     public void delete(UUID id) {
-        Log.trace("DAO deleting contacts data with ID {}", id);
+        LOG.trace("DAO deleting contacts data with ID {}", id);
         contactsMapper.delete(id);
     }
 }
