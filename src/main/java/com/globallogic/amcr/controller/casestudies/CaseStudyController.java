@@ -62,12 +62,20 @@ public class CaseStudyController {
 
     @GetMapping(value = "/{id}/attachment/{attachmentId}")
     public ModelAndView getAttachment(@PathVariable UUID id, @PathVariable UUID attachmentId) {
+        Log.debug("Controller forwarding request to /attachment/{}", attachmentId);
         return new ModelAndView("forward:/attachment/" + attachmentId);
     }
 
     @GetMapping(value = "/overviews/attachment/{attachmentId}")
     public ModelAndView getAttachment(@PathVariable UUID attachmentId) {
+        Log.debug("Controller forwarding request to /attachment/{}", attachmentId);
         return new ModelAndView("forward:/attachment/" + attachmentId);
+    }
+
+    @GetMapping(value = "/{id}/attachment/{attachmentId}/metadata")
+    public ModelAndView getAttachmentMetadata(@PathVariable UUID id, @PathVariable UUID attachmentId) {
+        Log.debug("Controller forwarding request to /attachment/metadata/{}", attachmentId);
+        return new ModelAndView("forward:/attachment/metadata/" + attachmentId);
     }
 
     @GetMapping(produces = "application/json")
