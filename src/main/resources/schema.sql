@@ -68,7 +68,7 @@ create table if not exists academy_project.main_carousel
     titles           text[]             not null,
     descriptions     text[],
     location         text               not null,
-    imageids         uuid[]             not null
+    image_ids         uuid[]             not null
 )
 
 ALTER TABLE academy_project.main_carousel
