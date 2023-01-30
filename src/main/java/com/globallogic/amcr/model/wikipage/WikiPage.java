@@ -3,6 +3,7 @@ package com.globallogic.amcr.model.wikipage;
 import com.globallogic.amcr.utils.Assert;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -40,6 +41,13 @@ public class WikiPage extends WikiPageOverview {
 
     public void setBody(List<Map<?, ?>> body) {
         this.body = Assert.assertNotNull(body, "Wiki page body cannot be null");
+    }
+
+
+    @Override
+    public String toString(){
+        return "WikiPage{" +
+                "body=" + body + super.toString();
     }
 
 
