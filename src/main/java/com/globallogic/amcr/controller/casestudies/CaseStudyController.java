@@ -5,7 +5,7 @@ import com.globallogic.amcr.model.casestudies.CaseStudy;
 import com.globallogic.amcr.model.casestudies.CaseStudyOverview;
 import com.globallogic.amcr.service.casestudies.CaseStudyService;
 import com.globallogic.amcr.utils.Assert;
-import com.globallogic.amcr.utils.WebUtil;
+import com.globallogic.amcr.controller.WebUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;

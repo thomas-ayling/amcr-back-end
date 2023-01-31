@@ -1,4 +1,4 @@
-package com.globallogic.amcr.utils;
+package com.globallogic.amcr.controller;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
