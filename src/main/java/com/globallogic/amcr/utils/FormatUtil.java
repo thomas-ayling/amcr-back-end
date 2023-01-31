@@ -3,7 +3,7 @@ package com.globallogic.amcr.utils;
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 
-public class FormatUtil {
+public final class FormatUtil {
     private FormatUtil() {
         throw new UnsupportedOperationException("FormatUtil cannot be instantiated this way and its methods should be called statically");
     }
