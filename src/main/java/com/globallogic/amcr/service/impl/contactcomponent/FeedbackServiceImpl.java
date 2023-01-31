@@ -44,6 +44,7 @@ public class FeedbackServiceImpl implements FeedbackService {
             }
             Log.debug("Service sending email");
             emailService.sendMail(feedback, feedbackId);
+            Log.debug("Email has sent from feedback service");
             return createdFeedback;
         } catch (Exception e) {
             throw new RuntimeException("Error saving feedback and feedbackAttachment to database", e);

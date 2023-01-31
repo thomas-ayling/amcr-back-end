@@ -80,6 +80,7 @@ public class EmailServiceImpl implements EmailService {
             mimeMessageHelper.setText(textPart, htmlPart);
             Log.debug("Sending email.\nText part is:\n{}\n\nHTML part is:\n{}\n\nisAnonumous value is: {}", textPart, htmlPart, isAnonymous);
             mailSender.send(mimeMessage);
+            Log.debug("Email sent");
         } catch (Exception e) {
             throw new MailSendException("There was a problem sending this email", e);
         }
