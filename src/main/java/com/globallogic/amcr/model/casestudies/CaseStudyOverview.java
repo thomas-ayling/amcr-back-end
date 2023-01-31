@@ -16,14 +16,15 @@ public class CaseStudyOverview {
     @NotNull
     private String overview;
     @NotNull
-    private String coverImageLink;
+    private UUID coverImageId;
+    private transient String coverImageLink;
 
-    public CaseStudyOverview(UUID id, boolean spotlight, String title, String overview, String coverImageLink) {
+    public CaseStudyOverview(UUID id, boolean spotlight, String title, String overview, UUID coverImageId) {
         setId(id);
         setSpotlight(spotlight);
         setTitle(title);
         setOverview(overview);
-        setCoverImageLink(coverImageLink);
+        setCoverImageId(coverImageId);
     }
 
     public CaseStudyOverview() {
@@ -61,12 +62,20 @@ public class CaseStudyOverview {
         this.overview = Assert.assertNotNull(overview, "Overview cannot be null");
     }
 
+    public UUID getCoverImageId() {
+        return coverImageId;
+    }
+
+    public void setCoverImageId(UUID coverImageId) {
+        this.coverImageId = Assert.assertNotNull(coverImageId, "Cover image link cannot be null");
+    }
+
     public String getCoverImageLink() {
         return coverImageLink;
     }
 
     public void setCoverImageLink(String coverImageLink) {
-        this.coverImageLink = Assert.assertNotNull(coverImageLink, "Cover image link cannot be null");
+        this.coverImageLink = coverImageLink;
     }
 
     @Override
@@ -74,16 +83,16 @@ public class CaseStudyOverview {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CaseStudyOverview that = (CaseStudyOverview) o;
-        return getTitle().equals(that.getTitle()) && getOverview().equals(that.getOverview()) && getCoverImageLink().equals(that.getCoverImageLink());
+        return getTitle().equals(that.getTitle()) && getOverview().equals(that.getOverview()) && getCoverImageId().equals(that.getCoverImageId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTitle(), getOverview(), getCoverImageLink());
+        return Objects.hash(getTitle(), getOverview(), getCoverImageId());
     }
 
     @Override
     public String toString() {
-        return "CaseStudyOverview{" + "title='" + title + '\'' + ", overview='" + overview + '\'' + ", coverImageLink='" + coverImageLink + '\'' + '}';
+        return "CaseStudyOverview{" + "title='" + title + '\'' + ", overview='" + overview + '\'' + ", coverImageId='" + coverImageId + '\'' + '}';
     }
 }
