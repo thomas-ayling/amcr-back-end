@@ -1,10 +1,9 @@
 package com.globallogic.amcr.controller.contacts;
 
-import com.globallogic.amcr.exception.NotFoundException;
+import com.globallogic.amcr.controller.WebUtil;
 import com.globallogic.amcr.model.contacts.Contacts;
 import com.globallogic.amcr.service.contacts.ContactsService;
 import com.globallogic.amcr.utils.Assert;
-import com.globallogic.amcr.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +51,7 @@ public class ContactsController {
     public ResponseEntity<Contacts> get(@PathVariable UUID id) {
         LOG.debug("Controller requesting contacts page data with ID {}", id);
         Contacts createdContact = contactsService.get(id);
-        createdContact.setImageLink(Utils.generateUri("/attachment/{id}", createdContact.getImageId()).toString());
+        createdContact.setImageLink(WebUtil.generateUri("/attachment/{id}", createdContact.getImageId()).toString());
         return ResponseEntity.ok().body(createdContact);
     }
 
@@ -64,7 +63,7 @@ public class ContactsController {
         LOG.debug("Controller requesting all contacts page data");
         List<Contacts> allContacts = contactsService.getAll();
         for (Contacts contact : allContacts) {
-            contact.setImageLink(Utils.generateUri("/attachment/{id}", contact.getImageId()).toString());
+            contact.setImageLink(WebUtil.generateUri("/attachment/{id}", contact.getImageId()).toString());
         }
         return ResponseEntity.ok().body(allContacts);
     }
@@ -77,7 +76,7 @@ public class ContactsController {
         LOG.debug("Controller requesting all spotlit contacts page data");
         List<Contacts> spotlitContacts = contactsService.getSpotlitContacts();
         for (Contacts contact : spotlitContacts) {
-            contact.setImageLink(Utils.generateUri("/attachment/{id}", contact.getImageId()).toString());
+            contact.setImageLink(WebUtil.generateUri("/attachment/{id}", contact.getImageId()).toString());
         }
         return ResponseEntity.ok().body(spotlitContacts);
     }
