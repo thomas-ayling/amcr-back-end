@@ -1,19 +1,11 @@
 package com.globallogic.amcr.utils;
 
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
-import java.util.UUID;
 
-public class Utils {
-    public Utils() {
-        throw new UnsupportedOperationException("Utils class is static and should not be instantiated using the constructor.");
-    }
-
-    public static URI generateUri (String path, UUID id) {
-        return ServletUriComponentsBuilder.fromCurrentRequest().path(path).buildAndExpand(id).toUri();
+public final class FormatUtil {
+    private FormatUtil() {
+        throw new UnsupportedOperationException("FormatUtil cannot be instantiated this way and its methods should be called statically");
     }
 
     public static String bytesToReadable(long bytes) {
@@ -22,7 +14,7 @@ public class Utils {
             return bytes + " B";
         }
         long value = absB;
-        CharacterIterator ci = new StringCharacterIterator("KMGTPE");
+        CharacterIterator ci = new StringCharacterIterator("kMGTPE");
         for (int i = 40; i >= 0 && absB > 0xfffccccccccccccL >> i; i -= 10) {
             value >>= 10;
             ci.next();
@@ -30,4 +22,5 @@ public class Utils {
         value *= Long.signum(bytes);
         return String.format("%.1f %ciB", value / 1024.0, ci.current());
     }
+
 }

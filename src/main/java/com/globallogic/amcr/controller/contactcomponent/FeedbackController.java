@@ -55,6 +55,7 @@ public class FeedbackController {
             FeedbackAttachment feedbackAttachment = incomingAttachment == null ? null : new FeedbackAttachment(StringUtils.cleanPath(Objects.requireNonNull(incomingAttachment.getOriginalFilename())), incomingAttachment.getContentType(), incomingAttachment.getSize(), incomingAttachment.getBytes());
             Log.debug("Controller saving new feedback");
             Feedback createdFeedback = feedbackService.save(feedback, feedbackAttachment);
+            Log.debug("Controller has saved new feedback");
             return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdFeedback.getId()).toUri()).body(createdFeedback);
         } catch (IOException ioe) {
             throw new RuntimeException("Error in feedback controller - attachment could not be read", ioe);
