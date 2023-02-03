@@ -16,7 +16,7 @@ public interface MainCarouselMapper {
     @Select("SELECT * FROM main_carousel WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     MainCarousel get(@Param("id") UUID id);
 
-    @ResultMap("mainCarouselResults")
+    @Results(id = "mainCarouselResults")
     @Select("SELECT * FROM main_carousel")
     List<MainCarousel> getAll();
 

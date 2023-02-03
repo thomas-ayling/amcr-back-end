@@ -14,7 +14,7 @@ public interface TextIntroMapper {
     @Insert("INSERT INTO text_intro (id, title, description, location) VALUES (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{title}, #{description}, #{location})")
     void save(TextIntro textIntro);
 
-    @Results(id = "TextIntroResponse")
+    @Results(id = "TextIntroSingleResponse")
     @ConstructorArgs({
             @Arg(column = "id", javaType = UUID.class, typeHandler = UUIDTypeHandler.class, id = true),
             @Arg(column = "title", javaType = String.class),
@@ -24,11 +24,11 @@ public interface TextIntroMapper {
     @Select("SELECT * FROM text_intro WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     TextIntro get(@Param("id") UUID id);
 
-    @ResultMap("TextIntroLocationResponse")
+    @Results(id = "TextIntroLocationResponse")
     @Select("SELECT * FROM text_intro WHERE #{location} = location")
     TextIntro getByLocation(@Param("location") String location);
 
-    @ResultMap("TextIntroResponse")
+    @Results(id = "TextIntroResponse")
     @Select("SELECT * FROM text_intro")
     List<TextIntro> getAll();
 

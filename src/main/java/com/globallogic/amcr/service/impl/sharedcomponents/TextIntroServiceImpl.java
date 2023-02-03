@@ -22,24 +22,24 @@ public class TextIntroServiceImpl implements TextIntroService {
         this.textIntroDao = Assert.assertNotNull(textIntroDao, "Dao cannot be null to request");
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public TextIntro save(TextIntro textIntro) {
         UUID id = UUID.randomUUID();
-        LOG.debug("Service saving TextIntro with id {}");
+        LOG.debug("Service saving TextIntro with id {}", id);
         return textIntroDao.save(textIntro, id);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public TextIntro get(UUID id) {
         Assert.assertNotNull(id, "Id cannot be null");
-        LOG.debug("Service is retrieving TextIntro id {}");
+        LOG.debug("Service is retrieving TextIntro id {}", id);
         return textIntroDao.get(id);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public TextIntro getByLocation(String location) {
         Assert.assertNotNull(location, "Location cannot be null");
-        LOG.debug("Retrieving textintro from location {}");
+        LOG.debug("Retrieving textintro from location {}", location);
         return textIntroDao.getByLocation(location);
     }
 

@@ -31,7 +31,7 @@ public class TextIntroController {
         return ResponseEntity.accepted().body(newTextIntro);
     }
 
-    @GetMapping(value="/{location}", produces="application/json")
+    @GetMapping(value="/location/{location}", produces="application/json")
     public ResponseEntity<TextIntro> getByLocation(@PathVariable String location) {
         LOG.debug("Controller requesting text intro for location {}", location);
         return ResponseEntity.ok().body(textIntroService.getByLocation(location));
