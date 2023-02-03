@@ -5,7 +5,7 @@ import com.globallogic.amcr.model.casestudies.CaseStudy;
 import com.globallogic.amcr.model.casestudies.CaseStudyOverview;
 import com.globallogic.amcr.service.casestudies.CaseStudyService;
 import com.globallogic.amcr.utils.Assert;
-import com.globallogic.amcr.utils.WebUtil;
+import com.globallogic.amcr.controller.WebUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -62,12 +62,20 @@ public class CaseStudyController {
 
     @GetMapping(value = "/{id}/attachment/{attachmentId}")
     public ModelAndView getAttachment(@PathVariable UUID id, @PathVariable UUID attachmentId) {
+        Log.debug("Controller forwarding request to /attachment/{}", attachmentId);
         return new ModelAndView("forward:/attachment/" + attachmentId);
     }
 
     @GetMapping(value = "/overviews/attachment/{attachmentId}")
     public ModelAndView getAttachment(@PathVariable UUID attachmentId) {
+        Log.debug("Controller forwarding request to /attachment/{}", attachmentId);
         return new ModelAndView("forward:/attachment/" + attachmentId);
+    }
+
+    @GetMapping(value = "/{id}/attachment/{attachmentId}/metadata")
+    public ModelAndView getAttachmentMetadata(@PathVariable UUID id, @PathVariable UUID attachmentId) {
+        Log.debug("Controller forwarding request to /attachment/metadata/{}", attachmentId);
+        return new ModelAndView("forward:/attachment/metadata/" + attachmentId);
     }
 
     @GetMapping(produces = "application/json")

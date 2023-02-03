@@ -1,11 +1,11 @@
-package com.globallogic.amcr.utils;
+package com.globallogic.amcr.controller;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.UUID;
 
-public class WebUtil {
+public final class WebUtil {
     private WebUtil () {
         throw new UnsupportedOperationException("WebUtil cannot be instantiated this way and its methods should be called statically");
     }

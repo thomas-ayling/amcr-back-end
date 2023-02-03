@@ -40,8 +40,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     public CaseStudy get(UUID id) {
         Assert.assertNotNull(id, "ID cannot be null to request entry");
         Log.debug("Service requesting case study with ID {}", id);
-
-                return caseStudyDao.get(id);
+        return caseStudyDao.get(id);
 
     }
 
