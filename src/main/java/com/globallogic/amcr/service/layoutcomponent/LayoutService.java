@@ -1,7 +1,7 @@
 package com.globallogic.amcr.service.layoutcomponent;
 
 
-import com.globallogic.amcr.persistence.model.layoutcomponent.Layout;
+import com.globallogic.amcr.model.Layout;
 
 import java.util.List;
 import java.util.UUID;
@@ -10,17 +10,16 @@ import java.util.UUID;
 public interface LayoutService {
     Layout save(Layout layout);
 
+    Layout get(UUID id);
 
-    Layout getById(UUID id);
+    Layout getPage(String name);
 
     List<Layout> getAll();
 
 
-    List<Layout> getByPage(UUID pageId);
+    Layout update(UUID id, Layout newPageLayout);
 
-    List<Layout> update(UUID pageId, Layout newPageLayout);
-
-    void deleteById(UUID id);
+    void delete(UUID id);
 
 
 }

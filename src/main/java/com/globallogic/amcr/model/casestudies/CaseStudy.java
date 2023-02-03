@@ -3,15 +3,12 @@ package com.globallogic.amcr.model.casestudies;
 import com.globallogic.amcr.utils.Assert;
 import jakarta.validation.constraints.NotNull;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @SuppressWarnings("unused")
 public class CaseStudy extends CaseStudyOverview {
     @NotNull
-    private Map<?, ?> body;
+    private List<Map<?, ?>> body;
     private String[] downloadLinks;
 
     /**
@@ -24,7 +21,7 @@ public class CaseStudy extends CaseStudyOverview {
      * @param downloadLinks  the list of download links to related attachments
      */
 
-    public CaseStudy(UUID id, boolean spotlight, String title, String overview, String coverImageLink, Map<?, ?> body, String[] downloadLinks) {
+    public CaseStudy(UUID id, boolean spotlight, String title, String overview, String coverImageLink, List<Map<?, ?>> body, String[] downloadLinks) {
         super(id, spotlight, title, overview, coverImageLink);
         setBody(body);
         setDownloadLinks(downloadLinks);
@@ -34,11 +31,11 @@ public class CaseStudy extends CaseStudyOverview {
         super();
     }
 
-    public Map<?, ?> getBody() {
+    public List<Map<?, ?>> getBody() {
         return body;
     }
 
-    public void setBody(Map<?, ?> body) {
+    public void setBody(List<Map<?, ?>> body) {
         this.body = Assert.assertNotNull(body, "Case study's body cannot be null");
     }
 
