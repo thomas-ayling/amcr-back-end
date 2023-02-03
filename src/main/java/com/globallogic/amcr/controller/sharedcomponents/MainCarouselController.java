@@ -3,7 +3,7 @@ package com.globallogic.amcr.controller.sharedcomponents;
 import com.globallogic.amcr.exception.NotFoundException;
 import com.globallogic.amcr.model.sharedcomponents.MainCarousel;
 import com.globallogic.amcr.service.sharedcomponents.MainCarouselService;
-import com.globallogic.amcr.utils.WebUtil;
+import com.globallogic.amcr.controller.WebUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
