@@ -25,6 +25,12 @@ public interface TextIntroMapper {
     TextIntro get(@Param("id") UUID id);
 
     @Results(id = "TextIntroLocationResponse")
+    @ConstructorArgs({
+            @Arg(column = "id", javaType = UUID.class, typeHandler = UUIDTypeHandler.class, id = true),
+            @Arg(column = "title", javaType = String.class),
+            @Arg(column = "description", javaType = String.class),
+            @Arg(column = "location", javaType = String.class)
+    })
     @Select("SELECT * FROM text_intro WHERE #{location} = location")
     TextIntro getByLocation(@Param("location") String location);
 
@@ -32,7 +38,7 @@ public interface TextIntroMapper {
     @Select("SELECT * FROM text_intro")
     List<TextIntro> getAll();
 
-    @Update("UPDATE text_intro SET title = #{title}, description = #{description}, location = #{location} WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
+    @Update("UPDATE text_intro SET title = #{textIntro.title}, description = #{textIntro.description}, location = #{textIntro.location} WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     void update(@Param("id")UUID id, TextIntro textIntro);
 
     @Delete("DELETE FROM text_intro WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")

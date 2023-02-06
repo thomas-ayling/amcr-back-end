@@ -51,11 +51,11 @@ public class TextIntroServiceImpl implements TextIntroService {
 
     @Transactional
     public TextIntro update(UUID id, TextIntro newTextIntro) {
-        Assert.assertNotNull(id, "ID cannot be null");
+        Assert.assertNotNull(id, "Id cannot be null");
         Assert.assertNotNull(newTextIntro, "New Text intro cannot be null");
         TextIntro oldTextIntro = Assert.assertNotNull(textIntroDao.get(id), "Text intro to be updated cannot be null");
         LOG.debug("Service requesting the update of TextIntro with id {}", id);
-        return textIntroDao.update(id, oldTextIntro, newTextIntro);
+        return textIntroDao.update(id, newTextIntro, oldTextIntro);
     }
 
     @Transactional

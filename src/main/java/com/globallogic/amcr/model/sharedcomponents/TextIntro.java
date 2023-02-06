@@ -55,7 +55,7 @@ public class TextIntro {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof TextIntro textIntro)) return false;
-        return id.equals(textIntro.id) && title.equals(textIntro.title) && description.equals(textIntro.description) && location.equals(textIntro.location);
+        return Objects.equals(id, textIntro.id) && Objects.equals(title, textIntro.title) && Objects.equals(description, textIntro.description) && Objects.equals(location, textIntro.location);
     }
 
     @Override

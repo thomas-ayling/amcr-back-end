@@ -9,7 +9,6 @@ import java.util.UUID;
 public class MainCarousel {
 
     private UUID id;
-    @NotNull
     private String[] titles;
     @NotNull
     private String location;
@@ -17,9 +16,9 @@ public class MainCarousel {
     private UUID[] imageIds;
     private transient List<String> imageLinks;
 
-    public MainCarousel(UUID id, String[] title, String location, String[] descriptions, UUID[] imageIds) {
+    public MainCarousel(UUID id, String[] titles, String location, String[] descriptions, UUID[] imageIds) {
         this.id = id;
-        this.titles = title;
+        this.titles = titles;
         this.location = location;
         this.descriptions = descriptions;
         this.imageIds = imageIds;

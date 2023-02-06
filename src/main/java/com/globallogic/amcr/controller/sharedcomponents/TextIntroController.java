@@ -1,8 +1,6 @@
 package com.globallogic.amcr.controller.sharedcomponents;
 
-import com.globallogic.amcr.model.pagecontent.Diagram;
 import com.globallogic.amcr.model.sharedcomponents.TextIntro;
-import com.globallogic.amcr.service.pagecontent.DiagramService;
 import com.globallogic.amcr.service.sharedcomponents.TextIntroService;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
@@ -34,7 +32,8 @@ public class TextIntroController {
     @GetMapping(value="/location/{location}", produces="application/json")
     public ResponseEntity<TextIntro> getByLocation(@PathVariable String location) {
         LOG.debug("Controller requesting text intro for location {}", location);
-        return ResponseEntity.ok().body(textIntroService.getByLocation(location));
+        TextIntro textIntro = textIntroService.getByLocation(location);
+        return ResponseEntity.ok().body(textIntro);
     }
 
     @GetMapping(value="/{id}", produces="application/json")
@@ -44,13 +43,14 @@ public class TextIntroController {
     }
 
     @PutMapping(value="/{id}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<TextIntro> updateTextIntro(@PathVariable UUID id, @RequestBody TextIntro textIntro) {
+    public ResponseEntity<TextIntro> update(@PathVariable UUID id, @RequestBody TextIntro textIntro) {
         LOG.debug("Controller updating Text Intro data with ID {}", id);
-        return ResponseEntity.accepted().body(textIntroService.update(id, textIntro));
+        TextIntro newTextIntro = textIntroService.update(id, textIntro);
+        return ResponseEntity.accepted().body(newTextIntro);
     }
 
     @DeleteMapping(value="/{id}", produces="application/json")
-    public ResponseEntity<?> deleteTextIntro(@PathVariable UUID id) {
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
         LOG.debug("Controller requesting deletion of text intro with ID {}", id);
         textIntroService.delete(id);
         return ResponseEntity.noContent().build();

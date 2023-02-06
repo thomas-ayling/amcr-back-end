@@ -65,10 +65,18 @@ public class MainCarouselController {
         return ResponseEntity.ok().body(mainCarouselService.getAll());
     }
 
-    @GetMapping(value = "/{location}", produces = "application/json")
+    @GetMapping(value = "/location/{location}", produces = "application/json")
     public ResponseEntity<MainCarousel> getByLocation(@PathVariable String location) {
-        LOG.debug("Controller requesting all Main Carousels by location {}", location);
-        return ResponseEntity.ok().body(mainCarouselService.getByLocation(location));
+        LOG.debug("Controller requesting main carousel with location {}", location);
+        MainCarousel mainCarousel = mainCarouselService.getByLocation(location);
+        List<String> imageLinks = new ArrayList<>();
+        if (mainCarousel.getImageIds() != null) {
+            for (UUID imageId : mainCarousel.getImageIds()) {
+                imageLinks.add(WebUtil.generateUri("/attachment/{id}", imageId).toString());
+            }
+        }
+        mainCarousel.setImageLinks(imageLinks);
+        return ResponseEntity.ok().body(mainCarousel);
     }
 
     @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
