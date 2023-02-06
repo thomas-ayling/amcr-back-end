@@ -9,6 +9,22 @@
   "deployment": {
     "flywayConfFiles": [
       "./flyway.conf"
+    ],
+    "targetDatabases": [
+      {
+        "connectionProvider": {
+          "type": "UsernamePassword",
+          "url": "jdbc:postgresql://18.134.74.141:5432/academy_project",
+          "username": "ec_acad_psql",
+          "password": {
+            "secretType": "DefaultSecretStore",
+            "name": "Flyway Desktop 0e9a63bd-9acf-492b-8056-cfd7bb43edd0"
+          }
+        },
+        "schemas": [
+          "schema"
+        ]
+      }
     ]
   },
   "schemas": [

@@ -23,43 +23,43 @@ public class WikiController {
 
     private final Logger Log = LoggerFactory.getLogger(WikiController.class);
 
-    private final WikiService wikiService;
+    private final WikiService WikiService;
 
-    public WikiController(WikiService wikiService) {
-        this.wikiService = Assert.assertNotNull(wikiService, "Wiki page service cannot be null");
+    public WikiController(WikiService WikiService) {
+        this.WikiService = Assert.assertNotNull(WikiService, "Wiki page service cannot be null");
 
     }
 
     @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Wiki> saveWiki(@RequestBody @Validated Wiki wiki, BindingResult errors){
+    public ResponseEntity<Wiki> saveWiki(@RequestBody @Validated Wiki Wiki, BindingResult errors){
         if (errors.hasErrors()) {
             throw new NotFoundException(errors.toString());
         }
-        Log.debug("Controller saving new wiki page");
-        Wiki createdWiki = wikiService.save(wiki);
+        Log.debug("Controller saving new Wiki page");
+        Wiki createdWiki = WikiService.save(Wiki);
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdWiki.getId()).toUri()).body(createdWiki);
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Wiki> get(@PathVariable UUID id) {
-        Log.debug("Controller requesting wiki page with ID {}", id);
-        return ResponseEntity.ok().body(wikiService.get(id));
+        Log.debug("Controller requesting Wiki page with ID {}", id);
+        return ResponseEntity.ok().body(WikiService.get(id));
     }
     @GetMapping(produces = "application/json")
     public ResponseEntity<List<Wiki>> getAll(){
-        Log.debug("Controller requesting all wiki pages");
-        return ResponseEntity.ok().body(wikiService.getAll());
+        Log.debug("Controller requesting all Wiki pages");
+        return ResponseEntity.ok().body(WikiService.getAll());
     }
     @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Wiki> update(@PathVariable UUID id, @RequestBody Wiki newWiki) {
-        Log.debug("Controller updating wiki page with ID {}", id);
-        return ResponseEntity.accepted().body(wikiService.update(id, newWiki));
+        Log.debug("Controller updating Wiki page with ID {}", id);
+        return ResponseEntity.accepted().body(WikiService.update(id, newWiki));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         Log.debug("Controller requesting deletion of case study with ID {}", id);
-        wikiService.delete(id);
+        WikiService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

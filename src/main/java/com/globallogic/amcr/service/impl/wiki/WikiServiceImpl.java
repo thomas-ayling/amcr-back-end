@@ -1,4 +1,4 @@
-package com.globallogic.amcr.service.impl.wikipage;
+package com.globallogic.amcr.service.impl.wiki;
 
 import com.globallogic.amcr.repository.wikicomponent.WikiDao;
 import com.globallogic.amcr.model.wiki.Wiki;

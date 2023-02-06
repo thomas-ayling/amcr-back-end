@@ -15,71 +15,68 @@ public class WikiDaoImpl implements WikiDao {
 
     private final Logger Log = LoggerFactory.getLogger(WikiDaoImpl.class);
 
-    private final WikiPageMapper wikiPageMapper;
+    private final WikiMapper wikiMapper;
 
-    public WikiDaoImpl(WikiPageMapper wikiPageMapper){
-        this.wikiPageMapper = Assert.assertNotNull(wikiPageMapper, "Wiki page mapper cannot be null");
+    public WikiDaoImpl(WikiMapper wikiMapper){
+        this.wikiMapper = Assert.assertNotNull(wikiMapper, "Wiki page mapper cannot be null");
     }
 
     @Override
-    public Wiki save(Wiki wikiPage, UUID wikiPageId) {
+    public Wiki save(Wiki wiki, UUID wikiId) {
         try {
-            wikiPage.setId(wikiPageId);
-            Log.trace("DAO saving new wiki page: \n{}", wikiPage);
-            wikiPageMapper.save(wikiPage);
-            return wikiPage;
+            wiki.setId(wikiId);
+            Log.trace("DAO saving new wiki page: \n{}", wiki);
+            wikiMapper.save(wiki);
+            return wiki;
         } catch (Exception e){
-            throw new RuntimeException("Error in WikiPageDaoImpl - could not save wiki page");
+            throw new RuntimeException("Error in WikiDaoImpl - could not save wiki page");
         }
     }
 
     @Override
     public Wiki get(UUID id){
         Log.trace("DAO requesting wiki page with ID {}", id);
-        return wikiPageMapper.get(id);
+        return wikiMapper.get(id);
     }
     @Override
     public List<Wiki> getAll(){
         Log.trace("DAO requesting all wiki pages");
-        return wikiPageMapper.getAll();
+        return wikiMapper.getAll();
     }
 
     @Override
-    public Wiki update(UUID id, Wiki newWikiPage, Wiki oldWikiPage){
-        newWikiPage.setId(id);
-        if (oldWikiPage.equals(newWikiPage)){
-            return newWikiPage;
+    public Wiki update(UUID id, Wiki newWiki, Wiki oldWiki){
+        newWiki.setId(id);
+        if (oldWiki.equals(newWiki)){
+            return newWiki;
         }
-        if (newWikiPage.getTitle() == null){
-            newWikiPage.setTitle(oldWikiPage.getTitle());
+        if (newWiki.getTitle() == null){
+            newWiki.setTitle(oldWiki.getTitle());
         }
-        if (newWikiPage.getOverview() == null){
-            newWikiPage.setOverview(oldWikiPage.getOverview());
+        if (newWiki.getOverview() == null){
+            newWiki.setOverview(oldWiki.getOverview());
         }
-        if (newWikiPage.getSubImage() == null){
-            newWikiPage.setSubImage(oldWikiPage.getSubImage());
+        if (newWiki.getSubImage() == null){
+            newWiki.setSubImage(oldWiki.getSubImage());
         }
-        if (newWikiPage.getSubTitle() == null){
-            newWikiPage.setSubTitle(oldWikiPage.getSubTitle());
+        if (newWiki.getSubTitle() == null){
+            newWiki.setSubTitle(oldWiki.getSubTitle());
         }
-        if (newWikiPage.getSubOverview() == null){
-            newWikiPage.setSubOverview(oldWikiPage.getSubOverview());
+        if (newWiki.getSubOverview() == null){
+            newWiki.setSubOverview(oldWiki.getSubOverview());
         }
-        if (newWikiPage.getBody() == null){
-            newWikiPage.setBody(oldWikiPage.getBody());
-        }
-        Log.trace("DAO updating wiki page with ID {} and content: \n{}\n\n\n\nwith new wiki page: \n\n{}", id, oldWikiPage, newWikiPage);
-        wikiPageMapper.update(id, newWikiPage);
-        return newWikiPage;
+        Log.trace("DAO updating wiki page with ID {} and content: \n{}\n\n\n\nwith new wiki page: \n\n{}", id, oldWiki, newWiki);
+        wikiMapper.update(id, newWiki);
+        return newWiki;
     }
 
     @Override
     public void delete(UUID id) {
         try {
             Log.trace("DAO deleting wiki page with ID {}", id);
-            wikiPageMapper.delete(id);
+            wikiMapper.delete(id);
         } catch (Exception e) {
-            throw new RuntimeException("Error in WikiPageDaoImpl - could not delete wiki page with id " + id, e);
+            throw new RuntimeException("Error in WikiDaoImpl - could not delete wiki page with id " + id, e);
         }
     }
 

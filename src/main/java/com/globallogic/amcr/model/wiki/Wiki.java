@@ -3,53 +3,110 @@ package com.globallogic.amcr.model.wiki;
 import com.globallogic.amcr.utils.Assert;
 import jakarta.validation.constraints.NotNull;
 
-
-import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
-
 @SuppressWarnings("unused")
-public class Wiki extends WikiOverview {
+public class Wiki {
 
-    @NotNull
-    private List<Map<?, ?>> body;
+        private UUID id;
+        @NotNull
+        private String title;
+        @NotNull
+        private String overview;
+
+        private UUID subImage;
+        @NotNull
+        private String subTitle;
+        @NotNull
+        private String subOverview;
+
+        public Wiki(UUID id, String title, String overview, UUID subImage, String subTitle, String subOverview) {
+            setId(id);
+            setTitle(title);
+            setOverview(overview);
+            setSubImage(subImage);
+            setSubTitle(subTitle);
+            setSubOverview(subOverview);
+        }
 
 
-    /**
-     * @param id             the id of the object
-     * @param title          the title of the wiki page
-     * @param overview       the text intro to be displayed in the main wiki page
-     * @param subImage     image to be used in each wiki page
-     * @param subTitle       the secondary title for the body section
-     * @param subOverview    the secondary overview in the body section
-     * @param body           the main data to be displayed on the single page stored as JSON
-     * @param diagram        using the diagram for each page
-     */
+    public Wiki() {
+        }
 
-    public Wiki(UUID id, String title, String overview, String subImage, String subTitle, String subOverview, List<Map<?, ?>> body, String diagram) {
-        super(id, title, overview, subImage, subTitle, subOverview);
-        setBody(body);
+
+
+//    public WikiPageOverview(UUID id, String title, String overview, String subImage, String subTitle, String subOverview, String diagram) {
+//    }
+
+    public UUID getId() {
+            return id;
+        }
+
+        public void setId(UUID id) {
+            this.id = Assert.assertNotNull(id, "ID cannot be null");
+        }
+
+
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = Assert.assertNotNull(title, "Title cannot be null");
+        }
+
+        public String getOverview() {
+            return overview;
+        }
+
+        public void setOverview(String overview) {
+            this.overview = Assert.assertNotNull(overview, "Overview cannot be null");
+        }
+
+
+        public UUID getSubImage() {
+            return subImage;
+        }
+
+        public void setSubImage(UUID subImage) {
+            this.subImage = Assert.assertNotNull(subImage, "Cover image cannot be null");
+        }
+
+    public String getSubTitle() {
+        return subTitle;
     }
 
-    public List<Map<?, ?>> getBody() {
-        return body;
+    public void setSubTitle(String subTitle) {
+
+        this.subTitle = Assert.assertNotNull(title, "The Subtitle cannot be null");
     }
 
-    public Wiki(){
-        super();
+    public String getSubOverview() {
+        return subOverview;
     }
 
-    public void setBody(List<Map<?, ?>> body) {
-        this.body = Assert.assertNotNull(body, "Wiki page body cannot be null");
+    public void setSubOverview(String subOverview) {
+        this.subOverview = Assert.assertNotNull(subOverview, "Sub-overview cannot be null");
+    }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Wiki that = (Wiki) o;
+            return getTitle().equals(that.getTitle()) && getOverview().equals(that.getOverview()) && getSubImage().equals(that.getSubImage());
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(getTitle(), getOverview(), getSubImage(), getSubTitle(), getSubOverview());
+        }
+
+        @Override
+        public String toString() {
+            return "WikiOverview{" + "title='" + title + '\'' + ", overview='" + overview + '\'' + ", subImage='" + subImage + '\'' + ", subTitle='" + subTitle + '\'' + ", subOverview='" + subOverview + '\'' + '}';
+        }
     }
 
 
-
-    @Override
-    public String toString(){
-        return "WikiPage{" +
-                "body=" + body + super.toString();
-    }
-
-
-}
