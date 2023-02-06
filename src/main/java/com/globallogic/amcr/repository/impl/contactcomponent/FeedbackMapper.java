@@ -18,6 +18,7 @@ public interface FeedbackMapper {
     @Results(id="feedbackResults")
     @ConstructorArgs({
             @Arg(column = "id", javaType = UUID.class, typeHandler = UUIDTypeHandler.class, id = true),
+            @Arg(column = "feedback_type", javaType = String.class),
             @Arg(column = "first_name", javaType = String.class),
             @Arg(column = "last_name", javaType = String.class),
             @Arg(column = "email_address", javaType = String.class),

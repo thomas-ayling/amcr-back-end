@@ -71,9 +71,11 @@ public class FeedbackController {
 
     /**
      * Usage is as follows:
-     * Calling url/feedback returns all feedback
-     * Calling url/feedback?latest=true returns the latest feedback
-     * Calling url/feedback?older=true&last=number returns the 10 entries older than the specified number
+     * <ul>
+     * <li>Calling url/feedback returns all feedback</li>
+     * <li>Calling url/feedback?latest=true returns the latest feedback</li>
+     * <li>Calling url/feedback?older=true&last={int} returns the 10 entries older than the specified number</li>
+     * </ul>
      *
      * @param latest option for returning the 10 latest feedback entries
      * @param older  option for returning older feedback specified by the 'last' parameter. 'last' must be included if this option is true
