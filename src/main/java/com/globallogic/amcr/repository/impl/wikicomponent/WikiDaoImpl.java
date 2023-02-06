@@ -1,7 +1,7 @@
 package com.globallogic.amcr.repository.impl.wikicomponent;
 
-import com.globallogic.amcr.model.wikipage.WikiPage;
-import com.globallogic.amcr.repository.wikipagecomponent.WikiPageDao;
+import com.globallogic.amcr.model.wiki.Wiki;
+import com.globallogic.amcr.repository.wikicomponent.WikiDao;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,18 +11,18 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public class WikiPageDaoImpl implements WikiPageDao {
+public class WikiDaoImpl implements WikiDao {
 
-    private final Logger Log = LoggerFactory.getLogger(WikiPageDaoImpl.class);
+    private final Logger Log = LoggerFactory.getLogger(WikiDaoImpl.class);
 
     private final WikiPageMapper wikiPageMapper;
 
-    public WikiPageDaoImpl(WikiPageMapper wikiPageMapper){
+    public WikiDaoImpl(WikiPageMapper wikiPageMapper){
         this.wikiPageMapper = Assert.assertNotNull(wikiPageMapper, "Wiki page mapper cannot be null");
     }
 
     @Override
-    public WikiPage save(WikiPage wikiPage, UUID wikiPageId) {
+    public Wiki save(Wiki wikiPage, UUID wikiPageId) {
         try {
             wikiPage.setId(wikiPageId);
             Log.trace("DAO saving new wiki page: \n{}", wikiPage);
@@ -34,18 +34,18 @@ public class WikiPageDaoImpl implements WikiPageDao {
     }
 
     @Override
-    public WikiPage get(UUID id){
+    public Wiki get(UUID id){
         Log.trace("DAO requesting wiki page with ID {}", id);
         return wikiPageMapper.get(id);
     }
     @Override
-    public List<WikiPage> getAll(){
+    public List<Wiki> getAll(){
         Log.trace("DAO requesting all wiki pages");
         return wikiPageMapper.getAll();
     }
 
     @Override
-    public WikiPage update(UUID id, WikiPage newWikiPage, WikiPage oldWikiPage){
+    public Wiki update(UUID id, Wiki newWikiPage, Wiki oldWikiPage){
         newWikiPage.setId(id);
         if (oldWikiPage.equals(newWikiPage)){
             return newWikiPage;

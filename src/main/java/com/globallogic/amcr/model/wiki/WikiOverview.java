@@ -1,4 +1,4 @@
-package com.globallogic.amcr.model.wikipage;
+package com.globallogic.amcr.model.wiki;
 
 import com.globallogic.amcr.utils.Assert;
 import jakarta.validation.constraints.NotNull;
@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
 import java.util.UUID;
 @SuppressWarnings("unused")
-public class WikiPageOverview {
+public class WikiOverview {
 
         private UUID id;
         @NotNull
@@ -20,7 +20,7 @@ public class WikiPageOverview {
         @NotNull
         private String subOverview;
 
-        public WikiPageOverview(UUID id, String title, String overview, String subImage, String subTitle, String subOverview) {
+        public WikiOverview(UUID id, String title, String overview, String subImage, String subTitle, String subOverview) {
             setId(id);
             setTitle(title);
             setOverview(overview);
@@ -30,7 +30,7 @@ public class WikiPageOverview {
         }
 
 
-    public WikiPageOverview() {
+    public WikiOverview() {
         }
 
 
@@ -94,7 +94,7 @@ public class WikiPageOverview {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-            com.globallogic.amcr.model.wikipage.WikiPageOverview that = (com.globallogic.amcr.model.wikipage.WikiPageOverview) o;
+            WikiOverview that = (WikiOverview) o;
             return getTitle().equals(that.getTitle()) && getOverview().equals(that.getOverview()) && getSubImage().equals(that.getSubImage());
         }
 

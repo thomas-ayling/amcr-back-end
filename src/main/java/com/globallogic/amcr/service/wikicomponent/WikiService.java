@@ -1,21 +1,20 @@
-package com.globallogic.amcr.service.wikipagecomponent;
+package com.globallogic.amcr.service.wikicomponent;
 
 
-import com.globallogic.amcr.model.wikipage.WikiPage;
-import com.globallogic.amcr.model.wikipage.WikiPageOverview;
+import com.globallogic.amcr.model.wiki.Wiki;
 
 import java.util.List;
 import java.util.UUID;
 
-public interface WikiPageService {
+public interface WikiService {
 
     /**
      * saves a wiki page object to the database
      *
-     * @param wikiPage takes in a wiki page object
+     * @param wiki takes in a wiki page object
      * @return returns the wiki page object if the request is successful
      */
-    WikiPage save(WikiPage wikiPage);
+    Wiki save(Wiki wiki);
 
     /**
      * requests a wiki page with a given id
@@ -23,14 +22,14 @@ public interface WikiPageService {
      * @param id the id of the wiki page to be found
      * @return returns the requested wiki pages with all fields if found, else throws 404 not found error
      */
-    WikiPage get(UUID id);
+    Wiki get(UUID id);
 
     /**
      * requests all wiki pages in the database
      *
      * @return returns a list of all saved wiki pages with all fields
      */
-    List<WikiPage> getAll();
+    List<Wiki> getAll();
 
     /**
      * requests the overviews of all wiki pages in the database
@@ -38,7 +37,7 @@ public interface WikiPageService {
      * @return returns a list of overviews of all entries in the database
      */
 
-    WikiPage update(UUID id, WikiPage newWikiPage);
+    Wiki update(UUID id, Wiki newWiki);
 
     /**
      * requests deletion of an entry with a specified id

@@ -1,7 +1,7 @@
 package com.globallogic.amcr.repository.impl.wikicomponent;
 
 
-import com.globallogic.amcr.model.wikipage.WikiPage;
+import com.globallogic.amcr.model.wiki.Wiki;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import com.globallogic.amcr.typehandler.JSONListMapHandler;
@@ -14,7 +14,7 @@ import java.util.UUID;
 public interface WikiPageMapper {
 
     @Insert("INSERT INTO wikipage (id, title, overview, sub_image, sub_title, sub_overview, body) VALUES (#{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, #{title}, #{overview}, #{sub_image}, #{sub_title}, #{sub_overview}, #{body, javaType=java.util.List, jdbcType=OTHER, typeHandler=JSONListMapHandler})")
-    void save(WikiPage wikiPage);
+    void save(Wiki wikiPage);
 
     @Results(id = "wikiPageResults")
     @ConstructorArgs({
@@ -28,13 +28,13 @@ public interface WikiPageMapper {
     })
 
     @Select("SELECT * FROM wikipage WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
-    WikiPage get(@Param("id") UUID id);
+    Wiki get(@Param("id") UUID id);
 
     @ResultMap("wikiPageResults")
     @Select("SELECT * FROM wikipage")
-    List<WikiPage> getAll();
+    List<Wiki> getAll();
     @Update("UPDATE wikipage SET title = #{wikiPage.title}, overview = #{wikiPage.overview}, sub_image = #{wikiPage.subImage}, sub_title = #{wikiPage.subTitle}, sub_overview = #{wikiPage.subOverview} body = #{wikiPage.body, javaType=java.util.List, jdbcType=OTHER, typeHandler=JSONListMapHandler} WHERE id = #{wikiPageId, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
-    void update(UUID wikiPageId, WikiPage wikiPage);
+    void update(UUID wikiPageId, Wiki wikiPage);
 
     @Delete("DELETE from wikipage WHERE #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler} = id")
     void delete(@Param("id") UUID id);

@@ -1,9 +1,9 @@
-package com.globallogic.amcr.controller.wikipage;
+package com.globallogic.amcr.controller.wiki;
 
 
 import com.globallogic.amcr.exception.contactcomponent.NotFoundException;
-import com.globallogic.amcr.model.wikipage.WikiPage;
-import com.globallogic.amcr.service.wikipagecomponent.WikiPageService;
+import com.globallogic.amcr.model.wiki.Wiki;
+import com.globallogic.amcr.service.wikicomponent.WikiService;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,49 +17,49 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/wikipage")
+@RequestMapping("/wiki")
 @CrossOrigin
-public class WikiPageController {
+public class WikiController {
 
-    private final Logger Log = LoggerFactory.getLogger(WikiPageController.class);
+    private final Logger Log = LoggerFactory.getLogger(WikiController.class);
 
-    private final WikiPageService wikiPageService;
+    private final WikiService wikiService;
 
-    public WikiPageController(WikiPageService wikiPageService) {
-        this.wikiPageService = Assert.assertNotNull(wikiPageService, "Wiki page service cannot be null");
+    public WikiController(WikiService wikiService) {
+        this.wikiService = Assert.assertNotNull(wikiService, "Wiki page service cannot be null");
 
     }
 
     @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<WikiPage> saveWikiPage(@RequestBody @Validated WikiPage wikiPage, BindingResult errors){
+    public ResponseEntity<Wiki> saveWiki(@RequestBody @Validated Wiki wiki, BindingResult errors){
         if (errors.hasErrors()) {
             throw new NotFoundException(errors.toString());
         }
         Log.debug("Controller saving new wiki page");
-        WikiPage createdWikiPage = wikiPageService.save(wikiPage);
-        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdWikiPage.getId()).toUri()).body(createdWikiPage);
+        Wiki createdWiki = wikiService.save(wiki);
+        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdWiki.getId()).toUri()).body(createdWiki);
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public ResponseEntity<WikiPage> get(@PathVariable UUID id) {
+    public ResponseEntity<Wiki> get(@PathVariable UUID id) {
         Log.debug("Controller requesting wiki page with ID {}", id);
-        return ResponseEntity.ok().body(wikiPageService.get(id));
+        return ResponseEntity.ok().body(wikiService.get(id));
     }
     @GetMapping(produces = "application/json")
-    public ResponseEntity<List<WikiPage>> getAll(){
+    public ResponseEntity<List<Wiki>> getAll(){
         Log.debug("Controller requesting all wiki pages");
-        return ResponseEntity.ok().body(wikiPageService.getAll());
+        return ResponseEntity.ok().body(wikiService.getAll());
     }
     @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<WikiPage> update(@PathVariable UUID id, @RequestBody WikiPage newWikiPage) {
+    public ResponseEntity<Wiki> update(@PathVariable UUID id, @RequestBody Wiki newWiki) {
         Log.debug("Controller updating wiki page with ID {}", id);
-        return ResponseEntity.accepted().body(wikiPageService.update(id, newWikiPage));
+        return ResponseEntity.accepted().body(wikiService.update(id, newWiki));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         Log.debug("Controller requesting deletion of case study with ID {}", id);
-        wikiPageService.delete(id);
+        wikiService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

@@ -1,4 +1,4 @@
-package com.globallogic.amcr.model.wikipage;
+package com.globallogic.amcr.model.wiki;
 
 import com.globallogic.amcr.utils.Assert;
 import jakarta.validation.constraints.NotNull;
@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @SuppressWarnings("unused")
-public class WikiPage extends WikiPageOverview {
+public class Wiki extends WikiOverview {
 
     @NotNull
     private List<Map<?, ?>> body;
@@ -26,7 +26,7 @@ public class WikiPage extends WikiPageOverview {
      * @param diagram        using the diagram for each page
      */
 
-    public WikiPage(UUID id, String title, String overview, String subImage, String subTitle, String subOverview, List<Map<?, ?>> body, String diagram) {
+    public Wiki(UUID id, String title, String overview, String subImage, String subTitle, String subOverview, List<Map<?, ?>> body, String diagram) {
         super(id, title, overview, subImage, subTitle, subOverview);
         setBody(body);
     }
@@ -35,7 +35,7 @@ public class WikiPage extends WikiPageOverview {
         return body;
     }
 
-    public WikiPage(){
+    public Wiki(){
         super();
     }
 
