@@ -64,6 +64,9 @@ public class ContactsDaoImpl implements ContactsDao {
         if (newContact.getDescription() == null) {
             newContact.setDescription(oldContact.getDescription());
         }
+        if (newContact.getEmail() == null) {
+            newContact.setEmail(oldContact.getEmail());
+        }
         LOG.trace("DAO updating contacts data with ID {} and content\n{}\nwith new content:\n{}", id, oldContact, newContact);
         contactsMapper.update(id, newContact);
         return newContact;

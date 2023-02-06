@@ -19,7 +19,8 @@ public interface ContactsMapper {
             @Arg(column = "image_id", javaType = UUID.class, typeHandler = UUIDTypeHandler.class, id = true),
             @Arg(column = "full_name", javaType = String.class),
             @Arg(column = "title", javaType = String.class),
-            @Arg(column = "description", javaType = String.class)
+            @Arg(column = "description", javaType = String.class),
+            @Arg(column = "email", javaType = String.class)
     })
     @Select("SELECT * FROM contacts WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     Contacts get(@Param("id") UUID id);
@@ -32,7 +33,7 @@ public interface ContactsMapper {
     @Select("SELECT * FROM contacts WHERE spotlight = true")
     List<Contacts> getSpotlitContacts();
 
-    @Update("UPDATE contacts SET spotlight = #{contact.spotlight}, image_id=#{contact.imageId, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, full_name = #{contact.fullName}, title = #{contact.title}, description = #{contact.description} WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
+    @Update("UPDATE contacts SET spotlight = #{contact.spotlight}, image_id=#{contact.imageId, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}, full_name = #{contact.fullName}, title = #{contact.title}, description = #{contact.description}, email=#{contact.email} WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
     void update(@Param("id") UUID id, Contacts contact);
 
     @Delete("DELETE FROM contacts WHERE id = #{id, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=UUIDTypeHandler}")
