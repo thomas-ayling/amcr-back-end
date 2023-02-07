@@ -51,11 +51,14 @@ public class FeedbackDaoImpl implements FeedbackDao {
         return feedbackMapper.getLatest();
     }
 
+    @Override
     public List<Feedback> getOlder(int last) {
         Log.trace("DAO requesting 10 feedback entries older than entry {}", last);
+        System.out.println(last);
         return feedbackMapper.getOlder(last);
     }
 
+    @Override
     public int getCount() {
         Log.trace("DAO requesting the total number of rows in the feedback table");
         return feedbackMapper.getCount();
