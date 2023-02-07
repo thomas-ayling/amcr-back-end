@@ -43,4 +43,9 @@ public interface FeedbackService {
      * @return a Response entity with the attachment data embedded
      */
     FeedbackAttachmentResponse getAttachment(UUID id);
+
+    /**
+     * @return the total number of rows in the database
+     */
+    int getCount();
 }

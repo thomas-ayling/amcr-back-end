@@ -111,10 +111,19 @@ public class FeedbackController {
      * @param attachmentId the id of the attachment to be downloaded
      * @return returns a response entity with the relevant headers and the binary data to allow for easy download on the front end
      */
-    @GetMapping("/attachment/{attachmentId}")
+    @GetMapping(value = "/attachment/{attachmentId}")
     public ResponseEntity<Resource> getAttachment(@PathVariable UUID attachmentId) {
         Log.debug("Controller requesting attachment with ID {}", attachmentId);
         FeedbackAttachmentResponse feedbackAttachmentResponse = feedbackService.getAttachment(attachmentId);
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(feedbackAttachmentResponse.getAttachmentType())).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + feedbackAttachmentResponse.getAttachmentName() + "\"").body(new ByteArrayResource(feedbackAttachmentResponse.getData()));
+    }
+
+    /**
+     * @return returns the number of entries in the feedback table
+     */
+    @GetMapping("/count")
+    public ResponseEntity<Integer> getCount() {
+        Log.debug("Controller requesting total number of entries");
+        return ResponseEntity.ok().body(feedbackService.getCount());
     }
 }
