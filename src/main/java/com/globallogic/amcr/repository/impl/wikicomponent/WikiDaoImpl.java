@@ -29,7 +29,7 @@ public class WikiDaoImpl implements WikiDao {
             wikiMapper.save(wiki);
             return wiki;
         } catch (Exception e){
-            throw new RuntimeException("Error in WikiDaoImpl - could not save wiki page");
+            throw new RuntimeException("Error in WikiDaoImpl - could not save wiki page", e);
         }
     }
 

@@ -15,9 +15,10 @@ import java.util.UUID;
 @Service
 public class WikiServiceImpl implements WikiService {
 
+    private final WikiDao wikiDao;
     private final Logger Log = LoggerFactory.getLogger(WikiServiceImpl.class);
 
-    private final WikiDao wikiDao;
+
 
     public WikiServiceImpl(WikiDao wikiDao) {
         this.wikiDao = Assert.assertNotNull(wikiDao, "WikiDao is not present");
@@ -38,30 +39,28 @@ public class WikiServiceImpl implements WikiService {
 
 
     @Override
-    @Transactional
     public Wiki get(UUID id) {
         Assert.assertNotNull(id, "ID cannot be null to get wiki entry");
+        Log.debug("Service requesting wiki with ID {}", id);
         return wikiDao.get(id);
     }
 
     @Override
-    @Transactional
     public List<Wiki> getAll() {
         Log.debug("Requesting all wiki pages");
         return wikiDao.getAll();
     }
 
     @Override
-    @Transactional
     public Wiki update(UUID id, Wiki newWiki) {
         Assert.assertNotNull(id, "ID must be included to update a wiki page");
         Assert.assertNotNull(newWiki, "New Wiki Page must not be null");
         Wiki oldWiki = Assert.assertNotNull(wikiDao.get(id), "Object with specified ID could not be found. Revise ID and try again");
+        Log.debug("Service updating wiki with ID {}", id);
         return wikiDao.update(id, newWiki, oldWiki);
     }
 
     @Override
-    @Transactional
     public void delete(UUID id) {
         Assert.assertNotNull(id, "ID cannot be null to have entry deleted");
         Log.debug("Service requesting deletion of wiki page with ID {}", id);
