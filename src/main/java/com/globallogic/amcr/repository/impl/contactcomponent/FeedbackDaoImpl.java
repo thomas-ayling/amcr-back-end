@@ -55,4 +55,9 @@ public class FeedbackDaoImpl implements FeedbackDao {
         Log.trace("DAO requesting 10 feedback entries older than entry {}", last);
         return feedbackMapper.getOlder(last);
     }
+
+    public int getCount() {
+        Log.trace("DAO requesting the total number of rows in the feedback table");
+        return feedbackMapper.getCount();
+    }
 }

@@ -23,4 +23,10 @@ public interface FeedbackDao extends Dao<Feedback, Feedback> {
      */
     List<Feedback> getOlder(int last);
 
+    /**
+     * Requests the total number of rows in the feedback table
+     * @return an integer representing the total number of rows in the feedback table
+     */
+    int getCount();
+
 }

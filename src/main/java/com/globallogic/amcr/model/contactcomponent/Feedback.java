@@ -82,7 +82,6 @@ public class Feedback {
 
     public void setLastName(String lastName) {
         this.lastName = Assert.assertNotNull(lastName, "lastName is null");
-
     }
 
     public String getEmailAddress() {
@@ -91,7 +90,6 @@ public class Feedback {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = Assert.assertNotNull(emailAddress, "emailAddress is null");
-
     }
 
     public String getFeedbackBody() {
