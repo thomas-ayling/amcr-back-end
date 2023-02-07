@@ -65,6 +65,9 @@ public class WikiDaoImpl implements WikiDao {
         if (newWiki.getSubOverview() == null){
             newWiki.setSubOverview(oldWiki.getSubOverview());
         }
+        if (newWiki.getDiagram() == null){
+            newWiki.setDiagram(oldWiki.getDiagram());
+        }
         Log.trace("DAO updating wiki page with ID {} and content: \n{}\n\n\n\nwith new wiki page: \n\n{}", id, oldWiki, newWiki);
         wikiMapper.update(id, newWiki);
         return newWiki;

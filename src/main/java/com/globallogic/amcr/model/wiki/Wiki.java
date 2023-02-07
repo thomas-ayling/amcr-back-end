@@ -22,13 +22,17 @@ public class Wiki {
     @NotNull
     private String subOverview;
 
-    public Wiki(UUID id, String title, String overview, UUID[] subImage, String subTitle, String subOverview) {
+    private UUID diagram;
+
+
+    public Wiki(UUID id, String title, String overview, UUID[] subImage, String subTitle, String subOverview, UUID diagram) {
         setId(id);
         setTitle(title);
         setOverview(overview);
         setSubImage(subImage);
         setSubTitle(subTitle);
         setSubOverview(subOverview);
+        setDiagram(diagram);
     }
 
 
@@ -88,6 +92,17 @@ public class Wiki {
         this.subOverview = Assert.assertNotNull(subOverview, "Sub-overview cannot be null");
     }
 
+
+
+
+    public UUID getDiagram() {
+        return diagram;
+    }
+
+    public void setDiagram(UUID diagram) {
+        this.diagram = diagram;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -110,6 +125,7 @@ public class Wiki {
                 ", subImage=" + Arrays.toString(subImage) +
                 ", subTitle='" + subTitle + '\'' +
                 ", subOverview='" + subOverview + '\'' +
+                ", diagram=" + diagram +
                 '}';
     }
 }
