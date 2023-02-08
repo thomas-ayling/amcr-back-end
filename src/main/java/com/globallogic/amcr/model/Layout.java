@@ -1,5 +1,7 @@
 package com.globallogic.amcr.model;
 
+import com.globallogic.amcr.utils.Assert;
+
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -8,14 +10,13 @@ public class Layout {
     private UUID id;
     private String name;
     private List<Map<String, Object>> components;
-    private boolean Static;
 
 
-    public Layout(UUID id, String name, List<Map<String, Object>> components, boolean aStatic) {
-        this.id = id;
-        this.name = name;
+    public Layout(UUID id, String name, List<Map<String, Object>> components) {
+        this.id = Assert.assertNotNull(id, "id must not be null");
+        this.name = Assert.assertNotNull(name, "name must not be null");
         this.components = components;
-        Static = aStatic;
+
     }
 
     public Layout() {
@@ -45,11 +46,4 @@ public class Layout {
         this.components = components;
     }
 
-    public Boolean getStatic() {
-        return Static;
-    }
-
-    public void setStatic(Boolean Static) {
-        this.Static = Static;
-    }
 }

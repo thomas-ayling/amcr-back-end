@@ -2,8 +2,11 @@ package com.globallogic.amcr.repository.impl.layoutcomponent;
 
 import com.globallogic.amcr.model.Layout;
 import com.globallogic.amcr.repository.layoutcomponent.LayoutDao;
+import com.globallogic.amcr.utils.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 import java.util.UUID;
@@ -12,14 +15,14 @@ import java.util.UUID;
 @Repository
 public class LayoutDaoImpl implements LayoutDao {
 
-    LayoutMapper layoutMapper;
+    private final Logger LOG = LoggerFactory.getLogger(LayoutDaoImpl.class);
+    private final LayoutMapper layoutMapper;
 
     public LayoutDaoImpl(LayoutMapper layoutMapper) {
-        this.layoutMapper = layoutMapper;
+        this.layoutMapper = Assert.assertNotNull(layoutMapper, "Layout mapper can not be null");
     }
 
 
-    @Transactional
     public Layout save(Layout layout, UUID layoutId) {
         try {
             layout.setId(layoutId);
@@ -33,44 +36,37 @@ public class LayoutDaoImpl implements LayoutDao {
 
 
     public Layout get(UUID id) {
+
+        LOG.trace("DAO requesting page with ID {}", id);
         return layoutMapper.get(id);
     }
 
     public Layout getPage(String name) {
+        LOG.trace("DAO requesting page with name {}", name);
         return layoutMapper.getPage(name);
     }
 
 
     public List<Layout> getAll() {
+        LOG.trace("DAO requesting all pages");
         return layoutMapper.getAll();
     }
 
 
     @Override
     public Layout update(UUID id, Layout newLayout, Layout oldLayout) {
-        try {
-            newLayout.setId(id);
-            if (oldLayout.equals(newLayout)) {
-                return newLayout;
-            }
-            if (newLayout.getName() == null) {
-                newLayout.setName(oldLayout.getName());
-            }
-            if (newLayout.getComponents() == null)
-                newLayout.setComponents(oldLayout.getComponents());
-            if (newLayout.getStatic() == null) {
-                newLayout.setStatic(oldLayout.getStatic());
-            }
-            layoutMapper.update(id, newLayout);
-            return newLayout;
-        } catch (Exception e) {
-            throw new RuntimeException("Layout dao impl", e);
-        }
+        LOG.trace("DAO updating layout with ID {}", id);
+
+        newLayout.setId(id);
+        layoutMapper.update(id, newLayout);
+        return newLayout;
+
     }
 
 
     @Override
     public void delete(UUID id) {
+        LOG.trace("DAO deleting layout with ID {}", id);
         try {
             layoutMapper.deleteById(id);
         } catch (Exception e) {
