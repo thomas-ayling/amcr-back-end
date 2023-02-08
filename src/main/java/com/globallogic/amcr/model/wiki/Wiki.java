@@ -80,7 +80,7 @@ public class Wiki {
     }
 
     public void setSubImage(UUID[] subImage) {
-        this.subImage = Assert.assertNotNull(subImage, "Cover image cannot be null");
+        this.subImage = subImage;
     }
 
     public String getSubTitle() {
