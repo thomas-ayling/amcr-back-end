@@ -1,23 +1,53 @@
 {
-    "family": FAMILY,
-    "containerDefinitions": [
+  "family": FAMILY,
+  "containerDefinitions": [
+    {
+      "image": "REPOSITORY_URI:BUILD_NUMBER",
+      "name": NAME,
+      "essential": true,
+      "portMappings": [
         {
-            "image": "REPOSITORY_URI:BUILD_NUMBER",
-            "name": NAME,
-	    "essential": true,
-            "portMappings": [
-                {
-                    "containerPort": 3001,
-                    "hostPort": 3001
-                }
-            ]
+          "containerPort": 3001,
+          "hostPort": 3001
         }
-    ],
-    "cpu": "256",
-    "memory": "512",
-    "requiresCompatibilities": [
-             "FARGATE"
-    ],
-    "networkMode": "awsvpc",
-    "executionRoleArn": ROLE_ARN 
+      ],
+      "environment": [
+        {
+          "name": "AMCR_DB_UN",
+          "value": "ec_acad_psql"
+        },
+        {
+          "name": "AMCR_DB_PW",
+          "value": "Letme1n!*"
+        },
+        {
+          "name": "AMCR_DB_HOST",
+          "value": "172.31.47.82"
+        },
+        {
+          "name": "AMCR_DB_PORT",
+          "value": "5432"
+        },
+        {
+          "name": "AMCR_SERVER_PORT",
+          "value": "3001"
+        },
+        {
+          "name": "AMCR_MAIL_HOST",
+          "value": "172.31.41.117"
+        },
+        {
+          "name": "AMCR_MAIL_PORT",
+          "value": "1025"
+        }
+      ]
+    }
+  ],
+  "cpu": "512",
+  "memory": "1024",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "networkMode": "awsvpc",
+  "executionRoleArn": ROLE_ARN
 }

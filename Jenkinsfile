@@ -7,15 +7,15 @@ pipeline {
      AWS_DEFAULT_REGION="eu-west-2"
 
      //MODIFY THE FOLLOWING ITEMS WITH THE ALLOCATED STUDENT NUMBER XX e.g. 03//
-     CLUSTER_NAME="ec-acad-user-01"
-     SERVICE_NAME="ec-acad-ecs-svc-fe01"
-     TASK_DEFINITION_NAME="ec-acad-ecs-tsk-fe01"
+     CLUSTER_NAME="ec-acad-ecs-cl01"
+     SERVICE_NAME="ec-acad-ecs-svc-be01"
+     TASK_DEFINITION_NAME="ec-acad-ecs-tsk-be01"
 
      //DO NOT MODIFY!//
      DESIRED_COUNT="1"
 
      //MODIFY THE FOLLOWING ITEMS WITH THE ALLOCATED STUDENT NUMBER XX e.g. 03//
-     IMAGE_REPO_NAME="ec-acad-fe-app01"
+     IMAGE_REPO_NAME="ec-acad-be-app01"
      
      //DO NOT MODIFY!//
      IMAGE_TAG="${env.BUILD_ID}"
@@ -105,7 +105,6 @@ pipeline {
                 }
             } 
         }
-      } 
-	  
+      }
     }
 }
