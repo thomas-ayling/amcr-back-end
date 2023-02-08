@@ -19,7 +19,7 @@ public class TextIntroController {
     private final TextIntroService textIntroService;
 
     public TextIntroController(TextIntroService textIntroService) {
-        this.textIntroService = textIntroService;
+        this.textIntroService = Assert.assertNotNull(textIntroService, "Text intro service cannot be null");
     }
 
     @PostMapping(value="/", consumes = "application/json", produces="application/json")

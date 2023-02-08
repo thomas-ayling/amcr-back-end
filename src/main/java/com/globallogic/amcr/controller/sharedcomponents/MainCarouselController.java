@@ -28,13 +28,13 @@ public class MainCarouselController {
     private final MainCarouselService mainCarouselService;
 
     public MainCarouselController(MainCarouselService mainCarouselService) {
-        this.mainCarouselService = Assert.assertNotNull(mainCarouselService, "Main  service cannot be null");;
+        this.mainCarouselService = Assert.assertNotNull(mainCarouselService, "Main carousel service cannot be null");;
     }
 
     @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
     public ResponseEntity<MainCarousel> saveMainCarousel(@RequestBody @Validated MainCarousel mainCarousel, BindingResult errors) {
         if (errors.hasErrors()) {
-            throw new NotFoundException(errors.toString());
+            throw new RuntimeException(errors.toString());
         }
         LOG.debug("Controller saving new main carousel");
         MainCarousel newMainCarousel = mainCarouselService.save(mainCarousel);
