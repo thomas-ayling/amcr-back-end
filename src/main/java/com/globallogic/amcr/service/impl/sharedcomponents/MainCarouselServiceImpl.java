@@ -27,7 +27,7 @@ public class MainCarouselServiceImpl implements MainCarouselService {
     public MainCarousel save(MainCarousel mainCarousel) {
         try {
             UUID mainCarouselId = UUID.randomUUID();
-            LOG.debug("Service saving new case study");
+            LOG.debug("Service saving new Main Carousel");
             return mainCarouselDao.save(mainCarousel, mainCarouselId);
         } catch (Exception e) {
             throw new RuntimeException("Error in MainCarouselService - could not save", e);

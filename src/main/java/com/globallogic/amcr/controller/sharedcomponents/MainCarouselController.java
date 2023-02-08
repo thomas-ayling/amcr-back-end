@@ -4,6 +4,7 @@ import com.globallogic.amcr.exception.NotFoundException;
 import com.globallogic.amcr.model.sharedcomponents.MainCarousel;
 import com.globallogic.amcr.service.sharedcomponents.MainCarouselService;
 import com.globallogic.amcr.controller.WebUtil;
+import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class MainCarouselController {
     private final MainCarouselService mainCarouselService;
 
     public MainCarouselController(MainCarouselService mainCarouselService) {
-        this.mainCarouselService = mainCarouselService;
+        this.mainCarouselService = Assert.assertNotNull(mainCarouselService, "Main  service cannot be null");;
     }
 
     @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
@@ -44,6 +45,10 @@ public class MainCarouselController {
     public ResponseEntity<MainCarousel> get(@PathVariable UUID id) {
         LOG.debug("Controller requesting main carousel with ID {}", id);
         MainCarousel mainCarousel = mainCarouselService.get(id);
+        return getMainCarouselResponseEntity(mainCarousel);
+    }
+
+    private ResponseEntity<MainCarousel> getMainCarouselResponseEntity(MainCarousel mainCarousel) {
         List<String> imageLinks = new ArrayList<>();
         if (mainCarousel.getImageIds() != null) {
             for (UUID imageId : mainCarousel.getImageIds()) {
@@ -54,8 +59,8 @@ public class MainCarouselController {
         return ResponseEntity.ok().body(mainCarousel);
     }
 
-    @GetMapping(value = "/{id}/attachment/{attachmentId}")
-    public ModelAndView getAttachment(@PathVariable UUID id, @PathVariable UUID attachmentId) {
+    @GetMapping(value = "/location/{pageName}/attachment/{attachmentId}")
+    public ModelAndView getAttachment(@PathVariable String pageName, @PathVariable UUID attachmentId) {
         return new ModelAndView("forward:/attachment/" + attachmentId);
     }
 
@@ -69,14 +74,7 @@ public class MainCarouselController {
     public ResponseEntity<MainCarousel> getByLocation(@PathVariable String location) {
         LOG.debug("Controller requesting main carousel with location {}", location);
         MainCarousel mainCarousel = mainCarouselService.getByLocation(location);
-        List<String> imageLinks = new ArrayList<>();
-        if (mainCarousel.getImageIds() != null) {
-            for (UUID imageId : mainCarousel.getImageIds()) {
-                imageLinks.add(WebUtil.generateUri("/attachment/{id}", imageId).toString());
-            }
-        }
-        mainCarousel.setImageLinks(imageLinks);
-        return ResponseEntity.ok().body(mainCarousel);
+        return getMainCarouselResponseEntity(mainCarousel);
     }
 
     @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
