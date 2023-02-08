@@ -24,7 +24,15 @@ public class Wiki {
 
     private UUID diagram;
 
-
+    /**
+     * @param id             the id of the object
+     * @param title         the title of the wiki page
+     * @param overview          general overview of the wiki page
+     * @param subImage      image to be associated with the wiki page
+     * @param subTitle      secondary title of the wiki page
+     * @param subOverview          secondary overview of the wiki page
+     * @param diagram          diagram that speaks to the diagram component
+     */
     public Wiki(UUID id, String title, String overview, UUID[] subImage, String subTitle, String subOverview, UUID diagram) {
         setId(id);
         setTitle(title);

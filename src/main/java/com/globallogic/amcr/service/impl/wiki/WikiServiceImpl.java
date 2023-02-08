@@ -39,6 +39,7 @@ public class WikiServiceImpl implements WikiService {
 
 
     @Override
+    @Transactional
     public Wiki get(UUID id) {
         Assert.assertNotNull(id, "ID cannot be null to get wiki entry");
         Log.debug("Service requesting wiki with ID {}", id);
@@ -46,12 +47,14 @@ public class WikiServiceImpl implements WikiService {
     }
 
     @Override
+    @Transactional
     public List<Wiki> getAll() {
         Log.debug("Requesting all wiki pages");
         return wikiDao.getAll();
     }
 
     @Override
+    @Transactional
     public Wiki update(UUID id, Wiki newWiki) {
         Assert.assertNotNull(id, "ID must be included to update a wiki page");
         Assert.assertNotNull(newWiki, "New Wiki Page must not be null");
@@ -61,6 +64,7 @@ public class WikiServiceImpl implements WikiService {
     }
 
     @Override
+    @Transactional
     public void delete(UUID id) {
         Assert.assertNotNull(id, "ID cannot be null to have entry deleted");
         Log.debug("Service requesting deletion of wiki page with ID {}", id);
