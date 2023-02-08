@@ -45,7 +45,7 @@ public class WikiController {
         Log.debug("Controller requesting Wiki page with ID {}", id);
         return ResponseEntity.ok().body(WikiService.get(id));
     }
-    @GetMapping(produces = "application/json")
+    @GetMapping(value = "/")
     public ResponseEntity<List<Wiki>> getAll(){
         Log.debug("Controller requesting all Wiki pages");
         return ResponseEntity.ok().body(WikiService.getAll());
