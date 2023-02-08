@@ -56,7 +56,7 @@ public class MainCarouselDaoImpl implements MainCarouselDao {
             mainCarouselMapper.save(mainCarousel);
             return mainCarousel;
         } catch (Exception e) {
-            throw new RuntimeException("Error in mainCarouselDaoImpl - could not save new main carousel");
+            throw new RuntimeException("Error in mainCarouselDaoImpl - could not save new main carousel", e);
         }
     }
 

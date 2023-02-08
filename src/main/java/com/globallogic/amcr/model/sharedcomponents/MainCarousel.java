@@ -10,7 +10,6 @@ public class MainCarousel {
 
     private UUID id;
     private String[] titles;
-    @NotNull
     private String location;
     private String[] descriptions;
     private UUID[] imageIds;
