@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,7 +40,11 @@ public class LayoutServiceImpl implements LayoutService {
     @Transactional()
     public List<Layout> getAll() {
         Log.trace("LayoutServiceImpl requesting all pages");
-        return layoutDao.getAll();
+        List<Layout> layouts = layoutDao.getAll();
+        if (layouts == null) {
+            return new ArrayList<>();
+        }
+        return layouts;
     }
 
 
