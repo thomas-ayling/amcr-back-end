@@ -25,13 +25,13 @@ public class Wiki {
     private UUID diagram;
 
     /**
-     * @param id             the id of the object
-     * @param title         the title of the wiki page
-     * @param overview          general overview of the wiki page
-     * @param subImage      image to be associated with the wiki page
-     * @param subTitle      secondary title of the wiki page
-     * @param subOverview          secondary overview of the wiki page
-     * @param diagram          diagram that speaks to the diagram component
+     * @param id          the id of the object
+     * @param title       the title of the wiki page
+     * @param overview    general overview of the wiki page
+     * @param subImage    image to be associated with the wiki page
+     * @param subTitle    secondary title of the wiki page - mainly for what is near the image
+     * @param subOverview secondary overview of the wiki page - gives points on what the section is about
+     * @param diagram     diagram that speaks to the diagram component
      */
     public Wiki(UUID id, String title, String overview, UUID[] subImage, String subTitle, String subOverview, UUID diagram) {
         setId(id);
@@ -46,7 +46,6 @@ public class Wiki {
 
     public Wiki() {
     }
-
 
 
     public UUID getId() {
@@ -99,8 +98,6 @@ public class Wiki {
     public void setSubOverview(String subOverview) {
         this.subOverview = Assert.assertNotNull(subOverview, "Sub-overview cannot be null");
     }
-
-
 
 
     public UUID getDiagram() {

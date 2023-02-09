@@ -31,7 +31,7 @@ public class WikiController {
     }
 
     @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Wiki> saveWiki(@RequestBody @Validated Wiki Wiki, BindingResult errors){
+    public ResponseEntity<Wiki> saveWiki(@RequestBody @Validated Wiki Wiki, BindingResult errors) {
         if (errors.hasErrors()) {
             throw new NotFoundException(errors.toString());
         }
@@ -45,11 +45,13 @@ public class WikiController {
         Log.debug("Controller requesting Wiki page with ID {}", id);
         return ResponseEntity.ok().body(WikiService.get(id));
     }
+
     @GetMapping(value = "/")
-    public ResponseEntity<List<Wiki>> getAll(){
+    public ResponseEntity<List<Wiki>> getAll() {
         Log.debug("Controller requesting all Wiki pages");
         return ResponseEntity.ok().body(WikiService.getAll());
     }
+
     @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Wiki> update(@PathVariable UUID id, @RequestBody Wiki newWiki) {
         Log.debug("Controller updating Wiki page with ID {}", id);
