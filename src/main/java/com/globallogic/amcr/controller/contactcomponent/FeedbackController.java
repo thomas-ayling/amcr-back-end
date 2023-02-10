@@ -123,7 +123,7 @@ public class FeedbackController {
      */
     @GetMapping("/count")
     public ResponseEntity<Integer> getCount() {
-        Log.debug("Controller requesting total number of entries");
+        log.debug("Controller requesting total number of entries");
         return ResponseEntity.ok().body(feedbackService.getCount());
     }
 }
