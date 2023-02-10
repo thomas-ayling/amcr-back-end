@@ -33,7 +33,7 @@ import java.util.UUID;
 @RequestMapping("/feedback")
 @CrossOrigin
 public class FeedbackController {
-    private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class);
+    private final Logger log = LoggerFactory.getLogger(CaseStudyController.class);
     private final FeedbackService feedbackService;
 
     public FeedbackController(FeedbackService feedbackService) {
@@ -53,9 +53,9 @@ public class FeedbackController {
         try {
             // Create new FeedbackAttachment object with params taken from MultipartFile
             FeedbackAttachment feedbackAttachment = incomingAttachment == null ? null : new FeedbackAttachment(StringUtils.cleanPath(Objects.requireNonNull(incomingAttachment.getOriginalFilename())), incomingAttachment.getContentType(), incomingAttachment.getSize(), incomingAttachment.getBytes());
-            Log.debug("Controller saving new feedback");
+            log.debug("Controller saving new feedback");
             Feedback createdFeedback = feedbackService.save(feedback, feedbackAttachment);
-            Log.debug("Controller has saved new feedback");
+            log.debug("Controller has saved new feedback");
             return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdFeedback.getId()).toUri()).body(createdFeedback);
         } catch (IOException ioe) {
             throw new RuntimeException("Error in feedback controller - attachment could not be read", ioe);
@@ -65,7 +65,7 @@ public class FeedbackController {
 
     @GetMapping(value = ("/{id}"), produces = "application/json")
     public ResponseEntity<Feedback> get(@PathVariable UUID id) {
-        Log.debug("Controller requesting feedback with ID {}", id);
+        log.debug("Controller requesting feedback with ID {}", id);
         return ResponseEntity.ok().body(feedbackService.get(id));
     }
 
@@ -94,14 +94,14 @@ public class FeedbackController {
             throw new RuntimeException("'Latest' and 'older' cannot both be true. Select one or the other.");
         }
         if (latest) {
-            Log.debug("Controller requesting latest feedback entries");
+            log.debug("Controller requesting latest feedback entries");
             return ResponseEntity.ok().body(feedbackService.getLatest());
         }
         if (older) {
-            Log.debug("Controller requesting older feedback entries");
+            log.debug("Controller requesting older feedback entries");
             return ResponseEntity.ok().body(feedbackService.getOlder(last));
         }
-        Log.debug("Controller requesting all feedback");
+        log.debug("Controller requesting all feedback");
         return ResponseEntity.ok().body(feedbackService.getAll());
     }
 
@@ -111,7 +111,7 @@ public class FeedbackController {
      */
     @GetMapping("/attachment/{attachmentId}")
     public ResponseEntity<Resource> getAttachment(@PathVariable UUID attachmentId) {
-        Log.debug("Controller requesting attachment with ID {}", attachmentId);
+        log.debug("Controller requesting attachment with ID {}", attachmentId);
         FeedbackAttachmentResponse feedbackAttachmentResponse = feedbackService.getAttachment(attachmentId);
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(feedbackAttachmentResponse.getAttachmentType())).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + feedbackAttachmentResponse.getAttachmentName() + "\"").body(new ByteArrayResource(feedbackAttachmentResponse.getData()));
     }

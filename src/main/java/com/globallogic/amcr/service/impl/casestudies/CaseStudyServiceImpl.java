@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Service
 public class CaseStudyServiceImpl implements CaseStudyService {
-    private final Logger Log = LoggerFactory.getLogger(CaseStudyServiceImpl.class);
+    private final Logger log = LoggerFactory.getLogger(CaseStudyServiceImpl.class);
     private final CaseStudyDao caseStudyDao;
 
     public CaseStudyServiceImpl(CaseStudyDao caseStudyDao) {
@@ -28,7 +28,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
         Assert.assertNotNull(caseStudy, "Case study cannot be null");
         try {
             UUID caseStudyId = UUID.randomUUID();
-            Log.debug("Service saving new case study");
+            log.debug("Service saving new case study");
             return caseStudyDao.save(caseStudy, caseStudyId);
         } catch (Exception e) {
             throw new RuntimeException("Error in CaseStudyService - could not save case study", e);
@@ -39,7 +39,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     @Transactional(readOnly = true)
     public CaseStudy get(UUID id) {
         Assert.assertNotNull(id, "ID cannot be null to request entry");
-        Log.debug("Service requesting case study with ID {}", id);
+        log.debug("Service requesting case study with ID {}", id);
         return caseStudyDao.get(id);
 
     }
@@ -47,21 +47,21 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     @Override
     @Transactional(readOnly = true)
     public List<CaseStudy> getAll() {
-        Log.debug("Service requesting all case studies");
+        log.debug("Service requesting all case studies");
         return caseStudyDao.getAll();
     }
 
     @Override
     @Transactional
     public List<CaseStudyOverview> getAllOverviews() {
-        Log.debug("Service requesting all case study overviews");
+        log.debug("Service requesting all case study overviews");
         return caseStudyDao.getAllOverviews();
     }
 
     @Override
     @Transactional
     public List<CaseStudyOverview> getSpotlitOverviews() {
-        Log.debug("Service requesting all spotlit case study overviews");
+        log.debug("Service requesting all spotlit case study overviews");
         return caseStudyDao.getSpotlitOverviews();
     }
 
@@ -69,7 +69,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     @Transactional
     public List<CaseStudyOverview> getLatestOverviews(int entries) {
         Assert.assertNotNull(entries, "Entries cannot be null");
-        Log.debug("Service requesting {} most recent overviews", entries);
+        log.debug("Service requesting {} most recent overviews", entries);
         return caseStudyDao.getLatestOverviews(entries);
 
     }
@@ -80,7 +80,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
         Assert.assertNotNull(id, "ID must be included to update a case study");
         Assert.assertNotNull(newCaseStudy, "New case study must not be null");
         CaseStudy oldCaseStudy = Assert.assertNotNull(caseStudyDao.get(id), "Object with specified ID could not be found. Revise ID and try again");
-        Log.debug("Service updating case study with ID {}", id);
+        log.debug("Service updating case study with ID {}", id);
         return caseStudyDao.update(id, newCaseStudy, oldCaseStudy);
     }
 
@@ -88,7 +88,7 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     @Transactional
     public void delete(UUID id) {
         Assert.assertNotNull(id, "ID cannot be null to delete entry");
-        Log.debug("Service requesting deletion of case study with ID {}", id);
+        log.debug("Service requesting deletion of case study with ID {}", id);
         caseStudyDao.delete(id);
     }
 }

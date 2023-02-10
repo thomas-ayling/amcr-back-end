@@ -1,9 +1,9 @@
 package com.globallogic.amcr.repository.impl.contactcomponent;
 
-import com.globallogic.amcr.repository.contactcomponent.FeedbackAttachmentDao;
 import com.globallogic.amcr.model.contactcomponent.FeedbackAttachment;
 import com.globallogic.amcr.model.contactcomponent.FeedbackAttachmentMetadata;
 import com.globallogic.amcr.model.contactcomponent.FeedbackAttachmentResponse;
+import com.globallogic.amcr.repository.contactcomponent.FeedbackAttachmentDao;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Repository
 public class FeedbackAttachmentDaoImpl implements FeedbackAttachmentDao {
-    private final Logger Log = LoggerFactory.getLogger(FeedbackAttachmentDaoImpl.class);
+    private final Logger log = LoggerFactory.getLogger(FeedbackAttachmentDaoImpl.class);
     private final FeedbackAttachmentMapper feedbackAttachmentMapper;
 
     public FeedbackAttachmentDaoImpl(FeedbackAttachmentMapper feedbackAttachmentMapper) {
@@ -33,7 +33,7 @@ public class FeedbackAttachmentDaoImpl implements FeedbackAttachmentDao {
             feedbackAttachment.setDownloadUri(ServletUriComponentsBuilder.fromCurrentContextPath().path("/feedback/attachment/").path(attachmentId.toString()).toUriString());
             // Set feedback id
             feedbackAttachment.setFeedbackId(feedbackId);
-            Log.trace("DAO saving feedback attachment {}", feedbackAttachment);
+            log.trace("DAO saving feedback attachment {}", feedbackAttachment);
             // Save feedbackAttachment
             feedbackAttachmentMapper.save(feedbackAttachment);
             // Return feedbackAttachment
@@ -45,19 +45,19 @@ public class FeedbackAttachmentDaoImpl implements FeedbackAttachmentDao {
 
     @Override
     public FeedbackAttachmentResponse get(UUID id) {
-        Log.trace("DAO requesting attachment with ID {}", id);
+        log.trace("DAO requesting attachment with ID {}", id);
         return feedbackAttachmentMapper.get(id);
     }
 
     @Override
     public List<FeedbackAttachmentResponse> getAll() {
-        Log.trace("DAO requesting all attachments");
+        log.trace("DAO requesting all attachments");
         return feedbackAttachmentMapper.getAll();
     }
 
     @Override
     public FeedbackAttachmentMetadata getAttachmentMetadata(UUID feedbackId) {
-        Log.trace("DAO requesting metadata for attachment with ID {}", feedbackId);
+        log.trace("DAO requesting metadata for attachment with ID {}", feedbackId);
         return feedbackAttachmentMapper.getAttachmentMetadata(feedbackId);
     }
 }

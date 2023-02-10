@@ -1,7 +1,7 @@
 package com.globallogic.amcr.service.impl.wiki;
 
-import com.globallogic.amcr.repository.wikicomponent.WikiDao;
 import com.globallogic.amcr.model.wiki.Wiki;
+import com.globallogic.amcr.repository.wikicomponent.WikiDao;
 import com.globallogic.amcr.service.wikicomponent.WikiService;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
@@ -16,8 +16,7 @@ import java.util.UUID;
 public class WikiServiceImpl implements WikiService {
 
     private final WikiDao wikiDao;
-    private final Logger Log = LoggerFactory.getLogger(WikiServiceImpl.class);
-
+    private final Logger log = LoggerFactory.getLogger(WikiServiceImpl.class);
 
 
     public WikiServiceImpl(WikiDao wikiDao) {
@@ -30,7 +29,7 @@ public class WikiServiceImpl implements WikiService {
         Assert.assertNotNull(wiki, "Wiki Page cannot be null");
         try {
             UUID wikiId = UUID.randomUUID();
-            Log.debug("Service saving new wiki page");
+            log.debug("Service saving new wiki page");
             return wikiDao.save(wiki, wikiId);
         } catch (Exception e) {
             throw new RuntimeException("Error in WikiService - could not save wiki page", e);
@@ -42,14 +41,14 @@ public class WikiServiceImpl implements WikiService {
     @Transactional
     public Wiki get(UUID id) {
         Assert.assertNotNull(id, "ID cannot be null to get wiki entry");
-        Log.debug("Service requesting wiki with ID {}", id);
+        log.debug("Service requesting wiki with ID {}", id);
         return wikiDao.get(id);
     }
 
     @Override
     @Transactional
     public List<Wiki> getAll() {
-        Log.debug("Requesting all wiki pages");
+        log.debug("Requesting all wiki pages");
         return wikiDao.getAll();
     }
 
@@ -59,7 +58,7 @@ public class WikiServiceImpl implements WikiService {
         Assert.assertNotNull(id, "ID must be included to update a wiki page");
         Assert.assertNotNull(newWiki, "New Wiki Page must not be null");
         Wiki oldWiki = Assert.assertNotNull(wikiDao.get(id), "Object with specified ID could not be found. Revise ID and try again");
-        Log.debug("Service updating wiki with ID {}", id);
+        log.debug("Service updating wiki with ID {}", id);
         return wikiDao.update(id, newWiki, oldWiki);
     }
 
@@ -67,7 +66,7 @@ public class WikiServiceImpl implements WikiService {
     @Transactional
     public void delete(UUID id) {
         Assert.assertNotNull(id, "ID cannot be null to have entry deleted");
-        Log.debug("Service requesting deletion of wiki page with ID {}", id);
+        log.debug("Service requesting deletion of wiki page with ID {}", id);
         wikiDao.delete(id);
     }
 }

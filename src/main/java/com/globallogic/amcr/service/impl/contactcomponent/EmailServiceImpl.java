@@ -1,8 +1,8 @@
 package com.globallogic.amcr.service.impl.contactcomponent;
 
-import com.globallogic.amcr.repository.contactcomponent.FeedbackAttachmentDao;
 import com.globallogic.amcr.model.contactcomponent.Feedback;
 import com.globallogic.amcr.model.contactcomponent.FeedbackAttachmentMetadata;
+import com.globallogic.amcr.repository.contactcomponent.FeedbackAttachmentDao;
 import com.globallogic.amcr.service.contactcomponent.EmailService;
 import com.globallogic.amcr.utils.Assert;
 import com.globallogic.amcr.utils.FormatUtil;
@@ -19,7 +19,7 @@ import java.util.UUID;
 @SuppressWarnings("SpellCheckingInspection")
 @Service
 public class EmailServiceImpl implements EmailService {
-    private final Logger Log = LoggerFactory.getLogger(EmailServiceImpl.class);
+    private final Logger log = LoggerFactory.getLogger(EmailServiceImpl.class);
     private final JavaMailSender mailSender;
     private final FeedbackAttachmentDao feedbackAttachmentDao;
 
@@ -32,7 +32,7 @@ public class EmailServiceImpl implements EmailService {
     public void sendMail(Feedback feedback, UUID feedbackId) {
         try {
             // Get data for attachment link
-            Log.debug("Requesting download link data for email");
+            log.debug("Requesting download link data for email");
             FeedbackAttachmentMetadata feedbackAttachmentMetadata = feedbackAttachmentDao.getAttachmentMetadata(feedbackId);
 
             MimeMessage mimeMessage = mailSender.createMimeMessage();
@@ -40,7 +40,7 @@ public class EmailServiceImpl implements EmailService {
 
             boolean isAnonymous = feedback.getEmailAddress() == null || feedback.getEmailAddress().length() == 0;
 
-            Log.debug("Generating email. isAnonymous is {}", isAnonymous);
+            log.debug("Generating email. isAnonymous is {}", isAnonymous);
 
             mimeMessageHelper.setFrom(isAnonymous ? "<anonymous@globallogic.com>" : "<" + feedback.getEmailAddress() + ">");
             mimeMessageHelper.setTo("<test>");
@@ -78,9 +78,9 @@ public class EmailServiceImpl implements EmailService {
                 }
             }
             mimeMessageHelper.setText(textPart, htmlPart);
-            Log.debug("Sending email.\nText part is:\n{}\n\nHTML part is:\n{}\n\nisAnonumous value is: {}", textPart, htmlPart, isAnonymous);
+            log.debug("Sending email.\nText part is:\n{}\n\nHTML part is:\n{}\n\nisAnonumous value is: {}", textPart, htmlPart, isAnonymous);
             mailSender.send(mimeMessage);
-            Log.debug("Email sent");
+            log.debug("Email sent");
         } catch (Exception e) {
             throw new MailSendException("There was a problem sending this email", e);
         }
