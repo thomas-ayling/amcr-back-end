@@ -48,6 +48,13 @@ create table if not exists academy_project.diagram
     nodes jsonb[]          not null
 );
 
+create table if not exists academy_project.layout
+(
+    id        uuid primary key not null,
+    name      text             not null,
+    component jsonb[]
+);
+
 ALTER TABLE academy_project.diagram
     OWNER TO CURRENT_USER;
 
