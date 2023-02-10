@@ -1,8 +1,8 @@
 package com.globallogic.amcr.service.impl.casestudies;
 
-import com.globallogic.amcr.repository.casestudies.CaseStudyDao;
 import com.globallogic.amcr.model.casestudies.CaseStudy;
 import com.globallogic.amcr.model.casestudies.CaseStudyOverview;
+import com.globallogic.amcr.repository.casestudies.CaseStudyDao;
 import com.globallogic.amcr.service.casestudies.CaseStudyService;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
@@ -36,15 +36,16 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public CaseStudy get(UUID id) {
         Assert.assertNotNull(id, "ID cannot be null to request entry");
         Log.debug("Service requesting case study with ID {}", id);
         return caseStudyDao.get(id);
+
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<CaseStudy> getAll() {
         Log.debug("Service requesting all case studies");
         return caseStudyDao.getAll();
@@ -68,8 +69,9 @@ public class CaseStudyServiceImpl implements CaseStudyService {
     @Transactional
     public List<CaseStudyOverview> getLatestOverviews(int entries) {
         Assert.assertNotNull(entries, "Entries cannot be null");
-        Log.debug("Service requesting 5 most recent overviews");
+        Log.debug("Service requesting {} most recent overviews", entries);
         return caseStudyDao.getLatestOverviews(entries);
+
     }
 
     @Override
