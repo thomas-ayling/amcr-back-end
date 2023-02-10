@@ -1,7 +1,7 @@
 package com.globallogic.amcr.repository.impl.contactcomponent;
 
-import com.globallogic.amcr.model.contactcomponent.Feedback;
 import com.globallogic.amcr.repository.contactcomponent.FeedbackDao;
+import com.globallogic.amcr.model.contactcomponent.Feedback;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,7 @@ import java.util.UUID;
 @Repository
 public class FeedbackDaoImpl implements FeedbackDao {
     final FeedbackMapper feedbackMapper;
-    private final Logger log = LoggerFactory.getLogger(FeedbackDaoImpl.class);
+    private final Logger Log = LoggerFactory.getLogger(FeedbackDaoImpl.class);
 
     public FeedbackDaoImpl(FeedbackMapper feedbackMapper) {
         this.feedbackMapper = Assert.assertNotNull(feedbackMapper, "Feedback mapper cannot be null");
@@ -23,7 +23,7 @@ public class FeedbackDaoImpl implements FeedbackDao {
     public Feedback save(Feedback feedback, UUID feedbackId) {
         try {
             feedback.setId(feedbackId);
-            log.trace("DAO saving feedback {}", feedback);
+            Log.trace("DAO saving feedback {}", feedback);
             feedbackMapper.save(feedback);
             return feedback;
         } catch (Exception e) {
@@ -33,13 +33,13 @@ public class FeedbackDaoImpl implements FeedbackDao {
 
     @Override
     public Feedback get(UUID id) {
-        log.trace("DAO requesting feedback with ID {}", id);
+        Log.trace("DAO requesting feedback with ID {}", id);
         return feedbackMapper.get(id);
     }
 
     @Override
     public List<Feedback> getAll() {
-        log.trace("DAO requesting all feedback");
+        Log.trace("DAO requesting all feedback");
         return feedbackMapper.getAll();
     }
 
@@ -47,12 +47,20 @@ public class FeedbackDaoImpl implements FeedbackDao {
 
     @Override
     public List<Feedback> getLatest() {
-        log.trace("DAO requesting latest feedback");
+        Log.trace("DAO requesting latest feedback");
         return feedbackMapper.getLatest();
     }
 
+    @Override
     public List<Feedback> getOlder(int last) {
-        log.trace("DAO requesting 10 feedback entries older than entry {}", last);
+        Log.trace("DAO requesting 10 feedback entries older than entry {}", last);
+        System.out.println(last);
         return feedbackMapper.getOlder(last);
+    }
+
+    @Override
+    public int getCount() {
+        Log.trace("DAO requesting the total number of rows in the feedback table");
+        return feedbackMapper.getCount();
     }
 }

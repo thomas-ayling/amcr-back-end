@@ -71,9 +71,11 @@ public class FeedbackController {
 
     /**
      * Usage is as follows:
-     * Calling url/feedback returns all feedback
-     * Calling url/feedback?latest=true returns the latest feedback
-     * Calling url/feedback?older=true&last=number returns the 10 entries older than the specified number
+     * <ul>
+     * <li>Calling url/feedback returns all feedback</li>
+     * <li>Calling url/feedback?latest=true returns the latest feedback</li>
+     * <li>Calling url/feedback?older=true&last={int} returns the 10 entries older than the specified number</li>
+     * </ul>
      *
      * @param latest option for returning the 10 latest feedback entries
      * @param older  option for returning older feedback specified by the 'last' parameter. 'last' must be included if this option is true
@@ -109,10 +111,19 @@ public class FeedbackController {
      * @param attachmentId the id of the attachment to be downloaded
      * @return returns a response entity with the relevant headers and the binary data to allow for easy download on the front end
      */
-    @GetMapping("/attachment/{attachmentId}")
+    @GetMapping(value = "/attachment/{attachmentId}")
     public ResponseEntity<Resource> getAttachment(@PathVariable UUID attachmentId) {
         log.debug("Controller requesting attachment with ID {}", attachmentId);
         FeedbackAttachmentResponse feedbackAttachmentResponse = feedbackService.getAttachment(attachmentId);
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(feedbackAttachmentResponse.getAttachmentType())).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + feedbackAttachmentResponse.getAttachmentName() + "\"").body(new ByteArrayResource(feedbackAttachmentResponse.getData()));
+    }
+
+    /**
+     * @return returns the number of entries in the feedback table
+     */
+    @GetMapping("/count")
+    public ResponseEntity<Integer> getCount() {
+        Log.debug("Controller requesting total number of entries");
+        return ResponseEntity.ok().body(feedbackService.getCount());
     }
 }
