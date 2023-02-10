@@ -20,6 +20,7 @@ public class Feedback {
     private String feedbackBody;
     private String bookName;
     private String bookLink;
+    private String downloadUri;
 
     /**
      * @param feedbackType the type of the feedback submitted, variable will be used for formatting once data is received by admin panel
@@ -31,7 +32,7 @@ public class Feedback {
      * @param bookLink     link to the book that the user has requested, optional and always null if feedback type is not 'library'
      */
 
-    public Feedback(UUID id, String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink) {
+    public Feedback(UUID id, String feedbackType, String firstName, String lastName, String emailAddress, String feedbackBody, String bookName, String bookLink, String downloadUri) {
         if (!feedbackType.equals("library")) Assert.assertNotNull(feedbackBody, "feedbackBody is null");
         if (feedbackType.equals("library")) Assert.assertNotNull(bookLink, "bookLink is null");
 
@@ -43,6 +44,7 @@ public class Feedback {
         this.feedbackBody = feedbackBody;
         this.bookName = bookName;
         this.bookLink = bookLink;
+        this.downloadUri = downloadUri;
     }
 
     public Feedback() {
@@ -80,7 +82,6 @@ public class Feedback {
 
     public void setLastName(String lastName) {
         this.lastName = Assert.assertNotNull(lastName, "lastName is null");
-
     }
 
     public String getEmailAddress() {
@@ -89,7 +90,6 @@ public class Feedback {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = Assert.assertNotNull(emailAddress, "emailAddress is null");
-
     }
 
     public String getFeedbackBody() {
@@ -114,6 +114,10 @@ public class Feedback {
 
     public void setBookLink(String bookLink) {
         this.bookLink = Assert.assertNotNull(bookLink, "bookLink is null");
+    }
+
+    public String getDownloadUri() {
+        return downloadUri;
     }
 
     @Override

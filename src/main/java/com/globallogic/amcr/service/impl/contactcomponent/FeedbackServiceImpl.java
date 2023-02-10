@@ -88,4 +88,11 @@ public class FeedbackServiceImpl implements FeedbackService {
         log.debug("Service requesting attachment with ID {}", id);
         return feedbackAttachmentDao.get(id);
     }
+
+    @Override
+    public int getCount() {
+        return feedbackDao.getCount();
+    }
+
+
 }

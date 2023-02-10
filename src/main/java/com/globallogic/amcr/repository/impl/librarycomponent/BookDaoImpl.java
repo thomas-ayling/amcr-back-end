@@ -11,11 +11,11 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public class BookDao implements com.globallogic.amcr.repository.librarycomponent.BookDao {
-    private final Logger LOG = LoggerFactory.getLogger(BookDao.class);
+public class BookDaoImpl implements com.globallogic.amcr.repository.librarycomponent.BookDao {
+    private final Logger LOG = LoggerFactory.getLogger(BookDaoImpl.class);
     private final BookMapper bookMapper;
 
-    public BookDao(BookMapper bookMapper) {
+    public BookDaoImpl(BookMapper bookMapper) {
         this.bookMapper = Assert.assertNotNull(bookMapper, "Id cannot be null to request");
     }
 
@@ -71,7 +71,7 @@ public class BookDao implements com.globallogic.amcr.repository.librarycomponent
             LOG.trace("DAO deleting book with ID {}", id);
             bookMapper.delete(id);
         } catch (Exception e) {
-            throw new RuntimeException("Error in BookDao - could not delete book with ID {}" + id, e);
+            throw new RuntimeException("Error in BookDaoImpl - could not delete book with ID {}" + id, e);
         }
     }
 }
