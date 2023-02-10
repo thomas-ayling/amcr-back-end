@@ -1,6 +1,5 @@
 package com.globallogic.amcr.controller.layoutcomponent;
 
-import com.globallogic.amcr.controller.librarycomponent.BookController;
 import com.globallogic.amcr.model.Layout;
 import com.globallogic.amcr.service.layoutcomponent.LayoutService;
 import com.globallogic.amcr.utils.Assert;
@@ -50,9 +49,14 @@ public class LayoutController {
     }
 
     @GetMapping(value = "/", produces = "application/json")
-    public List<Layout> getALl() {
+    public List<Layout> getAll() {
         LOG.debug("Controller getting all layouts");
-        return layoutService.getAll();
+        try {
+            return layoutService.getAll();
+        } catch (Exception e) {
+            throw new RuntimeException("There was an error in the layoutController - could not get all layouts " + e);
+        }
+
     }
 
 
