@@ -64,7 +64,7 @@ public interface BookMapper {
 
     /**
      * Method that allows the admin to update book information.
-     * @param book - Book Object containing data that is being update (title, genre, author, reader and cover).
+     * @param book - Book Object containing data that is being updated (title, genre, author, reader and cover).
      */
     @Update("UPDATE library SET title = #{title}, genre = #{genre}, author = #{author}, reader = #{reader}, cover = #{cover}")
     void update(Book book);

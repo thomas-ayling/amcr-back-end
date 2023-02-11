@@ -1,8 +1,8 @@
 create table if not exists academy_project.feedback
 (
     id             uuid primary key,
-    feedback_order serial,
-    feedback_type  text not null,
+    feedback_order serial not null,
+    feedback_type  text   not null,
     first_name     text,
     last_name      text,
     email_address  text,
@@ -28,9 +28,24 @@ create table if not exists academy_project.files
 ALTER TABLE academy_project.files
     OWNER TO CURRENT_USER;
 
+create table if not exists academy_projects.library
+(
+    id          uuid primary key,
+    title       text  not null,
+    genre       text  not null,
+    author      text  not null, 
+    available   boolean not null,
+    reader      text,
+    cover       text  not null,
+    email       text
+);
+
+ALTER TABLE academy_project.library OWNER TO CURRENT_USER;
+
 create table if not exists academy_project.case_studies
 (
     id               uuid primary key not null,
+    case_study_order serial           not null,
     spotlight        boolean          not null,
     title            text             not null,
     overview         text             not null,
@@ -40,22 +55,6 @@ create table if not exists academy_project.case_studies
 );
 
 ALTER TABLE academy_project.case_studies
-    OWNER TO CURRENT_USER;
-
-create table if not exists academy_project.diagram
-(
-    id    uuid primary key not null,
-    nodes jsonb[]          not null
-);
-
-create table if not exists academy_project.layout
-(
-    id        uuid primary key not null,
-    name      text             not null,
-    component jsonb[]
-);
-
-ALTER TABLE academy_project.diagram
     OWNER TO CURRENT_USER;
 
 -- Object format:
