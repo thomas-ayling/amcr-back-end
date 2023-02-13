@@ -1,6 +1,7 @@
 package com.globallogic.amcr.model.librarycomponent;
 
 import com.globallogic.amcr.utils.Assert;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
@@ -10,15 +11,19 @@ public class Book {
 
     private UUID id;
     @NotNull
+    @NotBlank
     private String title;
     @NotNull
+    @NotBlank
     private String genre;
     @NotNull
+    @NotBlank
     private String author;
     private String reader;
     @NotNull
     private Boolean available;
     @NotNull
+    @NotBlank
     private String cover;
     private String email;
 
