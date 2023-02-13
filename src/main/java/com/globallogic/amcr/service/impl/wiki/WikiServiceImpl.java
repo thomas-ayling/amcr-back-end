@@ -1,7 +1,7 @@
 package com.globallogic.amcr.service.impl.wiki;
 
 import com.globallogic.amcr.model.wiki.Wiki;
-import com.globallogic.amcr.repository.wikicomponent.WikiDao;
+import com.globallogic.amcr.repository.CrudDao;
 import com.globallogic.amcr.service.wikicomponent.WikiService;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
@@ -15,13 +15,17 @@ import java.util.UUID;
 @Service
 public class WikiServiceImpl implements WikiService {
 
-    private final WikiDao wikiDao;
+    private final CrudDao<Wiki, Wiki> wikiDao;
     private final Logger log = LoggerFactory.getLogger(WikiServiceImpl.class);
 
-
-    public WikiServiceImpl(WikiDao wikiDao) {
-        this.wikiDao = Assert.assertNotNull(wikiDao, "WikiDao is not present");
+    public WikiServiceImpl(CrudDao<Wiki, Wiki> wikiDao) {
+        this.wikiDao = wikiDao;
     }
+
+
+//    public WikiServiceImpl(WikiDao wikiDao) {
+//        this.wikiDao = Assert.assertNotNull(wikiDao, "WikiDao is not present");
+//    }
 
     @Override
     @Transactional

@@ -1,7 +1,7 @@
 package com.globallogic.amcr.repository.impl.wikicomponent;
 
 import com.globallogic.amcr.model.wiki.Wiki;
-import com.globallogic.amcr.repository.wikicomponent.WikiDao;
+import com.globallogic.amcr.repository.CrudDao;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public class WikiDaoImpl implements WikiDao {
+public class WikiDaoImpl implements CrudDao<Wiki, Wiki> {
 
     private final Logger log = LoggerFactory.getLogger(WikiDaoImpl.class);
 
