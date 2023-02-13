@@ -1,8 +1,6 @@
 package com.globallogic.amcr.repository.impl.sharedcomponents;
 
-import com.globallogic.amcr.model.casestudies.CaseStudy;
 import com.globallogic.amcr.model.sharedcomponents.MainCarousel;
-import com.globallogic.amcr.typehandler.JSONListMapHandler;
 import com.globallogic.amcr.typehandler.TextArrayTypeHandler;
 import com.globallogic.amcr.typehandler.UUIDArrayTypeHandler;
 import com.globallogic.amcr.typehandler.UUIDTypeHandler;
