@@ -51,7 +51,7 @@ public class WikiController {
         return ResponseEntity.ok().body(wikiService.getAll());
     }
 
-    @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
+    @PatchMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Wiki> update(@PathVariable UUID id, @RequestBody Wiki newWiki) {
         log.debug("Controller updating Wiki page with ID {}", id);
         return ResponseEntity.accepted().body(wikiService.update(id, newWiki));
