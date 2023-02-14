@@ -23,7 +23,7 @@ public class DiagramDaoImpl implements DiagramDao {
     @Override
     public Diagram save(Diagram diagram, UUID diagramId) {
         diagram.setId(diagramId);
-        log.trace("DAO saving new diagram data:\n{}", diagram);
+        log.trace("DAO saving new diagram data:{}", diagram);
         diagramMapper.save(diagram);
         return diagram;
     }
