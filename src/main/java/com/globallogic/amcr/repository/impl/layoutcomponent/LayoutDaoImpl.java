@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,7 +49,11 @@ public class LayoutDaoImpl implements LayoutDao {
 
     public List<Layout> getAll() {
         LOG.trace("DAO requesting all pages");
-        return layoutMapper.getAll();
+        List<Layout> layouts = layoutMapper.getAll();
+        if (layouts == null) {
+            return new ArrayList<>();
+        }
+        return layouts;
     }
 
 

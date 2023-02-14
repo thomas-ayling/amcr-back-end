@@ -1,7 +1,7 @@
 package com.globallogic.amcr.service.impl.layoutcomponent;
 
-import com.globallogic.amcr.repository.layoutcomponent.LayoutDao;
 import com.globallogic.amcr.model.Layout;
+import com.globallogic.amcr.repository.layoutcomponent.LayoutDao;
 import com.globallogic.amcr.service.layoutcomponent.LayoutService;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,11 +39,8 @@ public class LayoutServiceImpl implements LayoutService {
     @Transactional()
     public List<Layout> getAll() {
         Log.trace("LayoutServiceImpl requesting all pages");
-        List<Layout> layouts = layoutDao.getAll();
-        if (layouts == null) {
-            return new ArrayList<>();
-        }
-        return layouts;
+
+        return layoutDao.getAll();
     }
 
 
