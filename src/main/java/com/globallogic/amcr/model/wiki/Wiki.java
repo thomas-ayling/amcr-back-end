@@ -88,7 +88,7 @@ public class Wiki {
 
     public void setSubTitle(String subTitle) {
 
-        this.subTitle = Assert.assertNotNull(title, "The Subtitle cannot be null");
+        this.subTitle = Assert.assertNotNull(subTitle, "The Subtitle cannot be null");
     }
 
     public String getSubOverview() {
