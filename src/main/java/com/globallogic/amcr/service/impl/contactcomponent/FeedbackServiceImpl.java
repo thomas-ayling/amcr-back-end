@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @Service
 public class FeedbackServiceImpl implements FeedbackService {
-    private final Logger Log = LoggerFactory.getLogger(CaseStudyController.class);
+    private final Logger log = LoggerFactory.getLogger(CaseStudyController.class);
     private final FeedbackDao feedbackDao;
     private final FeedbackAttachmentDao feedbackAttachmentDao;
     private final EmailService emailService;
@@ -36,15 +36,15 @@ public class FeedbackServiceImpl implements FeedbackService {
         Assert.assertNotNull(feedback, "Feedback cannot be null");
         try {
             UUID feedbackId = UUID.randomUUID();
-            Log.debug("Service saving feedback");
+            log.debug("Service saving feedback");
             Feedback createdFeedback = feedbackDao.save(feedback, feedbackId);
             if (feedbackAttachment != null) {
-                Log.debug("Service saving feedbackAttachment");
+                log.debug("Service saving feedbackAttachment");
                 feedbackAttachmentDao.save(feedbackAttachment, feedbackId);
             }
-            Log.debug("Service sending email");
+            log.debug("Service sending email");
             emailService.sendMail(feedback, feedbackId);
-            Log.debug("Email has sent from feedback service");
+            log.debug("Email has sent from feedback service");
             return createdFeedback;
         } catch (Exception e) {
             throw new RuntimeException("Error saving feedback and feedbackAttachment to database", e);
@@ -55,21 +55,21 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Transactional
     public Feedback get(UUID id) {
         Assert.assertNotNull(id, "ID cannot be null to request feedback");
-        Log.debug("Service requesting feedback with ID {}", id);
+        log.debug("Service requesting feedback with ID {}", id);
         return feedbackDao.get(id);
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Feedback> getAll() {
-        Log.debug("Service requesting all feedback entries");
+        log.debug("Service requesting all feedback entries");
         return feedbackDao.getAll();
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Feedback> getLatest() {
-        Log.debug("Service requesting latest feedback");
+        log.debug("Service requesting latest feedback");
         return feedbackDao.getLatest();
     }
 
@@ -77,7 +77,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Transactional(readOnly = true)
     public List<Feedback> getOlder(int last) {
         Assert.assertNotNull(last, "Last cannot be null");
-        Log.debug("Service requesting 10 older feedback entries");
+        log.debug("Service requesting 10 older feedback entries");
         return feedbackDao.getOlder(last);
     }
 
@@ -85,7 +85,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Transactional(readOnly = true)
     public FeedbackAttachmentResponse getAttachment(UUID id) {
         Assert.assertNotNull(id, "ID cannot be null for file request");
-        Log.debug("Service requesting attachment with ID {}", id);
+        log.debug("Service requesting attachment with ID {}", id);
         return feedbackAttachmentDao.get(id);
     }
 

@@ -13,7 +13,7 @@ import java.util.UUID;
 @Repository
 public class DiagramDaoImpl implements DiagramDao {
 
-    private final Logger Log = LoggerFactory.getLogger(DiagramDaoImpl.class.getName());
+    private final Logger log = LoggerFactory.getLogger(DiagramDaoImpl.class.getName());
     private final DiagramMapper diagramMapper;
 
     public DiagramDaoImpl(DiagramMapper diagramMapper) {
@@ -22,41 +22,41 @@ public class DiagramDaoImpl implements DiagramDao {
 
     @Override
     public Diagram save(Diagram diagram, UUID diagramId) {
-            diagram.setId(diagramId);
-            Log.trace("DAO saving new diagram data:\n{}", diagram);
-            diagramMapper.save(diagram);
-            return diagram;
+        diagram.setId(diagramId);
+        log.trace("DAO saving new diagram data:{}", diagram);
+        diagramMapper.save(diagram);
+        return diagram;
     }
 
     @Override
     public Diagram get(UUID id) {
-        Log.trace("DAO requesting diagram data with ID {}", id);
+        log.trace("DAO requesting diagram data with ID {}", id);
         return diagramMapper.get(id);
     }
 
     @Override
     public List<Diagram> getAll() {
-        Log.trace("DAO requesting all diagram data");
+        log.trace("DAO requesting all diagram data");
         return diagramMapper.getAll();
     }
 
     @Override
     public Diagram update(UUID id, Diagram newDiagram, Diagram oldDiagram) {
         newDiagram.setId(id);
-        if(oldDiagram.equals(newDiagram)) {
+        if (oldDiagram.equals(newDiagram)) {
             return newDiagram;
         }
-        if(newDiagram.getNodes() == null) {
+        if (newDiagram.getNodes() == null) {
             newDiagram.setNodes(oldDiagram.getNodes());
         }
-        Log.trace("DAO updating diagram data with ID {} and content:\n{}\nwith new content:\n{}",id,oldDiagram,newDiagram);
+        log.trace("DAO updating diagram data with ID {} and content:\n{}\nwith new content:\n{}", id, oldDiagram, newDiagram);
         diagramMapper.update(id, newDiagram);
         return newDiagram;
     }
 
     @Override
     public void delete(UUID id) {
-            Log.trace("DAO deleting diagram data with ID {}", id);
-            diagramMapper.delete(id);
+        log.trace("DAO deleting diagram data with ID {}", id);
+        diagramMapper.delete(id);
     }
 }

@@ -1,8 +1,8 @@
 package com.globallogic.amcr.repository.impl.casestudies;
 
-import com.globallogic.amcr.repository.casestudies.CaseStudyDao;
 import com.globallogic.amcr.model.casestudies.CaseStudy;
 import com.globallogic.amcr.model.casestudies.CaseStudyOverview;
+import com.globallogic.amcr.repository.casestudies.CaseStudyDao;
 import com.globallogic.amcr.utils.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Repository
 public class CaseStudyDaoImpl implements CaseStudyDao {
-    private final Logger Log = LoggerFactory.getLogger(CaseStudyDaoImpl.class);
+    private final Logger log = LoggerFactory.getLogger(CaseStudyDaoImpl.class);
     private final CaseStudyMapper caseStudyMapper;
 
     public CaseStudyDaoImpl(CaseStudyMapper caseStudyMapper) {
@@ -24,7 +24,7 @@ public class CaseStudyDaoImpl implements CaseStudyDao {
     public CaseStudy save(CaseStudy caseStudy, UUID caseStudyId) {
         try {
             caseStudy.setId(caseStudyId);
-            Log.trace("DAO saving new case study:\n{}", caseStudy);
+            log.trace("DAO saving new case study:\n{}", caseStudy);
             caseStudyMapper.save(caseStudy);
             return caseStudy;
         } catch (Exception e) {
@@ -34,13 +34,13 @@ public class CaseStudyDaoImpl implements CaseStudyDao {
 
     @Override
     public CaseStudy get(UUID id) {
-        Log.trace("DAO requesting case study with ID {}", id);
+        log.trace("DAO requesting case study with ID {}", id);
         return caseStudyMapper.get(id);
     }
 
     @Override
     public List<CaseStudy> getAll() {
-        Log.trace("DAO requesting all case studies");
+        log.trace("DAO requesting all case studies");
         return caseStudyMapper.getAll();
     }
 
@@ -65,7 +65,7 @@ public class CaseStudyDaoImpl implements CaseStudyDao {
         if (newCaseStudy.getAttachmentIds() == null) {
             newCaseStudy.setAttachmentIds(oldCaseStudy.getAttachmentIds());
         }
-        Log.trace("DAO updating case study with ID {} and content:\n{}\n\n\n\nwith new case study:\n\n{}", id, oldCaseStudy, newCaseStudy);
+        log.trace("DAO updating case study with ID {} and content:\n{}\n\n\n\nwith new case study:\n\n{}", id, oldCaseStudy, newCaseStudy);
         caseStudyMapper.update(id, newCaseStudy);
         return newCaseStudy;
     }
@@ -73,7 +73,7 @@ public class CaseStudyDaoImpl implements CaseStudyDao {
     @Override
     public void delete(UUID id) {
         try {
-            Log.trace("DAO deleting case study with ID {}", id);
+            log.trace("DAO deleting case study with ID {}", id);
             caseStudyMapper.delete(id);
         } catch (Exception e) {
             throw new RuntimeException("Error in CaseStudyDaoImpl - could not delete case study with id " + id, e);
@@ -84,19 +84,19 @@ public class CaseStudyDaoImpl implements CaseStudyDao {
 
     @Override
     public List<CaseStudyOverview> getAllOverviews() {
-        Log.trace("DAO requesting all case study overviews");
+        log.trace("DAO requesting all case study overviews");
         return caseStudyMapper.getAllOverviews();
     }
 
     @Override
     public List<CaseStudyOverview> getSpotlitOverviews() {
-        Log.trace("DAO requesting all spotlit case study overviews");
+        log.trace("DAO requesting all spotlit case study overviews");
         return caseStudyMapper.getSpotlitOverviews();
     }
 
     @Override
     public List<CaseStudyOverview> getLatestOverviews(int entries) {
-        Log.trace("DAO requesting the {} most recent overviews", entries);
+        log.trace("DAO requesting the {} most recent overviews", entries);
         return caseStudyMapper.getLatestOverviews(entries);
     }
 }
