@@ -51,12 +51,7 @@ public class LayoutController {
     @GetMapping(value = "/", produces = "application/json")
     public List<Layout> getAll() {
         LOG.debug("Controller getting all layouts");
-        try {
             return layoutService.getAll();
-        } catch (Exception e) {
-            throw new RuntimeException("There was an error in the layoutController - could not get all layouts " + e);
-        }
-
     }
 
 
