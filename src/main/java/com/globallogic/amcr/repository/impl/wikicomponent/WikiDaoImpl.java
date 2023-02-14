@@ -23,14 +23,12 @@ public class WikiDaoImpl implements WikiDao {
 
     @Override
     public Wiki save(Wiki wiki, UUID wikiId) {
-        try {
-            wiki.setId(wikiId);
-            log.trace("DAO saving new wiki page: \n{}", wiki);
-            wikiMapper.save(wiki);
-            return wiki;
-        } catch (Exception e) {
-            throw new RuntimeException("Error in WikiDaoImpl - could not save wiki page", e);
-        }
+
+        wiki.setId(wikiId);
+        log.trace("DAO saving new wiki page: \n{}", wiki);
+        wikiMapper.save(wiki);
+        return wiki;
+
     }
 
     @Override
